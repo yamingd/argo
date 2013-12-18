@@ -1,0 +1,24 @@
+
+transport:
+   cluster: person
+   client: true
+   sniff: true
+   data: false
+
+policy:
+   rebuild_mapping: false
+   merge_settings: true
+   rebuild_template: true
+
+nodes:
+  - 10.10.121.183:9300
+  - 10.10.121.183:9300
+
+alias:
+   twitter: twitter2012,twitter2013
+   test: test1,test2
+
+templates:
+   - temp1
+   - temp2
+   - temp3

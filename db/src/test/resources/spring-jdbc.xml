@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+        ">
+
+
+    <bean id="jdbcConfig" class="com.argo.data.db.JdbcConfig">
+    </bean>
+
+    <bean id="jdbcDatasource" class="com.arg.data.db.datasource.SimplePooledDataSourceFactoryBean" >
+        <property name="jdbcConfig" ref="jdbcConfig"></property>
+        <property name="name" value="customer"></property>
+    </bean>
+
+    <bean id="serverFarm" class="com.argo.data.db.farm.ServerFarm">
+        <property name="jdbcConfig" ref="jdbcConfig"></property>
+    </bean>
+
+    <bean id="jdbcFarmDatasource" class="com.arg.data.db.datasource.ShardPooledDataSourceFactoryBean" >
+        <property name="jdbcConfig" ref="jdbcConfig"></property>
+    </bean>
+
+</beans>

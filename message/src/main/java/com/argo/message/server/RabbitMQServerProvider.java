@@ -1,0 +1,167 @@
+package com.argo.message.server;
+
+import com.argo.core.json.GsonUtil;
+import com.argo.message.MQMessageConsumer;
+import com.argo.message.MessageConfig;
+import com.argo.message.MessageEntity;
+import com.argo.message.MessageException;
+import org.apache.commons.lang3.ObjectUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.amqp.support.converter.SimpleMessageConverter;
+import org.springframework.util.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * RabbitMQ实现
+ *
+ * @author yaming_deng
+ * @date 2012-4-19
+ */
+public class RabbitMQServerProvider extends AbstractServerProvider {
+	
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	private List<SimpleMessageListenerContainer> containerList = new ArrayList<SimpleMessageListenerContainer>();
+	private CachingConnectionFactory connectionFactory = null;
+	private RabbitAdmin rabbitAdmin;
+	private RabbitTemplate rabbitTemplate;
+	private SimpleMessageConverter messageConverter;
+
+    private Map amqpConfig = null;
+
+	@Override
+	protected void doShutdown(){
+		for (SimpleMessageListenerContainer container : containerList) {
+			container.destroy();
+		}	
+		this.connectionFactory.destroy();
+	}
+
+	/* (non-Javadoc)
+	 */
+	@Override
+	public void listenQueue(MQMessageConsumer cos)
+			throws MessageException {
+		logger.info("@@ listenQueue. queueName = " + cos.getConsumerId());
+		this.subscribeQueue(cos);
+		logger.info("@@ listenQueue DONE. queueName = " + cos.getConsumerId());
+	}
+	
+	private void subscribeQueue(MQMessageConsumer consumer) 
+		throws MessageException {
+		
+		Integer cc = MessageConfig.current.get(Integer.class, "concurrent");
+		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+		container.setQueueNames(consumer.getDestinationName());
+		container.setConnectionFactory(connectionFactory);
+		container.setConcurrentConsumers(cc);
+		
+		MessageListenerAdapter apdapter = new MessageListenerAdapter(consumer);
+		apdapter.setMessageConverter(this.messageConverter);
+		apdapter.setDefaultListenerMethod("handleMessage");
+		
+		container.setMessageListener(apdapter);
+		
+		this.bindingQueue(consumer.getConsumerId());
+		
+		containerList.add(container);
+	}
+	
+	private void bindingQueue(String qname){
+		this.rabbitAdmin.deleteQueue(qname);	
+		
+		Binding binding = new Binding(qname+"_queue", Binding.DestinationType.QUEUE, this.getExchangeName(), qname+"_route", null);
+		this.rabbitAdmin.declareBinding(binding);
+	}
+	
+	/* (non-Javadoc)
+	 */
+	@Override
+	public void publish(String qname, MessageEntity message)
+			throws MessageException {
+		
+		try {
+			String exchange = getExchangeName();
+			String data = GsonUtil.toJson(message);
+            if (logger.isDebugEnabled()){
+			    logger.debug(data);
+            }
+			this.rabbitTemplate.convertAndSend(exchange, qname, data);
+		} catch (Exception e) {
+			throw new MessageException("发送JMS消息错误. qname="+qname, e);
+		}
+		
+	}
+
+	private String getExchangeName() {
+		return ObjectUtils.toString(this.amqpConfig.get("exchange"));
+	}
+
+	/* (non-Javadoc)
+	 */
+	@Override
+	public synchronized void initialize() {
+		this.amqpConfig = MessageConfig.current.get(Map.class, "amqp");
+        Assert.notNull(this.amqpConfig, "Missing RabbitMQ configuration.");
+		if(this.connectionFactory!=null){
+			//已经初始化了
+			return;
+		}
+
+		String host = ObjectUtils.toString(this.amqpConfig.get("host"));
+		Integer port = Integer.parseInt(ObjectUtils.toString(this.amqpConfig.get("port")));
+		String userName = ObjectUtils.toString(this.amqpConfig.get("user"));
+		String password = ObjectUtils.toString(this.amqpConfig.get("passwd"));
+		String vhost = ObjectUtils.toString(this.amqpConfig.get("vhost"));
+		
+		Assert.notNull(host, "Missing RabbitMQ connection Host");
+		Assert.notNull(port, "Missing RabbitMQ connection Port");
+		Assert.notNull(userName, "Missing RabbitMQ connection userName");
+		Assert.notNull(password, "Missing RabbitMQ connection Password");
+		Assert.notNull(vhost, "Missing RabbitMQ vhost");
+		
+		connectionFactory = new CachingConnectionFactory(host, port);
+		connectionFactory.setUsername(userName);
+		connectionFactory.setPassword(password);
+		connectionFactory.setVirtualHost(vhost);
+		
+		this.rabbitAdmin = new RabbitAdmin(connectionFactory);
+		this.rabbitAdmin.afterPropertiesSet();
+		
+		this.rabbitTemplate = new RabbitTemplate(this.connectionFactory);
+		this.rabbitTemplate.afterPropertiesSet();
+		
+		this.messageConverter = new SimpleMessageConverter();
+		
+		TopicExchange topic = new TopicExchange(getExchangeName());
+		this.rabbitAdmin.declareExchange(topic);
+	}
+
+	/* (non-Javadoc)
+	 */
+	@Override
+	public void publish(String qname, String jsonMssage)
+			throws MessageException {
+		try {
+			String exchange = getExchangeName();
+			this.rabbitTemplate.convertAndSend(exchange, qname, jsonMssage);
+		} catch (Exception e) {
+			throw new MessageException("发送JMS消息错误. qname="+qname, e);
+		}		
+	}
+
+    public String getProviderName() {
+        return "rabbitMQ";
+    }
+}

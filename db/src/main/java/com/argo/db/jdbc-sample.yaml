@@ -1,0 +1,34 @@
+pool:
+   idleConnectionTestPeriod : 60
+   idleMaxAge : 240
+   maxConnectionsPerPartition : 9
+   minConnectionsPerPartition : 3
+   partitionCount : 3
+   acquireIncrement : 2
+   statementsCacheSize : 100
+   releaseHelperThreads : 3
+   queryExecuteTimeLimitInMs : 3000
+
+common:
+   id: default / redis / shard
+   type: mysql / oracle / sqlserver / sqlserver2k
+   user: test
+   pwd: secret
+
+server:
+   - name: customer
+     type: mysql / oracle / sqlserver2k / sqlserver
+     user: test
+     pwd:  secret
+     url: 127.0.0.1
+     role: read / write
+
+farm:
+   - server: 192.168.39.67:3306
+     dbname: saas_%03d
+     dbidx: 1,2
+     role: read / write
+   - server: 192.168.39.67:3306
+     dbname: saas_%03d
+     dbidx: 3,4
+     role: read / write

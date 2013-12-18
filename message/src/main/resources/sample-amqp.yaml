@@ -1,0 +1,17 @@
+ns: test
+enable: true
+provider: rabbitMQ
+concurrent: 1
+
+amqp:
+  host : 127.0.0.1
+  port : 5672
+  user : amqp
+  passwd : secret
+  vhost : /
+  exchange : test_exchange
+
+queue:
+  test1: true
+  test2: false
+  test3: true
