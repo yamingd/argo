@@ -8,11 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.*;
 
@@ -27,6 +25,7 @@ import java.util.*;
  * @author yaming_deng
  * 
  */
+@Component
 public class DesignDocManager implements InitializingBean {
 
 	private static final String CB_DDOC = "couchbase";
@@ -102,14 +101,18 @@ public class DesignDocManager implements InitializingBean {
 	
 	private void syncViews(File folder) throws IOException, BucketException{
 		String ddocName = folder.getName();
-		File[] files = folder.listFiles();
+		File[] files = folder.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".json");
+            }
+        });
 		Map<String, String> maps = new HashMap<String, String>();
 		Map<String, String> reduces = new HashMap<String, String>();
 		for (File file : files) {
+            // {viewName}.map.json
+            // {viewName}.reduce.json
 			String[] temp = file.getName().split(".");
-			if(!temp[2].equalsIgnoreCase("js")){
-				continue;
-			}
 			String viewName = temp[0];
 			String value = readFileAsString(file);
 			if(V_MAP.equalsIgnoreCase(temp[1])){

@@ -1,6 +1,7 @@
 package com.argo.couchbase;
 
 import com.argo.core.configuration.AbstractConfig;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -35,14 +36,18 @@ import java.util.Map;
  * @author yaming_deng
  * 
  */
+@Component
 public class BucketConfig extends AbstractConfig {
 
     private static final String confName = "couchbase";
+
+    public static BucketConfig instance = null;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		cfgFile = confName + ".yaml";
 		super.afterPropertiesSet();
+        BucketConfig.instance = this;
 	}
 	
 	public Map<?, ?> getMetrics(){

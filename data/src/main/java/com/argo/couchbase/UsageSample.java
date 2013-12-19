@@ -14,14 +14,7 @@ import java.util.ArrayList;
  *   /WEB-INF/resources/test/couchbase.yaml
  *   /WEB-INF/resources/prod/couchbase.yaml
  * </pre>
- * 
- * 在Spring.xml配置如下Bean
- * 
- * <bean id="bucketConfig" class="com.argo.data.couchbase.BucketConfig" />
- * <bean id="bucketManager" class="com.argo.data.couchbase.BucketManager" />
- * <bean id="cbTemplate" class="com.argo.data.couchbase.CouchbaseTemplate" />
- * <bean id="designDocManager" class="com.argo.data.couchbase.DesignDocManager" />
- * 
+ *
  * </pre>
  * 
  * @author yaming_deng

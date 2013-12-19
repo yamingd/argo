@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.util.*;
@@ -42,6 +43,7 @@ import java.util.*;
  * @author yaming_deng
  *
  */
+@Component
 public class BucketManager implements InitializingBean {
 	
 	public static final Logger logger = LoggerFactory.getLogger(BucketManager.class);

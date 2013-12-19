@@ -3,7 +3,6 @@ package com.argo.couchbase;
 import com.argo.core.json.GsonUtil;
 import com.argo.couchbase.exception.BucketException;
 import com.argo.couchbase.exception.BucketQueryException;
-import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 import com.couchbase.client.CouchbaseClient;
 import com.couchbase.client.protocol.views.*;
@@ -11,6 +10,7 @@ import net.spy.memcached.internal.OperationFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -23,19 +23,13 @@ import java.util.concurrent.TimeoutException;
  * @author yaming_deng
  * 
  */
+@Component
 public class CouchbaseTemplate {
 
 	public static final Logger logger = LoggerFactory
 			.getLogger(CouchbaseTemplate.class);;
 
-	final MetricRegistry metrics = new MetricRegistry();
-	private final Timer queryViews = metrics.timer(MetricRegistry.name(
-			CouchbaseTemplate.class, "findByView"));
-	private final Timer findByIds = metrics.timer(MetricRegistry.name(
-			CouchbaseTemplate.class, "findByIds"));
-	private final Timer statViews = metrics.timer(MetricRegistry.name(
-			CouchbaseTemplate.class, "statView"));
-	
+
 	@Autowired
 	private BucketManager bucketManager;
 
@@ -64,6 +58,7 @@ public class CouchbaseTemplate {
 	 */
 	public final void addBinary(String bucketName, final String key,
 			final Object data) throws BucketException {
+        CouchbaseMetric.callCountIncr("addBinary");
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		execute(new BucketCallback<Boolean>() {
 			@Override
@@ -86,6 +81,7 @@ public class CouchbaseTemplate {
 	 */
 	public final void addBinary(String bucketName, final String key,
 			final Object data, final int exp) throws BucketException {
+        CouchbaseMetric.callCountIncr("addBinary");
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		execute(new BucketCallback<Boolean>() {
 			@Override
@@ -106,6 +102,7 @@ public class CouchbaseTemplate {
 	 */
 	public final void setBinary(String bucketName, final String key,
 			final Object data) throws BucketException {
+        CouchbaseMetric.callCountIncr("setBinary");
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		execute(new BucketCallback<Boolean>() {
 			@Override
@@ -128,6 +125,7 @@ public class CouchbaseTemplate {
 	 */
 	public final void setBinary(String bucketName, final String key,
 			final Object data, final int exp) throws BucketException {
+        CouchbaseMetric.callCountIncr("setBinary");
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		execute(new BucketCallback<Boolean>() {
 			@Override
@@ -148,6 +146,7 @@ public class CouchbaseTemplate {
 	 */
 	public final Object getBinary(String bucketName, final String key)
 			throws BucketException {
+        CouchbaseMetric.callCountIncr("getBinary");
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		return execute(new BucketCallback<Object>() {
 			@Override
@@ -166,6 +165,7 @@ public class CouchbaseTemplate {
 	 * @throws BucketException
 	 */
 	public final Long uuid(Class<?> clzz) throws BucketException {
+        CouchbaseMetric.callCountIncr("uuid");
 		String bucketName = this.bucketManager.getBucketByEntity(clzz);
 		final String key = String.format("pk:%s", clzz.getSimpleName());
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
@@ -182,7 +182,7 @@ public class CouchbaseTemplate {
 	public final void insert(final BucketEntity objectToSave)
 			throws BucketException {
 		BucketManager.ensureNotIterable(objectToSave);
-
+        CouchbaseMetric.callCountIncr("insert");
 		String bucketName = this.bucketManager.getBucketByEntity(objectToSave
 				.getClass());
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
@@ -227,7 +227,6 @@ public class CouchbaseTemplate {
 		String bucketName = this.bucketManager.getBucketByEntity(objectToSave
 				.getClass());
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
-
 		execute(new BucketCallback<Boolean>() {
 			@Override
 			public Boolean doInBucket() throws InterruptedException,
@@ -251,6 +250,7 @@ public class CouchbaseTemplate {
 	 * @throws BucketException
 	 */
 	public void save(final BucketEntity objectToSave) throws BucketException {
+        CouchbaseMetric.callCountIncr("save");
 		this._save(objectToSave, false);
 	}
 
@@ -279,6 +279,7 @@ public class CouchbaseTemplate {
 		BucketManager.ensureNotIterable(objectToSave);
 		objectToSave.setDeleteAt(new Date());
 		objectToSave.setDeleted(true);
+        CouchbaseMetric.callCountIncr("remove");
 		this.save(objectToSave);
 	}
 
@@ -311,6 +312,7 @@ public class CouchbaseTemplate {
 		BucketManager.ensureNotIterable(objectToSave);
 		objectToSave.setDeleteAt(new Date());
 		objectToSave.setDeleted(true);
+        CouchbaseMetric.callCountIncr("remove");
 		this._save(objectToSave, expired);
 	}
 
@@ -343,6 +345,8 @@ public class CouchbaseTemplate {
 		String bucketName = this.bucketManager.getBucketByEntity(objectToSave
 				.getClass());
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
+
+        CouchbaseMetric.callCountIncr("update");
 
 		execute(new BucketCallback<Boolean>() {
 			@Override
@@ -381,6 +385,7 @@ public class CouchbaseTemplate {
 		String bucketName = this.bucketManager.getBucketByEntity(objectToRemove
 				.getClass());
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
+        CouchbaseMetric.callCountIncr("erase");
 		execute(new BucketCallback<OperationFuture<Boolean>>() {
 			@Override
 			public OperationFuture<Boolean> doInBucket() {
@@ -421,7 +426,8 @@ public class CouchbaseTemplate {
 	public <T> List<T> findByView(final Class<T> entityClass,
 			final String viewName, final Query query) throws BucketException {
 
-		final Timer.Context context = queryViews.time();
+        CouchbaseMetric.callCountIncr("findByView");
+		final Timer.Context context = CouchbaseMetric.queryViews.time();
 		try {
 			if (!query.willIncludeDocs()) {
 				query.setIncludeDocs(true);
@@ -453,6 +459,88 @@ public class CouchbaseTemplate {
 		}
 	}
 
+    public <T> List<T> findByView(final Class<T> entityClass,
+                                  final String viewName, final Query query, final Integer page, final Integer limit) throws BucketException {
+
+        CouchbaseMetric.callCountIncr("findByViewPaging");
+        final Timer.Context context = CouchbaseMetric.queryViews.time();
+        try {
+            if (!query.willIncludeDocs()) {
+                query.setIncludeDocs(true);
+            }
+            if (query.willReduce()) {
+                query.setReduce(false);
+            }
+
+            Integer skip = (page <=0 ? 0 : (page - 1) * limit);
+            query.setSkip(skip);
+            query.setLimit(limit);
+
+            final ViewResponse response = queryView(entityClass, viewName,
+                    query);
+
+            if (response.getErrors() != null && response.getErrors().size() > 0) {
+                logger.error("findByView. viewName:{} query:{} error:{}",
+                        viewName, query, response.getErrors());
+            }
+
+            final List<T> items = new ArrayList<T>(response.size());
+            for (final ViewRow row : response) {
+                T item = GsonUtil.asT(entityClass, (String) row.getDocument());
+                items.add(item);
+            }
+
+            return items;
+
+        }catch(Exception ex){
+            throw new BucketException(ex);
+        }
+        finally {
+            context.stop();
+        }
+    }
+
+    public <T> Integer countByView(final Class<T> entityClass,
+                                  final String viewName, final Query query) throws BucketException {
+
+        CouchbaseMetric.callCountIncr("countByView");
+        final Timer.Context context = CouchbaseMetric.queryViews.time();
+        try {
+
+            query.setIncludeDocs(false);
+            query.setReduce(true);
+
+            final ViewResponse response = queryView(entityClass, viewName,
+                    query);
+
+            if (response.getErrors() != null && response.getErrors().size() > 0) {
+                logger.error("findByView. viewName:{} query:{} error:{}",
+                        viewName, query, response.getErrors());
+            }
+
+            Integer total = 0;
+
+            for (final ViewRow row : response) {
+                String value = row.getValue();
+                Map<String, Object> temp = GsonUtil.convertJson2Map(value);
+                Iterator<String> itor = temp.keySet().iterator();
+                while (itor.hasNext()) {
+                    String key = itor.next();
+                    Object num = temp.get(key);
+                    total += (Integer) num;
+                }
+            }
+
+            return total;
+
+        }catch(Exception ex){
+            throw new BucketException(ex);
+        }
+        finally {
+            context.stop();
+        }
+    }
+
 	/**
 	 * 按主键查询记录.
 	 * 
@@ -465,6 +553,7 @@ public class CouchbaseTemplate {
 	 */
 	public <T> T findById(final Class<T> entityClass, final Long id)
 			throws BucketException {
+        CouchbaseMetric.callCountIncr("findById");
 		String bucketName = this.bucketManager.getBucketByEntity(entityClass);
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		final String key = BucketManager.getCKeyByEntity(entityClass, id);
@@ -492,7 +581,8 @@ public class CouchbaseTemplate {
 	 */
 	public <T> List<T> findByIds(final Class<T> entityClass,
 			final List<Long> ids) throws BucketException {
-		final Timer.Context context = findByIds.time();
+        CouchbaseMetric.callCountIncr("findByIds");
+		final Timer.Context context = CouchbaseMetric.findByIds.time();
 		try {
 			String bucketName = this.bucketManager
 					.getBucketByEntity(entityClass);
@@ -544,7 +634,7 @@ public class CouchbaseTemplate {
 	 */
 	public ViewResponse queryView(Class<?> clzz, final String viewName,
 			final Query query) throws BucketException {
-		final String designName = clzz.getName().toLowerCase();
+		final String designName = clzz.getSimpleName();
 		String bucketName = this.bucketManager.getBucketByEntity(clzz);
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 
@@ -568,8 +658,9 @@ public class CouchbaseTemplate {
 	 */
 	public Map<String, Integer> statView(Class<?> entityClass,
 			final String viewName, final Query query) throws BucketException {
-		
-		final Timer.Context context = statViews.time();
+
+        CouchbaseMetric.callCountIncr("statView");
+		final Timer.Context context = CouchbaseMetric.statViews.time();
 		try {
 			query.setIncludeDocs(false);
 			query.setReduce(true);

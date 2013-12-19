@@ -9,8 +9,6 @@ import java.util.Map;
 /**
  * Created with IntelliJ IDEA.
  * User: yamingdeng
- * Date: 13-12-6
- * Time: 下午9:26
  */
 public class ServiceConfig extends AbstractConfig implements ConfigListener {
 
@@ -63,6 +61,10 @@ public class ServiceConfig extends AbstractConfig implements ConfigListener {
             return null;
         }
         return ObjectUtils.toString(ret.get(name));
+    }
+
+    public String getServiceType(){
+        return super.get(String.class, "mode", "default");
     }
 
     @Override

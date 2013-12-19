@@ -1,24 +1,23 @@
 package com.argo.couchbase;
 
 import com.argo.core.base.BaseEntity;
+import com.google.common.hash.HashCode;
 import com.google.gson.annotations.Expose;
 
 import java.util.Date;
 
-public class BucketEntity extends BaseEntity {
+public abstract class BucketEntity extends BaseEntity {
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7674816491286046206L;
 
     private String _docType;
-
-	private Long uid;
+    private Long oid;
 	private Date createAt;
 	private Date updateAt;
 	private Date deleteAt;
-	private boolean deleted;
+	private boolean deleted = false;
 
     public BucketEntity() {
         this._docType = this.getClass().getSimpleName();
@@ -38,7 +37,7 @@ public class BucketEntity extends BaseEntity {
 	
 	@Override
 	public int hashCode() {
-		return this.getPK().hashCode();
+		return HashCode.fromString(this.getPK()).asInt();
 	}
 	
 	/**
@@ -53,7 +52,7 @@ public class BucketEntity extends BaseEntity {
 	 */
     @Override
 	public String getPK(){
-		return this.uid+"";
+		return this.oid+"";
 	}
 	
 	/**
@@ -96,14 +95,6 @@ public class BucketEntity extends BaseEntity {
 		this.deleted = deleted;
 	}
 
-	public Long getUid() {
-		return uid;
-	}
-
-	public void setUid(Long uid) {
-		this.uid = uid;
-	}
-
 	public String getViewValue() {
 		return viewValue;
 	}
@@ -111,4 +102,12 @@ public class BucketEntity extends BaseEntity {
 	public void setViewValue(String viewValue) {
 		this.viewValue = viewValue;
 	}
+
+    public Long getOid() {
+        return oid;
+    }
+
+    public void setOid(Long oid) {
+        this.oid = oid;
+    }
 }

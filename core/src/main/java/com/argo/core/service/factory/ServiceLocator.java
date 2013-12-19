@@ -16,10 +16,10 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * 描述 ：Bean服务定位.
+ * Bean服务定位.
  *
  * @author yaming_deng
- * @date 2012-12-17
+
  */
 @Component("serviceLocator")
 public class ServiceLocator implements ApplicationContextAware,InitializingBean {
@@ -30,21 +30,7 @@ public class ServiceLocator implements ApplicationContextAware,InitializingBean 
 	protected static final String CFG_REMOTE_HTTP = "http://";
 	
 	protected static final String CFG_REMOTE_RMI = "rmi://";
-	
-	/**
-	 *  #远程服务Bean
-		bean.sysUserService : "http://"
-		bean.sysUserService : "http://sysUserService3"
-		
-		bean.sysUserService : "rmi://"
-		bean.sysUserService : "rmi://sysUserService3"
-		
-		#本地服务Bean(Bean名)
-		bean.sysUserService : "sysUserService2"
-		
-	 */
-	protected static final String CFG_P_SERVICE = "bean.";
-	
+
 	public static ServiceLocator instance = null;
 	
 	private ApplicationContext ctx = null;
@@ -124,7 +110,10 @@ public class ServiceLocator implements ApplicationContextAware,InitializingBean 
 		String serviceName = this.getServiceName(clazz);
 		String serviceCfg = this.getConfig().getService(serviceName);
 		if(StringUtils.isBlank(serviceCfg)){
-			return (T) this.get(serviceName);
+            serviceCfg = this.getConfig().getServiceType();
+            if(StringUtils.isBlank(serviceCfg)){
+			    return (T) this.get(serviceName);
+            }
 		}
 		if(serviceCfg.startsWith(CFG_REMOTE_HTTP)){
 			//远程服务Bean
@@ -160,7 +149,10 @@ public class ServiceLocator implements ApplicationContextAware,InitializingBean 
 	public <T> T get(Class<T> clazz, String serviceName){
 		String serviceCfg = this.getConfig().getService(serviceName);
 		if(StringUtils.isBlank(serviceCfg)){
-			return (T) this.get(serviceName);
+            serviceCfg = this.getConfig().getServiceType();
+            if(StringUtils.isBlank(serviceCfg)){
+                return (T) this.get(serviceName);
+            }
 		}
 		if(serviceCfg.startsWith(CFG_REMOTE_HTTP)){
 			//远程服务Bean

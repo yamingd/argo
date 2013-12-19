@@ -332,6 +332,15 @@ public class ElasticSearchTemplate {
 		}
 	}
 
+    public <T> boolean update(Class<T> clazz, String id, Map<String, Object> data,
+                          boolean upset) throws SearchException {
+        if (data == null || data.size() == 0) {
+            return false;
+        }
+        String typeName = this.getTypeNameFromClass(clazz);
+        return this.update(typeName, id, data, upset);
+    }
+
 	public boolean update(String typeName, String id, Map<String, Object> data,
 			boolean upset) throws SearchException {
 		if (data == null || data.size() == 0) {
@@ -356,11 +365,16 @@ public class ElasticSearchTemplate {
 	/**
 	 * 自增/自减某些字段的统计值.
 	 * 
-	 * @param typeName
+	 * @param clazz
 	 * @param id
 	 * @param amounts
 	 * @return
 	 */
+    public <T> boolean updateIncr(Class<T> clazz, String id,
+                              Map<String, Integer> amounts) throws SearchException {
+        String typeName = this.getTypeNameFromClass(clazz);
+        return this.updateIncr(typeName, id, amounts);
+    }
 	public boolean updateIncr(String typeName, String id,
 			Map<String, Integer> amounts) throws SearchException {
 		if (amounts == null || amounts.size() == 0) {
