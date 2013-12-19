@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
@@ -56,7 +55,6 @@ public class BucketManager implements InitializingBean {
 	private Map<String, String> entityBuckets = null;
 	private String defaultBucket = null;
 
-	@Autowired
 	private BucketConfig config;
 	
 	static {
@@ -102,7 +100,12 @@ public class BucketManager implements InitializingBean {
 	}
 	
 	protected void init() throws Exception {
-		
+
+        if (BucketConfig.instance == null){
+            new BucketConfig().afterPropertiesSet();
+        }
+        this.config = BucketConfig.instance;
+
 		initMetrics();
 		
 		this.buckets = new HashMap<String, CouchbaseClient>();

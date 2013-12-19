@@ -67,7 +67,7 @@ public class BucketBaseServiceImpl implements BucketBaseService, InitializingBea
     }
 
     @Override
-    public <T extends BucketEntity> T findById(Class<T> clazz, Long oid) throws ServiceException{
+    public <T> T findById(Class<T> clazz, Long oid) throws ServiceException{
         T o = null;
         try {
             o = this.cbTemplate.findById(clazz, oid);

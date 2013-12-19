@@ -15,10 +15,6 @@
                                 expression=".*TestCase" />
     </context:component-scan>
 
-    <bean id="messageConfig" class="com.argo.message.MessageConfig">
-    </bean>
-
-    <bean id="rabbitMQ" class="com.argo.message.server.RabbitMQServerProvider" >
-    </bean>
+    <bean id="rabbitMQ" class="com.argo.message.server.RabbitMQServerProvider" />
 
 </beans>

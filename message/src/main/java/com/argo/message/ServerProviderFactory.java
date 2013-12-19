@@ -8,10 +8,8 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * 描述 ：
  *
  * @author yaming_deng
- * @date 2012-4-20
  */
 @Component("serverProviderFactory")
 public class ServerProviderFactory extends BaseBean {

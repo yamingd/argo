@@ -1,5 +1,6 @@
 package com.argo.core.web;
 
+import com.argo.core.freemarker.FTLHelper;
 import com.argo.core.service.factory.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,5 +18,6 @@ public abstract class MvcController {
     protected ServiceLocator serviceLocator;
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
 }

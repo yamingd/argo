@@ -9,9 +9,9 @@
 		http://www.springframework.org/schema/util/spring-util.xsd
 		">
     <util:map id="freemarkerLayoutDirectives">
-        <entry key="extends"><bean class="com.argo.core.freemarker.ExtendsDirective"/></entry>
-        <entry key="block"><bean class="com.argo.core.freemarker.BlockDirective"/></entry>
-        <entry key="put"><bean class="com.argo.core.freemarker.PutDirective"/></entry>
+        <entry key="extends"><bean class="com.argo.core.freemarker.directives.ExtendsDirective"/></entry>
+        <entry key="block"><bean class="com.argo.core.freemarker.directives.BlockDirective"/></entry>
+        <entry key="put"><bean class="com.argo.core.freemarker.directives.PutDirective"/></entry>
     </util:map>
 </beans>
 

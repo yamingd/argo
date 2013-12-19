@@ -1,7 +1,6 @@
 package com.argo.couchbase;
 
 import com.argo.core.configuration.AbstractConfig;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -36,7 +35,6 @@ import java.util.Map;
  * @author yaming_deng
  * 
  */
-@Component
 public class BucketConfig extends AbstractConfig {
 
     private static final String confName = "couchbase";

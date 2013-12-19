@@ -349,13 +349,13 @@ public class CouchbaseTemplate {
         CouchbaseMetric.callCountIncr("update");
 
 		execute(new BucketCallback<Boolean>() {
-			@Override
-			public Boolean doInBucket() throws InterruptedException,
-					ExecutionException {
-				String json = GsonUtil.toJson(objectToSave);
-				return client.replace(objectToSave.getCouchbaseKey(), 0, json).get();
-			}
-		});
+            @Override
+            public Boolean doInBucket() throws InterruptedException,
+                    ExecutionException {
+                String json = GsonUtil.toJson(objectToSave);
+                return client.replace(objectToSave.getCouchbaseKey(), 0, json).get();
+            }
+        });
 	}
 
 	/**
@@ -387,11 +387,11 @@ public class CouchbaseTemplate {
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
         CouchbaseMetric.callCountIncr("erase");
 		execute(new BucketCallback<OperationFuture<Boolean>>() {
-			@Override
-			public OperationFuture<Boolean> doInBucket() {
-				return client.delete(objectToRemove.getCouchbaseKey());
-			}
-		});
+            @Override
+            public OperationFuture<Boolean> doInBucket() {
+                return client.delete(objectToRemove.getCouchbaseKey());
+            }
+        });
 	}
 
 	/**

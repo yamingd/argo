@@ -20,6 +20,7 @@ public class WebContext implements Serializable {
 	public static final String WEB_ROOT = "web.root";
 	public static final String CLIENT_IP = "client.ip";
 	public static final String CLIENT_LANG = "lang";
+    public static final String CONTEXT_PATH = "context";
 	/**
 	 * 
 	 */
@@ -86,4 +87,8 @@ public class WebContext implements Serializable {
 	public void setLang(String value){
 		this.put(CLIENT_LANG, value);
 	}
+
+    public String getContextPath(){
+        return ObjectUtils.toString(this.get(CONTEXT_PATH));
+    }
 }
