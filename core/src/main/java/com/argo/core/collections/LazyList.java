@@ -1,8 +1,6 @@
 package com.argo.core.collections;
 
 
-import com.argo.core.base.BaseService;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,50 +13,35 @@ import java.util.List;
  */
 public class LazyList<T> extends PageCollection implements Iterable<T>  {
 		
-	private List<Integer> itemIds;
-	private BaseService itemService;
+	private List<Long> itemIds;
 	private Integer size;
 	
 	@Override
 	public Iterator<T> iterator() {
-		return new LazyListIterator<T>(this.itemIds,this.itemService);
+		return new LazyListIterator<T>(this.itemIds);
 	}
 	
 	public LazyList() {
 		super();
 	}
-	
-	public LazyList(BaseService itemService) {
-		super();
-		this.itemService = itemService;
-	}
-	
-	public LazyList(List<Integer> itemIds, BaseService itemService) {
+
+	public LazyList(List<Long> itemIds) {
 		super(1,0,itemIds.size()*1L);
 		this.itemIds = itemIds;
-		this.itemService = itemService;
 	}
 
-	public void setItemIds(List<Integer> itemIds) {
+	public void setItemIds(List<Long> itemIds) {
 		this.itemIds = itemIds;
 	}
 
-	public List<Integer> getItemIds() {
+	public List<Long> getItemIds() {
 		return itemIds;
 	}
 	
-	public void filter(List<Integer> ids){
+	public void filter(List<Long> ids){
 		if(this.itemIds!=null && ids != null){
 			this.itemIds.removeAll(ids);
 		}
-	}
-	
-	public void setItemService(BaseService itemService) {
-		this.itemService = itemService;
-	}
-
-	public BaseService getItemService() {
-		return itemService;
 	}
 
 	public Integer getSize() {
@@ -66,7 +49,7 @@ public class LazyList<T> extends PageCollection implements Iterable<T>  {
 		return this.size;
 	}
 
-	public void addAll(Integer index, List<Integer> ids){
+	public void addAll(Integer index, List<Long> ids){
 		if(this.itemIds!=null && ids != null){
 			for(Integer i=0;i<ids.size();i++){
 				if(this.itemIds.contains(ids.get(i))){

@@ -3,12 +3,16 @@ package com.argo.core.entity;
 import com.argo.core.base.BaseService;
 import com.argo.core.exception.ServiceException;
 import com.argo.core.service.factory.ServiceLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created with IntelliJ IDEA.
  * User: yamingdeng
  */
 public class EntityGetter {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * com.sample.Post ==> postService
@@ -23,19 +27,30 @@ public class EntityGetter {
     }
 
     private Long oid = null;
+    private BaseService service = null;
+
     public EntityGetter(Long oid){
         this.oid = oid;
     }
 
-    public <T> T get(Class<T> clazz) throws ServiceException {
-        T o;
+    public <T> T get(Class<T> clazz){
+        T o = null;
 
-        String serviceName = getServiceName(clazz);
-
-        BaseService service = ServiceLocator.instance.get(BaseService.class, serviceName);
-
-        o = service.findById(clazz, this.oid) ;
+        if (service == null){
+            String serviceName = getServiceName(clazz);
+            try {
+                service = ServiceLocator.instance.get(BaseService.class, serviceName);
+            } catch (Exception e) {
+                logger.error("EntityGetter Can't find Service. name="+serviceName, e);
+            }
+        }
+        try {
+            o = service.findById(clazz, this.oid) ;
+        } catch (ServiceException e) {
+            logger.error("EntityGetter Can't find Entity. oid="+this.oid+", clazz="+clazz, e);
+        }
 
         return o;
     }
+
 }
