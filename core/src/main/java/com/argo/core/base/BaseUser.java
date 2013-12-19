@@ -19,7 +19,7 @@ public class BaseUser extends BaseEntity {
 	
 	private String email;
 	
-	//KD登录名
+	//登录名
 	private String userName;
 	
 	//中文名/真实名称
