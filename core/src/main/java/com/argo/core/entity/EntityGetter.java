@@ -33,6 +33,11 @@ public class EntityGetter {
         this.oid = oid;
     }
 
+    public EntityGetter setOid(Long oid){
+        this.oid = oid;
+        return this;
+    }
+
     public <T> T get(Class<T> clazz){
         T o = null;
 

@@ -1,7 +1,6 @@
 package com.argo.core.collections;
 
 import com.argo.core.entity.EntityGetter;
-import com.argo.core.exception.ServiceException;
 import com.argo.core.utils.ClassUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,13 +45,8 @@ public class LazyListIterator<E> implements Iterator<E> {
 	@Override
 	public E next() {
 		Long itemId = itor.next();
-		try {
-			E o = this.getter.get(this.entityClass);
-            return o;
-		} catch (ServiceException e) {
-			log.error("读取实体详细错误:itemId="+itemId, e);
-		}
-		return null;
+        E o = this.getter.setOid(itemId).get(this.entityClass);
+        return o;
 	}
 
 	@Override
