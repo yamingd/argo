@@ -45,6 +45,10 @@ public class ContextConfig {
         return System.getProperty(key);
     }
 
+    public static String role(){
+        return System.getProperty("role");
+    }
+
     public static void init(ServletContext context){
         Enumeration<String> itor = context.getInitParameterNames();
         while (itor.hasMoreElements()){

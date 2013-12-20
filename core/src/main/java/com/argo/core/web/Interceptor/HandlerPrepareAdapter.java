@@ -1,10 +1,10 @@
 package com.argo.core.web.Interceptor;
 
+import com.argo.core.ContextConfig;
 import com.argo.core.base.BaseUser;
 import com.argo.core.configuration.SiteConfig;
 import com.argo.core.exception.PermissionDeniedException;
 import com.argo.core.exception.UserNotAuthorizationException;
-import com.argo.core.freemarker.FTLHelper;
 import com.argo.core.security.AuthorizationService;
 import com.argo.core.service.factory.ServiceLocator;
 import com.argo.core.utils.IpUtil;
@@ -41,12 +41,12 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             Object handler) throws Exception {
 
         if (logger.isDebugEnabled()){
-            logger.debug("preHandle incoming request.");
+            logger.debug("preHandle incoming request. contextPath="+request.getContextPath());
         }
 
         WebContext.getContext().setRequestIp(IpUtil.getIpAddress(request));
         WebContext.getContext().setRootPath(request.getContextPath());
-
+        ContextConfig.set("contextPath", request.getContextPath());
 
         Map app = SiteConfig.instance.getApp();
 

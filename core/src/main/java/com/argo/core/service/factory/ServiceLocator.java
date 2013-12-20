@@ -1,9 +1,11 @@
 package com.argo.core.service.factory;
 
+import com.argo.core.ContextConfig;
 import com.argo.core.exception.ServiceNotFoundException;
 import com.argo.core.service.ServiceConfig;
 import com.argo.core.service.proxy.HttpServiceClientGenerator;
 import com.argo.core.service.proxy.RmiServiceClientGenerator;
+import com.argo.core.service.proxy.ServiceClientPoolListener;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,7 +99,12 @@ public class ServiceLocator implements ApplicationContextAware,InitializingBean 
 	private ServiceConfig getConfig(){
 		return ServiceConfig.instance;
 	}
-	
+
+    private boolean isRemoteAvaliable(){
+        boolean flag = ContextConfig.role() == null || ServiceClientPoolListener.instance == null;
+        return !flag;
+    }
+
 	/**
 	 * 读取本地、远程服务
 	 * @param <T>
@@ -108,6 +115,10 @@ public class ServiceLocator implements ApplicationContextAware,InitializingBean 
 	@SuppressWarnings("unchecked")
 	public <T> T get(Class<T> clazz){
 		String serviceName = this.getServiceName(clazz);
+        if (!this.isRemoteAvaliable()){
+            //本地服务Bean
+            return (T) this.get(serviceName);
+        }
 		String serviceCfg = this.getConfig().getService(serviceName);
 		if(StringUtils.isBlank(serviceCfg)){
             serviceCfg = this.getConfig().getServiceType();
@@ -133,7 +144,7 @@ public class ServiceLocator implements ApplicationContextAware,InitializingBean 
 			}
 		}else{
 			//本地服务Bean
-			return (T) this.get(serviceCfg);
+			return (T) this.get(serviceName);
 		}
 	}
 	
@@ -147,6 +158,11 @@ public class ServiceLocator implements ApplicationContextAware,InitializingBean 
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T get(Class<T> clazz, String serviceName){
+        if (!this.isRemoteAvaliable()){
+            //本地服务Bean
+            return (T) this.get(serviceName);
+        }
+
 		String serviceCfg = this.getConfig().getService(serviceName);
 		if(StringUtils.isBlank(serviceCfg)){
             serviceCfg = this.getConfig().getServiceType();

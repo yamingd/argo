@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Date;
 
@@ -17,8 +16,6 @@ import java.util.Date;
  */
 public class BucketBaseServiceImpl implements BucketBaseService, InitializingBean {
 
-    @Autowired
-    @Qualifier("cbTemplate")
     protected CouchbaseTemplate cbTemplate;
 
     @Autowired
@@ -79,6 +76,7 @@ public class BucketBaseServiceImpl implements BucketBaseService, InitializingBea
 
     @Override
     public void afterPropertiesSet() throws Exception {
-
+        String name = this.serviceLocator.getServiceName(CouchbaseTemplate.class);
+        cbTemplate = this.serviceLocator.get(name);
     }
 }
