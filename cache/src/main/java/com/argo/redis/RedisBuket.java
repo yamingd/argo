@@ -1,14 +1,13 @@
 package com.argo.redis;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.springframework.stereotype.Component;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Tuple;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Component("redisBuket")
 public class RedisBuket extends RedisTemplate {
@@ -336,7 +335,6 @@ public class RedisBuket extends RedisTemplate {
     /**
      * 删除List的某个元素.
      * @param key
-     * @param count
      * @param value
      * @return
      */
