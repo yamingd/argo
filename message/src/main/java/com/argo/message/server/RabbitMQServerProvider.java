@@ -3,7 +3,10 @@ package com.argo.message.server;
 import com.argo.core.ContextConfig;
 import com.argo.core.json.GsonUtil;
 import com.argo.core.utils.IpUtil;
-import com.argo.message.*;
+import com.argo.message.MQMessageConsumer;
+import com.argo.message.MessageConfig;
+import com.argo.message.MessageEntity;
+import com.argo.message.MessageException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,7 +111,6 @@ public class RabbitMQServerProvider extends AbstractServerProvider {
             }
             String realq = this.getIpQueueName(qname);
 			this.rabbitTemplate.convertAndSend(exchange, realq, data);
-            MessageMetric.publishIncr(this.getClass(), qname, message.getOpCode()+"");
 		} catch (Exception e) {
 			throw new MessageException("发送JMS消息错误. qname="+qname, e);
 		}
@@ -168,7 +170,6 @@ public class RabbitMQServerProvider extends AbstractServerProvider {
 			String exchange = getExchangeName();
             String realq = this.getIpQueueName(qname);
 			this.rabbitTemplate.convertAndSend(exchange, realq, jsonMssage);
-            MessageMetric.publishIncr(this.getClass(), qname, "");
 		} catch (Exception e) {
 			throw new MessageException("发送JMS消息错误. qname="+qname, e);
 		}		

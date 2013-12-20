@@ -45,9 +45,12 @@ public abstract class AbstractMessageConsumerBase extends BaseBean
 	@Qualifier("mqQueueConsumerManager")
 	private MQQueueConsumerManager mqQueueConsumerManager;
 
+    private MessageMetric messageMetric;
+
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		super.afterPropertiesSet();
+        messageMetric = new MessageMetric(this.getClass(), this.getDestinationName());
 		if(doCheck()){
 			serverProvider = serverProviderFactory.getOne(this.getProviderName());
 			serverProvider.initialize();
@@ -114,31 +117,26 @@ public abstract class AbstractMessageConsumerBase extends BaseBean
 	 */
 	public void handleMessage(String message) throws Exception{
 		Date start = new Date();
-        Timer.Context context = MessageMetric.consumerTimer(this.getClass(), this.getDestinationName());
+
         MessageEntity msg = null;
         try {
             msg = GsonUtil.asT(MessageEntity.class, message);
         } catch (Exception e) {
-            msg = null;
+            messageMetric.consumeFailedIncr("parseJson:"+e.getClass().getSimpleName());
             this.logger.error("Message GsonUtil Errro. content=" + message);
-        }finally {
-            if (msg == null){
-                context.stop();
-                MessageMetric.consumeFailedIncr(this.getClass(), this.getDestinationName(), "");
-                return;
-            }
+            return;
         }
-
+        Timer.Context context = messageMetric.consumerTimer(msg.getOpCode()+":ts");
         try {
 			this.logger.info("@@@start handling message, opCode = " + msg.getOpCode());
 			this.handleMessage(msg);
-            MessageMetric.consumeIncr(this.getClass(), this.getDestinationName(), msg.getOpCode()+"");
+            messageMetric.consumeIncr(msg.getOpCode()+"");
 			this.logger.info("@@@finish handle message, opCode = " + msg.getOpCode());
 		} catch (Exception e) {
             if(msg!=null){
-                MessageMetric.consumeFailedIncr(this.getClass(), this.getDestinationName(), msg.getOpCode() + "");
+                messageMetric.consumeFailedIncr(e.getClass().getSimpleName());
             }else{
-                MessageMetric.consumeFailedIncr(this.getClass(), this.getDestinationName(), "");
+                messageMetric.consumeFailedIncr(e.getClass().getSimpleName());
             }
 			throw e;
 		}finally{

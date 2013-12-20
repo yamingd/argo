@@ -6,17 +6,20 @@ public class DefaultDocMapper implements ESDocumentMapper {
 
 	@Override
 	public <T> String toJSON(T object) {
-        return GsonUtil.toJson(object);
+        String s = GsonUtil.toJson(object);
+        return s;
 	}
 
 	@Override
 	public <T> String toJSON(T object, boolean ignoreNull) {
-		return GsonUtil.toJson(object);
+		String s = GsonUtil.toJson(object);
+        return s;
 	}
 
 	@Override
 	public <T> T asObject(Class<T> clazz, String json) {
-		return GsonUtil.asT(clazz, json);
+		T o = GsonUtil.asT(clazz, json);
+        return o;
 	}
 
 }

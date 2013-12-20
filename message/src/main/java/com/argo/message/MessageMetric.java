@@ -8,28 +8,36 @@ import com.codahale.metrics.Timer;
  */
 public class MessageMetric {
 
-    public static final void publishIncr(Class<?> clazz, String queue, String op){
+    private String queue;
+    private Class<?> clazz;
+
+    public MessageMetric(Class<?> clazz, String queue) {
+        this.clazz = clazz;
+        this.queue = queue;
+    }
+
+    public final void publishIncr(String queue, String op){
         String name = queue+":"+op+":";
         MetricCollectorImpl.current().incrementCounter(clazz, name);
     }
 
-    public static final void consumeIncr(Class<?> clazz, String queue, String op){
+    public final void consumeIncr(String op){
         String name = queue+":"+op+":";
         MetricCollectorImpl.current().incrementCounter(clazz, name);
     }
 
-    public static final void consumeFailedIncr(Class<?> clazz, String queue, String op){
+    public final void consumeFailedIncr(String op){
         String name = queue+":"+op+":";
         MetricCollectorImpl.current().incrementCounter(clazz, name);
     }
 
-    public static final Timer.Context consumerTimer(Class<?> clazz, String queue, String op){
+    public final Timer.Context consumerTimer(String op){
         String name = queue+":"+op;
         return MetricCollectorImpl.current().getTimer(clazz, name);
     }
 
-    public static final Timer.Context consumerTimer(Class<?> clazz, String queue){
-        String name = queue;
+    public final Timer.Context publisherTimer(String queue, String op){
+        String name = queue+":"+op;
         return MetricCollectorImpl.current().getTimer(clazz, name);
     }
 }

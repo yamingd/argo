@@ -2,7 +2,9 @@ package com.argo.elasticsearch;
 
 import com.argo.core.base.BaseEntity;
 import com.argo.search.SearchException;
+import com.argo.search.SearchMetrics;
 import com.argo.search.SearchResult;
+import com.codahale.metrics.Timer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
@@ -41,7 +43,8 @@ public class ElasticSearchTemplate {
 	private Client client;
 	private String indexName;
 	private ESDocumentMapper docMapper = null;
-	
+	private SearchMetrics searchMetrics = null;
+
 	public Client getClient() {
 		return client;
 	}
@@ -69,6 +72,7 @@ public class ElasticSearchTemplate {
 	public ElasticSearchTemplate(){
 		super();
         logger = LoggerFactory.getLogger(getClass());
+        this.searchMetrics = new SearchMetrics(this.getClass(), "");
 	}
 	
 	public ElasticSearchTemplate(final Client client, final String indexName,
@@ -78,6 +82,7 @@ public class ElasticSearchTemplate {
 		this.indexName = indexName;
 		this.docMapper = docMapper;
         logger = LoggerFactory.getLogger(getClass()+"."+indexName);
+        this.searchMetrics = new SearchMetrics(this.getClass(), indexName);
 	}
 	
 	public ElasticSearchTemplate(final Client client, final String indexName) {
@@ -98,23 +103,32 @@ public class ElasticSearchTemplate {
         if (!(entity instanceof BaseEntity)){
             throw new SearchException("entity must inherit from BaseEntity.");
         }
+        String typeName = this.getTypeNameFromClass(entity.getClass());
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "add");
 		try {
             String id = "";
             if (entity instanceof BaseEntity){
                id = ((BaseEntity)entity).getPK();
             }
-			String typeName = this.getTypeNameFromClass(entity.getClass());
+
 			String jsonSource = this.docMapper.toJSON(entity, false);
 			IndexRequestBuilder inserter = client.prepareIndex(indexName,
 					typeName, id);
 			inserter.setSource(jsonSource);
 			inserter.execute().actionGet();
+
+            searchMetrics.indexIncr(typeName, "add");
+
 			return true;
+
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "add", e);
 			logger.error("add index Error.", e);
             throw new SearchException("add index Error.", e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
 	/**
 	 * 批量索引.
@@ -131,9 +145,13 @@ public class ElasticSearchTemplate {
                 throw new SearchException("item must inherit from BaseEntity.");
             }
         }
+        String typeName = this
+                .getTypeNameFromClass(items.get(0).getClass());
+
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "bulkAdd");
+
 		try {
-			String typeName = this
-					.getTypeNameFromClass(items.get(0).getClass());
+
 			BulkRequestBuilder bulk = new BulkRequestBuilder(client);
 			for (T item : items) {
 				if (item == null) {
@@ -147,32 +165,43 @@ public class ElasticSearchTemplate {
 				bulk.add(inserter);
 			}
 			BulkResponse actionGet = bulk.execute().actionGet();
+
+            searchMetrics.indexIncr(typeName, "bulkAdd");
+
 			if (actionGet.hasFailures()) {
 				return false;
 			}
 			return true;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "bulkAdd", e);
             logger.error("bulkAdd index Error.", e);
             throw new SearchException("bulkAdd index Error.", e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
 	public boolean add(String typeName, String id, Map<String, Object> data)  throws SearchException {
 		if (data == null || data.size() == 0) {
 			return false;
 		}
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "addMap");
 		try {
 			String jsonSource = this.docMapper.toJSON(data, false);
 			IndexRequestBuilder inserter = client.prepareIndex(indexName,
 					typeName, id);
 			inserter.setSource(jsonSource);
 			inserter.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "addMap");
 			return true;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "addMap", e);
             logger.error("add Map index Error.", e);
             throw new SearchException("add Map index Error.", e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
 	/**
 	 * 删除索引.
@@ -182,21 +211,27 @@ public class ElasticSearchTemplate {
 	 * @return
 	 */
 	public boolean delete(String typeName, String id)  throws SearchException {
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "delId");
 		try {
 			DeleteRequestBuilder deleter = client.prepareDelete(indexName,
 					typeName, id);
 			DeleteResponse actionGet = deleter.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "delId");
 			if (!actionGet.isNotFound()) {
 				return true;
 			}
 			return false;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "delId", e);
             logger.error("delete index Error. ", e);
             throw new SearchException("delete index Error. typeName="+typeName+", id="+id, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
 	public boolean delete(String typeName, String... ids)  throws SearchException {
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "delIds");
 		try {
 			BulkRequestBuilder bulk = new BulkRequestBuilder(client);
 			for (String id : ids) {
@@ -205,34 +240,44 @@ public class ElasticSearchTemplate {
 				bulk.add(deleter);
 			}
 			BulkResponse actionGet = bulk.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "delIds");
 			if (actionGet.hasFailures()) {
 				return false;
 			}
 			return true;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "delIds", e);
             logger.error("delete index Error. ", e);
             throw new SearchException("delete index Error. typeName="+typeName+", ids="+ids, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
 	public boolean delete(Class<?> clzz, String id)  throws SearchException {
         String typeName = getTypeNameFromClass(clzz);
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "delId");
 		try {
 			DeleteRequestBuilder deleter = client.prepareDelete(indexName,
 					typeName, id);
 			DeleteResponse actionGet = deleter.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "delId");
 			if (!actionGet.isNotFound()) {
 				return true;
 			}
 			return false;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "delId", e);
             logger.error("delete index Error. ", e);
             throw new SearchException("delete index Error. typeName="+typeName+", id="+id, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
 	public boolean delete(Class<?> clzz, String... ids) throws SearchException {
         String typeName = getTypeNameFromClass(clzz);
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "delIds");
 		try {
 
 			BulkRequestBuilder bulk = new BulkRequestBuilder(client);
@@ -242,38 +287,52 @@ public class ElasticSearchTemplate {
 				bulk.add(deleter);
 			}
 			BulkResponse actionGet = bulk.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "delIds");
 			if (actionGet.hasFailures()) {
 				return false;
 			}
 			return true;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "delIds", e);
             logger.error("delete index Error. ", e);
             throw new SearchException("delete index Error. typeName="+typeName+", ids="+ids, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
 	public boolean deleteByQuery(String typeName, String query) throws SearchException {
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "delQuery");
 		try {
 			client.prepareDeleteByQuery(indexName).setTypes(typeName)
 					.setQuery(query).execute().actionGet();
+            searchMetrics.indexIncr(typeName, "delQuery");
 			return true;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "delQuery", e);
             logger.error("deleteByQuery index Error. ", e);
             throw new SearchException("deleteByQuery index Error. typeName="+typeName+", query="+query, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
 	public boolean deleteByQuery(Class<?> clzz, String query) throws SearchException {
         String typeName = getTypeNameFromClass(clzz);
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "delQuery");
 		try {
 			client.prepareDeleteByQuery(indexName).setTypes(typeName)
 					.setQuery(query).execute().actionGet();
+            searchMetrics.indexIncr(typeName, "delQuery");
 			return true;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "delQuery", e);
             logger.error("deleteByQuery index Error. ", e);
             throw new SearchException("deleteByQuery index Error. typeName="+typeName+", query="+query, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
 	/**
 	 * 更新索引
@@ -291,19 +350,23 @@ public class ElasticSearchTemplate {
 
         String typeName = this.getTypeNameFromClass(entity.getClass());
         String id = ((BaseEntity)entity).getPK();
-
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "update");
 		try {
 			String jsonSource = this.docMapper.toJSON(entity, true);
 			UpdateRequestBuilder request = client.prepareUpdate(indexName,
 					typeName, id).setId(id);
 			request.setDoc(jsonSource);
 			request.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "update");
 			return true;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "update", e);
             logger.error("update index Error. ", e);
             throw new SearchException("update index Error. typeName="+typeName+", id="+id, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
 	public <T> boolean update(T entity, boolean upset) throws SearchException {
 		if (entity == null) {
@@ -315,7 +378,7 @@ public class ElasticSearchTemplate {
 
         String typeName = this.getTypeNameFromClass(entity.getClass());
         String id = ((BaseEntity)entity).getPK();
-
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "update");
 		try {
 			String jsonSource = this.docMapper.toJSON(entity, true);
 			UpdateRequestBuilder request = client.prepareUpdate(indexName,
@@ -325,12 +388,16 @@ public class ElasticSearchTemplate {
 			}
 			request.setDoc(jsonSource);
 			request.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "update");
 			return true;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "update", e);
             logger.error("update index Error. ", e);
             throw new SearchException("update index Error. typeName="+typeName+", id="+id, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
     public <T> boolean update(Class<T> clazz, String id, Map<String, Object> data,
                           boolean upset) throws SearchException {
@@ -346,6 +413,7 @@ public class ElasticSearchTemplate {
 		if (data == null || data.size() == 0) {
 			return false;
 		}
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "updateMap");
 		try {
 			String jsonSource = this.docMapper.toJSON(data, true);
 			UpdateRequestBuilder request = client.prepareUpdate(indexName,
@@ -355,12 +423,16 @@ public class ElasticSearchTemplate {
 			}
 			request.setDoc(jsonSource);
 			request.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "updateMap");
 			return true;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "updateMap", e);
             logger.error("update index Error. ", e);
             throw new SearchException("update index Error. typeName="+typeName+", id="+id, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 
 	/**
 	 * 自增/自减某些字段的统计值.
@@ -380,6 +452,7 @@ public class ElasticSearchTemplate {
 		if (amounts == null || amounts.size() == 0) {
 			return false;
 		}
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "updateIncr");
 		try {
 			BulkRequestBuilder bulk = new BulkRequestBuilder(client);
 			for (String field : amounts.keySet()) {
@@ -392,39 +465,53 @@ public class ElasticSearchTemplate {
 				bulk.add(updater);
 			}
 			BulkResponse actionGet = bulk.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "updateIncr");
 			if (actionGet.hasFailures()) {
 				return false;
 			}
 			return true;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "updateIncr", e);
             logger.error("updateIncr Error. ", e);
             throw new SearchException("updateIncr Error. typeName="+typeName+", id="+id, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 	
 	public <T> boolean exists(Class<T> clzz, String id) throws SearchException {
         String typeName = this.getTypeNameFromClass(clzz);
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "exists");
 		try {
 			GetResponse response = client.prepareGet(indexName, typeName, id).setFields("uid")
 					.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "exists");
 			return response.isExists();
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "exists", e);
             logger.error("exists check Error. ", e);
             throw new SearchException("exists check Error. typeName="+typeName+", id="+id, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 	
 	public <T> boolean exists(Class<T> clzz, String id, String idField) throws SearchException {
         String typeName = this.getTypeNameFromClass(clzz);
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "exists");
 		try {
 			GetResponse response = client.prepareGet(indexName, typeName, id).setFields(idField)
 					.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "exists");
 			return response.isExists();
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "exists", e);
             logger.error("exists check Error. ", e);
             throw new SearchException("exists check Error. typeName="+typeName+", id="+id, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 	/**
 	 * 按id读取.
 	 * http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-get.html
@@ -434,9 +521,11 @@ public class ElasticSearchTemplate {
 	 */
 	public <T> T queryForObject(Class<T> clzz, String id) throws SearchException {
         String typeName = this.getTypeNameFromClass(clzz);
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "queryForObject");
 		try {
 			GetResponse response = client.prepareGet(indexName, typeName, id)
 					.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "queryForObject");
 			if(response.isSourceEmpty()){
 				return null;
 			}
@@ -446,10 +535,13 @@ public class ElasticSearchTemplate {
 			T o = this.docMapper.asObject(clzz, response.getSourceAsString());
 			return o;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "queryForObject", e);
             logger.error("queryForObject Error. ", e);
             throw new SearchException("queryForObject Error. typeName="+typeName+", id="+id, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 	
 	/**
 	 * http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-multi-get.html
@@ -459,6 +551,7 @@ public class ElasticSearchTemplate {
 	 */
 	public <T> List<T> queryForObjects(Class<T> clzz, String... ids) throws SearchException {
         String typeName = this.getTypeNameFromClass(clzz);
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "queryForObjects");
 		try {
 			MultiGetRequestBuilder request = client.prepareMultiGet();
 			request.add(indexName, typeName, ids);
@@ -470,12 +563,16 @@ public class ElasticSearchTemplate {
 					results.add(o);
 				}
 			}
+            searchMetrics.indexIncr(typeName, "queryForObjects");
 			return results;
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "queryForObjects", e);
             logger.error("queryForObjects Error. ", e);
             throw new SearchException("queryForObjects Error. typeName="+typeName+", ids="+ids, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 	/**
 	 * 仅返回ids.
 	 * @param typeName
@@ -483,6 +580,7 @@ public class ElasticSearchTemplate {
 	 * @return
 	 */
 	public <T> List<String> queryForIds(String typeName, SearchCriteria query, int page, int size) throws SearchException {
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "queryForIds");
 		try {
 			int start = page < 1 ? 0 : (page - 1) * size;
 			SearchRequestBuilder request = client
@@ -491,14 +589,19 @@ public class ElasticSearchTemplate {
 					.setTypes(typeName).setQuery(query.getQuery()).setNoFields();
 			request.setFrom(start).setSize(size);
 			SearchResponse response = request.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "queryForIds");
 			return extractIds(response);
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "queryForIds", e);
             logger.error("queryForIds Error. ", e);
             throw new SearchException("queryForIds Error. typeName="+typeName, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 	public <T> List<String> queryForIds(Class<T> clzz, SearchCriteria query, int page, int size) throws SearchException {
         String typeName = this.getTypeNameFromClass(clzz);
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "queryForIds");
 		try {
 			int start = page < 1 ? 0 : (page - 1) * size;
 			SearchRequestBuilder request = client
@@ -507,12 +610,16 @@ public class ElasticSearchTemplate {
 					.setTypes(typeName).setQuery(query.getQuery()).setNoFields();
 			request.setFrom(start).setSize(size);
 			SearchResponse response = request.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "queryForIds");
 			return extractIds(response);
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "queryForIds", e);
             logger.error("queryForIds Error. ", e);
             throw new SearchException("queryForIds Error. typeName="+typeName, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 		
 	/**
 	 * 检索.
@@ -520,16 +627,17 @@ public class ElasticSearchTemplate {
 	 * @param query
 	 * @param page
 	 * @param size
-	 * @param types
 	 * @return
 	 */
-	public <T> SearchResult<T> search(Class<T> clazz, SearchCriteria query, int page, int size, String... types) throws SearchException {
-		try {
+	public <T> SearchResult<T> search(Class<T> clazz, SearchCriteria query, int page, int size) throws SearchException {
+        String typeName = this.getTypeNameFromClass(clazz);
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "search:"+size);
+        try {
 			int start = page < 1 ? 0 : (page - 1) * size;
 			SearchRequestBuilder request = client
 					.prepareSearch(indexName)
 					.setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-					.setTypes(types)
+					.setTypes(typeName)
 					.setFrom(start).setSize(size)
 					.setExplain(false);
 			if(query.getQuery()!=null){
@@ -557,12 +665,16 @@ public class ElasticSearchTemplate {
 				}
 			}
 			SearchResponse response = request.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "search:"+size);
 			return parseSearchResponse(clazz, page, size, response);
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "search:"+size, e);
             logger.error("search Error. ", e);
-            throw new SearchException("search Error. typeName="+types, e);
-		}
-	}
+            throw new SearchException("search Error. typeName="+typeName, e);
+		}finally {
+            timer.stop();
+        }
+    }
 
 	protected <T> SearchResult<T> parseSearchResponse(Class<T> clazz, int page, int size,
 			SearchResponse response) {
@@ -588,34 +700,44 @@ public class ElasticSearchTemplate {
 	/**
 	 * http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-count.html
 	 * @param query
-	 * @param types
+	 * @param type
 	 * @return
 	 */
-	public <T> long count(SearchCriteria query, String... types) throws SearchException {
+	public <T> long count(SearchCriteria query, String type) throws SearchException {
+        Timer.Context timer = searchMetrics.indexTimer(type, "count");
 		try {
-			CountRequestBuilder request = client.prepareCount(indexName).setTypes(types);
+			CountRequestBuilder request = client.prepareCount(indexName).setTypes(type);
 			if(query!=null && query.getQuery()!=null){
 				request.setQuery(query.getQuery());
 			}
+            searchMetrics.indexIncr(type, "count");
 			return request.execute().actionGet().getCount();
 		} catch (Exception e) {
+            searchMetrics.failedIncr(type, "count", e);
             logger.error("count Error. ", e);
-            throw new SearchException("count Error. typeName="+types, e);
-		}
-	}
+            throw new SearchException("count Error. typeName="+type, e);
+		}finally {
+            timer.stop();
+        }
+    }
 	public <T> long count(SearchCriteria query, Class<?> clazz) {
         String typeName = this.getTypeNameFromClass(clazz);
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "count");
 		try {
 			CountRequestBuilder request = client.prepareCount(indexName).setTypes(typeName);
 			if(query!=null && query.getQuery()!=null){
 				request.setQuery(query.getQuery());
 			}
+            searchMetrics.indexIncr(typeName, "count");
 			return request.execute().actionGet().getCount();
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "count", e);
             logger.error("count Error. ", e);
             throw new SearchException("count Error. typeName="+typeName, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 	
 	/**
 	 * http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-more-like-this.html
@@ -629,6 +751,7 @@ public class ElasticSearchTemplate {
         Assert.notNull(query.getId(), "No document id defined for MoreLikeThisQuery");
         
         String typeName = this.getTypeNameFromClass(clazz);
+
         MoreLikeThisRequestBuilder requestBuilder = client.prepareMoreLikeThis(indexName, typeName, query.getId());
         
         int start = page < 1 ? 0 : (page - 1) * size;
@@ -674,14 +797,20 @@ public class ElasticSearchTemplate {
         if (query.getBoostTerms() != null) {
             requestBuilder.setBoostTerms(query.getBoostTerms());
         }
+
+        Timer.Context timer = searchMetrics.indexTimer(typeName, "moreLikeThis");
         try {
 			SearchResponse response = requestBuilder.execute().actionGet();
+            searchMetrics.indexIncr(typeName, "moreLikeThis");
 			return parseSearchResponse(clazz, page, size, response);
 		} catch (Exception e) {
+            searchMetrics.failedIncr(typeName, "moreLikeThis", e);
             logger.error("moreLikeThis Error. ", e);
             throw new SearchException("moreLikeThis Error. typeName="+typeName, e);
-		}
-	}
+		}finally {
+            timer.stop();
+        }
+    }
 		
 	// protected
 	protected String getTypeNameFromClass(Class<?> clzz) {

@@ -2,6 +2,7 @@ package com.argo.message;
 
 import com.argo.core.base.BaseBean;
 import com.argo.message.server.ServerProvider;
+import com.codahale.metrics.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,13 @@ public abstract class AbstractMessageProducerBase extends BaseBean {
 	@Autowired
 	@Qualifier("serverProviderFactory")
 	private ServerProviderFactory serverProviderFactory;
-	
+
+    private MessageMetric messageMetric;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		super.afterPropertiesSet();
+        messageMetric = new MessageMetric(this.getClass(), this.getDestinationName());
 		this.serverProvider = this.serverProviderFactory.getOne(this.getProviderName());
 		Assert.notNull(this.getServerProvider(), "serverProvider can't be NULL.");
 		this.getServerProvider().initialize();
@@ -58,8 +61,17 @@ public abstract class AbstractMessageProducerBase extends BaseBean {
 		message.setFromAppName((String)this.getSiteConfig().getApp().get("name"));
 		message.setToQueueName(qname);
 		message.checkData();
-		this.getServerProvider().publish(qname, message);
-	}
+
+        Timer.Context timer = messageMetric.publisherTimer(qname, message.getOpCode() + "ts");
+        try {
+            this.getServerProvider().publish(qname, message);
+            messageMetric.publishIncr(qname, message.getOpCode()+"");
+        } catch (MessageException e) {
+            throw e;
+        } finally {
+            timer.stop();
+        }
+    }
 	
 	/**
 	 * 重写这个方法，可以定制要使用的MQ服务器
@@ -70,8 +82,16 @@ public abstract class AbstractMessageProducerBase extends BaseBean {
 	}
 	
 	protected void sendMessage(String qname, String JsonMessage) throws MessageException{
-		this.getServerProvider().publish(qname, JsonMessage);
-	}
+        Timer.Context timer = messageMetric.publisherTimer(qname, "jsonts");
+        try {
+            this.getServerProvider().publish(qname, JsonMessage);
+            messageMetric.publishIncr(qname, "json");
+        } catch (MessageException e) {
+            throw e;
+        } finally {
+            timer.stop();
+        }
+    }
 
 	protected ServerProvider getServerProvider() {
 		return serverProvider;
