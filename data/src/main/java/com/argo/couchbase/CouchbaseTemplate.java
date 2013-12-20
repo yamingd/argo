@@ -10,6 +10,7 @@ import com.couchbase.client.protocol.views.*;
 import net.spy.memcached.internal.OperationFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ import java.util.concurrent.TimeoutException;
  * 
  */
 @Component
-public class CouchbaseTemplate {
+public class CouchbaseTemplate implements InitializingBean {
 
 	public static final Logger logger = LoggerFactory
 			.getLogger(CouchbaseTemplate.class);;
@@ -33,6 +34,7 @@ public class CouchbaseTemplate {
 
 	@Autowired
 	private BucketManager bucketManager;
+
 
 	private <T> T execute(final BucketCallback<T> action)
 			throws BucketException {
@@ -799,4 +801,9 @@ public class CouchbaseTemplate {
 			throw new BucketException("syncDDocViews", e);
 		}
 	}
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+
+    }
 }
