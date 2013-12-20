@@ -3,10 +3,9 @@ package com.argo.message;
 import com.argo.core.base.BaseBean;
 import com.argo.core.json.GsonUtil;
 import com.argo.message.server.ServerProvider;
+import com.codahale.metrics.Timer;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.SchedulingException;
@@ -25,8 +24,6 @@ import java.util.Map;
 public abstract class AbstractMessageConsumerBase extends BaseBean
 	implements MessageListener, MQMessageConsumer {
 	
-	protected Logger log = LoggerFactory.getLogger(this.getClass());
-
 	/**
 	 * 
 	 */
@@ -89,13 +86,14 @@ public abstract class AbstractMessageConsumerBase extends BaseBean
 	
 	private void doHook() throws MessageException {
 		serverProvider.listenQueue(this);
+        logger.info("Queue Listen Done. queue[{}]", this.getDestinationName());
 	}
 	
 	private void startUp() throws MessageException {
 		Thread schedulerThread = new Thread() {
 			public void run() {
 				try {
-					Thread.sleep(120 * 1000);
+					Thread.sleep(60 * 1000);
 				}
 				catch (InterruptedException ex) {
 					// simply proceed
@@ -116,19 +114,39 @@ public abstract class AbstractMessageConsumerBase extends BaseBean
 	 */
 	public void handleMessage(String message) throws Exception{
 		Date start = new Date();
-		try {
-			MessageEntity msg = null;
-			msg = GsonUtil.asT(MessageEntity.class, message);
-			this.log.info("@@@start handling message, opCode = " + msg.getOpCode());
+        Timer.Context context = MessageMetric.consumerTimer(this.getClass(), this.getDestinationName());
+        MessageEntity msg = null;
+        try {
+            msg = GsonUtil.asT(MessageEntity.class, message);
+        } catch (Exception e) {
+            msg = null;
+            this.logger.error("Message GsonUtil Errro. content=" + message);
+        }finally {
+            if (msg == null){
+                context.stop();
+                MessageMetric.consumeFailedIncr(this.getClass(), this.getDestinationName(), "");
+                return;
+            }
+        }
+
+        try {
+			this.logger.info("@@@start handling message, opCode = " + msg.getOpCode());
 			this.handleMessage(msg);
-			this.log.info("@@@finish handle message, opCode = " + msg.getOpCode());
+            MessageMetric.consumeIncr(this.getClass(), this.getDestinationName(), msg.getOpCode()+"");
+			this.logger.info("@@@finish handle message, opCode = " + msg.getOpCode());
 		} catch (Exception e) {
+            if(msg!=null){
+                MessageMetric.consumeFailedIncr(this.getClass(), this.getDestinationName(), msg.getOpCode() + "");
+            }else{
+                MessageMetric.consumeFailedIncr(this.getClass(), this.getDestinationName(), "");
+            }
 			throw e;
 		}finally{
+            context.stop();
 			Long duration = new Date().getTime() - start.getTime();
 			duration = duration / 1000;
-			if(duration>10){
-				this.log.info("@@@handle Message Too Long, duration={}s, queue={}", duration, this.getDestinationName());
+			if(duration>5){
+				this.logger.info("@@@handle Message Too Long, duration={}s, queue={}", duration, this.getDestinationName());
 			}
 		}
 	}
@@ -141,14 +159,14 @@ public abstract class AbstractMessageConsumerBase extends BaseBean
 			
 			TextMessage txtMsg = (TextMessage)message;
 			if(StringUtils.isBlank(txtMsg.getText())){
-				log.error("接收到空白消息.");
+				logger.error("接收到空白消息.");
 				return;
 			}
 			
 			this.handleMessage(txtMsg.getText());
 			
 		} catch (Exception e) {
-			log.error("消息处理出现错误", e);
+			logger.error("消息处理出现错误", e);
 		}
 	}
 

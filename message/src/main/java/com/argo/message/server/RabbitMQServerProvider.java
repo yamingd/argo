@@ -1,10 +1,9 @@
 package com.argo.message.server;
 
+import com.argo.core.ContextConfig;
 import com.argo.core.json.GsonUtil;
-import com.argo.message.MQMessageConsumer;
-import com.argo.message.MessageConfig;
-import com.argo.message.MessageEntity;
-import com.argo.message.MessageException;
+import com.argo.core.utils.IpUtil;
+import com.argo.message.*;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,10 +59,12 @@ public class RabbitMQServerProvider extends AbstractServerProvider {
 	
 	private void subscribeQueue(MQMessageConsumer consumer) 
 		throws MessageException {
-		
+
+        String realQName = getIpQueueName(consumer.getDestinationName());
+
 		Integer cc = MessageConfig.current.get(Integer.class, "concurrent");
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-		container.setQueueNames(consumer.getDestinationName());
+		container.setQueueNames(realQName);
 		container.setConnectionFactory(connectionFactory);
 		container.setConcurrentConsumers(cc);
 		
@@ -77,11 +78,19 @@ public class RabbitMQServerProvider extends AbstractServerProvider {
 		
 		containerList.add(container);
 	}
-	
+
+    private String getIpQueueName(String qname){
+        if (ContextConfig.isDev()){
+            String[] ipaddr = IpUtil.getHostServerIp();
+            return ipaddr[0] + qname;
+        }
+        return qname;
+    }
+
 	private void bindingQueue(String qname){
 		this.rabbitAdmin.deleteQueue(qname);	
-		
-		Binding binding = new Binding(qname+"_queue", Binding.DestinationType.QUEUE, this.getExchangeName(), qname+"_route", null);
+		String realQName = getIpQueueName(qname);
+		Binding binding = new Binding(realQName+"_q", Binding.DestinationType.QUEUE, this.getExchangeName(), realQName+"_r", null);
 		this.rabbitAdmin.declareBinding(binding);
 	}
 	
@@ -97,7 +106,9 @@ public class RabbitMQServerProvider extends AbstractServerProvider {
             if (logger.isDebugEnabled()){
 			    logger.debug(data);
             }
-			this.rabbitTemplate.convertAndSend(exchange, qname, data);
+            String realq = this.getIpQueueName(qname);
+			this.rabbitTemplate.convertAndSend(exchange, realq, data);
+            MessageMetric.publishIncr(this.getClass(), qname, message.getOpCode()+"");
 		} catch (Exception e) {
 			throw new MessageException("发送JMS消息错误. qname="+qname, e);
 		}
@@ -155,7 +166,9 @@ public class RabbitMQServerProvider extends AbstractServerProvider {
 			throws MessageException {
 		try {
 			String exchange = getExchangeName();
-			this.rabbitTemplate.convertAndSend(exchange, qname, jsonMssage);
+            String realq = this.getIpQueueName(qname);
+			this.rabbitTemplate.convertAndSend(exchange, realq, jsonMssage);
+            MessageMetric.publishIncr(this.getClass(), qname, "");
 		} catch (Exception e) {
 			throw new MessageException("发送JMS消息错误. qname="+qname, e);
 		}		

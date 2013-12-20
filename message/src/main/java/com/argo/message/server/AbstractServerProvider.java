@@ -28,7 +28,6 @@ public abstract class AbstractServerProvider extends BaseBean implements ServerP
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.kingdee.jms.server.ServerProvider#destroy()
 	 */
 	@Override
 	public void destroy() throws Exception {

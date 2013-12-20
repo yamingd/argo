@@ -25,6 +25,18 @@ public class ContextConfig {
         return env;
     }
 
+    public static boolean isDev(){
+        return "dev".equalsIgnoreCase(getRunning());
+    }
+
+    public static boolean isTest(){
+        return "test".equalsIgnoreCase(getRunning());
+    }
+
+    public static boolean isProduction(){
+        return "prod".equalsIgnoreCase(getRunning());
+    }
+
     public static void set(String key, String value){
         System.setProperty(key, value);
     }
