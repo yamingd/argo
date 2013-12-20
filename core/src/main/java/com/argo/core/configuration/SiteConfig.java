@@ -60,6 +60,10 @@ public class SiteConfig extends AbstractConfig implements ConfigListener {
         return domain + url;
     }
 
+    public String getActionFullUrl(String contextPath, String url){
+        return this.getActionFullUrl(contextPath+url);
+    }
+
     @Override
     public String getConfName() {
         return confName;
