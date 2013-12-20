@@ -1,6 +1,6 @@
 package com.argo.message;
 
-import com.codahale.metrics.MetricRegistry;
+import com.argo.core.metric.MetricCollectorImpl;
 import com.codahale.metrics.Timer;
 
 /**
@@ -8,36 +8,28 @@ import com.codahale.metrics.Timer;
  */
 public class MessageMetric {
 
-    static final MetricRegistry metrics = new MetricRegistry();
-
     public static final void publishIncr(Class<?> clazz, String queue, String op){
         String name = queue+":"+op+":";
-        metrics.counter(MetricRegistry.name(
-                clazz, name)).inc();
+        MetricCollectorImpl.current().incrementCounter(clazz, name);
     }
 
     public static final void consumeIncr(Class<?> clazz, String queue, String op){
         String name = queue+":"+op+":";
-        metrics.counter(MetricRegistry.name(
-                clazz, name)).inc();
+        MetricCollectorImpl.current().incrementCounter(clazz, name);
     }
 
     public static final void consumeFailedIncr(Class<?> clazz, String queue, String op){
         String name = queue+":"+op+":";
-        metrics.counter(MetricRegistry.name(
-                clazz, name)).inc();
+        MetricCollectorImpl.current().incrementCounter(clazz, name);
     }
 
     public static final Timer.Context consumerTimer(Class<?> clazz, String queue, String op){
-        String name = queue+":"+op+":ts";
-        final Timer timer = metrics.timer(MetricRegistry.name(
-                clazz, name));
-        return timer.time();
+        String name = queue+":"+op;
+        return MetricCollectorImpl.current().getTimer(clazz, name);
     }
+
     public static final Timer.Context consumerTimer(Class<?> clazz, String queue){
-        String name = queue+":ts";
-        final Timer timer = metrics.timer(MetricRegistry.name(
-                clazz, name));
-        return timer.time();
+        String name = queue;
+        return MetricCollectorImpl.current().getTimer(clazz, name);
     }
 }

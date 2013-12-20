@@ -2,6 +2,7 @@ package com.argo.core.listener;
 
 import com.argo.core.ContextConfig;
 import com.argo.core.configuration.SiteConfig;
+import com.argo.core.metric.MetricCollectorImpl;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -12,7 +13,6 @@ import javax.servlet.ServletContextListener;
  * 在程序开始时，第一个启动
  * context-param -> listener -> filter -> servlet 
  * @author yaming_deng
- * @date 2012-2-13
  */
 public class AppStartUpListener implements ServletContextListener {
 	
@@ -38,7 +38,9 @@ public class AppStartUpListener implements ServletContextListener {
         try {
             ContextConfig.init(sce.getServletContext());
             this.initSiteConfig();
-		} catch (Exception e) {
+            //init metircs reporter
+            new MetricCollectorImpl(SiteConfig.instance.getMetrics()).afterPropertiesSet();
+        } catch (Exception e) {
 			e.printStackTrace();
 			System.exit(1);
 		}		

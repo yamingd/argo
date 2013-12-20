@@ -1,6 +1,7 @@
 package com.argo.couchbase;
 
 import com.argo.core.json.GsonUtil;
+import com.argo.core.metric.MetricCollectorImpl;
 import com.argo.couchbase.exception.BucketException;
 import com.argo.couchbase.exception.BucketQueryException;
 import com.codahale.metrics.Timer;
@@ -48,6 +49,11 @@ public class CouchbaseTemplate {
 		}
 	}
 
+    private void callCountIncr(String bucketName, String name){
+        String realName = bucketName+":"+name;
+        MetricCollectorImpl.current().incrementCounter(this.getClass(), realName, 1);
+    }
+
 	/**
 	 * 添加非JSON结构的数据(永不过期).
 	 * 
@@ -58,7 +64,7 @@ public class CouchbaseTemplate {
 	 */
 	public final void addBinary(String bucketName, final String key,
 			final Object data) throws BucketException {
-        CouchbaseMetric.callCountIncr("addBinary");
+        callCountIncr(bucketName, "addBinary");
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		execute(new BucketCallback<Boolean>() {
 			@Override
@@ -81,7 +87,7 @@ public class CouchbaseTemplate {
 	 */
 	public final void addBinary(String bucketName, final String key,
 			final Object data, final int exp) throws BucketException {
-        CouchbaseMetric.callCountIncr("addBinary");
+        callCountIncr(bucketName, "addBinary");
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		execute(new BucketCallback<Boolean>() {
 			@Override
@@ -102,7 +108,7 @@ public class CouchbaseTemplate {
 	 */
 	public final void setBinary(String bucketName, final String key,
 			final Object data) throws BucketException {
-        CouchbaseMetric.callCountIncr("setBinary");
+        callCountIncr(bucketName, "setBinary");
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		execute(new BucketCallback<Boolean>() {
 			@Override
@@ -125,7 +131,7 @@ public class CouchbaseTemplate {
 	 */
 	public final void setBinary(String bucketName, final String key,
 			final Object data, final int exp) throws BucketException {
-        CouchbaseMetric.callCountIncr("setBinary");
+        callCountIncr(bucketName, "setBinary");
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		execute(new BucketCallback<Boolean>() {
 			@Override
@@ -146,7 +152,7 @@ public class CouchbaseTemplate {
 	 */
 	public final Object getBinary(String bucketName, final String key)
 			throws BucketException {
-        CouchbaseMetric.callCountIncr("getBinary");
+        callCountIncr(bucketName, "getBinary");
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		return execute(new BucketCallback<Object>() {
 			@Override
@@ -165,8 +171,8 @@ public class CouchbaseTemplate {
 	 * @throws BucketException
 	 */
 	public final Long uuid(Class<?> clzz) throws BucketException {
-        CouchbaseMetric.callCountIncr("uuid");
-		String bucketName = this.bucketManager.getBucketByEntity(clzz);
+        String bucketName = this.bucketManager.getBucketByEntity(clzz);
+        callCountIncr(bucketName, "uuid");
 		final String key = String.format("pk:%s", clzz.getSimpleName());
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		return client.incr(key, 1);
@@ -182,9 +188,11 @@ public class CouchbaseTemplate {
 	public final void insert(final BucketEntity objectToSave)
 			throws BucketException {
 		BucketManager.ensureNotIterable(objectToSave);
-        CouchbaseMetric.callCountIncr("insert");
 		String bucketName = this.bucketManager.getBucketByEntity(objectToSave
 				.getClass());
+
+        callCountIncr(bucketName, "insert");
+
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 
 		execute(new BucketCallback<Boolean>() {
@@ -220,7 +228,7 @@ public class CouchbaseTemplate {
 	 *            若对象是删除状态的话，是否物理删除数据, deletedExpired=true则物理删除.
 	 * @throws BucketException
 	 */
-	private void _save(final BucketEntity objectToSave,
+	private String _save(final BucketEntity objectToSave,
 			final Boolean deletedExpired) throws BucketException {
 		BucketManager.ensureNotIterable(objectToSave);
 
@@ -240,6 +248,7 @@ public class CouchbaseTemplate {
 				}
 			}
 		});
+        return bucketName;
 	}
 
 	/**
@@ -250,8 +259,8 @@ public class CouchbaseTemplate {
 	 * @throws BucketException
 	 */
 	public void save(final BucketEntity objectToSave) throws BucketException {
-        CouchbaseMetric.callCountIncr("save");
-		this._save(objectToSave, false);
+		String bucketName = this._save(objectToSave, false);
+        callCountIncr(bucketName, "save");
 	}
 
 	/**
@@ -279,8 +288,8 @@ public class CouchbaseTemplate {
 		BucketManager.ensureNotIterable(objectToSave);
 		objectToSave.setDeleteAt(new Date());
 		objectToSave.setDeleted(true);
-        CouchbaseMetric.callCountIncr("remove");
-		this.save(objectToSave);
+		String bucketName = this._save(objectToSave, false);
+        callCountIncr(bucketName, "remove");
 	}
 
 	/**
@@ -312,8 +321,8 @@ public class CouchbaseTemplate {
 		BucketManager.ensureNotIterable(objectToSave);
 		objectToSave.setDeleteAt(new Date());
 		objectToSave.setDeleted(true);
-        CouchbaseMetric.callCountIncr("remove");
-		this._save(objectToSave, expired);
+		String bucketName = this._save(objectToSave, expired);
+        callCountIncr(bucketName, "remove");
 	}
 
 	/**
@@ -346,9 +355,7 @@ public class CouchbaseTemplate {
 				.getClass());
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 
-        CouchbaseMetric.callCountIncr("update");
-
-		execute(new BucketCallback<Boolean>() {
+        execute(new BucketCallback<Boolean>() {
             @Override
             public Boolean doInBucket() throws InterruptedException,
                     ExecutionException {
@@ -356,6 +363,8 @@ public class CouchbaseTemplate {
                 return client.replace(objectToSave.getCouchbaseKey(), 0, json).get();
             }
         });
+
+        callCountIncr(bucketName, "update");
 	}
 
 	/**
@@ -385,13 +394,15 @@ public class CouchbaseTemplate {
 		String bucketName = this.bucketManager.getBucketByEntity(objectToRemove
 				.getClass());
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
-        CouchbaseMetric.callCountIncr("erase");
+
 		execute(new BucketCallback<OperationFuture<Boolean>>() {
             @Override
             public OperationFuture<Boolean> doInBucket() {
                 return client.delete(objectToRemove.getCouchbaseKey());
             }
         });
+
+        callCountIncr(bucketName, "erase");
 	}
 
 	/**
@@ -426,8 +437,9 @@ public class CouchbaseTemplate {
 	public <T> List<T> findByView(final Class<T> entityClass,
 			final String viewName, final Query query) throws BucketException {
 
-        CouchbaseMetric.callCountIncr("findByView");
-		final Timer.Context context = CouchbaseMetric.queryViews.time();
+        String bucketName = this.bucketManager.getBucketByEntity(entityClass);
+        callCountIncr(bucketName, "findByView");
+		final Timer.Context context = MetricCollectorImpl.current().getTimer(this.getClass(), "findByView");
 		try {
 			if (!query.willIncludeDocs()) {
 				query.setIncludeDocs(true);
@@ -462,8 +474,9 @@ public class CouchbaseTemplate {
     public <T> List<T> findByView(final Class<T> entityClass,
                                   final String viewName, final Query query, final Integer page, final Integer limit) throws BucketException {
 
-        CouchbaseMetric.callCountIncr("findByViewPaging");
-        final Timer.Context context = CouchbaseMetric.queryViews.time();
+        String bucketName = this.bucketManager.getBucketByEntity(entityClass);
+        callCountIncr(bucketName, "findByViewPaging");
+        final Timer.Context context = MetricCollectorImpl.current().getTimer(this.getClass(), "findByViewPaging");
         try {
             if (!query.willIncludeDocs()) {
                 query.setIncludeDocs(true);
@@ -503,8 +516,9 @@ public class CouchbaseTemplate {
     public <T> Integer countByView(final Class<T> entityClass,
                                   final String viewName, final Query query) throws BucketException {
 
-        CouchbaseMetric.callCountIncr("countByView");
-        final Timer.Context context = CouchbaseMetric.queryViews.time();
+        String bucketName = this.bucketManager.getBucketByEntity(entityClass);
+        callCountIncr(bucketName, "countByView");
+        final Timer.Context context = MetricCollectorImpl.current().getTimer(this.getClass(), "countByView");
         try {
 
             query.setIncludeDocs(false);
@@ -553,8 +567,8 @@ public class CouchbaseTemplate {
 	 */
 	public <T> T findById(final Class<T> entityClass, final Long id)
 			throws BucketException {
-        CouchbaseMetric.callCountIncr("findById");
 		String bucketName = this.bucketManager.getBucketByEntity(entityClass);
+        callCountIncr(bucketName, "findById");
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
 		final String key = BucketManager.getCKeyByEntity(entityClass, id);
 		return execute(new BucketCallback<T>() {
@@ -581,11 +595,13 @@ public class CouchbaseTemplate {
 	 */
 	public <T> List<T> findByIds(final Class<T> entityClass,
 			final List<Long> ids) throws BucketException {
-        CouchbaseMetric.callCountIncr("findByIds");
-		final Timer.Context context = CouchbaseMetric.findByIds.time();
+        String bucketName = this.bucketManager
+                .getBucketByEntity(entityClass);
+
+        callCountIncr(bucketName, "findByIds");
+		final Timer.Context context = MetricCollectorImpl.current().getTimer(this.getClass(), "findByIds");
 		try {
-			String bucketName = this.bucketManager
-					.getBucketByEntity(entityClass);
+
 			final CouchbaseClient client = this.bucketManager.get(bucketName);
 			final List<String> keys = new ArrayList<String>();
 			for (Long id : ids) {
@@ -636,16 +652,24 @@ public class CouchbaseTemplate {
 			final Query query) throws BucketException {
 		final String designName = clzz.getSimpleName();
 		String bucketName = this.bucketManager.getBucketByEntity(clzz);
-		final CouchbaseClient client = this.bucketManager.get(bucketName);
 
-		return execute(new BucketCallback<ViewResponse>() {
-			@Override
-			public ViewResponse doInBucket() {
-				final View view = client.getView(designName, viewName);
-				return client.query(view, query);
-			}
-		});
-	}
+        callCountIncr(bucketName+":"+viewName, "queryView");
+        final Timer.Context context = MetricCollectorImpl.current().getTimer(this.getClass(), bucketName+":"+viewName+":queryView");
+        try {
+
+            final CouchbaseClient client = this.bucketManager.get(bucketName);
+
+            return execute(new BucketCallback<ViewResponse>() {
+                @Override
+                public ViewResponse doInBucket() {
+                    final View view = client.getView(designName, viewName);
+                    return client.query(view, query);
+                }
+            });
+        } finally {
+            context.stop();
+        }
+    }
 
 	/**
 	 * 读取统计用途的视图.
@@ -658,9 +682,9 @@ public class CouchbaseTemplate {
 	 */
 	public Map<String, Integer> statView(Class<?> entityClass,
 			final String viewName, final Query query) throws BucketException {
-
-        CouchbaseMetric.callCountIncr("statView");
-		final Timer.Context context = CouchbaseMetric.statViews.time();
+        String bucketName = this.bucketManager.getBucketByEntity(entityClass);
+        callCountIncr(bucketName, "statView");
+		final Timer.Context context = MetricCollectorImpl.current().getTimer(this.getClass(), bucketName+":"+viewName+":statView");
 		try {
 			query.setIncludeDocs(false);
 			query.setReduce(true);

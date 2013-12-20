@@ -48,6 +48,10 @@ public class MessageConfig extends AbstractConfig {
         return this.queues;
     }
 
+    public Map getMetircs(){
+        return super.get(Map.class, "metrics");
+    }
+
     @Override
     public String getConfName() {
         return confName;

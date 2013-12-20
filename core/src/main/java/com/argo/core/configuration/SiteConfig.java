@@ -36,6 +36,10 @@ public class SiteConfig extends AbstractConfig implements ConfigListener {
         return this.get(Map.class, "cookie");
     }
 
+    public Map getMetrics(){
+        return this.get(Map.class, "metirics");
+    }
+
     public boolean isCookieSecure() {
         Map ret = getCookie();
         if (ret == null){

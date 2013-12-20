@@ -14,8 +14,10 @@ import org.springframework.stereotype.Component;
 @Component("serverProviderFactory")
 public class ServerProviderFactory extends BaseBean {
 
+    private MessageConfig messageConfig;
+
 	public ServerProvider getOne() throws Exception{
-		String serviceName = MessageConfig.current.getProvider();
+		String serviceName = messageConfig.getProvider();
 		return this.getOne(serviceName);
 	}
 	
@@ -31,4 +33,17 @@ public class ServerProviderFactory extends BaseBean {
 		
 		return serverProvider;
 	}
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        if (MessageConfig.current == null){
+            messageConfig = new MessageConfig();
+            messageConfig.afterPropertiesSet();
+        }else{
+            messageConfig = MessageConfig.current;
+        }
+
+        //init metrics
+
+    }
 }
