@@ -30,14 +30,6 @@ public class ServiceConfig extends AbstractConfig implements ConfigListener {
         return ret;
     }
 
-    public Map getTasks(){
-        Map ret = this.get(Map.class, "tasks");
-        if (ret == null){
-            this.getLogger().error("Can't not find mail config in service.yaml");
-        }
-        return ret;
-    }
-
     public Map getBeans(){
         Map ret = this.get(Map.class, "beans");
         if (ret == null){

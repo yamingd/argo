@@ -165,7 +165,7 @@ public abstract class ElasticsearchAbstractClientFactoryBean extends Elasticsear
 			ArrayList<String> autoMappings = new ArrayList<String>();
 			// Let's scan our resources
 			PathMatchingResourcePatternResolver pathResolver = new PathMatchingResourcePatternResolver();
-			Resource resourceRoot = pathResolver.getResource(this.config.getClassPathRoot());
+            Resource resourceRoot = pathResolver.getResource(this.config.getClassPathRoot());
 			try {
 				Resource[] resources = pathResolver.getResources("classpath:"+this.config.getClassPathRoot() + "/**/*"+jsonFileExtension);
 				for (int i = 0; i < resources.length; i++) {

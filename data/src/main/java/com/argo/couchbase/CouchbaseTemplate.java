@@ -29,7 +29,7 @@ import java.util.concurrent.TimeoutException;
 public class CouchbaseTemplate implements InitializingBean {
 
 	public static final Logger logger = LoggerFactory
-			.getLogger(CouchbaseTemplate.class);;
+			.getLogger(CouchbaseTemplate.class);
 
 
 	@Autowired

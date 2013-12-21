@@ -1,4 +1,4 @@
-package com.argo.core.task;
+package com.argo.task.factory;
 
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
