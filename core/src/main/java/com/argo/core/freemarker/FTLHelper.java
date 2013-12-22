@@ -1,11 +1,9 @@
 package com.argo.core.freemarker;
 
 import com.argo.core.ContextConfig;
-import com.argo.core.base.BaseUser;
-import com.argo.core.exception.UserNotAuthorizationException;
-import com.argo.core.web.session.SessionUserHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.support.RequestContext;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,9 +16,6 @@ public class FTLHelper {
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public String url(String relativeUrl){
-        if (logger.isDebugEnabled()){
-            logger.debug("ContextPath:"+ ContextConfig.get("contextPath"));
-        }
         String ct = ContextConfig.get("contextPath");
         if("/".equalsIgnoreCase(ct)){
             return relativeUrl;
@@ -28,9 +23,22 @@ public class FTLHelper {
         return ct + relativeUrl;
     }
 
-    public BaseUser currentUser() throws UserNotAuthorizationException {
-        BaseUser user = SessionUserHolder.get();
-        return user;
+    public String menuSelected(RequestContext request, String menuUrl, String cssName){
+        String url = request.getRequestUri();
+        String ct = ContextConfig.get("contextPath");
+        url = url.replace(ct, "");
+        if (menuUrl.startsWith("/")){
+            menuUrl = menuUrl.substring(1);
+        }
+        if (url.startsWith("/")){
+            url = url.substring(1);
+        }
+        if (menuUrl.length() >0 && url.startsWith(menuUrl)){
+            return cssName;
+        }
+        if (menuUrl.equalsIgnoreCase(url)){
+            return cssName;
+        }
+        return "";
     }
-
 }

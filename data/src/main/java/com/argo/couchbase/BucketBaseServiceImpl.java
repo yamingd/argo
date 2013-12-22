@@ -34,7 +34,7 @@ public class BucketBaseServiceImpl implements BucketBaseService, InitializingBea
             Long oid = this.cbTemplate.uuid(entity.getClass());
             entity.setOid(oid);
             entity.setCreateAt(new Date());
-            this.cbTemplate.save(entity);
+            this.cbTemplate.insert(entity);
             return true;
         } catch (BucketException e) {
             throw new ServiceException("add Error.", e);
@@ -45,7 +45,7 @@ public class BucketBaseServiceImpl implements BucketBaseService, InitializingBea
     public <T extends BucketEntity> boolean update(T entity) throws ServiceException {
         try {
             entity.setUpdateAt(new Date());
-            this.cbTemplate.update(entity);
+            this.cbTemplate.save(entity);
             return true;
         } catch (BucketException e) {
             throw new ServiceException("update Error.", e);

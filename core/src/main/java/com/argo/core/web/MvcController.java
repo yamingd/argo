@@ -7,6 +7,10 @@ import com.argo.core.web.session.SessionUserHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,8 +26,25 @@ public abstract class MvcController {
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public BaseUser getCurrentUser() throws UserNotAuthorizationException {
-        BaseUser user = SessionUserHolder.get();
-        return user;
+       if (this.currentUser.isAnonymous()){
+           throw new UserNotAuthorizationException("Go login in first.");
+       }else{
+           return this.currentUser;
+       }
     }
 
+    private BaseUser currentUser;
+    protected HttpServletRequest request;
+    protected HttpServletResponse response;
+
+    @ModelAttribute
+    public void setReqAndRes(HttpServletRequest request, HttpServletResponse response){
+        this.request = request;
+        this.response = response;
+        try {
+            this.currentUser = SessionUserHolder.get();
+        } catch (UserNotAuthorizationException e) {
+            this.currentUser = new AnonymousUser();
+        }
+    }
 }

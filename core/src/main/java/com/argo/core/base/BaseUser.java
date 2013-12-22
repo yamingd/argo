@@ -130,4 +130,9 @@ public class BaseUser extends BaseEntity {
 	public Integer getPasswdMode() {
 		return passwdMode;
 	}
+
+    public boolean isAnonymous(){
+        return this.uid.intValue() <= 0;
+    }
+
 }
