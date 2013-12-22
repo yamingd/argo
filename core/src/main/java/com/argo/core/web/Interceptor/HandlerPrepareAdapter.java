@@ -44,8 +44,8 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             Object handler) throws Exception {
 
         if (logger.isDebugEnabled()){
-            logger.debug("preHandle incoming request. contextPath="+request.getContextPath());
-            logger.debug("handler is {} ", handler.getClass());
+            //logger.debug("preHandle incoming request. contextPath="+request.getContextPath());
+            //logger.debug("handler is {} ", handler.getClass());
         }
 
         String url = request.getRequestURI();
