@@ -1,8 +1,10 @@
 package com.argo.couchbase;
 
+import com.argo.core.ContextConfig;
 import com.argo.core.base.BaseEntity;
 import com.google.common.hash.HashCode;
 import com.google.gson.annotations.Expose;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -14,9 +16,16 @@ public abstract class BucketEntity extends BaseEntity {
 
     private String _docType;
     private Long oid;
+
+    @DateTimeFormat(pattern = ContextConfig.DATE_TIME_FORMAT)
 	private Date createAt;
+
+    @DateTimeFormat(pattern = ContextConfig.DATE_TIME_FORMAT)
 	private Date updateAt;
+
+    @DateTimeFormat(pattern = ContextConfig.DATE_TIME_FORMAT)
 	private Date deleteAt;
+
 	private boolean deleted = false;
 
     public BucketEntity() {

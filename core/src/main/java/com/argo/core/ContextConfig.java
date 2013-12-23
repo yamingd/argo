@@ -13,6 +13,8 @@ public class ContextConfig {
 
     public static final String RUNNING_ENV = "com.argo.running.env";
 
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSSZ";
+
     public static void setRunning(String env){
         System.setProperty(RUNNING_ENV, env);
     }

@@ -1,5 +1,6 @@
 package com.argo.core.json;
 
+import com.argo.core.ContextConfig;
 import com.argo.core.exception.JsonDSException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,7 +11,10 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * gson的工具类
@@ -18,7 +22,6 @@ import java.util.*;
  */
 public class GsonUtil {
 
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     protected Logger logger = LoggerFactory.getLogger(GsonUtil.class);
 
     public static <T> List<T> asList(String json, final T[] itemType)throws JsonDSException {
@@ -58,7 +61,7 @@ public class GsonUtil {
         GsonBuilder builder = new GsonBuilder();
 
         //设置时间格式
-        builder.setDateFormat(DATE_FORMAT);
+        builder.setDateFormat(ContextConfig.DATE_TIME_FORMAT);
 
         //设置需要被排除的属性列表
         if (exclusionFields != null && exclusionFields.length > 0) {
@@ -86,7 +89,7 @@ public class GsonUtil {
         GsonBuilder builder = new GsonBuilder();
 
         //设置时间格式
-        builder.setDateFormat(DATE_FORMAT);
+        builder.setDateFormat(ContextConfig.DATE_TIME_FORMAT);
 
         //设置需要转换的属性名称
         if (includeFields != null && includeFields.length > 0) {

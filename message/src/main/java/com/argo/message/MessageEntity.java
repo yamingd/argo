@@ -1,6 +1,6 @@
 package com.argo.message;
 
-import com.argo.core.json.GsonUtil;
+import com.argo.core.ContextConfig;
 import com.argo.core.web.WebContext;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -94,7 +94,7 @@ public class MessageEntity implements Serializable {
 	public Date getDateValue(String key){
 		String val = this.getStringValue(key);
 		try {
-			return DateUtils.parseDate(val, new String[]{GsonUtil.DATE_FORMAT});
+			return DateUtils.parseDate(val, new String[]{ContextConfig.DATE_TIME_FORMAT});
 		} catch (Exception e) {
 			return null;
 		}

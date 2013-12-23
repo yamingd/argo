@@ -49,6 +49,9 @@ public class CSRFTokenFilter implements Filter {
 		if("POST".equalsIgnoreCase(method) || "PUT".equalsIgnoreCase(method)){
 			if(!this.isUrlFiltered(httpRequest)){
 				String formToken = httpRequest.getParameter("_csrf_");
+                if (StringUtils.isBlank(formToken)){
+                    formToken = httpRequest.getHeader("X-CSRFToken");
+                }
 				Cookie clientToken = WebUtils.getCookie(httpRequest, "_csrf_");
 				if(clientToken==null 
 						|| StringUtils.isBlank(formToken) 

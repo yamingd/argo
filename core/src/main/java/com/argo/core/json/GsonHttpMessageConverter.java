@@ -1,5 +1,6 @@
 package com.argo.core.json;
 
+import com.argo.core.ContextConfig;
 import com.google.gson.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,6 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
-import java.util.Date;
 
 /**
  * @author Roy Clarkson
@@ -36,7 +36,7 @@ public class GsonHttpMessageConverter extends AbstractHttpMessageConverter<Objec
 
     private boolean prefixJson = false;
     private boolean serializeNulls = false;
-
+    private String dateTimeFormat;
     /**
      * Construct a new {@code GsonHttpMessageConverter} with a default {@link Gson#Gson() Gson}.
      */
@@ -171,31 +171,25 @@ public class GsonHttpMessageConverter extends AbstractHttpMessageConverter<Objec
         if (this.gson != null){
             return;
         }
+        if (this.dateTimeFormat == null){
+            this.dateTimeFormat = ContextConfig.DATE_TIME_FORMAT;
+        }
         //创建GsonBuilder
         GsonBuilder builder = new GsonBuilder();
         //设置需要被排除的属性列表
         GsonPrefixExclusion gsonFilter = new GsonPrefixExclusion();
         builder.setExclusionStrategies(gsonFilter);
-        builder.registerTypeAdapter(Date.class, ser)
-                .registerTypeAdapter(Date.class, deser);
+        builder.setDateFormat(this.dateTimeFormat);
         //创建Gson并进行转换
         Gson gson = builder.create();
         this.setGson(gson);
     }
 
-    JsonSerializer<Date> ser = new JsonSerializer<Date>() {
-        @Override
-        public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext
-                context) {
-            return src == null ? null : new JsonPrimitive(src.getTime());
-        }
-    };
+    public String getDateTimeFormat() {
+        return dateTimeFormat;
+    }
 
-    JsonDeserializer<Date> deser = new JsonDeserializer<Date>() {
-        @Override
-        public Date deserialize(JsonElement json, Type typeOfT,
-                                JsonDeserializationContext context) throws JsonParseException {
-            return json == null ? null : new Date(json.getAsLong());
-        }
-    };
+    public void setDateTimeFormat(String dateTimeFormat) {
+        this.dateTimeFormat = dateTimeFormat;
+    }
 }
