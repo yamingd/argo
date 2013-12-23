@@ -3,15 +3,17 @@ package com.argo.couchbase;
 import com.argo.couchbase.exception.BucketException;
 import com.couchbase.client.protocol.views.DesignDocument;
 import com.couchbase.client.protocol.views.ViewDesign;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
-import java.net.URL;
 import java.util.*;
 
 /**
@@ -40,39 +42,66 @@ public class DesignDocManager implements InitializingBean {
 	
 	@Autowired
 	private CouchbaseTemplate couchbaseTemplate;
-	
+
+    private List<String> changes = null;
+
+    private File getFolder() throws IOException {
+        PathMatchingResourcePatternResolver pathResolver = new PathMatchingResourcePatternResolver();
+        Resource resourceRoot = pathResolver.getResource(CB_DDOC);
+        return resourceRoot.getFile();
+    }
 	/**
 	 * 初始化所有DDOC. 
 	 * @throws IOException
 	 */
 	public synchronized void syncCreateAll() throws IOException {
-		URL url = ClassLoader.getSystemResource("web.xml");
-		if (url != null) {
-			String fileName = url.getFile().split("/WEB-INF/")[0];
-			File folder = new File(fileName + CB_DDOC);
+        File folder = this.getFolder();
+		if (folder != null) {
+            logger.info(folder.getAbsolutePath());
+            File file = new File(folder.getAbsolutePath() + File.separator + "changes");
+            this.loadChangedDdocs(file);
 			File[] files = folder.listFiles();
 			for (File item : files) {
+                if (item.isFile()){
+                    continue;
+                }
 				try {
 					this.syncViews(item);
 				} catch (BucketException e) {
 					logger.error("Sync Create DDOC Error. path=" + item.getPath(), e);
 				}
 			}
-		} else {
-			throw new IOException("File not found with system classloader.");
+            this.changes = null;
+            try {
+                if (file.exists()){
+                    FileUtils.write(file, "");
+                }
+            } catch (IOException e) {
+
+            }
+        } else {
+			throw new IOException("Folder couchbase can't found in classpath.");
 		}
 	}
-	
+
+    private void loadChangedDdocs(File file){
+        if (file.exists()){
+            try {
+                this.changes = FileUtils.readLines(file);
+            } catch (IOException e) {
+                logger.error("loadChangedDDocs", e);
+            }
+        }
+    }
+
 	/**
 	 * 列出现有的DDOCS.
 	 * @return
 	 * @throws IOException
 	 */
 	public synchronized List<String> listAll() throws IOException {
-		URL url = ClassLoader.getSystemResource("web.xml");
-		if (url != null) {
-			String fileName = url.getFile().split("/WEB-INF/")[0];
-			File folder = new File(fileName + CB_DDOC);
+        File folder = this.getFolder();
+		if (folder != null) {
 			File[] files = folder.listFiles();
 			List<String> paths = new ArrayList<String>();
 			for (File item : files) {
@@ -80,7 +109,7 @@ public class DesignDocManager implements InitializingBean {
 			}
 			return paths;
 		} else {
-			throw new IOException("File not found with system classloader.");
+			throw new IOException("Folder couchbase can't found in classpath.");
 		}
 	}
 	
@@ -101,6 +130,9 @@ public class DesignDocManager implements InitializingBean {
 	
 	private void syncViews(File folder) throws IOException, BucketException{
 		String ddocName = folder.getName();
+        if (this.changes!=null && !this.changes.contains(ddocName)){
+            return;
+        }
 		File[] files = folder.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -112,7 +144,10 @@ public class DesignDocManager implements InitializingBean {
 		for (File file : files) {
             // {viewName}.map.json
             // {viewName}.reduce.json
-			String[] temp = file.getName().split(".");
+            if (logger.isDebugEnabled()){
+                logger.debug("syncViews: file:{}, {}", file.getAbsoluteFile(), file.getName());
+            }
+			String[] temp = file.getName().split("\\.");
 			String viewName = temp[0];
 			String value = readFileAsString(file);
 			if(V_MAP.equalsIgnoreCase(temp[1])){
@@ -134,6 +169,7 @@ public class DesignDocManager implements InitializingBean {
 		
 		String bucketName = this.bucketManager.getBucket(ddocName);
 		this.couchbaseTemplate.syncDDocViews(bucketName, ddoc);
+        logger.info("Create DesignDocument. bucketName={}, ddocName={}", bucketName, ddocName);
 	}
 
 	private String readFileAsString(File afile) throws IOException {
@@ -151,6 +187,6 @@ public class DesignDocManager implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-				
+		this.syncCreateAll();
 	}
 }

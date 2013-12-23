@@ -29,7 +29,7 @@ import java.util.concurrent.TimeoutException;
 public class CouchbaseTemplate implements InitializingBean {
 
 	public static final Logger logger = LoggerFactory
-			.getLogger(CouchbaseTemplate.class);;
+			.getLogger(CouchbaseTemplate.class);
 
 
 	@Autowired
@@ -177,7 +177,7 @@ public class CouchbaseTemplate implements InitializingBean {
         callCountIncr(bucketName, "uuid");
 		final String key = String.format("pk:%s", clzz.getSimpleName());
 		final CouchbaseClient client = this.bucketManager.get(bucketName);
-		return client.incr(key, 1);
+		return client.incr(key, 1, 1);
 	}
 
 	/**
@@ -190,7 +190,7 @@ public class CouchbaseTemplate implements InitializingBean {
 	public final void insert(final BucketEntity objectToSave)
 			throws BucketException {
 		BucketManager.ensureNotIterable(objectToSave);
-		String bucketName = this.bucketManager.getBucketByEntity(objectToSave
+		final String bucketName = this.bucketManager.getBucketByEntity(objectToSave
 				.getClass());
 
         callCountIncr(bucketName, "insert");
@@ -202,6 +202,9 @@ public class CouchbaseTemplate implements InitializingBean {
 			public Boolean doInBucket() throws InterruptedException,
 					ExecutionException {
 				String json = GsonUtil.toJson(objectToSave);
+                if (logger.isDebugEnabled()){
+                    logger.debug("insert, bucket:{}, data:{}", bucketName, json);
+                }
 				return client.add(objectToSave.getCouchbaseKey(), 0, json).get();
 			}
 		});

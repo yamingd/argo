@@ -1,4 +1,4 @@
-package com.argo.core.task;
+package com.argo.task;
 
 import org.springframework.stereotype.Component;
 

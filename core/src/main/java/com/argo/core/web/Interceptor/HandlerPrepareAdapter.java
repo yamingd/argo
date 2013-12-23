@@ -5,9 +5,12 @@ import com.argo.core.base.BaseUser;
 import com.argo.core.configuration.SiteConfig;
 import com.argo.core.exception.PermissionDeniedException;
 import com.argo.core.exception.UserNotAuthorizationException;
+import com.argo.core.metric.MetricCollectorImpl;
 import com.argo.core.security.AuthorizationService;
 import com.argo.core.service.factory.ServiceLocator;
 import com.argo.core.utils.IpUtil;
+import com.argo.core.web.AnonymousUser;
+import com.argo.core.web.CSRFToken;
 import com.argo.core.web.WebContext;
 import com.argo.core.web.session.SessionCookieHolder;
 import com.argo.core.web.session.SessionUserHolder;
@@ -41,7 +44,17 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             Object handler) throws Exception {
 
         if (logger.isDebugEnabled()){
-            logger.debug("preHandle incoming request. contextPath="+request.getContextPath());
+            //logger.debug("preHandle incoming request. contextPath="+request.getContextPath());
+            //logger.debug("handler is {} ", handler.getClass());
+        }
+
+        String url = request.getRequestURI();
+        url = url.replace(request.getContextPath(), "");
+        if (!url.startsWith("/resources/")){
+            MetricCollectorImpl.current().incrementCounter(handler.getClass(), url);
+        }else{
+            //读取css, js, image等，直接返回
+            return true;
         }
 
         WebContext.getContext().setRequestIp(IpUtil.getIpAddress(request));
@@ -56,10 +69,9 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         try {
             currentUid = SessionCookieHolder.getCurrentUID(request);
         } catch (UserNotAuthorizationException e) {
-            if (logger.isDebugEnabled()){
-                logger.debug("preHandle currentUid="+currentUid, e);
-            }
+            logger.debug("UserNotAuthorizationException currentUid="+currentUid);
         }
+        BaseUser user = null;
         if (StringUtils.isNotBlank(currentUid)){
             // 若是远程服务，则需要配置bean.authorizationService的实现
             // 若是本地服务，不需要配置
@@ -69,7 +81,7 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             authorizationService = ServiceLocator.instance.get(AuthorizationService.class);
             if (authorizationService != null){
                 try{
-                    BaseUser user = authorizationService.verifyCookie(currentUid);
+                    user = authorizationService.verifyCookie(currentUid);
                     SessionUserHolder.set(user);
                     if (logger.isDebugEnabled()){
                         logger.debug("preHandle verifyCookie is OK. BaseUser=" + user.getUserName());
@@ -85,6 +97,13 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
                     return false;
                 }
             }
+        }
+        if (user == null){
+            user = new AnonymousUser();
+        }
+        request.setAttribute("currentUser", user);
+        if (request.getMethod().equalsIgnoreCase("GET")){
+            request.setAttribute("csrf", new CSRFToken(request, response, user));
         }
         if (logger.isDebugEnabled()){
             logger.debug("preHandle currentUid="+currentUid);

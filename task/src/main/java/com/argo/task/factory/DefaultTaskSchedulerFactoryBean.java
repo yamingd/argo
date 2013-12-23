@@ -1,7 +1,8 @@
-package com.argo.core.task;
+package com.argo.task.factory;
 
 import com.argo.core.configuration.SiteConfig;
-import com.argo.core.service.ServiceConfig;
+import com.argo.task.Job;
+import com.argo.task.TaskConfig;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.impl.triggers.CronTriggerImpl;
@@ -21,14 +22,8 @@ public class DefaultTaskSchedulerFactoryBean extends TaskSchedulerFactory {
 
 	public static DefaultTaskSchedulerFactoryBean instance = null;
 
-	
-	public boolean isEnabled(){
-        Map map = ServiceConfig.instance.getTasks();
-        return (Boolean)map.get("enabled");
-	}
-
 	public void afterPropertiesSet()throws Exception{
-		if(!this.isEnabled()){
+		if(!TaskConfig.instance.isEnabled()){
 			return;
 		}
 		DefaultTaskSchedulerFactoryBean.instance = this;
@@ -36,7 +31,7 @@ public class DefaultTaskSchedulerFactoryBean extends TaskSchedulerFactory {
 	}
 	
 	public void scheduleJob(Job job) throws Exception{
-		if(!this.isEnabled()){
+        if(!TaskConfig.instance.isEnabled()){
 			return;
 		}
 

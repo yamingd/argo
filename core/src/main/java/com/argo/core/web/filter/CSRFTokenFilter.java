@@ -47,7 +47,7 @@ public class CSRFTokenFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
 		String method = httpRequest.getMethod();
 		if("POST".equalsIgnoreCase(method) || "PUT".equalsIgnoreCase(method)){
-			if(!this.isUrlFiltered(httpRequest.getRequestURI())){
+			if(!this.isUrlFiltered(httpRequest)){
 				String formToken = httpRequest.getParameter("_csrf_");
 				Cookie clientToken = WebUtils.getCookie(httpRequest, "_csrf_");
 				if(clientToken==null 
@@ -76,13 +76,15 @@ public class CSRFTokenFilter implements Filter {
 	
 	/**
 	 * URL是否需要过滤掉.
-	 * @param url
+	 * @param request
 	 * @return
 	 */
-	private boolean isUrlFiltered(String url){
+	private boolean isUrlFiltered(HttpServletRequest request){
 		if(this.filterUrls==null){
 			return false;
 		}
+        String url = request.getRequestURI();
+        url = url.replace(request.getContextPath(), "");
 		url = url.trim().toLowerCase();
 		for(String item : this.filterUrls){
 			if(url.startsWith(item.toLowerCase())){
