@@ -1,5 +1,8 @@
 package com.argo.core.json;
+
 import com.google.gson.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
@@ -16,6 +19,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
+import java.util.Date;
 
 /**
  * @author Roy Clarkson
@@ -24,6 +28,7 @@ import java.nio.charset.Charset;
 public class GsonHttpMessageConverter extends AbstractHttpMessageConverter<Object> implements InitializingBean {
 
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+    protected Logger logger = LoggerFactory.getLogger(GsonHttpMessageConverter.class);
 
     private Gson gson;
 
@@ -168,13 +173,29 @@ public class GsonHttpMessageConverter extends AbstractHttpMessageConverter<Objec
         }
         //创建GsonBuilder
         GsonBuilder builder = new GsonBuilder();
-        //设置时间格式
-        //builder.setDateFormat(GsonUtil.DATE_FORMAT);
         //设置需要被排除的属性列表
         GsonPrefixExclusion gsonFilter = new GsonPrefixExclusion();
         builder.setExclusionStrategies(gsonFilter);
+        builder.registerTypeAdapter(Date.class, ser)
+                .registerTypeAdapter(Date.class, deser);
         //创建Gson并进行转换
         Gson gson = builder.create();
         this.setGson(gson);
     }
+
+    JsonSerializer<Date> ser = new JsonSerializer<Date>() {
+        @Override
+        public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext
+                context) {
+            return src == null ? null : new JsonPrimitive(src.getTime());
+        }
+    };
+
+    JsonDeserializer<Date> deser = new JsonDeserializer<Date>() {
+        @Override
+        public Date deserialize(JsonElement json, Type typeOfT,
+                                JsonDeserializationContext context) throws JsonParseException {
+            return json == null ? null : new Date(json.getAsLong());
+        }
+    };
 }
