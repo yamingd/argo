@@ -22,4 +22,8 @@
         <property name="jdbcConfig" ref="jdbcConfig"></property>
     </bean>
 
+    <bean id="masterSlaveDatasource" class="com.argo.db.datasource.MasterSlaveDataSourceFactoryBean" >
+        <property name="jdbcConfig" ref="jdbcConfig"></property>
+    </bean>
+
 </beans>
