@@ -7,6 +7,7 @@ import com.argo.core.web.session.SessionUserHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,5 +47,20 @@ public abstract class MvcController {
         } catch (UserNotAuthorizationException e) {
             this.currentUser = new AnonymousUser();
         }
+    }
+
+    public void init() throws Exception {
+
+    }
+
+    public boolean needLogin() {
+        return false;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(Exception ex, HttpServletRequest request) {
+        logger.error(request.getPathInfo() + "?" + request.getQueryString());
+        logger.error("@@@@Error.", ex);
+        return "500";
     }
 }

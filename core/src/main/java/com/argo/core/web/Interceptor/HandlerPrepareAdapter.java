@@ -11,6 +11,7 @@ import com.argo.core.service.factory.ServiceLocator;
 import com.argo.core.utils.IpUtil;
 import com.argo.core.web.AnonymousUser;
 import com.argo.core.web.CSRFToken;
+import com.argo.core.web.MvcController;
 import com.argo.core.web.WebContext;
 import com.argo.core.web.session.SessionCookieHolder;
 import com.argo.core.web.session.SessionUserHolder;
@@ -19,6 +20,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.Cookie;
@@ -124,6 +126,12 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
                 return false;
             }
         }
+
+        MvcController c = this.getController(handler);
+        if (c != null){
+            c.init();
+        }
+
         return true;
     }
 
@@ -139,5 +147,17 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         }
         byte[] lastAccessUrl = BaseEncoding.base64Url().decode(cookie.getValue());
         return new String(lastAccessUrl);
+    }
+
+    private MvcController getController(Object handler){
+        if(handler instanceof MvcController){
+            return (MvcController)handler;
+        }else if(handler instanceof HandlerMethod){
+            HandlerMethod hm = (HandlerMethod)handler;
+            if(hm.getBean() instanceof MvcController){
+                return (MvcController)hm.getBean();
+            }
+        }
+        return null;
     }
 }
