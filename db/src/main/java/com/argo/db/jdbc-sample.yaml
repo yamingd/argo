@@ -16,27 +16,27 @@ common:
    pwd: secret
 
 server:
-   -name: s1
+   - name: s1
      type: mysql
      user: test
      pwd:  secret
      url: 127.0.0.1:3306
 
-   -name: s2
+   - name: s2
      type: mysql
      user: test
      pwd:  secret
      url: 127.0.0.1:3306
 
 ms:
-   -name: s1
+   - name: s1
      type: mysql
      user: test
      pwd:  secret
      master: 127.0.0.1:3306, 127.0.0.1:3307
      slaves: 127.0.0.1:3316, 127.0.0.1:3317
 
-   -name: s2
+   - name: s2
      type: mysql
      user: test
      pwd:  secret

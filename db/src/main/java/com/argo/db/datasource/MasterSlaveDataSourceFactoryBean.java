@@ -51,7 +51,7 @@ public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlave
 	 */
 	@Override
 	public Class<?> getObjectType() {
-		return ShardRoutingDataSource.class;
+		return MasterSlaveRoutingDataSource.class;
 	}
 
 	/* (non-Javadoc)
@@ -132,4 +132,11 @@ public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlave
 		this.msRoutingDataSource.destroy();
 	}
 
+    public JdbcConfig getJdbcConfig() {
+        return jdbcConfig;
+    }
+
+    public void setJdbcConfig(JdbcConfig jdbcConfig) {
+        this.jdbcConfig = jdbcConfig;
+    }
 }
