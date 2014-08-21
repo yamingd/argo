@@ -11,7 +11,7 @@ import com.argo.core.exception.UserNotAuthorizationException;
  * Date: 13-11-17
  * Time: 上午10:02
  */
-public interface AuthorizationService {
+public interface AuthorizationService<T extends BaseUser> {
 
     /**
      * 验证Cookie的UserId
@@ -19,7 +19,7 @@ public interface AuthorizationService {
      * @return
      * @throws UserNotAuthorizationException
      */
-    BaseUser verifyCookie(String uid) throws UserNotAuthorizationException;
+    T verifyCookie(String uid) throws UserNotAuthorizationException;
 
     /**
      * 验证用户登录
@@ -27,7 +27,7 @@ public interface AuthorizationService {
      * @param password
      * @return
      */
-    boolean verifyUserPassword(String userName, String password);
+    T verifyUserPassword(String userName, String password);
 
     /**
      * 验证用户是否有权访问

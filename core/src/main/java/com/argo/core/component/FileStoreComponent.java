@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * 附件存储
@@ -134,7 +135,7 @@ public class FileStoreComponent extends BaseBean {
 	 * 用Hash算法计算存储目录
 	 * @param fileId
 	 * @param fileCategory
-	 * @return
+	 * @return String[fullPath, Path]
 	 */
 	public String[] generateFolder(Integer fileId, String fileCategory){
 		String fileName = String.format("file-%s-%s", fileCategory,fileId).toLowerCase();
@@ -147,7 +148,24 @@ public class FileStoreComponent extends BaseBean {
 		}
 		return new String[]{String.format("%s%s", rootFolder,path), path};
 	}
-	
+
+    /**
+     * 用Hash算法计算存储目录
+     * @param fileCategory
+     * @return String[fullPath, Path]
+     */
+    public String[] randomFolder(String fileCategory){
+        String fileName = String.format("file-%s-%s", fileCategory, UUID.randomUUID().toString()).toLowerCase();
+        String hex = TokenUtil.md5(fileName);
+        String rootFolder = getFileRootFolder();
+        String path = String.format("/%s/%s/%s/%s/%s/", fileCategory, hex.substring(0, 3),hex.substring(3, 6),hex.substring(6, 9),hex.substring(9, 12));
+        File folder = new File(String.format("%s%s", rootFolder,path));
+        if(!folder.exists()){
+            folder.mkdirs();
+        }
+        return new String[]{String.format("%s%s", rootFolder,path), path};
+    }
+
 	/**
 	 * 存储根目录.
 	 * @return

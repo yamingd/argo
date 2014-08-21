@@ -135,4 +135,20 @@ public class BaseUser extends BaseEntity {
         return this.uid.intValue() <= 0;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BaseUser)) return false;
+
+        BaseUser baseUser = (BaseUser) o;
+
+        if (!uid.equals(baseUser.uid)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return uid.hashCode();
+    }
 }

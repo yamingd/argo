@@ -69,7 +69,15 @@ public class SessionCookieHolder {
 		}
 		return uid;
 	}
-	
+    public static void setCurrentUID(HttpServletResponse response, String uid){
+        String name = getAuthCookieId();
+        String value = TokenUtil.createSignedValue(name, uid);
+        setCookie(response, name, value);
+    }
+    public static void removeCurrentUID(HttpServletResponse response){
+        String name = getAuthCookieId();
+        setCookie(response, name, "", 0);
+    }
 	/**
 	 * 获取当前的SessionId
 	 * @param request
