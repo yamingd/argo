@@ -1,5 +1,6 @@
 package com.argo.core.component;
 
+import com.argo.core.ObjectId;
 import com.argo.core.base.BaseBean;
 import com.argo.core.utils.TokenUtil;
 import com.google.common.hash.HashCode;
@@ -12,7 +13,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * 附件存储
@@ -155,7 +155,7 @@ public class FileStoreComponent extends BaseBean {
      * @return String[fullPath, Path]
      */
     public String[] randomFolder(String fileCategory){
-        String fileName = String.format("file-%s-%s", fileCategory, UUID.randomUUID().toString()).toLowerCase();
+        String fileName = String.format("file-%s-%s-%s", ObjectId.getGenMachineId(), fileCategory, new Date().getTime()).toLowerCase();
         String hex = TokenUtil.md5(fileName);
         String rootFolder = getFileRootFolder();
         String path = String.format("/%s/%s/%s/%s/%s/", fileCategory, hex.substring(0, 3),hex.substring(3, 6),hex.substring(6, 9),hex.substring(9, 12));
