@@ -93,8 +93,10 @@ public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlave
             List<DataSource> sourceList = Lists.newArrayList();
             String[] jdbcUrl = ObjectUtils.toString(server.get("master")).split(",");
             for (String url : jdbcUrl) {
-                config.setJdbcUrl(url);
-                sourceList.add(new MasterSlaveDataSource(config, "master"));
+                config.setJdbcUrl(this.getJdbcFullUrl(url));
+                MasterSlaveDataSource master = new MasterSlaveDataSource(config, "master");
+                master.setDriverClass(this.getDriver());
+                sourceList.add(master);
             }
             String key = server.get("name") + "-master";
             dsMap.put(key, sourceList);
@@ -102,8 +104,10 @@ public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlave
             sourceList = Lists.newArrayList();
             jdbcUrl = ObjectUtils.toString(server.get("slaves")).split(",");
             for (String url : jdbcUrl) {
-                config.setJdbcUrl(url);
-                sourceList.add(new MasterSlaveDataSource(config, "slave"));
+                config.setJdbcUrl(this.getJdbcFullUrl(url));
+                MasterSlaveDataSource slave = new MasterSlaveDataSource(config, "slave");
+                slave.setDriverClass(this.getDriver());
+                sourceList.add(slave);
             }
             key = server.get("name") + "-slave";
             dsMap.put(key, sourceList);
@@ -123,7 +127,31 @@ public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlave
 		}
 		return null;
 	}
-	
+
+    private String getDriver(){
+        if(this.engineType.equalsIgnoreCase(DbEngineEnum.ORACLE)){
+            return DRIVER_ORACLE;
+        }else if(this.engineType.equalsIgnoreCase(DbEngineEnum.MYSQL)){
+            return DRIVER_MYSQL;
+        }
+        return null;
+    }
+
+    private String getJdbcFullUrl(String iphost){
+        if(this.engineType.equalsIgnoreCase(DbEngineEnum.ORACLE)){
+            return String.format(DRIVER_ORACLE, iphost);
+        }else if(this.engineType.equalsIgnoreCase(DbEngineEnum.MYSQL)){
+            return String.format(DRIVER_URL_MYSQL, iphost);
+        }
+        return null;
+    }
+
+    public static final String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
+    public static final String DRIVER_ORACLE = "oracle.jdbc.driver.OracleDriver";
+
+    public final static String DRIVER_URL_MYSQL = "jdbc:mysql://%s?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
+    public final static String DRIVER_URL_ORACLE = "jdbc:oracle:thin:@%s";
+
 	/* (non-Javadoc)
 	 * @see org.springframework.beans.factory.DisposableBean#destroy()
 	 */

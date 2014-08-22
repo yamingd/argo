@@ -32,7 +32,7 @@ public class MySQLConnectionHook extends AbstractConnectionHook {
 			logger.debug("onBeforeStatementExecute:" + sql);
 		}
 		
-		if(ServerFarm.current.isShard()){
+		if(ServerFarm.current != null && ServerFarm.current.isShard()){
 			//只有在启用Shard机制时，才需要
 			String useSql = "USE " + DatafarmContext.getContext().getDbDef().getDbName();
 			if(logger.isDebugEnabled()){

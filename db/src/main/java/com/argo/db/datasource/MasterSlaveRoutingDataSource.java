@@ -1,7 +1,6 @@
 package com.argo.db.datasource;
 
 import com.argo.db.context.MasterSlaveContext;
-import com.argo.db.farm.ShardDbDef;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jdbc.datasource.AbstractDataSource;
 import org.springframework.jdbc.datasource.lookup.DataSourceLookup;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
-import org.springframework.util.Assert;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -76,10 +74,6 @@ public class MasterSlaveRoutingDataSource extends AbstractDataSource implements 
 
 	private DataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
 
-	private Map<Object, DataSource> resolvedDataSources;
-
-	private DataSource resolvedDefaultDataSource;
-
 	/**
 	 * Specify the map of target DataSources, with the lookup key as key.
 	 * The mapped value can either be a corresponding {@link javax.sql.DataSource}
@@ -142,7 +136,7 @@ public class MasterSlaveRoutingDataSource extends AbstractDataSource implements 
 	}
 
 	public Connection getConnection() throws SQLException {
-		Connection conn = determineTargetDataSource().getConnection();
+		Connection conn = determineTargetDataSource(determineCurrentLookupKey()).getConnection();
 		if(logger.isDebugEnabled()){
 			this.logger.debug("getConnection: [" + conn + "]");
 		}
@@ -150,7 +144,7 @@ public class MasterSlaveRoutingDataSource extends AbstractDataSource implements 
 	}
 
 	public Connection getConnection(String username, String password) throws SQLException {
-		Connection conn = determineTargetDataSource().getConnection(username, password);
+		Connection conn = determineTargetDataSource(determineCurrentLookupKey()).getConnection(username, password);
 		if(logger.isDebugEnabled()){
 			this.logger.debug("getConnection: [" + conn + "]");
 		}
@@ -165,9 +159,7 @@ public class MasterSlaveRoutingDataSource extends AbstractDataSource implements 
 	 * {@link #setDefaultTargetDataSource default target DataSource} if necessary.
 	 * @see #determineCurrentLookupKey()
 	 */
-	protected DataSource determineTargetDataSource() {
-		Assert.notNull(this.resolvedDataSources, "DataSource router not initialized");
-		Object lookupKey = determineCurrentLookupKey();
+	public DataSource determineTargetDataSource(Object lookupKey) {
 		List<DataSource> dataSource = this.targetDataSources.get(lookupKey);
 		if (dataSource == null) {
 			throw new IllegalStateException("Cannot determine target DataSource for lookup key [" + lookupKey + "]");

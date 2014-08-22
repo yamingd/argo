@@ -1,6 +1,6 @@
 package com.argo.db;
 
-import com.argo.db.context.MasterSlaveContext;
+import com.argo.db.datasource.MasterSlaveDataSourceHolder;
 import com.argo.db.datasource.MasterSlaveRoutingDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,15 +19,12 @@ public class MasterSlaveJdbcTemplate {
     private MasterSlaveRoutingDataSource routingDataSource;
 
     public JdbcTemplate get(String serverName, boolean master){
-        MasterSlaveContext context = MasterSlaveContext.getContext();
-        context.setTargetName(serverName);
+        String role = "slave";
         if (master){
-            context.setTargetRole("master");
-        }else{
-            context.setTargetRole("slave");
+            role = "master";
         }
-
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(routingDataSource);
+        MasterSlaveDataSourceHolder holder = new MasterSlaveDataSourceHolder(serverName, role, routingDataSource);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(holder);
         jdbcTemplate.afterPropertiesSet();
         return jdbcTemplate;
     }
