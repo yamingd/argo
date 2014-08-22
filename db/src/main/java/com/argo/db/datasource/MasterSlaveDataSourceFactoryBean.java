@@ -15,7 +15,6 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,18 +31,20 @@ public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlave
 	
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private MasterSlaveRoutingDataSource msRoutingDataSource;
+	private MasterSlaveRoutingDataSource msDataSource;
 
     private JdbcConfig jdbcConfig;
     private List servers;
     private String engineType;
+    private String name;
+    private String role;
 
 	/* (non-Javadoc)
 	 * @see org.springframework.beans.factory.FactoryBean#getObject()
 	 */
 	@Override
 	public MasterSlaveRoutingDataSource getObject() throws Exception {
-		return msRoutingDataSource;
+		return msDataSource;
 	}
 
 	/* (non-Javadoc)
@@ -67,7 +68,8 @@ public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlave
 	 */
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		this.msRoutingDataSource = new MasterSlaveRoutingDataSource();
+        this.jdbcConfig = JdbcConfig.current;
+		this.msDataSource = new MasterSlaveRoutingDataSource();
         this.servers = this.jdbcConfig.get(List.class, "ms");
         if (this.servers == null || this.servers.size() == 0){
             throw new Exception("jdbc.yaml dones't find any farm configuration. please check.");
@@ -87,36 +89,27 @@ public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlave
 		config.setConnectionHook(getConnectionHook());
 
 		//M-S数据源
-		Map<Object, List<DataSource>> dsMap = new HashMap<Object, List<DataSource>>();
+        List<DataSource> sourceList = Lists.newArrayList();
 		for (int i=0; i<this.servers.size(); i++) {
             Map server = (Map)this.servers.get(i);
-            List<DataSource> sourceList = Lists.newArrayList();
-            String[] jdbcUrl = ObjectUtils.toString(server.get("master")).split(",");
+            String name = server.get("name") + "";
+            if (!this.name.equalsIgnoreCase(name)){
+                continue;
+            }
+
+            String[] jdbcUrl = ObjectUtils.toString(server.get(this.role)).split(",");
             for (String url : jdbcUrl) {
                 config.setJdbcUrl(this.getJdbcFullUrl(url));
-                MasterSlaveDataSource master = new MasterSlaveDataSource(config, "master");
+                MasterSlaveDataSource master = new MasterSlaveDataSource(config, role);
                 master.setDriverClass(this.getDriver());
+                master.setRole(role);
                 sourceList.add(master);
             }
-            String key = server.get("name") + "-master";
-            dsMap.put(key, sourceList);
-
-            sourceList = Lists.newArrayList();
-            jdbcUrl = ObjectUtils.toString(server.get("slaves")).split(",");
-            for (String url : jdbcUrl) {
-                config.setJdbcUrl(this.getJdbcFullUrl(url));
-                MasterSlaveDataSource slave = new MasterSlaveDataSource(config, "slave");
-                slave.setDriverClass(this.getDriver());
-                sourceList.add(slave);
-            }
-            key = server.get("name") + "-slave";
-            dsMap.put(key, sourceList);
-
-			this.logger.info("@@@Init ShardPooledDataSource: {}", config.getJdbcUrl());
 		}
-		this.msRoutingDataSource.setTargetDataSources(dsMap);
-		//初始化
-		this.msRoutingDataSource.afterPropertiesSet();
+        this.msDataSource.setName(this.name);
+        this.msDataSource.setRole(this.role);
+        this.msDataSource.setTargetDataSources(sourceList);
+        logger.info("create datasource. name=" + this.name + ", role=" + this.role);
 	}
 	
 	private ConnectionHook getConnectionHook(){
@@ -139,7 +132,7 @@ public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlave
 
     private String getJdbcFullUrl(String iphost){
         if(this.engineType.equalsIgnoreCase(DbEngineEnum.ORACLE)){
-            return String.format(DRIVER_ORACLE, iphost);
+            return String.format(DRIVER_URL_ORACLE, iphost);
         }else if(this.engineType.equalsIgnoreCase(DbEngineEnum.MYSQL)){
             return String.format(DRIVER_URL_MYSQL, iphost);
         }
@@ -157,14 +150,22 @@ public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlave
 	 */
 	@Override
 	public void destroy() throws Exception {
-		this.msRoutingDataSource.destroy();
+		this.msDataSource.destroy();
 	}
 
-    public JdbcConfig getJdbcConfig() {
-        return jdbcConfig;
+    public String getName() {
+        return name;
     }
 
-    public void setJdbcConfig(JdbcConfig jdbcConfig) {
-        this.jdbcConfig = jdbcConfig;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

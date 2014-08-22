@@ -4,20 +4,20 @@ import com.argo.core.configuration.SiteConfig;
 import com.argo.core.service.factory.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 /**
- * 
- * 
- * 
  * @author yaming_deng
  * @date 2013-1-17
  */
-public abstract class BaseBean implements InitializingBean, DisposableBean, BeanNameAware{
+public abstract class BaseBean implements InitializingBean, DisposableBean, BeanNameAware, ApplicationContextAware{
 	
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -26,7 +26,9 @@ public abstract class BaseBean implements InitializingBean, DisposableBean, Bean
 	@Autowired
 	@Qualifier("serviceLocator")
 	protected ServiceLocator serviceLocator;
-	
+
+    protected ApplicationContext applicationContext;
+
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		
@@ -52,4 +54,9 @@ public abstract class BaseBean implements InitializingBean, DisposableBean, Bean
 	protected final String getBeanName() {
 		return this.beanName;
 	}
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }

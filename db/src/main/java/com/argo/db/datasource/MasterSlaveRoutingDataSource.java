@@ -1,6 +1,5 @@
 package com.argo.db.datasource;
 
-import com.argo.db.context.MasterSlaveContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -12,9 +11,7 @@ import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -30,45 +27,27 @@ public class MasterSlaveRoutingDataSource extends AbstractDataSource implements 
 
     private AtomicInteger shiftId = new AtomicInteger();
 
-	/**
-	 * Determine the current lookup key. This will typically be
-	 * implemented to check a thread-bound transaction context.
-	 * <p>Allows for arbitrary keys. The returned key needs
-	 * to match the stored lookup key type, as resolved by the
-	 * {@link #resolveSpecifiedLookupKey} method.
-	 */
-	protected Object determineCurrentLookupKey() {
-        MasterSlaveContext context = MasterSlaveContext.getContext();
-		if(context.getTargetName()==null){
-			return null;
-		}
-		return context.getTargetName()+"-"+context.getTargetRole();
-	}
-
 	/* (non-Javadoc)
 	 * @see org.springframework.beans.factory.DisposableBean#destroy()
 	 */
 	@Override
 	public void destroy() throws Exception {
 		if(this.targetDataSources!=null){
-			Iterator<Object> itor = this.targetDataSources.keySet().iterator();
-			while(itor.hasNext()){
-				Object key = itor.next();
-                List<DataSource> source = this.targetDataSources.get(key);
-                for (DataSource s : source) {
-                    try {
-                        ((MasterSlaveDataSource)s).close();
-                    } catch (Exception e) {
+            for (DataSource s : targetDataSources) {
+                try {
+                    ((MasterSlaveDataSource)s).close();
+                } catch (Exception e) {
 
-                    }
                 }
-			}
+            }
 		}
 	}
+    private String name;
+    private String role;
 
-	private Map<Object, List<DataSource>> targetDataSources;
+	private List<DataSource> targetDataSources;
 
-	private Object defaultTargetDataSource;
+	private DataSource defaultTargetDataSource;
 
 	private boolean lenientFallback = true;
 
@@ -79,12 +58,8 @@ public class MasterSlaveRoutingDataSource extends AbstractDataSource implements 
 	 * The mapped value can either be a corresponding {@link javax.sql.DataSource}
 	 * instance or a data source name String (to be resolved via a
 	 * {@link #setDataSourceLookup DataSourceLookup}).
-	 * <p>The key can be of arbitrary type; this class implements the
-	 * generic lookup process only. The concrete key representation will
-	 * be handled by {@link #resolveSpecifiedLookupKey(Object)} and
-	 * {@link #determineCurrentLookupKey()}.
 	 */
-	public void setTargetDataSources(Map<Object, List<DataSource>> targetDataSources) {
+	public void setTargetDataSources(List<DataSource> targetDataSources) {
 		this.targetDataSources = targetDataSources;
 	}
 
@@ -95,9 +70,8 @@ public class MasterSlaveRoutingDataSource extends AbstractDataSource implements 
 	 * {@link #setDataSourceLookup DataSourceLookup}).
 	 * <p>This DataSource will be used as target if none of the keyed
 	 * {@link #setTargetDataSources targetDataSources} match the
-	 * {@link #determineCurrentLookupKey()} current lookup key.
 	 */
-	public void setDefaultTargetDataSource(Object defaultTargetDataSource) {
+	public void setDefaultTargetDataSource(DataSource defaultTargetDataSource) {
 		this.defaultTargetDataSource = defaultTargetDataSource;
 	}
 
@@ -112,7 +86,6 @@ public class MasterSlaveRoutingDataSource extends AbstractDataSource implements 
 	 * entry will then lead to an IllegalStateException.
 	 * @see #setTargetDataSources
 	 * @see #setDefaultTargetDataSource
-	 * @see #determineCurrentLookupKey()
 	 */
 	public void setLenientFallback(boolean lenientFallback) {
 		this.lenientFallback = lenientFallback;
@@ -136,7 +109,7 @@ public class MasterSlaveRoutingDataSource extends AbstractDataSource implements 
 	}
 
 	public Connection getConnection() throws SQLException {
-		Connection conn = determineTargetDataSource(determineCurrentLookupKey()).getConnection();
+		Connection conn = determineTargetDataSource().getConnection();
 		if(logger.isDebugEnabled()){
 			this.logger.debug("getConnection: [" + conn + "]");
 		}
@@ -144,45 +117,35 @@ public class MasterSlaveRoutingDataSource extends AbstractDataSource implements 
 	}
 
 	public Connection getConnection(String username, String password) throws SQLException {
-		Connection conn = determineTargetDataSource(determineCurrentLookupKey()).getConnection(username, password);
+		Connection conn = determineTargetDataSource().getConnection(username, password);
 		if(logger.isDebugEnabled()){
 			this.logger.debug("getConnection: [" + conn + "]");
 		}
 		return conn;
 	}
 
-	/**
-	 * Retrieve the current target DataSource. Determines the
-	 * {@link #determineCurrentLookupKey() current lookup key}, performs
-	 * a lookup in the {@link #setTargetDataSources targetDataSources} map,
-	 * falls back to the specified
-	 * {@link #setDefaultTargetDataSource default target DataSource} if necessary.
-	 * @see #determineCurrentLookupKey()
-	 */
-	public DataSource determineTargetDataSource(Object lookupKey) {
-		List<DataSource> dataSource = this.targetDataSources.get(lookupKey);
-		if (dataSource == null) {
-			throw new IllegalStateException("Cannot determine target DataSource for lookup key [" + lookupKey + "]");
-		}
-        if (dataSource.size() == 1){
-            return dataSource.get(0);
+    protected DataSource determineTargetDataSource() {
+        if (this.targetDataSources.size() == 1){
+            return targetDataSources.get(0);
         }
         int count = shiftId.getAndIncrement();
-        int index = count % dataSource.size();
-		return dataSource.get(index);
+        int index = count % targetDataSources.size();
+		return targetDataSources.get(index);
 	}
 
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Resolve the given lookup key object, as specified in the
-	 * {@link #setTargetDataSources targetDataSources} map, into
-	 * the actual lookup key to be used for matching with the
-	 * {@link #determineCurrentLookupKey() current lookup key}.
-	 * <p>The default implementation simply returns the given key as-is.
-	 * @param lookupKey the lookup key object as specified by the user
-	 * @return the lookup key as needed for matching
-	 */
-	protected Object resolveSpecifiedLookupKey(Object lookupKey) {
-		return lookupKey;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

@@ -104,7 +104,7 @@ public class MasterSlaveDataSource extends BoneCPDataSource{
 		return this.pool.getTotalLeased();
 	}
 
-    private String role = "master";
+    private String role = "";
 
     public String getRole() {
         return role;
