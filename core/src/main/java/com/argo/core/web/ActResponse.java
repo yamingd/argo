@@ -16,6 +16,7 @@ public class ActResponse implements Serializable {
 
     public ActResponse() {
         this.code = 200;
+        this.msg = "";
         this.data = Lists.newArrayList();
     }
 

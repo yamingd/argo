@@ -1,5 +1,6 @@
 package com.argo.core.service.beans;
 
+import com.argo.core.ContextConfig;
 import com.argo.core.service.annotation.RmiService;
 import com.argo.core.service.factory.ServiceNameBuilder;
 import org.slf4j.Logger;
@@ -67,7 +68,12 @@ public class RemotingBeanFactoryPostProcessor implements BeanFactoryPostProcesso
 		if(annotation==null){
 			return;
 		}
-		
+
+        String rmi = ContextConfig.get("rmi");
+        if (!"true".equalsIgnoreCase(rmi)){
+            return;
+        }
+
 		String serviceName = ServiceNameBuilder.get(annotation.serviceInterface(), annotation.servcieName());
 		
 		logger.info("@@@wrapRmiService-postProcessBeanFactory0, beanName=" + serviceName);
