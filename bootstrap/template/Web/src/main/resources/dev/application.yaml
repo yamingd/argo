@@ -1,0 +1,28 @@
+#App
+app:
+  id   : sample01
+  domain : http://localhost:8080
+  title : Sample
+  name : sample
+  login: /account/signin
+  denied: /account/denied
+  logout: /account/signout
+  secret: password_encrypt_secret
+  anonymous: true
+
+static:
+  folder: ../static/
+  domain: http://platform.localhost.com/st/static
+
+#session cookie
+cookie:
+  domain: localhost.com
+  name : _auth
+  sessionid : _sess
+  secure : true
+  age : 30
+  sceret: cookie_encrypt_secret
+
+#image fs
+file:
+  folder: /data/image/fs

@@ -1,0 +1,8 @@
+#mail config
+mail:
+  host : "smtp.example.com"
+  user : "test"
+  passwd : "test12345"
+  feedback : "feedback@example.com"
+  failed_limit : 1
+  domain : "@example.com"

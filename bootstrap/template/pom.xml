@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com._company_</groupId>
+    <artifactId>_project_</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>_Project_-Core</module>
+        <module>_Project_-Service</module>
+        <module>_Project_-Controller</module>
+        <module>Web</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <name>_project_</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.argo</groupId>
+            <artifactId>argo-db</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.argo</groupId>
+            <artifactId>argo-cache</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.32</version>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>debug</id>
+            <properties>
+                <jdwp>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</jdwp>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <configuration>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
+                    <contextPath>/</contextPath>
+                    <connectors>
+                        <connector implementation="org.eclipse.jetty.nio.SelectChannelConnector">
+                            <port>80</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                    </connectors>
+                    <webAppSourceDirectory>${basedir}/target/webapp-tmp</webAppSourceDirectory>
+                    <webXml>${basedir}/target/webapp-tmp/WEB-INF/web.xml</webXml>
+                    <classesDirectory>${basedir}/target/webapp-tmp/WEB-INF/classes</classesDirectory>
+                    <!-- Log to the console. -->
+                    <requestLog implementation="org.eclipse.jetty.server.NCSARequestLog">
+                        <filename>target/yyyy_mm_dd.request.log</filename>
+                        <retainDays>90</retainDays>
+                        <append>true</append>
+                        <extended>true</extended>
+                        <logTimeZone>GMT+8</logTimeZone>
+                    </requestLog>
+
+                    <!-- this is where the log4j.properties file should be found -->
+                    <systemProperties>
+                        <systemProperty>
+                            <name>log4j.configuration</name>
+                            <value>file:./target/classes/log4j.properties</value>
+                        </systemProperty>
+                    </systemProperties>
+
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
