@@ -4,11 +4,16 @@ import sys
 import os
 import glob
 import shutil
+import dbm
+import javagen
+import string
+from datetime import datetime
 
 
 def format_line(line, settings):
     for key in settings:
-        line = line.replace(key, settings[key])
+        if key not in ['_modules_', '_mysql_']:
+            line = line.replace(key, settings[key])
     return line
 
 
@@ -36,6 +41,92 @@ def gen_structs(settings):
         dst = format_line(folder, settings)
         gen_file(os.path.join('template', folder), os.path.join(root, dst), settings)
     return folders
+
+
+def gen_service_def(module, folder, settings):
+    #mapper
+    fname = os.path.join(folder, string.capitalize(module['name']) + 'Mappers.java')
+    kwargs = {}
+    kwargs.update(settings)
+    kwargs['now'] = datetime.now()
+    kwargs['_module_'] = module['name']
+    kwargs['_moduleC_'] = string.capitalize(module['name'])
+    kwargs['_entitys_'] = []
+    for tbl in module['tables']:
+        kwargs['_entitys_'].append(dbm.java_name(tbl))
+    javagen.render_mapper(fname, **kwargs)
+    kwargs.pop('_entitys_')
+    #entity and service
+    for tbl in module['tables']:
+        cols = dbm.columns(tbl)
+        name = dbm.java_name(tbl)
+        kwargs['_entity_'] = name
+        fname = os.path.join(folder, name + '.java')
+        kwargs['_cols_'] = cols
+        javagen.render_entity(fname, **kwargs)
+        kwargs['_service_'] = name + 'Service'
+        fname = os.path.join(folder, 'service', name + 'Service.java')
+        javagen.render_service(fname, **kwargs)
+        fname = os.path.join(folder, 'service', name + 'Tx.java')
+        javagen.render_tx(fname, **kwargs)
+
+
+def gen_service_impl(module, folder, settings):
+    kwargs = {}
+    kwargs.update(settings)
+    kwargs['now'] = datetime.now()
+    kwargs['_module_'] = module['name']
+    kwargs['_moduleC_'] = string.capitalize(module['name'])
+    #entity and service
+    for tbl in module['tables']:
+        name = dbm.java_name(tbl)
+        kwargs['_entity_'] = name
+        fname = os.path.join(folder, name + 'ServiceImpl.java')
+        javagen.render_service_impl(fname, **kwargs)
+
+
+def gen_controller_impl(module, folder, settings):
+    kwargs = {}
+    kwargs.update(settings)
+    kwargs['now'] = datetime.now()
+    kwargs['_module_'] = module['name']
+    kwargs['_moduleC_'] = string.capitalize(module['name'])
+    #entity and service
+    for tbl in module['tables']:
+        name = dbm.java_name(tbl)
+        kwargs['_entity_'] = name
+        fname = os.path.join(folder, name + 'Controller.java')
+        javagen.render_controller(fname, **kwargs)
+
+
+def gen_modules(settings):
+    ms = settings['_modules_']
+    core_folder = os.path.join(settings['_root_'], '_Project_-Core/src/main/java/com/company')
+    core_folder = format_line(core_folder, settings)
+    service_folder = os.path.join(settings['_root_'], '_Project_-Service/src/main/java/com/company')
+    service_folder = format_line(service_folder, settings)
+    controller_folder = os.path.join(settings['_root_'], '_Project_-Controller/src/main/java/com/company/web/controllers')
+    controller_folder = format_line(controller_folder, settings)
+    for m in ms:
+        mf = ms[m]
+        mf['name'] = m
+        dbm.open(mf, settings)
+        # service def
+        folder = os.path.join(core_folder, m)
+        os.makedirs(folder)
+        folder1 = os.path.join(folder, 'service')
+        os.makedirs(folder1)
+        gen_service_def(mf, folder, settings)
+        # service impl
+        folder = os.path.join(service_folder, m)
+        os.makedirs(folder)
+        folder1 = os.path.join(folder, 'service', 'impl')
+        os.makedirs(folder1)
+        gen_service_impl(mf, folder1, settings)
+        # controller impl
+        folder = os.path.join(controller_folder, m)
+        os.makedirs(folder)
+        gen_controller_impl(mf, folder, settings)
 
 
 def main():
@@ -67,6 +158,9 @@ def main():
                 files.extend(glob.glob(fname + '/*'))
             else:
                 gen_file(fname, dst, settings)
+    # project modules
+    gen_modules(settings)
+
 
 if __name__ == '__main__':
     main()
