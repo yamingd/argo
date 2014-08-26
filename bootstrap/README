@@ -1,0 +1,8 @@
+1. prepare
+pip install Jinja2
+pip install mysqldb
+
+2. copy demo.py to $project.py and modify as your project settings
+
+3. python project-gen.py $project
+
