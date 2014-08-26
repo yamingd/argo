@@ -1,11 +1,8 @@
 package com.argo.db.datasource;
 
-import com.argo.db.DbEngineEnum;
 import com.argo.db.JdbcConfig;
-import com.argo.db.hooks.MySQLConnectionHook;
-import com.argo.db.hooks.OracleConnectionHook;
+import com.argo.db.shard.ShardDbDef;
 import com.jolbox.bonecp.BoneCPConfig;
-import com.jolbox.bonecp.hooks.ConnectionHook;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,35 +10,32 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * 
  * 分布式数据源工厂Bean.
  * 
- * Factory --> ShardRoutingDataSource --> ShardPooledDataSource
+ * Factory --> ShardPooledDataSource
  *
  * @author yaming_deng
  * @date 2013-1-24
  */
-public class ShardPooledDataSourceFactoryBean implements FactoryBean<ShardRoutingDataSource>, InitializingBean, DisposableBean  {
+public class ShardPooledDataSourceFactoryBean extends DataSourceFactoryBeanMix implements FactoryBean<ShardPooledDataSource>, InitializingBean, DisposableBean  {
 	
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private ShardRoutingDataSource shardRoutingDataSource;
-
-    private JdbcConfig jdbcConfig;
-    private List servers;
+	private ShardPooledDataSource shardPooledDataSource;
     private String engineType;
+    private String name;
+    private String dbid;
 
 	/* (non-Javadoc)
 	 * @see org.springframework.beans.factory.FactoryBean#getObject()
 	 */
 	@Override
-	public ShardRoutingDataSource getObject() throws Exception {
-		return shardRoutingDataSource;
+	public ShardPooledDataSource getObject() throws Exception {
+		return shardPooledDataSource;
 	}
 
 	/* (non-Javadoc)
@@ -49,7 +43,7 @@ public class ShardPooledDataSourceFactoryBean implements FactoryBean<ShardRoutin
 	 */
 	@Override
 	public Class<?> getObjectType() {
-		return ShardRoutingDataSource.class;
+		return ShardPooledDataSource.class;
 	}
 
 	/* (non-Javadoc)
@@ -65,12 +59,11 @@ public class ShardPooledDataSourceFactoryBean implements FactoryBean<ShardRoutin
 	 */
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		this.shardRoutingDataSource = new ShardRoutingDataSource();
-        this.servers = this.jdbcConfig.getFarms();
-        if (this.servers == null || this.servers.size() == 0){
+        Map holder = JdbcConfig.current.getHolder();
+        if (holder == null || holder.size() == 0){
             throw new Exception("jdbc.yaml dones't find any farm configuration. please check.");
         }
-        Map temp = this.jdbcConfig.getCommon();
+        Map temp = JdbcConfig.current.getCommon();
         if(temp == null || temp.size() == 0){
             throw new Exception("jdbc.yaml dones't find any common configuration. please check.");
         }
@@ -80,47 +73,40 @@ public class ShardPooledDataSourceFactoryBean implements FactoryBean<ShardRoutin
 		config.setDisableJMX(false);
 		config.setUsername(ObjectUtils.toString(temp.get("user")));
 		config.setPassword(ObjectUtils.toString(temp.get("pwd")));
-		config.setProperties(this.jdbcConfig.getPoolProperties());
+		config.setProperties(JdbcConfig.current.getPoolProperties());
 		config.setStatisticsEnabled(true);
 		config.setConnectionHook(getConnectionHook());
 
 		//业务Shard数据源
-		Map<Object, Object> dsMap = new HashMap<Object, Object>();
-		for (int i=0; i<this.servers.size(); i++) {
-            Map server = (Map)this.servers.get(i);
-			String jdbcUrl = ObjectUtils.toString(server.get("server"));
-			config.setJdbcUrl(jdbcUrl);
-			ShardPooledDataSource source = new ShardPooledDataSource(config);
-			dsMap.put(server, source);
-			this.logger.info("@@@Init ShardPooledDataSource: {}", config.getJdbcUrl());
-		}
-		this.shardRoutingDataSource.setTargetDataSources(dsMap);
-		//初始化
-		this.shardRoutingDataSource.afterPropertiesSet();
+        ShardDbDef server = (ShardDbDef) holder.get(this.dbid);
+        config.setJdbcUrl(this.getJdbcFullUrl(server.toString()));
+        ShardPooledDataSource master = new ShardPooledDataSource(config);
+        master.setDriverClass(this.getDriver());
+        this.shardPooledDataSource = master;
 	}
 	
-	private ConnectionHook getConnectionHook(){
-		if(this.engineType.equalsIgnoreCase(DbEngineEnum.ORACLE)){
-			return new OracleConnectionHook();
-		}else if(this.engineType.equalsIgnoreCase(DbEngineEnum.MYSQL)){
-			return new MySQLConnectionHook();
-		}
-		return null;
-	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.springframework.beans.factory.DisposableBean#destroy()
 	 */
 	@Override
 	public void destroy() throws Exception {
-		this.shardRoutingDataSource.destroy();		
+		this.shardPooledDataSource.close();
 	}
 
-    public JdbcConfig getJdbcConfig() {
-        return jdbcConfig;
+    public String getDbid() {
+        return dbid;
     }
 
-    public void setJdbcConfig(JdbcConfig jdbcConfig) {
-        this.jdbcConfig = jdbcConfig;
+    public void setDbid(String dbid) {
+        this.dbid = dbid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

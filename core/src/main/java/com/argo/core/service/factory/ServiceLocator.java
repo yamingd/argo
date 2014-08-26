@@ -48,7 +48,7 @@ public class ServiceLocator implements ApplicationContextAware,InitializingBean 
 	private RmiServiceClientGenerator rmiServiceClientGenerator;
 	
 	/* (non-Javadoc)
-	 * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+	 * @see org.springframework.shard.ApplicationContextAware#setApplicationContext(org.springframework.shard.ApplicationContext)
 	 */
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext)

@@ -20,7 +20,7 @@ public class WebContext implements Serializable {
 	public static final String WEB_ROOT = "web.root";
 	public static final String CLIENT_IP = "client.ip";
 	public static final String CLIENT_LANG = "lang";
-    public static final String CONTEXT_PATH = "context";
+    public static final String CONTEXT_PATH = "shard";
 	/**
 	 * 
 	 */

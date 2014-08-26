@@ -15,35 +15,11 @@ import java.util.Map;
  * 
  * 单机数据源工厂Bean.
  * Application.dev.yaml 配置如下
- * 
- * Oracle数据源
- * jdbc.engine : "oracle" #其他如：mysql,sqlserver,sqlserver2k
-   jdbc.user   : "test"
-   jdbc.passwd : "test"
-   jdbc.url : "jdbc:oracle:thin:@192.168.39.67:1521:orcl" #
- 
-   jdbc.pool.idleConnectionTestPeriod : 60
-   jdbc.pool.idleMaxAge : 240
-   jdbc.pool.maxConnectionsPerPartition : 9
-   jdbc.pool.minConnectionsPerPartition : 3
-   jdbc.pool.partitionCount : 3
-   jdbc.pool.acquireIncrement : 2
-   jdbc.pool.statementsCacheSize : 100
-   jdbc.pool.releaseHelperThreads : 3
-   jdbc.pool.queryExecuteTimeLimitInMs : 3000
-
-   或者
-   
-   jdbc.{name}.engine : "oracle"
-   jdbc.{name}.user : "test"
-   jdbc.{name}.passwd : "test"
-   jdbc.{name}.url : "url"
-   
  *
  * @author yaming_deng
  * @date 2013-1-24
  */
-public class SimplePooledDataSourceFactoryBean implements FactoryBean<ShardPooledDataSource>, InitializingBean, DisposableBean  {
+public class SimplePooledDataSourceFactoryBean extends DataSourceFactoryBeanMix implements FactoryBean<ShardPooledDataSource>, InitializingBean, DisposableBean  {
 	
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -84,6 +60,7 @@ public class SimplePooledDataSourceFactoryBean implements FactoryBean<ShardPoole
 	public void afterPropertiesSet() throws Exception {
 
         Map cfg = this.jdbcConfig.getServer(this.name);
+        this.engineType = ObjectUtils.toString(cfg.get("type"));
 
 		BoneCPConfig config = new BoneCPConfig();
 		config.setDisableJMX(false);
@@ -91,10 +68,11 @@ public class SimplePooledDataSourceFactoryBean implements FactoryBean<ShardPoole
 		config.setPassword(ObjectUtils.toString(cfg.get("pwd")));
 		config.setProperties(this.jdbcConfig.getPoolProperties());
 		config.setStatisticsEnabled(true);
-		config.setJdbcUrl(ObjectUtils.toString(cfg.get("url")));
-		
+        config.setConnectionHook(getConnectionHook());
+		String url = ObjectUtils.toString(cfg.get("url"));
+        config.setJdbcUrl(this.getJdbcFullUrl(url));
 		this.shardPooledDataSource = new ShardPooledDataSource(config);
-		
+        shardPooledDataSource.setDriverClass(this.getDriver());
 	}
 		
 	/* (non-Javadoc)

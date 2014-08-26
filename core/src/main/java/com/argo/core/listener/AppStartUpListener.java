@@ -11,7 +11,7 @@ import javax.servlet.ServletContextListener;
 /**
  * 应用系统启动
  * 在程序开始时，第一个启动
- * context-param -> listener -> filter -> servlet 
+ * shard-param -> listener -> filter -> servlet
  * @author yaming_deng
  */
 public class AppStartUpListener implements ServletContextListener {

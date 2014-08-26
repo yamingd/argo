@@ -31,7 +31,7 @@ import java.util.concurrent.Executor;
 
 /**
  * {@link FactoryBean} that creates and configures a Quartz {@link org.quartz.Scheduler},
- * manages its lifecycle as part of the Spring application context, and exposes the
+ * manages its lifecycle as part of the Spring application shard, and exposes the
  * Scheduler as bean reference for dependency injection.
  *
  * <p>Allows registration of JobDetails, Calendars and Triggers, automatically
@@ -289,7 +289,7 @@ public class TaskSchedulerFactory extends SchedulerAccessor implements FactoryBe
 
 
 	/**
-	 * Register objects in the Scheduler context via a given Map.
+	 * Register objects in the Scheduler shard via a given Map.
 	 * These objects will be available to any Job that runs in this Scheduler.
 	 * <p>Note: When using persistent Jobs whose JobDetail will be kept in the
 	 * database, do not put Spring-managed beans or an ApplicationContext
@@ -331,7 +331,7 @@ public class TaskSchedulerFactory extends SchedulerAccessor implements FactoryBe
 	 * a custom JobFactory is not supported by Quartz).
 	 * <p>Specify an instance of Spring's {@link SpringBeanJobFactory} here
 	 * (typically as an inner bean definition) to automatically populate a job's
-	 * bean properties from the specified job data map and scheduler context.
+	 * bean properties from the specified job data map and scheduler shard.
 	 * @see AdaptableJobFactory
 	 * @see SpringBeanJobFactory
 	 */
@@ -351,7 +351,7 @@ public class TaskSchedulerFactory extends SchedulerAccessor implements FactoryBe
 
 	/**
 	 * Return whether this scheduler is configured for auto-startup. If "true",
-	 * the scheduler will start after the context is refreshed and after the
+	 * the scheduler will start after the shard is refreshed and after the
 	 * start delay, if any.
 	 */
 	public boolean isAutoStartup() {
@@ -390,7 +390,7 @@ public class TaskSchedulerFactory extends SchedulerAccessor implements FactoryBe
 	/**
 	 * Set whether to expose the Spring-managed {@link Scheduler} instance in the
 	 * Quartz {@link SchedulerRepository}. Default is "false", since the Spring-managed
-	 * Scheduler is usually exclusively intended for access within the Spring context.
+	 * Scheduler is usually exclusively intended for access within the Spring shard.
 	 * <p>Switch this flag to "true" in order to expose the Scheduler globally.
 	 * This is not recommended unless you have an existing Spring application that
 	 * relies on this behavior. Note that such global exposure was the accidental
@@ -568,7 +568,7 @@ public class TaskSchedulerFactory extends SchedulerAccessor implements FactoryBe
 	protected Scheduler createScheduler(SchedulerFactory schedulerFactory, String schedulerName)
 			throws SchedulerException {
 
-		// Override thread context ClassLoader to work around naive Quartz ClassLoadHelper loading.
+		// Override thread shard ClassLoader to work around naive Quartz ClassLoadHelper loading.
 		Thread currentThread = Thread.currentThread();
 		ClassLoader threadContextClassLoader = currentThread.getContextClassLoader();
 		boolean overrideClassLoader = (this.resourceLoader != null &&
@@ -594,23 +594,23 @@ public class TaskSchedulerFactory extends SchedulerAccessor implements FactoryBe
 		}
 		finally {
 			if (overrideClassLoader) {
-				// Reset original thread context ClassLoader.
+				// Reset original thread shard ClassLoader.
 				currentThread.setContextClassLoader(threadContextClassLoader);
 			}
 		}
 	}
 
 	/**
-	 * Expose the specified context attributes and/or the current
+	 * Expose the specified shard attributes and/or the current
 	 * ApplicationContext in the Quartz SchedulerContext.
 	 */
 	private void populateSchedulerContext() throws SchedulerException {
-		// Put specified objects into Scheduler context.
+		// Put specified objects into Scheduler shard.
 		if (this.schedulerContextMap != null) {
 			this.scheduler.getContext().putAll(this.schedulerContextMap);
 		}
 
-		// Register ApplicationContext in Scheduler context.
+		// Register ApplicationContext in Scheduler shard.
 		if (this.applicationContextSchedulerContextKey != null) {
 			if (this.applicationContext == null) {
 				throw new IllegalStateException(

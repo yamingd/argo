@@ -1,12 +1,8 @@
 package com.argo.db.datasource;
 
-import com.argo.db.DbEngineEnum;
 import com.argo.db.JdbcConfig;
-import com.argo.db.hooks.MySQLConnectionHook;
-import com.argo.db.hooks.OracleConnectionHook;
 import com.google.common.collect.Lists;
 import com.jolbox.bonecp.BoneCPConfig;
-import com.jolbox.bonecp.hooks.ConnectionHook;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +23,7 @@ import java.util.Map;
  * @author yaming_deng
  * @date 2013-1-24
  */
-public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlaveRoutingDataSource>, InitializingBean, DisposableBean  {
+public class MasterSlaveDataSourceFactoryBean extends DataSourceFactoryBeanMix implements FactoryBean<MasterSlaveRoutingDataSource>, InitializingBean, DisposableBean  {
 	
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -111,39 +107,6 @@ public class MasterSlaveDataSourceFactoryBean implements FactoryBean<MasterSlave
         this.msDataSource.setTargetDataSources(sourceList);
         logger.info("create datasource. name=" + this.name + ", role=" + this.role);
 	}
-	
-	private ConnectionHook getConnectionHook(){
-		if(this.engineType.equalsIgnoreCase(DbEngineEnum.ORACLE)){
-			return new OracleConnectionHook();
-		}else if(this.engineType.equalsIgnoreCase(DbEngineEnum.MYSQL)){
-			return new MySQLConnectionHook();
-		}
-		return null;
-	}
-
-    private String getDriver(){
-        if(this.engineType.equalsIgnoreCase(DbEngineEnum.ORACLE)){
-            return DRIVER_ORACLE;
-        }else if(this.engineType.equalsIgnoreCase(DbEngineEnum.MYSQL)){
-            return DRIVER_MYSQL;
-        }
-        return null;
-    }
-
-    private String getJdbcFullUrl(String iphost){
-        if(this.engineType.equalsIgnoreCase(DbEngineEnum.ORACLE)){
-            return String.format(DRIVER_URL_ORACLE, iphost);
-        }else if(this.engineType.equalsIgnoreCase(DbEngineEnum.MYSQL)){
-            return String.format(DRIVER_URL_MYSQL, iphost);
-        }
-        return null;
-    }
-
-    public static final String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
-    public static final String DRIVER_ORACLE = "oracle.jdbc.driver.OracleDriver";
-
-    public final static String DRIVER_URL_MYSQL = "jdbc:mysql://%s?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
-    public final static String DRIVER_URL_ORACLE = "jdbc:oracle:thin:@%s";
 
 	/* (non-Javadoc)
 	 * @see org.springframework.beans.factory.DisposableBean#destroy()

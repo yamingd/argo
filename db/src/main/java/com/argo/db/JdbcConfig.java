@@ -27,6 +27,7 @@ public class JdbcConfig extends AbstractConfig {
     public static JdbcConfig current = null;
     private Properties poolProp = null;
     private List servers = null;
+    private Map holder = null;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -83,9 +84,12 @@ public class JdbcConfig extends AbstractConfig {
         return null;
     }
 
-    public List getFarms(){
-        List fservers = this.get(List.class, "farm");
-        return fservers;
+    public Map getHolder() {
+        return holder;
+    }
+
+    public void setHolder(Map holder) {
+        this.holder = holder;
     }
 
     @Override

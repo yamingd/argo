@@ -9,15 +9,18 @@ pool:
    releaseHelperThreads : 3
    queryExecuteTimeLimitInMs : 3000
 
-server:
+common:
+   id: default / redis / shard
+   type: mysql
+   user: test
+   pwd: secret
+
+
+ms:
    - name: s1
-     type: mysql
-     user: test
-     pwd:  secret
-     url: 127.0.0.1:3306
+     master: 127.0.0.1:3306, 127.0.0.1:3307
+     slaves: 127.0.0.1:3316, 127.0.0.1:3317
 
    - name: s2
-     type: mysql
-     user: test
-     pwd:  secret
-     url: 127.0.0.1:3306
+     master: 127.0.0.1:3306, 127.0.0.1:3307
+     slaves: 127.0.0.1:3316, 127.0.0.1:3317

@@ -3,6 +3,7 @@ package com.argo.db.beans;
 import com.argo.db.JdbcConfig;
 import com.argo.db.MasterSlaveJdbcTemplate;
 import com.argo.db.datasource.MasterSlaveDataSourceFactoryBean;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -46,6 +47,13 @@ public class MasterSlaveDataSourceBeanFactoryPostProcessor implements BeanFactor
                 Map server = (Map) servers.get(i);
                 this.postAddDataSource(dlbf, server, MasterSlaveJdbcTemplate.ROLE_MASTER);
                 this.postAddDataSource(dlbf, server, MasterSlaveJdbcTemplate.ROLE_SLAVE);
+            }
+
+            String idp = JdbcConfig.current.get(String.class, "idpolicy");
+            if (StringUtils.isNotBlank(idp)){
+                BeanDefinitionBuilder builder = BeanDefinitionBuilder.rootBeanDefinition(IdPolicyFactoryBean.class.getName());
+                builder.addPropertyReference("current", idp);
+                dlbf.registerBeanDefinition("idPolicy", builder.getBeanDefinition());
             }
 
         } catch (Exception e) {
