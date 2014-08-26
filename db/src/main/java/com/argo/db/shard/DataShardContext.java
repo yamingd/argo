@@ -1,13 +1,15 @@
 package com.argo.db.shard;
 
+import com.argo.core.policy.IdDef;
 import com.argo.db.JdbcConfig;
+import com.argo.db.beans.IdPolicyFactoryBean;
 
 import java.io.Serializable;
 
 
 /**
  * 存放数据库服务器当前状态数据. 是线程安全的.
- *
+ * 如上下文不能确定shardId, 则需要在filter随机选取一个.
  * @author yaming_deng
  * @date 2013-1-16
  */
@@ -80,5 +82,10 @@ public class DataShardContext implements Serializable {
 
     public void setDbid(String dbid) {
         this.dbid = dbid;
+    }
+
+    public Long uuid(Integer objectTypeId){
+        IdDef def = IdPolicyFactoryBean.instance.getCurrent().generate(this.shardId, objectTypeId);
+        return def.getFullId();
     }
 }
