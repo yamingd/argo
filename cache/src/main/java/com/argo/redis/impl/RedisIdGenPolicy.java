@@ -1,7 +1,8 @@
-package com.argo.redis;
+package com.argo.redis.impl;
 
 import com.argo.core.policy.IdDef;
 import com.argo.core.policy.IdGenPolicy;
+import com.argo.redis.RedisBuket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

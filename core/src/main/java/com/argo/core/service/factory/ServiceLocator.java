@@ -188,7 +188,9 @@ public class ServiceLocator implements ApplicationContextAware,InitializingBean 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		ServiceLocator.instance = this;
-        new ServiceConfig().afterPropertiesSet();
+        if (ServiceConfig.instance == null) {
+            new ServiceConfig().afterPropertiesSet();
+        }
 	}
 	
 }

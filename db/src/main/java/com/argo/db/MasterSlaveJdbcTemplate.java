@@ -1,7 +1,6 @@
 package com.argo.db;
 
 import com.argo.core.base.BaseBean;
-import com.argo.db.datasource.MasterSlaveRoutingDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -20,10 +19,8 @@ public class MasterSlaveJdbcTemplate extends BaseBean {
         if (master){
             role = ROLE_MASTER;
         }
-        String beanName = "DS_" + serverName + "_" + role;
-        MasterSlaveRoutingDataSource dataSource = this.applicationContext.getBean(beanName, MasterSlaveRoutingDataSource.class);
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        jdbcTemplate.afterPropertiesSet();
+        String beanName = "DS_" + serverName + "_" + role + "Jt";
+        JdbcTemplate jdbcTemplate = this.applicationContext.getBean(beanName, JdbcTemplate.class);
         return jdbcTemplate;
     }
 }

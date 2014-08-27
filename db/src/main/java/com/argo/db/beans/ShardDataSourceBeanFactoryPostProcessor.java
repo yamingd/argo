@@ -86,15 +86,17 @@ public class ShardDataSourceBeanFactoryPostProcessor implements BeanFactoryPostP
 
         logger.info("@@@postAddDataSource, dbid=" + dbid);
 
+        //datasource
         BeanDefinitionBuilder builder = BeanDefinitionBuilder.rootBeanDefinition(ShardPooledDataSourceFactoryBean.class.getName());
         builder.addPropertyValue("dbid", dbid);
-
         dlbf.registerBeanDefinition(beanName, builder.getBeanDefinition());
 
+        //transaction
         builder = BeanDefinitionBuilder.rootBeanDefinition(DataSourceTransactionManager.class.getName());
         builder.addConstructorArgReference(beanName);
         dlbf.registerBeanDefinition(beanName + "Tx", builder.getBeanDefinition());
 
+        //jdbc template
         builder = BeanDefinitionBuilder.rootBeanDefinition(JdbcTemplate.class.getName());
         builder.addConstructorArgReference(beanName);
         dlbf.registerBeanDefinition(beanName + "Jt", builder.getBeanDefinition());

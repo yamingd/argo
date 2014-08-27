@@ -11,6 +11,7 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import java.util.List;
@@ -67,18 +68,23 @@ public class MasterSlaveDataSourceBeanFactoryPostProcessor implements BeanFactor
 
         logger.info("@@@postAddDataSource, name=" + server.get("name") + ", role=" + role);
 
+        //datasource
         BeanDefinitionBuilder builder = BeanDefinitionBuilder.rootBeanDefinition(MasterSlaveDataSourceFactoryBean.class.getName());
         builder.addPropertyValue("name", server.get("name") + "");
         builder.addPropertyValue("role", role);
-
         dlbf.registerBeanDefinition(beanName, builder.getBeanDefinition());
 
+        //transaction
         if (MasterSlaveJdbcTemplate.ROLE_MASTER.equalsIgnoreCase(role)) {
             builder = BeanDefinitionBuilder.rootBeanDefinition(DataSourceTransactionManager.class.getName());
             builder.addConstructorArgReference(beanName);
             dlbf.registerBeanDefinition(server.get("name") + "Tx", builder.getBeanDefinition());
         }
 
+        //jdbc template
+        builder = BeanDefinitionBuilder.rootBeanDefinition(JdbcTemplate.class.getName());
+        builder.addConstructorArgReference(beanName);
+        dlbf.registerBeanDefinition(beanName + "Jt", builder.getBeanDefinition());
     }
 
 }

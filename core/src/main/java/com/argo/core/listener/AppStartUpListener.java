@@ -3,6 +3,7 @@ package com.argo.core.listener;
 import com.argo.core.ContextConfig;
 import com.argo.core.configuration.SiteConfig;
 import com.argo.core.metric.MetricCollectorImpl;
+import com.argo.core.service.ServiceConfig;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -49,5 +50,6 @@ public class AppStartUpListener implements ServletContextListener {
     protected void initSiteConfig() throws Exception{
         //1.读取本地配置
         new SiteConfig().afterPropertiesSet();
+        new ServiceConfig().afterPropertiesSet();
     }
 }
