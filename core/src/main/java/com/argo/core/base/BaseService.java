@@ -1,9 +1,9 @@
 package com.argo.core.base;
 
-import com.argo.core.exception.ServiceException;
+import com.argo.core.exception.EntityNotFoundException;
 
-public interface BaseService {
+public interface BaseService<T> {
 
-    <T> T findById(Class<T> clazz, Long oid) throws ServiceException;
+    T findById(Long oid) throws EntityNotFoundException;
 
 }
