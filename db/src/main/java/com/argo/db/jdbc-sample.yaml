@@ -9,15 +9,16 @@ pool:
    releaseHelperThreads : 3
    queryExecuteTimeLimitInMs : 3000
 
-server:
-   - name: s1
-     type: mysql
-     user: test
-     pwd:  secret
-     url: 127.0.0.1:3306
+server_s1:
+   name: s1
+   type: mysql
+   user: test
+   pwd:  secret
+   url: 127.0.0.1:3306/s1
 
-   - name: s2
-     type: mysql
-     user: test
-     pwd:  secret
-     url: 127.0.0.1:3306
+server_s2:
+   name: s2
+   type: mysql
+   user: test
+   pwd:  secret
+   url: 127.0.0.1:3306/s2

@@ -58,8 +58,8 @@ public class SimplePooledDataSourceFactoryBean extends DataSourceFactoryBeanMix 
 	 */
 	@Override
 	public void afterPropertiesSet() throws Exception {
-
-        Map cfg = this.jdbcConfig.getServer(this.name);
+        this.jdbcConfig = JdbcConfig.current;
+        Map cfg = this.jdbcConfig.get(Map.class, this.name);
         this.engineType = ObjectUtils.toString(cfg.get("type"));
 
 		BoneCPConfig config = new BoneCPConfig();
@@ -90,12 +90,4 @@ public class SimplePooledDataSourceFactoryBean extends DataSourceFactoryBeanMix 
 	public String getName() {
 		return name;
 	}
-
-    public JdbcConfig getJdbcConfig() {
-        return jdbcConfig;
-    }
-
-    public void setJdbcConfig(JdbcConfig jdbcConfig) {
-        this.jdbcConfig = jdbcConfig;
-    }
 }

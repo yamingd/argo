@@ -106,8 +106,8 @@ public abstract class AbstractConfig implements InitializingBean, ConfigListener
         }
     }
 
-    public List<Object> getOrderedKeys(){
-        List<Object> list = new ArrayList<Object>(this.cfg.keySet());
+    public List<String> getOrderedKeys(){
+        List<String> list = new ArrayList<String>(this.cfg.keySet());
         Collections.sort(list, new KeyComparable());
         return list;
     }
