@@ -1,16 +1,16 @@
-package com.argo.core.email.service;
+package com.argo.mail.executor;
 
 import com.argo.core.base.BaseBean;
 import com.argo.core.component.FreemarkerComponent;
-import com.argo.core.email.EmailMessage;
 import com.argo.core.metric.MetricCollectorImpl;
 import com.argo.core.service.ServiceConfig;
-import com.argo.core.service.annotation.RmiService;
+import com.argo.mail.EmailMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import javax.mail.MessagingException;
@@ -21,23 +21,10 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- *
- * #mail config
-   mail:
-     host : "smtp.example.com"
-     user : "test"
-     passwd : "test12345"
-     feedback : "feedback@example.com"
-     failed_limit : 1
-     domain : "@example.com"
-     executors : 100
-     auth : true
-     timeout : 25000
- *
  * Created by yaming_deng on 14-8-27.
  */
-@RmiService(serviceInterface = EmailSenderService.class)
-public class EmailSenderServiceImpl extends BaseBean implements EmailSenderService {
+@Component
+public class EmailPostSender extends BaseBean {
 
     public static final String STATUS_FAILED = "failed";
     public static final String STATUS_SUCCESS = "success";
@@ -63,7 +50,6 @@ public class EmailSenderServiceImpl extends BaseBean implements EmailSenderServi
 
     }
 
-    @Override
     public boolean send(EmailMessage emailMessage) {
 
         Assert.notNull(emailMessage.getTitle(), "emailMessage.title should not be null");

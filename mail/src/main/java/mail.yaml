@@ -1,0 +1,13 @@
+mail:
+ host : "smtp.example.com"
+ user : "test"
+ passwd : "test12345"
+ feedback : "feedback@example.com"
+ failed_limit : 1
+ domain : "@example.com"
+ executor: redis / inmem / mysql
+ batch : 100
+ auth : true
+ timeout : 25000
+ ds_w: ds_w
+ ds_r: ds_r

@@ -1,4 +1,4 @@
-package com.argo.core.email;
+package com.argo.mail;
 
 import com.argo.core.base.BaseEntity;
 

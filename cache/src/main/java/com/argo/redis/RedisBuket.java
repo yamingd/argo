@@ -1,5 +1,6 @@
 package com.argo.redis;
 
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
@@ -358,7 +359,18 @@ public class RedisBuket extends RedisTemplate {
 			}
 		});
     }
-
+    public List<String> lpop(final String key, final int limit){
+        return this.execute(new RedisCommand<List<String>>(){
+            public List<String> execute(final Jedis conn) throws Exception {
+                List<String> resp = Lists.newArrayList();
+                for (int i = 0; i < limit; i++) {
+                    String txt = conn.lpop(key);
+                    resp.add(txt);
+                }
+                return resp;
+            }
+        });
+    }
     /**
      * 从List右边取出元素.(LIFO)
      * @param key
@@ -371,6 +383,20 @@ public class RedisBuket extends RedisTemplate {
 			}
 		});
     }
+
+    public List<String> rpop(final String key, final int limit){
+        return this.execute(new RedisCommand<List<String>>(){
+            public List<String> execute(final Jedis conn) throws Exception {
+                List<String> resp = Lists.newArrayList();
+                for (int i = 0; i < limit; i++) {
+                    String txt = conn.rpop(key);
+                    resp.add(txt);
+                }
+                return resp;
+            }
+        });
+    }
+
     /**
      * 将List中的元素排序.
      * @param key

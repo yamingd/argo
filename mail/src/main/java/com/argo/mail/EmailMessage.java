@@ -1,4 +1,4 @@
-package com.argo.core.email;
+package com.argo.mail;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
