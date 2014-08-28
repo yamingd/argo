@@ -1,6 +1,8 @@
 package com.argo.db.template;
 
 import com.argo.core.base.BaseBean;
+import com.argo.core.exception.EntityNotFoundException;
+import com.argo.core.exception.ServiceException;
 import com.argo.db.JdbcConfig;
 import com.argo.db.MasterSlaveJdbcTemplate;
 import com.google.common.collect.Lists;
@@ -14,7 +16,7 @@ import java.util.Map;
 /**
  * Created by yaming_deng on 14-8-28.
  */
-public abstract class ServiceMSTemplate extends BaseBean {
+public abstract class ServiceMSTemplate<T> extends BaseBean implements ServiceBase<T> {
 
     protected JdbcTemplate jdbcTemplateM;
     protected JdbcTemplate jdbcTemplateS;
@@ -24,6 +26,9 @@ public abstract class ServiceMSTemplate extends BaseBean {
 
     private JdbcConfig jdbcConfig;
 
+    //protected Class<T> ROW_CLASS;
+    //protected RowMapper<T> ROW_MAPPER;
+
     @Override
     public void afterPropertiesSet() throws Exception {
         jdbcConfig = JdbcConfig.current;
@@ -31,6 +36,9 @@ public abstract class ServiceMSTemplate extends BaseBean {
         String name = sm.get(this.getServerName());
         jdbcTemplateM = masterSlaveJdbcTemplate.get(name, true);
         jdbcTemplateS = masterSlaveJdbcTemplate.get(name, false);
+
+        //this.ROW_CLASS = (Class<T>) ClassUtils.getTypeArguments(ServiceMSTemplate.class, getClass()).get(0);
+        //this.ROW_MAPPER = new BeanPropertyRowMapper<T>(this.ROW_CLASS);
 
         Assert.notNull(jdbcTemplateM, "jdbcTemplateM is NULL.");
         Assert.notNull(jdbcTemplateS, "jdbcTemplateS is NULl");
@@ -53,5 +61,48 @@ public abstract class ServiceMSTemplate extends BaseBean {
 
     protected abstract String getServerName();
 
+    /**
+     * 读取详情
+     * @param oid
+     * @return
+     * @throws ServiceException
+     */
+    @Override
+    public T findById(Long oid)throws EntityNotFoundException {
+        return null;
+    }
 
+    /**
+     * 添加记录
+     * @param entity
+     * @return
+     * @throws ServiceException
+     */
+    @Override
+    public boolean add(T entity) throws ServiceException{
+        return false;
+    }
+
+    /**
+     * 更新记录
+     * @param entity
+     * @return
+     * @throws ServiceException
+     */
+    @Override
+    public boolean update(T entity) throws ServiceException{
+        return false;
+    }
+
+    /**
+     * 移除记录.
+     * @param clazz
+     * @param oid
+     * @return
+     * @throws ServiceException
+     */
+    @Override
+    public boolean remove(Class<T> clazz, Long oid) throws ServiceException{
+        return false;
+    }
 }
