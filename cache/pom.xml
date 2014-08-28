@@ -21,7 +21,7 @@
         </dependency>
         <dependency>
             <groupId>com.argo</groupId>
-            <artifactId>mail</artifactId>
+            <artifactId>argo-mail</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
