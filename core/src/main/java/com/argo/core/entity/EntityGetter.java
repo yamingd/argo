@@ -1,8 +1,6 @@
 package com.argo.core.entity;
 
 import com.argo.core.base.BaseService;
-import com.argo.core.exception.ServiceException;
-import com.argo.core.service.factory.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +37,7 @@ public class EntityGetter {
     }
 
     public <T> T get(Class<T> clazz){
-        T o = null;
+        /*T o = null;
 
         if (service == null){
             String serviceName = getServiceName(clazz);
@@ -55,7 +53,8 @@ public class EntityGetter {
             logger.error("EntityGetter Can't find Entity. oid="+this.oid+", clazz="+clazz, e);
         }
 
-        return o;
+        return o;*/
+        return null;
     }
 
 }
