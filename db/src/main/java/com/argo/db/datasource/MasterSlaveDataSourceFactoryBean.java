@@ -31,7 +31,6 @@ public class MasterSlaveDataSourceFactoryBean extends DataSourceFactoryBeanMix i
 
     private JdbcConfig jdbcConfig;
     private List servers;
-    private String engineType;
     private String name;
     private String role;
 

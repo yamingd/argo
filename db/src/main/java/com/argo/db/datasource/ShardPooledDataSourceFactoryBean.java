@@ -26,7 +26,6 @@ public class ShardPooledDataSourceFactoryBean extends DataSourceFactoryBeanMix i
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private ShardPooledDataSource shardPooledDataSource;
-    private String engineType;
     private String name;
     private String dbid;
 
