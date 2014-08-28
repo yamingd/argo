@@ -23,7 +23,7 @@ public class RedisConfig extends AbstractConfig {
 	}
 	
 	public Integer getMaxIdle(){
-        return super.get(Integer.class, "maxIdel", 100);
+        return super.get(Integer.class, "maxIdle", 100);
 	}
 	
 	public Integer getTimeoutWait(){
