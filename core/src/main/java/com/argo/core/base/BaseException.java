@@ -10,6 +10,8 @@ public class BaseException extends Exception {
 	 */
 	private static final long serialVersionUID = -6628333484201118676L;
 
+    private Integer errcode;
+
 	public BaseException(String message, Throwable cause, Object... params){
 		super(cause.getMessage()+":"+message+"@"+ StringUtils.join(params), cause);
 	}
@@ -25,4 +27,12 @@ public class BaseException extends Exception {
 	public BaseException(String message) {
 		super(message);
 	}
+
+    public Integer getErrcode() {
+        return errcode;
+    }
+
+    public void setErrcode(Integer errcode) {
+        this.errcode = errcode;
+    }
 }
