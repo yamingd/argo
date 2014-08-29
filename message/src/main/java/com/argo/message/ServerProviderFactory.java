@@ -1,9 +1,10 @@
 package com.argo.message;
 
 import com.argo.core.base.BaseBean;
-import com.argo.core.service.factory.ServiceLocator;
+import com.argo.core.service.ServiceLocator;
 import com.argo.message.server.ServerProvider;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -16,6 +17,9 @@ public class ServerProviderFactory extends BaseBean {
 
     private MessageConfig messageConfig;
 
+    @Autowired
+    private ServiceLocator serviceLocator;
+
 	public ServerProvider getOne() throws Exception{
 		String serviceName = messageConfig.getProvider();
 		return this.getOne(serviceName);
@@ -26,7 +30,7 @@ public class ServerProviderFactory extends BaseBean {
 			throw new Exception("请配置MQ Server Provider. values=activeMQ or rabbitMQ！");
 		}
 		
-		ServerProvider serverProvider = ServiceLocator.instance.get(serviceName);
+		ServerProvider serverProvider = serviceLocator.get(serviceName);
 		if(serverProvider == null){
 			throw new Exception("没有找到可用的MQ Server Provider.");
 		}

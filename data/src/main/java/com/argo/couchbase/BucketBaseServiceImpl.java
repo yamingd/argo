@@ -1,12 +1,11 @@
 package com.argo.couchbase;
 
+import com.argo.core.base.BaseBean;
 import com.argo.core.exception.ServiceException;
-import com.argo.core.service.factory.ServiceLocator;
 import com.argo.couchbase.exception.BucketException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
@@ -14,12 +13,9 @@ import java.util.Date;
 /**
  * Created by yamingd on 13-12-19.
  */
-public class BucketBaseServiceImpl implements BucketBaseService, InitializingBean {
+public class BucketBaseServiceImpl extends BaseBean implements BucketBaseService, InitializingBean {
 
     protected CouchbaseTemplate cbTemplate;
-
-    @Autowired
-    protected ServiceLocator serviceLocator;
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
