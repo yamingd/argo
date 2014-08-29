@@ -19,12 +19,24 @@ import java.util.Date;
 
 @Component("rmiServiceClientGenerator")
 public class RmiServiceClientGenerator implements ServiceClientGenerator {
-	
-	private static final Log logger = LogFactory.getLog(RmiServiceClientGenerator.class);
-		
-	public static RmiServiceClientGenerator instance = null;
-		
-	/**
+
+    private static final Log logger = LogFactory.getLog(RmiServiceClientGenerator.class);
+
+    public static final String PROTOCOL_RMI = "rmi://";
+
+    public static RmiServiceClientGenerator instance = null;
+
+    @Override
+    public String getProtocalMark() {
+        return PROTOCOL_RMI;
+    }
+
+    @Override
+    public String stripServiceName(String val){
+        return val.replace(PROTOCOL_RMI, "");
+    }
+
+    /**
 	 * @param <T>
 	 * @param clazz
 	 * @return

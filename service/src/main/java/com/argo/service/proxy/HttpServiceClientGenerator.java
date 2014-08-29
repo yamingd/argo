@@ -17,11 +17,22 @@ import java.util.Date;
 
 @Component("httpServiceClientGenerator")
 public class HttpServiceClientGenerator implements ServiceClientGenerator {
-	
-	private static final Log logger = LogFactory.getLog(HttpServiceClientGenerator.class);
-		
-	public static HttpServiceClientGenerator instance = null;
-		
+
+    private static final Log logger = LogFactory.getLog(HttpServiceClientGenerator.class);
+    public static final String PROTOCOL_HTTP = "http://";
+
+    public static HttpServiceClientGenerator instance = null;
+
+    @Override
+    public String getProtocalMark() {
+        return PROTOCOL_HTTP;
+    }
+
+    @Override
+    public String stripServiceName(String val){
+        return val.replace(PROTOCOL_HTTP, "");
+    }
+
 	/**
 	 * @param <T>
 	 * @param clazz

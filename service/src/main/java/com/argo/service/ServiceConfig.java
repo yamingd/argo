@@ -57,7 +57,7 @@ public class ServiceConfig extends AbstractConfig implements ConfigListener {
     }
 
     public String getServiceType(){
-        return super.get(String.class, "mode", "default");
+        return super.get(String.class, "mode", ServiceMode.Local);
     }
 
     @Override

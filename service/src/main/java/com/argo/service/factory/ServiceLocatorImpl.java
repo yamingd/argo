@@ -4,8 +4,10 @@ import com.argo.core.ContextConfig;
 import com.argo.core.exception.ServiceNotFoundException;
 import com.argo.core.service.ServiceLocator;
 import com.argo.service.ServiceConfig;
+import com.argo.service.ServiceMode;
 import com.argo.service.proxy.HttpServiceClientGenerator;
 import com.argo.service.proxy.RmiServiceClientGenerator;
+import com.argo.service.proxy.ServiceClientGenerator;
 import com.argo.service.proxy.ServiceClientPoolListener;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -26,13 +28,6 @@ import org.springframework.stereotype.Component;
  */
 @Component("serviceLocator")
 public class ServiceLocatorImpl implements ApplicationContextAware,InitializingBean, ServiceLocator {
-	
-	/**
-	 * 
-	 */
-	protected static final String CFG_REMOTE_HTTP = "http://";
-	
-	protected static final String CFG_REMOTE_RMI = "rmi://";
 
 	public static ServiceLocator instance = null;
 	
@@ -48,9 +43,6 @@ public class ServiceLocatorImpl implements ApplicationContextAware,InitializingB
 	@Qualifier("rmiServiceClientGenerator")
 	private RmiServiceClientGenerator rmiServiceClientGenerator;
 	
-	/* (non-Javadoc)
-	 * @see org.springframework.shard.ApplicationContextAware#setApplicationContext(org.springframework.shard.ApplicationContext)
-	 */
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException {
@@ -108,6 +100,16 @@ public class ServiceLocatorImpl implements ApplicationContextAware,InitializingB
         return !flag;
     }
 
+    private ServiceClientGenerator getGenerator(String token){
+        if(token.startsWith(HttpServiceClientGenerator.PROTOCOL_HTTP)){
+            //远程服务Bean
+            return this.httpServiceClientGenerator;
+        }if(token.startsWith(RmiServiceClientGenerator.PROTOCOL_RMI)){
+            //远程服务Bean
+            return this.rmiServiceClientGenerator;
+        }
+        return null;
+    }
 	/**
 	 * 读取本地、远程服务
 	 * @param <T>
@@ -126,30 +128,22 @@ public class ServiceLocatorImpl implements ApplicationContextAware,InitializingB
 		String serviceCfg = this.getConfig().getService(serviceName);
 		if(StringUtils.isBlank(serviceCfg)){
             serviceCfg = this.getConfig().getServiceType();
-            if(StringUtils.isBlank(serviceCfg)){
+            if(StringUtils.isBlank(serviceCfg) || ServiceMode.Local.equalsIgnoreCase(serviceCfg)){
 			    return (T) this.get(serviceName);
             }
 		}
-		if(serviceCfg.startsWith(CFG_REMOTE_HTTP)){
-			//远程服务Bean
-			serviceName = serviceCfg.replace(CFG_REMOTE_HTTP, "");
-			if(StringUtils.isBlank(serviceName)){
-				return (T) this.httpServiceClientGenerator.getService(clazz);
-			}else{
-				return (T) this.httpServiceClientGenerator.getService(clazz, serviceName);
-			}
-		}if(serviceCfg.startsWith(CFG_REMOTE_RMI)){
-			//远程服务Bean
-			serviceName = serviceCfg.replace(CFG_REMOTE_RMI, "");
-			if(StringUtils.isBlank(serviceName)){
-				return (T) this.rmiServiceClientGenerator.getService(clazz);
-			}else{
-				return (T) this.rmiServiceClientGenerator.getService(clazz, serviceName);
-			}
-		}else{
-			//本地服务Bean
-			return (T) this.get(serviceName);
-		}
+        ServiceClientGenerator gen = this.getGenerator(serviceCfg);
+        if (gen != null){
+            //远程服务
+            serviceName = gen.stripServiceName(serviceCfg);
+            if(StringUtils.isBlank(serviceName)){
+                return (T) gen.getService(clazz);
+            }else{
+                return (T) gen.getService(clazz, serviceName);
+            }
+        }
+        //本地服务Bean
+        return (T) this.get(serviceName);
 	}
 	
 	/**
@@ -171,20 +165,23 @@ public class ServiceLocatorImpl implements ApplicationContextAware,InitializingB
 		String serviceCfg = this.getConfig().getService(serviceName);
 		if(StringUtils.isBlank(serviceCfg)){
             serviceCfg = this.getConfig().getServiceType();
-            if(StringUtils.isBlank(serviceCfg)){
+            if(StringUtils.isBlank(serviceCfg) || ServiceMode.Local.equalsIgnoreCase(serviceCfg)){
                 return (T) this.get(serviceName);
             }
 		}
-		if(serviceCfg.startsWith(CFG_REMOTE_HTTP)){
-			//远程服务Bean
-			return (T) this.httpServiceClientGenerator.getService(clazz, serviceName);
-		}if(serviceCfg.startsWith(CFG_REMOTE_RMI)){
-			//远程服务Bean
-			return (T) this.rmiServiceClientGenerator.getService(clazz, serviceName);
-		}else{
-			//本地服务Bean
-			return (T) this.get(serviceName);
-		}
+
+        ServiceClientGenerator gen = this.getGenerator(serviceCfg);
+        if (gen != null){
+            //远程服务
+            if(StringUtils.isBlank(serviceName)){
+                return (T) gen.getService(clazz);
+            }else{
+                return (T) gen.getService(clazz, serviceName);
+            }
+        }
+
+        //本地服务Bean
+        return (T) this.get(serviceName);
 	}
 	
 	/* (non-Javadoc)

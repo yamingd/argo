@@ -9,7 +9,10 @@ import org.springframework.beans.factory.InitializingBean;
  * @date 2013-1-11
  */
 public interface ServiceClientGenerator extends InitializingBean {
-	
+
+    String getProtocalMark();
+
+    String stripServiceName(String val);
 	/**
 	 * @param <T>
 	 * @param clazz
