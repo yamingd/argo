@@ -1,7 +1,7 @@
 package com.argo.core.base;
 
 import com.argo.core.configuration.SiteConfig;
-import com.argo.core.service.factory.ServiceLocator;
+import com.argo.core.service.ServiceLocator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

@@ -2,8 +2,8 @@ package com.argo.cluster.service;
 
 import com.argo.cluster.ZKClientBeanBase;
 import com.argo.core.ContextConfig;
-import com.argo.core.service.ServicePublishListener;
-import com.argo.core.service.beans.RemotingServiceBeanManager;
+import com.argo.service.beans.ServiceBeanManager;
+import com.argo.service.listener.ServicePublishListener;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
@@ -37,7 +37,7 @@ public class ServicePublisher extends ZKClientBeanBase implements ServicePublish
 	@Override
 	protected void onConnected() {
 		this.logger.info("Zookeeper connected, path={}", this.getRootPath());
-        RemotingServiceBeanManager.publishService();
+        ServiceBeanManager.publish();
 	}
 
 	@Override
@@ -103,6 +103,6 @@ public class ServicePublisher extends ZKClientBeanBase implements ServicePublish
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         logger.info(event.toString());
-        RemotingServiceBeanManager.publishService();
+        ServiceBeanManager.publish();
     }
 }

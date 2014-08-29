@@ -1,4 +1,4 @@
-package com.argo.core.service.factory;
+package com.argo.service.factory;
 
 import com.argo.core.base.BaseBean;
 import org.slf4j.Logger;

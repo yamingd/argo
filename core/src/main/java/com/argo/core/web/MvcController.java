@@ -2,7 +2,7 @@ package com.argo.core.web;
 
 import com.argo.core.base.BaseUser;
 import com.argo.core.exception.UserNotAuthorizationException;
-import com.argo.core.service.factory.ServiceLocator;
+import com.argo.core.service.ServiceLocator;
 import com.argo.core.web.session.SessionUserHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

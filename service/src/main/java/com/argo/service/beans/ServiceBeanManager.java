@@ -1,9 +1,10 @@
-package com.argo.core.service.beans;
+package com.argo.service.beans;
 
-import com.argo.core.service.ServicePublishListener;
-import com.argo.core.service.ServiceConfig;
-import com.argo.core.service.factory.ServiceLocator;
+import com.argo.core.ApplicationContextHolder;
 import com.argo.core.utils.IpUtil;
+import com.argo.service.ServiceConfig;
+import com.argo.service.factory.ServiceLocatorImpl;
+import com.argo.service.listener.ServicePublishListener;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +20,9 @@ import java.util.Map;
  * @author yaming_deng
  * @date 2013-1-21
  */
-public class RemotingServiceBeanManager {
+public class ServiceBeanManager {
 
-    public static final Logger logger = LoggerFactory.getLogger(RemotingServiceBeanManager.class);
+    public static final Logger logger = LoggerFactory.getLogger(ServiceBeanManager.class);
 
 	private static Map<String, String> beans = new HashMap<String, String>();
 	
@@ -35,7 +36,7 @@ public class RemotingServiceBeanManager {
 	}
 
     public static void remove(String serviceName){
-        ServicePublishListener sp = ServiceLocator.instance.get("servicePublisher");
+        ServicePublishListener sp = ServiceLocatorImpl.instance.get("servicePublisher");
         if (sp == null){
             return;
         }
@@ -43,7 +44,7 @@ public class RemotingServiceBeanManager {
     }
 
     public static void remove(String serviceName, String uri){
-        ServicePublishListener sp = ServiceLocator.instance.get("servicePublisher");
+        ServicePublishListener sp = ServiceLocatorImpl.instance.get("servicePublisher");
         if (sp == null){
             return;
         }
@@ -57,11 +58,8 @@ public class RemotingServiceBeanManager {
 		return beans;
 	}
 
-    public static void publishService(){
-        if (ServiceLocator.instance == null){
-            return;
-        }
-        ServicePublishListener sp = ServiceLocator.instance.get("servicePublisher");
+    public static void publish(){
+        ServicePublishListener sp = ApplicationContextHolder.current.ctx.getBean("servicePublisher", ServicePublishListener.class);
         if (sp == null){
             logger.error("servicePublisher is NULL.");
             return;
@@ -72,7 +70,7 @@ public class RemotingServiceBeanManager {
         if (logger.isDebugEnabled()){
             logger.debug("Add Service Endpoint at: " + surl);
         }
-        Map<String, String> services = RemotingServiceBeanManager.getAll();
+        Map<String, String> services = ServiceBeanManager.getAll();
         Iterator<String> itor = services.keySet().iterator();
         while(itor.hasNext()){
             String beanName = itor.next();

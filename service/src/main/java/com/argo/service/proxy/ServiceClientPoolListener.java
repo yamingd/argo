@@ -1,13 +1,13 @@
-package com.argo.core.service.proxy;
+package com.argo.service.proxy;
 
-import com.argo.core.service.ServicePoolListener;
+import com.argo.service.listener.ServicePoolListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,9 +19,12 @@ public class ServiceClientPoolListener implements ServicePoolListener, Initializ
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    /**
+     * key is the name of service
+     * value is the server addresses of those service.
+     */
     private ConcurrentHashMap<String, List<String>> servicesMap = new ConcurrentHashMap<String, List<String>>();
-    private Random rand = new Random();
-
+    private static AtomicLong shift = new AtomicLong();
 
     @Override
     public void onServiceChanged(String name, List<String> urls) {
@@ -32,15 +35,16 @@ public class ServiceClientPoolListener implements ServicePoolListener, Initializ
     public String select(String serviceName){
         List<String> servers = this.servicesMap.get(serviceName);
         if(servers != null && servers.size()>0){
-            int index = rand.nextInt(servers.size());
-            return servers.get(index);
+            Long index = shift.incrementAndGet();
+            index = index % servers.size();
+            return servers.get(index.intValue());
         }
         return null;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        ServiceClientPoolListener.instance = this;
+        instance = this;
     }
 
     public  static ServiceClientPoolListener instance = null;

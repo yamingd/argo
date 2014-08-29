@@ -2,7 +2,7 @@ package com.argo.cluster.service;
 
 import com.argo.cluster.ZKClientBeanBase;
 import com.argo.core.ContextConfig;
-import com.argo.core.service.ServicePoolListener;
+import com.argo.service.listener.ServicePoolListener;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher.Event.EventType;

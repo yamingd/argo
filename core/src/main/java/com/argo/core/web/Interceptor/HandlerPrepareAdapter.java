@@ -1,5 +1,6 @@
 package com.argo.core.web.Interceptor;
 
+import com.argo.core.ApplicationContextHolder;
 import com.argo.core.ContextConfig;
 import com.argo.core.base.BaseUser;
 import com.argo.core.configuration.SiteConfig;
@@ -7,7 +8,6 @@ import com.argo.core.exception.PermissionDeniedException;
 import com.argo.core.exception.UserNotAuthorizationException;
 import com.argo.core.metric.MetricCollectorImpl;
 import com.argo.core.security.AuthorizationService;
-import com.argo.core.service.factory.ServiceLocator;
 import com.argo.core.utils.IpUtil;
 import com.argo.core.web.AnonymousUser;
 import com.argo.core.web.CSRFToken;
@@ -39,6 +39,12 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
     private final String cookieId = "_after";
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    private AuthorizationService authorizationService = null;
+
+    public HandlerPrepareAdapter() {
+        this.authorizationService = ApplicationContextHolder.current.ctx.getBean(AuthorizationService.class);
+    }
 
     public boolean preHandle(
             HttpServletRequest request,
@@ -80,7 +86,6 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             if (logger.isDebugEnabled()){
                 logger.debug("preHandle currentUid="+currentUid);
             }
-            authorizationService = ServiceLocator.instance.get(AuthorizationService.class);
             if (authorizationService != null){
                 try{
                     user = authorizationService.verifyCookie(currentUid);
@@ -109,9 +114,6 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         }
         if (logger.isDebugEnabled()){
             logger.debug("preHandle currentUid="+currentUid);
-        }
-        if (authorizationService == null){
-            authorizationService = ServiceLocator.instance.get(AuthorizationService.class);
         }
         if (authorizationService != null){
             try {

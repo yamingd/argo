@@ -19,6 +19,7 @@
         <module>cache</module>
         <module>task</module>
         <module>mail</module>
+        <module>service</module>
     </modules>
 
     <properties>

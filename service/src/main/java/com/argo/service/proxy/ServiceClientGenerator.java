@@ -1,4 +1,4 @@
-package com.argo.core.service.proxy;
+package com.argo.service.proxy;
 
 import org.springframework.beans.factory.InitializingBean;
 

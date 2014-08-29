@@ -1,4 +1,4 @@
-package com.argo.core.service;
+package com.argo.service;
 
 import com.argo.core.configuration.AbstractConfig;
 import com.argo.core.configuration.ConfigListener;
@@ -14,12 +14,14 @@ public class ServiceConfig extends AbstractConfig implements ConfigListener {
 
     public static ServiceConfig instance;
     private static final String confName = "service";
+    private Map beans;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         this.cfgFile = confName + ".yaml";
         super.afterPropertiesSet();
         ServiceConfig.instance = this;
+        beans = this.get(Map.class, "beans");
     }
 
     public Map getMail(){
@@ -47,12 +49,11 @@ public class ServiceConfig extends AbstractConfig implements ConfigListener {
     }
 
     public String getService(String name){
-        Map ret = this.get(Map.class, "beans");
-        if (ret == null){
+        if (beans == null){
             this.getLogger().error("Can't not find beans config in service.yaml");
             return null;
         }
-        return ObjectUtils.toString(ret.get(name));
+        return ObjectUtils.toString(beans.get(name));
     }
 
     public String getServiceType(){
