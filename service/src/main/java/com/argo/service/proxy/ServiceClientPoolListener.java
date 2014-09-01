@@ -1,11 +1,16 @@
 package com.argo.service.proxy;
 
+import com.argo.service.ServiceConfig;
 import com.argo.service.listener.ServicePoolListener;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Component;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -15,6 +20,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * Date: 13-12-15
  * Time: 下午1:12
  */
+@Component
 public class ServiceClientPoolListener implements ServicePoolListener, InitializingBean {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -44,6 +50,17 @@ public class ServiceClientPoolListener implements ServicePoolListener, Initializ
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        //从配置文件读取.
+        Map<String, String> servers = ServiceConfig.instance.get(Map.class, "rmis");
+        if (servers != null){
+            Iterator<String> itor = servers.keySet().iterator();
+            while (itor.hasNext()){
+                String name = itor.next();
+                String val = servers.get(name);
+                this.onServiceChanged(name, Lists.newArrayList(val.split(",")));
+            }
+        }
+
         instance = this;
     }
 

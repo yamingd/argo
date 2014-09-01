@@ -3,7 +3,6 @@ package com.argo.service.beans;
 import com.argo.core.ApplicationContextHolder;
 import com.argo.core.utils.IpUtil;
 import com.argo.service.ServiceConfig;
-import com.argo.service.factory.ServiceLocatorImpl;
 import com.argo.service.listener.ServicePublishListener;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
@@ -36,7 +35,7 @@ public class ServiceBeanManager {
 	}
 
     public static void remove(String serviceName){
-        ServicePublishListener sp = ServiceLocatorImpl.instance.get("servicePublisher");
+        ServicePublishListener sp = ApplicationContextHolder.current.ctx.getBean("servicePublisher", ServicePublishListener.class);
         if (sp == null){
             return;
         }
@@ -44,7 +43,7 @@ public class ServiceBeanManager {
     }
 
     public static void remove(String serviceName, String uri){
-        ServicePublishListener sp = ServiceLocatorImpl.instance.get("servicePublisher");
+        ServicePublishListener sp = ApplicationContextHolder.current.ctx.getBean("servicePublisher", ServicePublishListener.class);
         if (sp == null){
             return;
         }

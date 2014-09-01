@@ -2,11 +2,9 @@ package com.argo.core.web;
 
 import com.argo.core.base.BaseUser;
 import com.argo.core.exception.UserNotAuthorizationException;
-import com.argo.core.service.ServiceLocator;
 import com.argo.core.web.session.SessionUserHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -20,9 +18,6 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 下午8:12
  */
 public abstract class MvcController {
-
-    @Autowired
-    protected ServiceLocator serviceLocator;
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 

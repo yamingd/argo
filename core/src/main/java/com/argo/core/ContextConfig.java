@@ -1,5 +1,8 @@
 package com.argo.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletContext;
 import java.util.Enumeration;
 
@@ -10,6 +13,8 @@ import java.util.Enumeration;
  * Time: 下午9:48
  */
 public class ContextConfig {
+
+    private static Logger logger = LoggerFactory.getLogger(ContextConfig.class);
 
     public static final String RUNNING_ENV = "com.argo.running.env";
 
@@ -39,6 +44,10 @@ public class ContextConfig {
         return "prod".equalsIgnoreCase(getRunning());
     }
 
+    public static boolean isRmiEnabled(){
+        return "true".equalsIgnoreCase(get("rmi"));
+    }
+
     public static void set(String key, String value){
         System.setProperty(key, value);
     }
@@ -57,6 +66,7 @@ public class ContextConfig {
             String key = itor.nextElement();
             String val = context.getInitParameter(key);
             set(key, val);
+            logger.info("key: " + key +", val: " + val);
         }
     }
 }

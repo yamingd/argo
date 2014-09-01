@@ -72,7 +72,6 @@ public class BucketBaseServiceImpl extends BaseBean implements BucketBaseService
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        String name = this.serviceLocator.getServiceName(CouchbaseTemplate.class);
-        cbTemplate = this.serviceLocator.get(name);
+        cbTemplate = this.applicationContext.getBean(CouchbaseTemplate.class);
     }
 }

@@ -1,0 +1,3 @@
+rmis:
+  inviteService: localhost:10990
+  userService: localhost:10990

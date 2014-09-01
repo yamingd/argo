@@ -2,7 +2,7 @@ package com.argo.service.proxy;
 
 import com.argo.service.factory.ServiceNameBuilder;
 import com.argo.service.listener.ServicePoolListener;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.remoting.RemoteConnectFailureException;
@@ -85,10 +85,24 @@ public class RmiServiceClientGenerator implements ServiceClientGenerator {
 			}
 			throw new Exception("@@@Remoting Server DOWN.");
 		}
-		
-		public Object invoke(final Object proxy, Method method, Object[] args)
+
+        public Object invoke(final Object proxy, Method method, Object[] args)
 				throws Exception {
-			
+
+            String name = method.getName();
+            if ("equals".equalsIgnoreCase(name)){
+                Object o = args[0];
+                if (o.getClass().isAssignableFrom(this.clazz)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            if ("toString".equalsIgnoreCase(name)){
+                return this.clazz.getName() + "/" + this.serviceName;
+            }
+
 			return postInvoke(method, args, 1);
 		}
 
@@ -108,19 +122,19 @@ public class RmiServiceClientGenerator implements ServiceClientGenerator {
 				if(retry.intValue()==0){
 					throw new Exception("远程服务器连接失败:", e);
 				}
-				logger.error("远程服务器连接失败, 进行重试, 参数: " + ToStringBuilder.reflectionToString(args));
-				//失败后重试
+                Thread.sleep(100);
 				return this.postInvoke(method, args, retry - 1);
 			}catch(RemoteLookupFailureException e){
-				if(retry.intValue()==0){
+				if(retry.intValue()==0 || args == null){
 					throw new Exception("远程服务定位失败:", e);
 				}
-				logger.error("远程服务定位失败, 进行重试, 参数: " + ToStringBuilder.reflectionToString(args));
-				//失败后重试
+                Thread.sleep(100);
 				return this.postInvoke(method, args, retry - 1);
 			}
 			catch (Exception e) {
-				logger.error("远程调用错误:" + ToStringBuilder.reflectionToString(args),e);
+                if (args != null) {
+                    logger.error("远程调用错误:" + ObjectUtils.toString(args), e);
+                }
 				throw new Exception("远程调用错误" + new Date(), e);
 			}
 		}
@@ -143,7 +157,9 @@ public class RmiServiceClientGenerator implements ServiceClientGenerator {
 				@Override
 				public String getServiceUrl() {
 					try {
-						return getAvaliableServerUrl();
+						String url = getAvaliableServerUrl();
+                        logger.debug("ServiceUrl: " + url);
+                        return url;
 					} catch (Exception e) {
 						this.logger.error("getServiceUrl", e);
 						return "Can't Get Remoting ServiceUrl. NULL.";

@@ -27,14 +27,13 @@ public class RpcServiceBeanFactoryPostProcessor extends ServiceBeanFactoryPostPr
 			return;
 		}
 
-        String rmi = ContextConfig.get("rmi");
-        if (!"true".equalsIgnoreCase(rmi)){
+        if (!ContextConfig.isRmiEnabled()){
             return;
         }
 
 		String serviceName = ServiceNameBuilder.get(annotation.serviceInterface(), annotation.servcieName());
 		
-		logger.info("@@@wrapRmiService-postProcessBeanFactory0, beanName=" + serviceName);
+		logger.info("@@@wrapRmiService-postProcessBeanFactory0, beanName=" + beanName + ", serviceName=" + serviceName);
 		
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder.rootBeanDefinition(RmiServiceExporter.class.getName());
 		
@@ -49,7 +48,7 @@ public class RpcServiceBeanFactoryPostProcessor extends ServiceBeanFactoryPostPr
 		
 		ServiceBeanManager.add(beanName, serviceName);
 		
-		logger.info("@@@wrapRmiService-postProcessBeanFactory1, beanName=" + serviceName);
+		logger.info("@@@wrapRmiService-postProcessBeanFactory1, beanName=" + beanName + ", serviceName=" + serviceName);
 	}
 
 }

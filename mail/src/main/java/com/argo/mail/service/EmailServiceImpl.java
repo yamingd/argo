@@ -40,7 +40,7 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
         Map<String, String> cfg = ServiceConfig.instance.getMail();
         String beanName = cfg.get("executor");
         if (StringUtils.isNotBlank(beanName)) {
-            executor = this.serviceLocator.get(EmailExecutor.class, beanName + "EmailExecutor");
+            executor = this.applicationContext.getBean(beanName + "EmailExecutor", EmailExecutor.class);
         }
 
         batch = Integer.parseInt(cfg.get("batch"));
