@@ -8,6 +8,8 @@ import com.argo.service.proxy.ServiceProxyWireBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
+import java.util.List;
+
 /**
  * 在服务端.
  * 根据RmiService来自动创建RPC Service.
@@ -16,6 +18,13 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
  * @date 2013-1-11
  */
 public class RpcServiceClientBeanFactoryPostProcessor extends ServiceBeanFactoryPostProcessor {
+
+    private List<String> rmiDisabled;
+
+    public RpcServiceClientBeanFactoryPostProcessor() {
+        super();
+        rmiDisabled = ServiceConfig.instance.get(List.class, "rmi_disabled");
+    }
 
     @Override
 	protected void postAddBean(DefaultListableBeanFactory dlbf, String beanName,
@@ -33,7 +42,7 @@ public class RpcServiceClientBeanFactoryPostProcessor extends ServiceBeanFactory
 
 		String serviceName = ServiceNameBuilder.get(annotation.serviceInterface(), annotation.servcieName());
 
-        if (!ServiceConfig.instance.hasService(serviceName)){
+        if (rmiDisabled.contains(serviceName)){
             return;
         }
 

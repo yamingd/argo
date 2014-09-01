@@ -1,9 +1,13 @@
-rmis:
+rmi_disabled:
   - inviteService
   - userService
 
-inviteService:
+rmis:
+  - service1
+  - service2
+
+service1:
   - localhost:10990
 
-userService:
+service2:
   - localhost:10990

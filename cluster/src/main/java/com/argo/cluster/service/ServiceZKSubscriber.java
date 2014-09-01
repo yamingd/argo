@@ -11,7 +11,7 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServiceSubscriber extends ZKClientBeanBase {
+public class ServiceZKSubscriber extends ZKClientBeanBase {
 	
 	protected static final String FOLDER_SERVICES = "/services";
 	private ServicePoolListener servicePoolListener;

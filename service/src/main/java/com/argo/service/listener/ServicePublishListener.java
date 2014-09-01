@@ -15,7 +15,7 @@ public interface ServicePublishListener {
 	 * @param url 连接URL. 如rmi://127.0.0.1:6600/
 	 */
 	boolean publish(String name, String url);
-	
+
 	/**
 	 * 取消发布.
 	 * @param name
@@ -23,5 +23,11 @@ public interface ServicePublishListener {
 	 * @return
 	 */
 	boolean remove(String name, String url);
+
+    /**
+     *
+     * @param name
+     * @return
+     */
 	boolean remove(String name);
 }

@@ -35,9 +35,20 @@ public class ServiceClientPoolListener implements ServicePoolListener, Initializ
     }
 
     @Override
+    public void removeUrl(String name, String url) {
+        List<String> servers = this.servicesMap.get(name);
+        if(servers != null && servers.size()>0){
+            servers.remove(url);
+        }
+    }
+
+    @Override
     public String select(String serviceName){
         List<String> servers = this.servicesMap.get(serviceName);
         if(servers != null && servers.size()>0){
+            if (servers.size() == 1){
+                return servers.get(0);
+            }
             Long index = shift.incrementAndGet();
             index = index % servers.size();
             return servers.get(index.intValue());

@@ -14,7 +14,12 @@ public interface ServicePoolListener {
 	 * @param urls 新的URLS.
 	 */
 	void onServiceChanged(String name, List<String> urls);
-
+    /**
+     *
+     * @param name
+     * @param url
+     */
+    void removeUrl(String name, String url);
     /**
      * 选择一个可用的服务所在服务器地址.
      * @param name

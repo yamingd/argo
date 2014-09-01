@@ -16,22 +16,22 @@ import java.util.List;
  * 
  * RMI service init --> publish --> zookeeper --> push --> client
  * 
- * find(ServicePublisher)-->publish()
+ * find(ServiceZKPublisher)-->publish()
  * 
  * @author yaming_deng
  *
  */
-public class ServicePublisher extends ZKClientBeanBase implements ServicePublishListener, ApplicationListener<ContextRefreshedEvent> {
+public class ServiceZKPublisher extends ZKClientBeanBase implements ServicePublishListener, ApplicationListener<ContextRefreshedEvent> {
 	
 	protected static final String FOLDER_SERVICES = "/services";
 
-    public static ServicePublisher instance = null;
+    public static ServiceZKPublisher instance = null;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		super.afterPropertiesSet();
         this.setRootPath(this.getRootPath() + "/" + ContextConfig.getRunning()+FOLDER_SERVICES);
-        ServicePublisher.instance = this;
+        ServiceZKPublisher.instance = this;
 	}
 	
 	@Override
