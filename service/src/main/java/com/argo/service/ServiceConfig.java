@@ -2,8 +2,8 @@ package com.argo.service;
 
 import com.argo.core.configuration.AbstractConfig;
 import com.argo.core.configuration.ConfigListener;
-import org.apache.commons.lang3.ObjectUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,28 +14,20 @@ public class ServiceConfig extends AbstractConfig implements ConfigListener {
 
     public static ServiceConfig instance;
     private static final String confName = "service";
-    private Map beans;
+    private List<String> services;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         this.cfgFile = confName + ".yaml";
         super.afterPropertiesSet();
         ServiceConfig.instance = this;
-        beans = this.get(Map.class, "beans");
+        services = this.get(List.class, "rmis");
     }
 
     public Map getMail(){
         Map ret = this.get(Map.class, "mail");
         if (ret == null){
             this.getLogger().error("Can't not find mail config in service.yaml");
-        }
-        return ret;
-    }
-
-    public Map getBeans(){
-        Map ret = this.get(Map.class, "beans");
-        if (ret == null){
-            this.getLogger().error("Can't not find beans config in service.yaml");
         }
         return ret;
     }
@@ -48,16 +40,17 @@ public class ServiceConfig extends AbstractConfig implements ConfigListener {
         return ret;
     }
 
-    public String getService(String name){
-        if (beans == null){
-            this.getLogger().error("Can't not find beans config in service.yaml");
-            return null;
-        }
-        return ObjectUtils.toString(beans.get(name));
+    public List<String> getServiceServers(String name){
+        List<String> addrs = this.get(List.class, name);
+        return addrs;
     }
 
-    public String getServiceType(){
-        return super.get(String.class, "mode", ServiceMode.Local);
+    public List<String> getServices() {
+        return services;
+    }
+
+    public boolean hasService(String name){
+        return services.contains(name);
     }
 
     @Override

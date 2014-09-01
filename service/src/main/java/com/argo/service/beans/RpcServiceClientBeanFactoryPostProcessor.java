@@ -1,6 +1,7 @@
 package com.argo.service.beans;
 
 import com.argo.core.ContextConfig;
+import com.argo.service.ServiceConfig;
 import com.argo.service.annotation.RmiService;
 import com.argo.service.factory.ServiceNameBuilder;
 import com.argo.service.proxy.ServiceProxyWireBeanFactory;
@@ -31,7 +32,12 @@ public class RpcServiceClientBeanFactoryPostProcessor extends ServiceBeanFactory
         }
 
 		String serviceName = ServiceNameBuilder.get(annotation.serviceInterface(), annotation.servcieName());
-		
+
+        if (!ServiceConfig.instance.hasService(serviceName)){
+            return;
+        }
+
+
 		logger.info("@@@RpcServiceClientBeanFactoryPostProcessor, serviceName=" + serviceName + ", beanName=" + beanName);
 		
 		BeanDefinitionBuilder builder = BeanDefinitionBuilder.rootBeanDefinition(ServiceProxyWireBeanFactory.class.getName());
