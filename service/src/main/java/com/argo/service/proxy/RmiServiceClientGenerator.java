@@ -92,7 +92,7 @@ public class RmiServiceClientGenerator implements ServiceClientGenerator {
             String name = method.getName();
             if ("equals".equalsIgnoreCase(name)){
                 Object o = args[0];
-                if (o.getClass().isAssignableFrom(this.clazz)){
+                if (this.clazz.isAssignableFrom(o.getClass())){
                     return true;
                 }else{
                     return false;
