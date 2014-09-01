@@ -6,6 +6,7 @@ import com.argo.mail.executor.EmailExecutor;
 import com.argo.mail.executor.EmailPostSender;
 import com.argo.service.ServiceConfig;
 import com.argo.service.annotation.RmiService;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -37,14 +38,14 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
         super.afterPropertiesSet();
         stopping = false;
 
-        Map<String, String> cfg = ServiceConfig.instance.getMail();
-        String beanName = cfg.get("executor");
+        Map<String, Object> cfg = ServiceConfig.instance.getMail();
+        String beanName = ObjectUtils.toString(cfg.get("executor"));
         if (StringUtils.isNotBlank(beanName)) {
             executor = this.applicationContext.getBean(beanName + "EmailExecutor", EmailExecutor.class);
         }
 
-        batch = Integer.parseInt(cfg.get("batch"));
-        interval = Integer.parseInt(cfg.get("interval"));
+        batch = (Integer)cfg.get("batch");
+        interval = (Integer)cfg.get("interval");
 
         pools = new ThreadPoolTaskExecutor();
         pools.setCorePoolSize(batch / 10);

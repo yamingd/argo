@@ -36,16 +36,16 @@ public class EmailPostSender extends BaseBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         super.afterPropertiesSet();
-        Map<String, String> cfg = ServiceConfig.instance.getMail();
+        Map<String, Object> cfg = ServiceConfig.instance.getMail();
 
         mailSender = new JavaMailSenderImpl();
         mailSender.setDefaultEncoding("UTF-8");
-        mailSender.setHost(cfg.get("host"));
-        mailSender.setUsername(cfg.get("user"));
-        mailSender.setPassword(cfg.get("passwd"));
+        mailSender.setHost(cfg.get("host") + "");
+        mailSender.setUsername(cfg.get("user") + "");
+        mailSender.setPassword(cfg.get("passwd") + "");
         Properties props = new Properties();
-        props.setProperty("mail.smtp.auth", cfg.get("auth"));
-        props.setProperty("mail.smtp.timeout", cfg.get("timeout"));
+        props.setProperty("mail.smtp.auth", cfg.get("auth") + "");
+        props.setProperty("mail.smtp.timeout", cfg.get("timeout") + "");
         mailSender.setJavaMailProperties(props);
 
     }

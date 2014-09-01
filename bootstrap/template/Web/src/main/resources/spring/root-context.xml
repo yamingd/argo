@@ -11,8 +11,12 @@
        ">
 
     <!-- Root Context: defines shared resources visible to all other web components -->
-    <bean id="remotingBeanFactoryPostProcessor"
+    <bean id="rpcServiceBeanFactoryPostProcessor"
           class="com.argo.service.beans.RpcServiceBeanFactoryPostProcessor" />
+
+    <!-- on client web -->
+    <bean id="rpcServiceClientBeanFactoryPostProcessor"
+          class="com.argo.service.beans.RpcServiceClientBeanFactoryPostProcessor" />
 
     <bean id="dsBeanFactoryPostProcessor"
           class="com.argo.db.beans.MasterSlaveDataSourceBeanFactoryPostProcessor" />
