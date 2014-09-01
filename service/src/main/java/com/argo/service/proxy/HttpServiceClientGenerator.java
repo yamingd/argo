@@ -2,7 +2,6 @@ package com.argo.service.proxy;
 
 import com.argo.service.factory.ServiceNameBuilder;
 import com.argo.service.listener.ServicePoolListener;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.remoting.RemoteConnectFailureException;
@@ -85,7 +84,21 @@ public class HttpServiceClientGenerator implements ServiceClientGenerator {
 		
 		public Object invoke(final Object proxy, Method method, Object[] args)
 				throws Exception {
-			
+
+            String name = method.getName();
+            if ("equals".equalsIgnoreCase(name)){
+                Object o = args[0];
+                if (this.clazz.isAssignableFrom(o.getClass())){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            if ("toString".equalsIgnoreCase(name)){
+                return this.clazz.getName() + "/" + this.serviceName;
+            }
+
 			return postInvoke(method, args, 1);
 		}
 
@@ -103,11 +116,9 @@ public class HttpServiceClientGenerator implements ServiceClientGenerator {
 				if(retry.intValue()==0){
 					throw new Exception("远程服务器连接失败:", e);
 				}
-				logger.error("远程服务器连接失败, 进行重试, 参数: " + ToStringBuilder.reflectionToString(args));
 				//失败后重试
 				return this.postInvoke(method, args, retry - 1);
 			}catch (Exception e) {
-				logger.error("远程调用错误:" + ToStringBuilder.reflectionToString(args),e);
 				throw new Exception("远程调用错误" + new Date(), e);
 			}
 		}
