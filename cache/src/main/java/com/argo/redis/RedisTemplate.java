@@ -18,12 +18,20 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 	private boolean ALIVE = true;
 	private boolean serverDown = false;
 	private RedisConfig redisConfig = null;
+    private JedisPoolConfig config;
 
 	public void afterPropertiesSet() throws Exception {
 		logger = LoggerFactory.getLogger(this.getClass() + "." + beanName);
 		redisConfig = new RedisConfig();
         redisConfig.afterPropertiesSet();
-		this.buildJedisPool();
+
+        config = new JedisPoolConfig();
+        config.setMaxActive(this.redisConfig.getMaxActive());
+        config.setMaxIdle(this.redisConfig.getMaxIdle());
+        config.setMaxWait(this.redisConfig.getTimeoutWait());
+
+		this.initJedisPool();
+
 		new MonitorThread().start();
 	}
 
@@ -35,11 +43,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 		return jedisPool;
 	}
 	
-	private void buildJedisPool(){
-		JedisPoolConfig config = new JedisPoolConfig();
-		config.setMaxActive(this.redisConfig.getMaxActive());
-		config.setMaxIdle(this.redisConfig.getMaxIdle());
-		config.setMaxWait(this.redisConfig.getTimeoutWait());
+	protected void initJedisPool(){
 		this.jedisPool = new JedisPool(config, redisConfig.getServiceIp(), redisConfig.getServicePort());
 	}
 	
