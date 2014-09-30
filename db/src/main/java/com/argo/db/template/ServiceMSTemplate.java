@@ -6,6 +6,7 @@ import com.argo.core.exception.ServiceException;
 import com.argo.db.JdbcConfig;
 import com.argo.db.MasterSlaveJdbcTemplate;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.Assert;
@@ -34,6 +35,9 @@ public abstract class ServiceMSTemplate<T> extends BaseBean implements ServiceBa
         jdbcConfig = JdbcConfig.current;
         Map<String, String> sm = jdbcConfig.get(Map.class, "ems");
         String name = sm.get(this.getServerName());
+        if (StringUtils.isBlank(name)){
+            name = this.getServerName();
+        }
         jdbcTemplateM = masterSlaveJdbcTemplate.get(name, true);
         jdbcTemplateS = masterSlaveJdbcTemplate.get(name, false);
 
@@ -44,7 +48,7 @@ public abstract class ServiceMSTemplate<T> extends BaseBean implements ServiceBa
         Assert.notNull(jdbcTemplateS, "jdbcTemplateS is NULl");
     }
 
-    protected void update(String tableName, Map<String, Object> args, String pk, Object pkvalue){
+    protected int update(String tableName, Map<String, Object> args, String pk, Object pkvalue){
         List<Object> params = Lists.newArrayList();
         StringBuilder sb = new StringBuilder();
         sb.append("update ").append(tableName).append(" set ");
@@ -56,7 +60,7 @@ public abstract class ServiceMSTemplate<T> extends BaseBean implements ServiceBa
         sb.append("  where ").append(pk).append(" = ? ");
         params.add(pkvalue);
 
-        this.jdbcTemplateM.update(sb.toString().intern(), params.toArray());
+        return this.jdbcTemplateM.update(sb.toString().intern(), params.toArray());
     }
 
     protected abstract String getServerName();
