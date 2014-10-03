@@ -1,6 +1,6 @@
 package com.argo.couchbase;
 
-import com.argo.core.json.GsonUtil;
+import com.argo.core.json.JsonUtil;
 import com.argo.core.metric.MetricCollectorImpl;
 import com.argo.couchbase.exception.BucketException;
 import com.argo.couchbase.exception.BucketQueryException;
@@ -201,7 +201,7 @@ public class CouchbaseTemplate implements InitializingBean {
 			@Override
 			public Boolean doInBucket() throws InterruptedException,
 					ExecutionException {
-				String json = GsonUtil.toJson(objectToSave);
+				String json = JsonUtil.toJson(objectToSave);
                 if (logger.isDebugEnabled()){
                     logger.debug("insert, bucket:{}, data:{}", bucketName, json);
                 }
@@ -248,7 +248,7 @@ public class CouchbaseTemplate implements InitializingBean {
 					client.touch(objectToSave.getCouchbaseKey(), BucketManager.EXP_DELETED);
 					return true;
 				} else {
-					String json = GsonUtil.toJson(objectToSave);
+					String json = JsonUtil.toJson(objectToSave);
 					return client.set(objectToSave.getCouchbaseKey(), 0, json).get();
 				}
 			}
@@ -364,7 +364,7 @@ public class CouchbaseTemplate implements InitializingBean {
             @Override
             public Boolean doInBucket() throws InterruptedException,
                     ExecutionException {
-                String json = GsonUtil.toJson(objectToSave);
+                String json = JsonUtil.toJson(objectToSave);
                 return client.replace(objectToSave.getCouchbaseKey(), 0, json).get();
             }
         });
@@ -463,7 +463,7 @@ public class CouchbaseTemplate implements InitializingBean {
 
 			final List<T> result = new ArrayList<T>(response.size());
 			for (final ViewRow row : response) {
-				T item = GsonUtil.asT(entityClass, (String) row.getDocument());
+				T item = JsonUtil.asT(entityClass, (String) row.getDocument());
 				result.add(item);
 			}
 
@@ -504,7 +504,7 @@ public class CouchbaseTemplate implements InitializingBean {
 
             final List<T> items = new ArrayList<T>(response.size());
             for (final ViewRow row : response) {
-                T item = GsonUtil.asT(entityClass, (String) row.getDocument());
+                T item = JsonUtil.asT(entityClass, (String) row.getDocument());
                 items.add(item);
             }
 
@@ -541,7 +541,7 @@ public class CouchbaseTemplate implements InitializingBean {
 
             for (final ViewRow row : response) {
                 String value = row.getValue();
-                Map<String, Object> temp = GsonUtil.convertJson2Map(value);
+                Map<String, Object> temp = JsonUtil.asMap(value);
                 Iterator<String> itor = temp.keySet().iterator();
                 while (itor.hasNext()) {
                     String key = itor.next();
@@ -583,7 +583,7 @@ public class CouchbaseTemplate implements InitializingBean {
 				if (temp == null) {
 					return null;
 				}
-				return GsonUtil.asT(entityClass, (String) temp);
+				return JsonUtil.asT(entityClass, (String) temp);
 			}
 		});
 	}
@@ -625,7 +625,7 @@ public class CouchbaseTemplate implements InitializingBean {
 						if (temp == null) {
 							list.add(null);
 						} else {
-							T item = GsonUtil.asT(entityClass, (String) temp);
+							T item = JsonUtil.asT(entityClass, (String) temp);
 							list.add(item);
 						}
 					}
@@ -705,7 +705,7 @@ public class CouchbaseTemplate implements InitializingBean {
 	
 			for (final ViewRow row : response) {
 				String value = row.getValue();
-				Map<String, Object> temp = GsonUtil.convertJson2Map(value);
+				Map<String, Object> temp = JsonUtil.asMap(value);
 				Iterator<String> itor = temp.keySet().iterator();
 				while (itor.hasNext()) {
 					String key = itor.next();

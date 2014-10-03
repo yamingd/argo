@@ -1,7 +1,7 @@
 package com.argo.message.server;
 
 import com.argo.core.ContextConfig;
-import com.argo.core.json.GsonUtil;
+import com.argo.core.json.JsonUtil;
 import com.argo.core.utils.IpUtil;
 import com.argo.message.MQMessageConsumer;
 import com.argo.message.MessageConfig;
@@ -105,7 +105,7 @@ public class RabbitMQServerProvider extends AbstractServerProvider {
 		
 		try {
 			String exchange = getExchangeName();
-			String data = GsonUtil.toJson(message);
+			String data = JsonUtil.toJson(message);
             if (logger.isDebugEnabled()){
 			    logger.debug(data);
             }

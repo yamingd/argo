@@ -3,9 +3,10 @@ package com.argo.core.web.Interceptor;
 import com.argo.core.configuration.SiteConfig;
 import com.argo.core.exception.PermissionDeniedException;
 import com.argo.core.exception.UserNotAuthorizationException;
-import com.argo.core.json.GsonUtil;
+import com.argo.core.json.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,13 +36,13 @@ public class ExceptionHandler implements HandlerExceptionResolver {
                 map.put("code", "401");
                 map.put("message", ex.getMessage());
                 map.put("login", loginUrl);
-                GsonUtil.printJsonObject(response, map);
+                write(request, response, map);
                 return null;
             }else if (ex instanceof PermissionDeniedException){
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("code", "403");
                 map.put("message", ex.getMessage());
-                GsonUtil.printJsonObject(response, map);
+                write(request, response, map);
                 return null;
             }else{
 
@@ -53,7 +54,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
                 map.put("message", ex.getMessage());
                 map.put("refererUrl", request.getHeader("Referer"));
                 map.put("page", request.getRequestURL().toString());
-                GsonUtil.printJsonObject(response, map);
+                write(request, response, map);
                 return null;
             }
         }else{
@@ -82,6 +83,16 @@ public class ExceptionHandler implements HandlerExceptionResolver {
             }
         }
         return new ModelAndView("home");
+    }
+
+    private void write(HttpServletRequest request, HttpServletResponse response, Object o){
+        String json = JsonUtil.toJson(o);
+        response.setHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+        try {
+            response.getWriter().write(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     protected boolean isAjax(HttpServletRequest request){

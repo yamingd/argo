@@ -1,6 +1,6 @@
 package com.argo.cluster.server;
 
-import com.argo.core.json.GsonUtil;
+import com.argo.core.json.JsonUtil;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 import org.slf4j.Logger;
@@ -66,13 +66,13 @@ public class ZookeeperServer {
 	}
 	
 	public void createDataNode(String path, Object object, CreateMode mode) throws KeeperException, InterruptedException{
-		byte[] data = GsonUtil.toJson(object).getBytes(Charset.forName("UTF-8"));
+		byte[] data = JsonUtil.toJson(object).getBytes(Charset.forName("UTF-8"));
 		this.createDataNode(path, data, mode);
 	}
 	
 	public Object getNodeData(String path, Watcher watcher) throws KeeperException, InterruptedException{
 		byte[] data = this.zkServer.getData(path, watcher, null);
-		return GsonUtil.asT(Object.class, new String(data));
+		return JsonUtil.asT(Object.class, new String(data));
 	}
 	
 	public boolean watch(String path, Watcher watcher){

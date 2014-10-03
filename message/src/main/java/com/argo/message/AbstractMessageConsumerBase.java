@@ -1,7 +1,7 @@
 package com.argo.message;
 
 import com.argo.core.base.BaseBean;
-import com.argo.core.json.GsonUtil;
+import com.argo.core.json.JsonUtil;
 import com.argo.message.server.ServerProvider;
 import com.codahale.metrics.Timer;
 import org.apache.commons.lang3.ObjectUtils;
@@ -120,7 +120,7 @@ public abstract class AbstractMessageConsumerBase extends BaseBean
 
         MessageEntity msg = null;
         try {
-            msg = GsonUtil.asT(MessageEntity.class, message);
+            msg = JsonUtil.asT(MessageEntity.class, message);
         } catch (Exception e) {
             messageMetric.consumeFailedIncr("parseJson:"+e.getClass().getSimpleName());
             this.logger.error("Message GsonUtil Errro. content=" + message);

@@ -1,7 +1,7 @@
 package com.argo.redis.impl;
 
 import com.argo.core.base.BaseBean;
-import com.argo.core.json.GsonUtil;
+import com.argo.core.json.JsonUtil;
 import com.argo.mail.EmailMessage;
 import com.argo.mail.executor.EmailExecutor;
 import com.argo.redis.RedisBuket;
@@ -30,7 +30,7 @@ public class RedisEmailExecutor extends BaseBean implements EmailExecutor {
 
     @Override
     public void add(EmailMessage message) {
-        redisBuket.rpush(queueNameM, GsonUtil.toJson(message));
+        redisBuket.rpush(queueNameM, JsonUtil.toJson(message));
     }
 
     @Override
@@ -38,7 +38,7 @@ public class RedisEmailExecutor extends BaseBean implements EmailExecutor {
         List<String> resp = redisBuket.lpop(queueNameM, limit);
         List<EmailMessage> items = Lists.newArrayList();
         for(String item : resp){
-            EmailMessage t = GsonUtil.asT(EmailMessage.class, item);
+            EmailMessage t = JsonUtil.asT(EmailMessage.class, item);
             items.add(t);
         }
         return items;
