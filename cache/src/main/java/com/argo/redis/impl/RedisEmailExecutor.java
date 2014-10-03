@@ -1,11 +1,9 @@
 package com.argo.redis.impl;
 
 import com.argo.core.base.BaseBean;
-import com.argo.core.json.JsonUtil;
 import com.argo.mail.EmailMessage;
 import com.argo.mail.executor.EmailExecutor;
 import com.argo.redis.RedisBuket;
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,18 +28,13 @@ public class RedisEmailExecutor extends BaseBean implements EmailExecutor {
 
     @Override
     public void add(EmailMessage message) {
-        redisBuket.rpush(queueNameM, JsonUtil.toJson(message));
+        redisBuket.rpush(EmailMessage.class, queueNameM, message);
     }
 
     @Override
     public List<EmailMessage> dequeueMessage(int limit) {
-        List<String> resp = redisBuket.lpop(queueNameM, limit);
-        List<EmailMessage> items = Lists.newArrayList();
-        for(String item : resp){
-            EmailMessage t = JsonUtil.asT(EmailMessage.class, item);
-            items.add(t);
-        }
-        return items;
+        List<EmailMessage> resp = redisBuket.lpop(EmailMessage.class, queueNameM, limit);
+        return resp;
     }
 
 

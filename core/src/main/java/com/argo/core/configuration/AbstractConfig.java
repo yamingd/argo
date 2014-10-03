@@ -44,6 +44,9 @@ public abstract class AbstractConfig implements InitializingBean, ConfigListener
             return;
         }
         this.cfg = ConfigYamlManager.load(this.cfgFile, this.getConfName());
+        if (this.cfg == null){
+            logger.error("Failed loading: " + this.cfgFile);
+        }
     }
 
     public boolean isEnabled(){

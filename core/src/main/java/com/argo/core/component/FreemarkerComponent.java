@@ -6,8 +6,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.BeansException;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -32,14 +31,22 @@ public class FreemarkerComponent extends BaseBean {
 	private String contextPath;
 	
 	private final Logger logger = LoggerFactory.getLogger(FreemarkerComponent.class);
-	
-	@Autowired
-	@Qualifier("freemarkerConfiguration")
+
 	private Properties properties;
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		super.afterPropertiesSet();
+        try {
+            this.properties = applicationContext.getBean("freemarkerConfiguration", Properties.class);
+        } catch (BeansException e) {
+            logger.warn("FreemarkerComponent is disabled. Missing freemarkerConfiguration");
+            return;
+        }
+        if (this.properties == null){
+            logger.warn("FreemarkerComponent is disabled. Missing freemarkerConfiguration");
+            return;
+        }
 		this.buildRenderConfig();		
 	}
 	

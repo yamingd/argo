@@ -1,24 +1,27 @@
 package com.argo.redis;
 
+import org.msgpack.MessagePack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.InitializingBean;
-
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.BinaryJedis;
 import redis.clients.jedis.JedisPoolConfig;
 
 public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 
 	private String beanName = "";
 	protected Logger logger = null;
-	private JedisPool jedisPool;
+
 	private String serverName;
 	private boolean ALIVE = true;
 	private boolean serverDown = false;
 	private RedisConfig redisConfig = null;
+
+    private RedisPool jedisPool;
     private JedisPoolConfig config;
+
+    protected MessagePack messagePack = new MessagePack();
 
 	public void afterPropertiesSet() throws Exception {
 		logger = LoggerFactory.getLogger(this.getClass() + "." + beanName);
@@ -26,9 +29,9 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
         redisConfig.afterPropertiesSet();
 
         config = new JedisPoolConfig();
-        config.setMaxActive(this.redisConfig.getMaxActive());
+        config.setMaxTotal(this.redisConfig.getMaxActive());
         config.setMaxIdle(this.redisConfig.getMaxIdle());
-        config.setMaxWait(this.redisConfig.getTimeoutWait());
+        config.setMaxWaitMillis(this.redisConfig.getTimeoutWait());
 
 		this.initJedisPool();
 
@@ -39,12 +42,12 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 		this.beanName = name;
 	}
 
-	public JedisPool getJedisPool() {
+	public RedisPool getJedisPool() {
 		return jedisPool;
 	}
 	
 	protected void initJedisPool(){
-		this.jedisPool = new JedisPool(config, redisConfig.getServiceIp(), redisConfig.getServicePort());
+        this.jedisPool = new RedisPool(config, redisConfig.getServiceIp(), redisConfig.getServicePort());
 	}
 	
 	// 执行具体COMMAND
@@ -53,7 +56,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 			logger.error("Redis is Still Down.");
 			return null;
 		}
-		Jedis conn = null;
+		BinaryJedis conn = null;
 		boolean error = false;
 		try {
 			conn = getJedisPool().getResource();
@@ -93,7 +96,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 	
 	public String info(){
 		return this.execute(new RedisCommand<String>(){
-			public String execute(Jedis conn) throws Exception {
+			public String execute(BinaryJedis conn) throws Exception {
 				return conn.info();
 			}
 		});
@@ -104,7 +107,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 	 * 
 	 * @param jedis
 	 */
-	private void returnConnection(Jedis jedis) {
+	private void returnConnection(BinaryJedis jedis) {
 		if (null != jedis) {
 			try {
 				getJedisPool().returnResource(jedis);
@@ -119,7 +122,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 	 * 
 	 * @param jedis
 	 */
-	private void returnBorkenConnection(Jedis jedis) {
+	private void returnBorkenConnection(BinaryJedis jedis) {
 		if (null != jedis) {
 			getJedisPool().returnBrokenResource(jedis);
 		}
@@ -152,7 +155,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 					int errorTimes = 0;
 					for (int i = 0; i < 3; i++) {
 						try {
-							Jedis jedis = getJedisPool().getResource();
+                            BinaryJedis jedis = getJedisPool().getResource();
 							if (jedis == null) {
 								errorTimes++;
 								continue;
@@ -180,7 +183,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 									+ getServerName() + "] 服务器恢复正常");
 						}
 						serverDown = false;
-						Jedis jedis = getJedisPool().getResource();
+                        BinaryJedis jedis = getJedisPool().getResource();
 						logger.info(beanName + " --> im redis["
 								+ getServerName() + "] 当前记录数：" + jedis.dbSize());
 						returnConnection(jedis);

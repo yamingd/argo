@@ -1,48 +1,158 @@
 package com.argo.redis;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Pipeline;
-import redis.clients.jedis.Tuple;
+import redis.clients.jedis.*;
+import redis.clients.util.SafeEncoder;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 @Component("redisBuket")
 public class RedisBuket extends RedisTemplate {
-	
-	public List<String> mget(final String... keys){
+
+    public List<String> fromBytes(List<byte[]> lbs) throws UnsupportedEncodingException {
+        List<String> ret = Lists.newArrayList();
+        if (lbs == null){
+            return ret;
+        }
+        for (byte[] bs : lbs){
+            if (bs != null) {
+                ret.add(new String(bs, Protocol.CHARSET));
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * multi get
+     * @param keys keys
+     * @return List<String>
+     */
+    public List<String> mget(final String... keys){
 		return this.execute(new RedisCommand<List<String>>(){
-			public List<String> execute(final Jedis conn) throws Exception {
-				return conn.mget(keys);
-			}
-		});
-	}
-	
-	public String get(final String key){
-		return this.execute(new RedisCommand<String>(){
-			public String execute(final Jedis conn) throws Exception {
-				return conn.get(key);
-			}
-		});
-	}
-	
-	public String getSet(final String key, final String value){
-		return this.execute(new RedisCommand<String>(){
-			public String execute(final Jedis conn) throws Exception {
-				return conn.getSet(key, value);
+			public List<String> execute(final BinaryJedis conn) throws Exception {
+                List<byte[]> bytes = conn.mget(SafeEncoder.encodeMany(keys));
+                List<String> ret = Lists.newArrayList();
+                for (byte[] item : bytes){
+                    if (item != null) {
+                        ret.add(SafeEncoder.encode(item));
+                    }
+                }
+                return ret;
 			}
 		});
 	}
 
-    public Long setnx(final String key, final String value){
-    	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.setnx(key, value);
+    /**
+     * Get Object List
+     * @param clazz
+     * @param keys
+     * @param <T>
+     * @return
+     */
+    public <T> List<T> mget(final Class<T> clazz, final String... keys){
+        return this.execute(new RedisCommand<List<T>>(){
+            public List<T> execute(final BinaryJedis conn) throws Exception {
+                List<byte[]> bytes = conn.mget(SafeEncoder.encodeMany(keys));
+                List<T> ret = Lists.newArrayList();
+                for (byte[] item : bytes){
+                    if (item != null) {
+                        ret.add(messagePack.read(item, clazz));
+                    }
+                }
+                return ret;
+            }
+        });
+    }
+
+    /**
+     * get single key
+     * @param key key
+     * @return String
+     */
+	public String get(final String key){
+		return this.execute(new RedisCommand<String>(){
+			public String execute(final BinaryJedis conn) throws Exception {
+				byte[] bytes = conn.get(SafeEncoder.encode(key));
+                if (bytes == null){
+                    return null;
+                }
+                return SafeEncoder.encode(bytes);
 			}
 		});
+	}
+
+    /**
+     * Get Object
+     * @param clazz
+     * @param key
+     * @param <T>
+     * @return
+     */
+    public <T> T get(final Class<T> clazz, final String key){
+        return this.execute(new RedisCommand<T>(){
+            public T execute(final BinaryJedis conn) throws Exception {
+                byte[] bytes = conn.get(SafeEncoder.encode(key));
+                if (bytes == null){
+                    return null;
+                }
+                return messagePack.read(bytes, clazz);
+            }
+        });
+    }
+
+    /**
+     * GETSET
+     * @param key
+     * @param value
+     * @return String: old value
+     */
+	public String getSet(final String key, final String value){
+		return this.execute(new RedisCommand<String>(){
+			public String execute(final BinaryJedis conn) throws Exception {
+				byte[] ret = conn.getSet(SafeEncoder.encode(key), SafeEncoder.encode(value));
+                if (ret == null){
+                    return null;
+                }
+                return SafeEncoder.encode(ret);
+			}
+		});
+	}
+
+    public <T> T getSet(final Class<T> clazz, final String key, final T value){
+        return this.execute(new RedisCommand<T>(){
+            public T execute(final BinaryJedis conn) throws Exception {
+                byte[] ds = messagePack.write(value);
+                byte[] ret = conn.getSet(SafeEncoder.encode(key), ds);
+                if (ret == null){
+                    return null;
+                }
+                return messagePack.read(ret, clazz);
+            }
+        });
+    }
+
+    public Long setnx(final String key, final String value){
+    	return this.execute(new RedisCommand<Long>(){
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.setnx(SafeEncoder.encode(key), SafeEncoder.encode(value));
+			}
+		});
+    }
+
+    public <T> Long setnx(final Class<T> clazz, final String key, final T value){
+        return this.execute(new RedisCommand<Long>(){
+            public Long execute(final BinaryJedis conn) throws Exception {
+                byte[] ds = messagePack.write(value);
+                return conn.setnx(SafeEncoder.encode(key), ds);
+            }
+        });
     }
 
     /**
@@ -54,12 +164,21 @@ public class RedisBuket extends RedisTemplate {
      */
     public String setex(final String key, final int seconds, final String value){
     	return this.execute(new RedisCommand<String>(){
-			public String execute(final Jedis conn) throws Exception {
-				return conn.setex(key, seconds, value);
+			public String execute(final BinaryJedis conn) throws Exception {
+				return conn.setex(SafeEncoder.encode(key), seconds, SafeEncoder.encode(value));
 			}
 		});
     }
-    
+
+    public <T> String setex(final Class<T> clazz, final String key, final int seconds, final T value){
+        return this.execute(new RedisCommand<String>(){
+            public String execute(final BinaryJedis conn) throws Exception {
+                byte[] ds = messagePack.write(value);
+                return conn.setex(SafeEncoder.encode(key), seconds, ds);
+            }
+        });
+    }
+
 	/**
 	 * 设置过期时间.
 	 * @param key 缓存Key.
@@ -68,8 +187,8 @@ public class RedisBuket extends RedisTemplate {
 	 */
 	public long expire(final String key, final int timeout){
 		return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.expire(key, timeout);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.expire(SafeEncoder.encode(key), timeout);
 			}
 		});
 	}
@@ -81,20 +200,20 @@ public class RedisBuket extends RedisTemplate {
 	 */
 	public boolean exists(final String key){
 		return this.execute(new RedisCommand<Boolean>(){
-			public Boolean execute(final Jedis conn) throws Exception {
-				return conn.exists(key);
+			public Boolean execute(final BinaryJedis conn) throws Exception {
+				return conn.exists(SafeEncoder.encode(key));
 			}
 		});
 	}
 	/**
 	 * 删除Key
-	 * @param key 缓存keys
+	 * @param keys 缓存keys
 	 * @return
 	 */
-	public boolean delete(final String... key){
+	public boolean delete(final String... keys){
 		return this.execute(new RedisCommand<Boolean>(){
-			public Boolean execute(final Jedis conn) throws Exception {
-				return conn.del(key) > 0;
+			public Boolean execute(final BinaryJedis conn) throws Exception {
+				return conn.del(SafeEncoder.encodeMany(keys)) > 0;
 			}
 		});
 	}
@@ -106,8 +225,8 @@ public class RedisBuket extends RedisTemplate {
 	 */
 	public long incr(final String key, final Integer amount){
 		return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.incrBy(key, amount);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.incrBy(SafeEncoder.encode(key), amount);
 			}
 		});
 	}
@@ -119,8 +238,8 @@ public class RedisBuket extends RedisTemplate {
 	 */
 	public long decr(final String key, final Integer amount){
 		return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.decrBy(key, amount);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.decrBy(SafeEncoder.encode(key), amount);
 			}
 		});
 	}
@@ -132,8 +251,8 @@ public class RedisBuket extends RedisTemplate {
 	 */
 	public long hincr(final String key, final String field, final Integer amount){
 		return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.hincrBy(key, field, amount);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.hincrBy(SafeEncoder.encode(key), SafeEncoder.encode(field), amount);
 			}
 		});
 	}
@@ -145,10 +264,11 @@ public class RedisBuket extends RedisTemplate {
 	 */
 	public long hincr(final String key, final Map<String, Integer> nums){
 		return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
+			public Long execute(final BinaryJedis conn) throws Exception {
 				Pipeline pipe = conn.pipelined();
+                byte[] bk = SafeEncoder.encode(key);
 				for(String field : nums.keySet()){
-					pipe.hincrBy(key, field, nums.get(field));
+					pipe.hincrBy(bk, SafeEncoder.encode(field), nums.get(field));
 				}
 				pipe.exec();
 				return 1L;
@@ -163,8 +283,8 @@ public class RedisBuket extends RedisTemplate {
 	 */
 	public long hdecr(final String key, final String field, final Integer amount){
 		return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.hincrBy(key, field, -1 * amount);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.hincrBy(SafeEncoder.encode(key), SafeEncoder.encode(field), -1 * amount);
 			}
 		});
 	}
@@ -176,10 +296,11 @@ public class RedisBuket extends RedisTemplate {
 	 */
 	public long hdecr(final String key, final Map<String, Integer> nums){
 		return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
+			public Long execute(final BinaryJedis conn) throws Exception {
+                byte[] bk = SafeEncoder.encode(key);
 				Pipeline pipe = conn.pipelined();
 				for(String field : nums.keySet()){
-					pipe.hincrBy(key, field, -1 * nums.get(field));
+					pipe.hincrBy(bk, SafeEncoder.encode(field), -1 * nums.get(field));
 				}
 				pipe.exec();
 				return 1L;
@@ -191,10 +312,18 @@ public class RedisBuket extends RedisTemplate {
 	 * @param key
 	 * @return
 	 */
-	public Map<String, String> hall(final String key){
-		return this.execute(new RedisCommand<Map<String, String>>(){
-			public Map<String, String> execute(final Jedis conn) throws Exception {
-				Map<String, String> vals = conn.hgetAll(key);
+	public Map<String, Integer> hall(final String key){
+		return this.execute(new RedisCommand<Map<String, Integer>>(){
+			public Map<String, Integer> execute(final BinaryJedis conn) throws Exception {
+                Map<byte[], byte[]> bs = conn.hgetAll(SafeEncoder.encode(key));
+                Map<String, Integer> vals = Maps.newHashMap();
+                Iterator<byte[]> itor = bs.keySet().iterator();
+                while (itor.hasNext()){
+                    byte[] k = itor.next();
+                    byte[] data = bs.get(k);
+                    int v = data == null ? 0 : Integer.parseInt(SafeEncoder.encode(data));
+                    vals.put(SafeEncoder.encode(k), v);
+                }
 				return vals;
 			}
 		});
@@ -207,8 +336,9 @@ public class RedisBuket extends RedisTemplate {
 	 */
 	public boolean hrem(final String key, final String... fields){
 		return this.execute(new RedisCommand<Boolean>(){
-			public Boolean execute(final Jedis conn) throws Exception {
-				return conn.hdel(key, fields) > 0;
+			public Boolean execute(final BinaryJedis conn) throws Exception {
+                byte[] bk = SafeEncoder.encode(key);
+				return conn.hdel(bk, SafeEncoder.encodeMany(fields)) > 0;
 			}
 		});
 	}
@@ -220,10 +350,11 @@ public class RedisBuket extends RedisTemplate {
 	 */
 	public long hset(final String key, final Map<String, Integer> nums){
 		return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
+			public Long execute(final BinaryJedis conn) throws Exception {
+                byte[] bk = SafeEncoder.encode(key);
 				Pipeline pipe = conn.pipelined();
 				for(String field : nums.keySet()){
-					pipe.hset(key, field, nums.get(field)+"");
+					pipe.hset(bk, SafeEncoder.encode(field), SafeEncoder.encode(String.valueOf(nums.get(field))));
 				}
 				pipe.exec();
 				return 1L;
@@ -239,11 +370,23 @@ public class RedisBuket extends RedisTemplate {
 	 */
 	public Long rpush(final String key, final String... values){
 		return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.rpush(key, values);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.rpush(SafeEncoder.encode(key), SafeEncoder.encodeMany(values));
 			}
 		});
 	}
+
+    public <T> Long rpush(final Class<T> clazz, final String key, final T... values){
+        return this.execute(new RedisCommand<Long>(){
+            public Long execute(final BinaryJedis conn) throws Exception {
+                byte[][] bytes = new byte[values.length][];
+                for (int i = 0; i < values.length; i++) {
+                    bytes[i] = messagePack.write(values[i]);
+                }
+                return conn.rpush(SafeEncoder.encode(key), bytes);
+            }
+        });
+    }
 
     /**
      * 从队列左边写入值.
@@ -253,10 +396,22 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long lpush(final String key, final String... values){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.lpush(key, values);
+			public Long execute(final BinaryJedis conn) throws Exception {
+                return conn.lpush(SafeEncoder.encode(key), SafeEncoder.encodeMany(values));
 			}
 		});
+    }
+
+    public <T> Long lpush(final Class<T> clazz, final String key, final T... values){
+        return this.execute(new RedisCommand<Long>(){
+            public Long execute(final BinaryJedis conn) throws Exception {
+                byte[][] bytes = new byte[values.length][];
+                for (int i = 0; i < values.length; i++) {
+                    bytes[i] = messagePack.write(values[i]);
+                }
+                return conn.lpush(SafeEncoder.encode(key), bytes);
+            }
+        });
     }
 
     /**
@@ -266,8 +421,8 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long llen(final String key){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.llen(key);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.llen(SafeEncoder.encode(key));
 			}
 		});
     }
@@ -281,12 +436,36 @@ public class RedisBuket extends RedisTemplate {
      */
     public List<String> lrange(final String key, final int page, final int limit){
     	return this.execute(new RedisCommand<List<String>>(){
-			public List<String> execute(final Jedis conn) throws Exception {
+			public List<String> execute(final BinaryJedis conn) throws Exception {
 				long start = (page - 1) * limit;
 				long end = start + limit;
-				return conn.lrange(key, start, end);
+				List<byte[]> ls = conn.lrange(SafeEncoder.encode(key), start, end);
+                List<String> ret = Lists.newArrayList();
+                for (byte[] b : ls){
+                    if (b != null) {
+                        ret.add(SafeEncoder.encode(b));
+                    }
+                }
+                return ret;
 			}
 		});
+    }
+
+    public <T> List<T> lrange(final Class<T> clazz, final String key, final int page, final int limit){
+        return this.execute(new RedisCommand<List<T>>(){
+            public List<T> execute(final BinaryJedis conn) throws Exception {
+                long start = (page - 1) * limit;
+                long end = start + limit;
+                List<byte[]> ls = conn.lrange(SafeEncoder.encode(key), start, end);
+                List<T> ret = Lists.newArrayList();
+                for (byte[] b : ls){
+                    if (b != null) {
+                        ret.add(messagePack.read(b, clazz));
+                    }
+                }
+                return ret;
+            }
+        });
     }
 
     /**
@@ -298,8 +477,8 @@ public class RedisBuket extends RedisTemplate {
      */
     public String ltrim(final String key, final int start, final int end){
     	return this.execute(new RedisCommand<String>(){
-			public String execute(final Jedis conn) throws Exception {
-				return conn.ltrim(key, start, end);
+			public String execute(final BinaryJedis conn) throws Exception {
+				return conn.ltrim(SafeEncoder.encode(key), start, end);
 			}
 		});
     }
@@ -312,10 +491,26 @@ public class RedisBuket extends RedisTemplate {
      */
     public String lindex(final String key, final int index){
     	return this.execute(new RedisCommand<String>(){
-			public String execute(final Jedis conn) throws Exception {
-				return conn.lindex(key, index);
+			public String execute(final BinaryJedis conn) throws Exception {
+				byte[] bs = conn.lindex(SafeEncoder.encode(key), index);
+                if (bs == null){
+                    return null;
+                }
+                return new String(bs);
 			}
 		});
+    }
+
+    public <T> T lindex(final Class<T> clazz, final String key, final int index){
+        return this.execute(new RedisCommand<T>(){
+            public T execute(final BinaryJedis conn) throws Exception {
+                byte[] bs = conn.lindex(SafeEncoder.encode(key), index);
+                if (bs == null){
+                    return null;
+                }
+                return messagePack.read(bs, clazz);
+            }
+        });
     }
 
     /**
@@ -327,10 +522,19 @@ public class RedisBuket extends RedisTemplate {
      */
     public String lset(final String key, final int index, final String value){
     	return this.execute(new RedisCommand<String>(){
-			public String execute(final Jedis conn) throws Exception {
-				return conn.lset(key, index, value);
+			public String execute(final BinaryJedis conn) throws Exception {
+				return conn.lset(SafeEncoder.encode(key), index, SafeEncoder.encode(value));
 			}
 		});
+    }
+
+    public <T> String lset(final Class<T> clazz, final String key, final int index, final T value){
+        return this.execute(new RedisCommand<String>(){
+            public String execute(final BinaryJedis conn) throws Exception {
+                byte[] bytes = messagePack.write(value);
+                return conn.lset(SafeEncoder.encode(key), index, bytes);
+            }
+        });
     }
 
     /**
@@ -341,10 +545,19 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long lrem(final String key, final String value){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.lrem(key, 0, value);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.lrem(SafeEncoder.encode(key), 0, SafeEncoder.encode(value));
 			}
 		});
+    }
+
+    public <T> Long lrem(final Class<T> clazz, final String key, final T value){
+        return this.execute(new RedisCommand<Long>(){
+            public Long execute(final BinaryJedis conn) throws Exception {
+                byte[] bytes = messagePack.write(value);
+                return conn.lrem(SafeEncoder.encode(key), 0, bytes);
+            }
+        });
     }
 
     /**
@@ -354,23 +567,61 @@ public class RedisBuket extends RedisTemplate {
      */
     public String lpop(final String key){
     	return this.execute(new RedisCommand<String>(){
-			public String execute(final Jedis conn) throws Exception {
-				return conn.lpop(key);
+			public String execute(final BinaryJedis conn) throws Exception {
+				byte[] bs = conn.lpop(SafeEncoder.encode(key));
+                if (bs == null){
+                    return null;
+                }
+                return SafeEncoder.encode(bs);
 			}
 		});
     }
+    public <T> T lpop(final Class<T> clazz, final String key){
+        return this.execute(new RedisCommand<T>(){
+            public T execute(final BinaryJedis conn) throws Exception {
+                byte[] bs = conn.lpop(SafeEncoder.encode(key));
+                if (bs == null){
+                    return null;
+                }
+                return messagePack.read(bs, clazz);
+            }
+        });
+    }
+
     public List<String> lpop(final String key, final int limit){
         return this.execute(new RedisCommand<List<String>>(){
-            public List<String> execute(final Jedis conn) throws Exception {
+            public List<String> execute(final BinaryJedis conn) throws Exception {
+                byte[] bk = SafeEncoder.encode(key);
                 List<String> resp = Lists.newArrayList();
                 for (int i = 0; i < limit; i++) {
-                    String txt = conn.lpop(key);
-                    resp.add(txt);
+                    byte[] bs = conn.lpop(bk);
+                    if (bs != null){
+                        resp.add(SafeEncoder.encode(bs));
+                    }
+
                 }
                 return resp;
             }
         });
     }
+
+    public <T> List<T> lpop(final Class<T> clazz, final String key, final int limit){
+        return this.execute(new RedisCommand<List<T>>(){
+            public List<T> execute(final BinaryJedis conn) throws Exception {
+                byte[] bk = SafeEncoder.encode(key);
+                List<T> resp = Lists.newArrayList();
+                for (int i = 0; i < limit; i++) {
+                    byte[] bs = conn.lpop(bk);
+                    if (bs != null){
+                        resp.add(messagePack.read(bs, clazz));
+                    }
+
+                }
+                return resp;
+            }
+        });
+    }
+
     /**
      * 从List右边取出元素.(LIFO)
      * @param key
@@ -378,19 +629,56 @@ public class RedisBuket extends RedisTemplate {
      */
     public String rpop(final String key){
     	return this.execute(new RedisCommand<String>(){
-			public String execute(final Jedis conn) throws Exception {
-				return conn.rpop(key);
+			public String execute(final BinaryJedis conn) throws Exception {
+				byte[] bs = conn.rpop(SafeEncoder.encode(key));
+                if (bs == null){
+                    return null;
+                }
+                return SafeEncoder.encode(bs);
 			}
 		});
     }
 
+    public <T> T rpop(final Class<T> clazz, final String key){
+        return this.execute(new RedisCommand<T>(){
+            public T execute(final BinaryJedis conn) throws Exception {
+                byte[] bs = conn.rpop(SafeEncoder.encode(key));
+                if (bs == null){
+                    return null;
+                }
+                return messagePack.read(bs, clazz);
+            }
+        });
+    }
+
     public List<String> rpop(final String key, final int limit){
         return this.execute(new RedisCommand<List<String>>(){
-            public List<String> execute(final Jedis conn) throws Exception {
+            public List<String> execute(final BinaryJedis conn) throws Exception {
+                byte[] bk = SafeEncoder.encode(key);
                 List<String> resp = Lists.newArrayList();
                 for (int i = 0; i < limit; i++) {
-                    String txt = conn.rpop(key);
-                    resp.add(txt);
+                    byte[] bs = conn.rpop(bk);
+                    if (bs != null){
+                        resp.add(SafeEncoder.encode(bs));
+                    }
+
+                }
+                return resp;
+            }
+        });
+    }
+
+    public <T> List<T> rpop(final Class<T> clazz, final String key, final int limit){
+        return this.execute(new RedisCommand<List<T>>(){
+            public List<T> execute(final BinaryJedis conn) throws Exception {
+                byte[] bk = SafeEncoder.encode(key);
+                List<T> resp = Lists.newArrayList();
+                for (int i = 0; i < limit; i++) {
+                    byte[] bs = conn.rpop(bk);
+                    if (bs != null){
+                        resp.add(messagePack.read(bs, clazz));
+                    }
+
                 }
                 return resp;
             }
@@ -404,44 +692,107 @@ public class RedisBuket extends RedisTemplate {
      */
     public List<String> lsort(final String key){
     	return this.execute(new RedisCommand<List<String>>(){
-			public List<String> execute(final Jedis conn) throws Exception {
-				return conn.sort(key);
+			public List<String> execute(final BinaryJedis conn) throws Exception {
+				List<byte[]> lbs = conn.sort(SafeEncoder.encode(key));
+                List<String> ret = Lists.newArrayList();
+                for (byte[] b : lbs){
+                    if (b != null) {
+                        ret.add(SafeEncoder.encode(b));
+                    }
+                }
+                return ret;
 			}
 		});
     }
     
     public Long lpushx(final String key, final String... values){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.lpushx(key, values);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.lpushx(SafeEncoder.encode(key), SafeEncoder.encodeMany(values));
 			}
 		});
     }
-    
+
+    public <T> Long lpushx(final Class<T> clazz, final String key, final T... values){
+        return this.execute(new RedisCommand<Long>(){
+            public Long execute(final BinaryJedis conn) throws Exception {
+                byte[][] bytes = new byte[values.length][];
+                for (int i = 0; i < values.length; i++) {
+                    bytes[i] = messagePack.write(values[i]);
+                }
+                return conn.lpushx(SafeEncoder.encode(key), bytes);
+            }
+        });
+    }
+
     public Long rpushx(final String key, final String... values){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.rpushx(key, values);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.rpushx(SafeEncoder.encode(key), SafeEncoder.encodeMany(values));
 			}
 		});
+    }
+
+    public <T> Long rpushx(final Class<T> clazz, final String key, final T... values){
+        return this.execute(new RedisCommand<Long>(){
+            public Long execute(final BinaryJedis conn) throws Exception {
+                byte[][] bytes = new byte[values.length][];
+                for (int i = 0; i < values.length; i++) {
+                    bytes[i] = messagePack.write(values[i]);
+                }
+                return conn.rpushx(SafeEncoder.encode(key), bytes);
+            }
+        });
     }
 
     public List<String> blpop(final int timeout, final String... keys){
     	return this.execute(new RedisCommand<List<String>>(){
-			public List<String> execute(final Jedis conn) throws Exception {
-				return conn.blpop(timeout, keys);
+			public List<String> execute(final BinaryJedis conn) throws Exception {
+				List<byte[]> bs = conn.blpop(timeout, SafeEncoder.encodeMany(keys));
+                return fromBytes(bs);
 			}
 		});
     }
 
+    public <T> List<T> blpop(final Class<T> clazz, final int timeout, final String... keys){
+        return this.execute(new RedisCommand<List<T>>(){
+            public List<T> execute(final BinaryJedis conn) throws Exception {
+                List<byte[]> bs = conn.blpop(timeout, SafeEncoder.encodeMany(keys));
+                List<T> ret = Lists.newArrayList();
+                for (byte[] b : bs){
+                    if (b != null) {
+                        ret.add(messagePack.read(b, clazz));
+                    }
+                }
+                return ret;
+            }
+        });
+    }
+
     public List<String> brpop(final int timeout, final String... keys){
     	return this.execute(new RedisCommand<List<String>>(){
-			public List<String> execute(final Jedis conn) throws Exception {
-				return conn.brpop(timeout, keys);
+			public List<String> execute(final BinaryJedis conn) throws Exception {
+				List<byte[]> bs = conn.brpop(timeout, SafeEncoder.encodeMany(keys));
+                return fromBytes(bs);
 			}
 		});
     }
-    
+
+    public <T> List<T> brpop(final Class<T> clazz, final int timeout, final String... keys){
+        return this.execute(new RedisCommand<List<T>>(){
+            public List<T> execute(final BinaryJedis conn) throws Exception {
+                List<byte[]> bs = conn.brpop(timeout, SafeEncoder.encodeMany(keys));
+                List<T> ret = Lists.newArrayList();
+                for (byte[] b : bs){
+                    if (b != null) {
+                        ret.add(messagePack.read(b, clazz));
+                    }
+                }
+                return ret;
+            }
+        });
+    }
+
     /**
      * 往Set结构中写入值.
      * @param key
@@ -450,8 +801,8 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long sadd(final String key, final String... members){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.sadd(key, members);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.sadd(SafeEncoder.encode(key), SafeEncoder.encodeMany(members));
 			}
 		});
     }
@@ -464,10 +815,11 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long sadd(final String key, final List<?> members){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
+			public Long execute(final BinaryJedis conn) throws Exception {
+                byte[] bk = SafeEncoder.encode(key);
 				Pipeline pipe = conn.pipelined();
 				for(Object v : members){
-					pipe.sadd(key, String.valueOf(v));
+					pipe.sadd(bk, SafeEncoder.encode(String.valueOf(v)));
 				}
 				pipe.exec();
 				return 1L;
@@ -482,9 +834,16 @@ public class RedisBuket extends RedisTemplate {
      */
     public Set<String> smembers(final String key){
     	return this.execute(new RedisCommand<Set<String>>(){
-			public Set<String> execute(final Jedis conn) throws Exception {
-				return conn.smembers(key);
-			}
+			public Set<String> execute(final BinaryJedis conn) throws Exception {
+				Set<byte[]> sk = conn.smembers(SafeEncoder.encode(key));
+                Set<String> ret = Sets.newHashSet();
+                for (byte[] b : sk){
+                    if (b != null) {
+                        ret.add(SafeEncoder.encode(b));
+                    }
+                }
+                return ret;
+            }
 		});
     }
 
@@ -496,8 +855,8 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long srem(final String key, final String... members){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.srem(key, members);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.srem(SafeEncoder.encode(key), SafeEncoder.encodeMany(members));
 			}
 		});
     }
@@ -509,8 +868,12 @@ public class RedisBuket extends RedisTemplate {
      */
     public String spop(final String key){
     	return this.execute(new RedisCommand<String>(){
-			public String execute(final Jedis conn) throws Exception {
-				return conn.spop(key);
+			public String execute(final BinaryJedis conn) throws Exception {
+				byte[] bytes = conn.spop(SafeEncoder.encode(key));
+                if (bytes == null){
+                    return null;
+                }
+                return SafeEncoder.encode(bytes);
 			}
 		});
     }
@@ -522,8 +885,8 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long scard(final String key){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.scard(key);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.scard(SafeEncoder.encode(key));
 			}
 		});
     }
@@ -536,8 +899,8 @@ public class RedisBuket extends RedisTemplate {
      */
     public Boolean sismember(final String key, final String member){
     	return this.execute(new RedisCommand<Boolean>(){
-			public Boolean execute(final Jedis conn) throws Exception {
-				return conn.sismember(key, member);
+			public Boolean execute(final BinaryJedis conn) throws Exception {
+				return conn.sismember(SafeEncoder.encode(key), SafeEncoder.encode(member));
 			}
 		});
     }
@@ -550,8 +913,12 @@ public class RedisBuket extends RedisTemplate {
      */
     public List<String> srandmember(final String key, final int count){
     	return this.execute(new RedisCommand<List<String>>(){
-			public List<String> execute(final Jedis conn) throws Exception {
-				return conn.srandmember(key, count);
+			public List<String> execute(final BinaryJedis conn) throws Exception {
+				List<byte[]> lbs = conn.srandmember(SafeEncoder.encode(key), count);
+                if (lbs == null){
+                    return Lists.newArrayList();
+                }
+                return fromBytes(lbs);
 			}
 		});
     }
@@ -563,8 +930,9 @@ public class RedisBuket extends RedisTemplate {
      */
     public List<String> ssort(final String key){
     	return this.execute(new RedisCommand<List<String>>(){
-			public List<String> execute(final Jedis conn) throws Exception {
-				return conn.sort(key);
+			public List<String> execute(final BinaryJedis conn) throws Exception {
+				List<byte[]> lbs = conn.sort(SafeEncoder.encode(key));
+                return fromBytes(lbs);
 			}
 		});
     }
@@ -578,8 +946,8 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long zadd(final String key, final double score, final String member){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.zadd(key, score, member);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.zadd(SafeEncoder.encode(key), score, SafeEncoder.encode(member));
 			}
 		});
     }
@@ -591,45 +959,65 @@ public class RedisBuket extends RedisTemplate {
      * @param scoreMembers
      * @return
      */
-    public Long zadd(final String key, final Map<Double, String> scoreMembers){
+    public Long zadd(final String key, final Map<String, Double> scoreMembers){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.zadd(key, scoreMembers);
+			public Long execute(final BinaryJedis conn) throws Exception {
+                Map<byte[], Double> ms = Maps.newHashMap();
+                Iterator<String> itor = scoreMembers.keySet().iterator();
+                while (itor.hasNext()){
+                    String k = itor.next();
+                    ms.put(SafeEncoder.encode(k), scoreMembers.get(k));
+                }
+				return conn.zadd(SafeEncoder.encode(key), ms);
 			}
 		});
     }
 
     public Set<String> zrange(final String key, final int page, final int limit){
     	return this.execute(new RedisCommand<Set<String>>(){
-			public Set<String> execute(final Jedis conn) throws Exception {
+			public Set<String> execute(final BinaryJedis conn) throws Exception {
 				long start = (page - 1) * limit;
 				long end = start + limit;
-				return conn.zrange(key, start, end);
+				Set<byte[]> bs = conn.zrange(SafeEncoder.encode(key), start, end);
+                Set<String> ret = Sets.newHashSet();
+                for (byte[] b : bs){
+                    if (b != null) {
+                        ret.add(SafeEncoder.encode(b));
+                    }
+                }
+                return ret;
 			}
 		});
     }
     public Set<String> zrevrange(final String key, final int page, final int limit){
     	return this.execute(new RedisCommand<Set<String>>(){
-			public Set<String> execute(final Jedis conn) throws Exception {
+			public Set<String> execute(final BinaryJedis conn) throws Exception {
 				long start = (page - 1) * limit;
 				long end = start + limit;
-				return conn.zrevrange(key, start, end);
+				Set<byte[]> bs = conn.zrevrange(SafeEncoder.encode(key), start, end);
+                Set<String> ret = Sets.newHashSet();
+                for (byte[] b : bs){
+                    if (b != null) {
+                        ret.add(SafeEncoder.encode(b));
+                    }
+                }
+                return ret;
 			}
 		});
     }
     
     public Long zrem(final String key, final String... member){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.zrem(key, member);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.zrem(SafeEncoder.encode(key), SafeEncoder.encodeMany(member));
 			}
 		});
     }
 
     public Double zincrby(final String key, final double score, final String member){
     	return this.execute(new RedisCommand<Double>(){
-			public Double execute(final Jedis conn) throws Exception {
-				return conn.zincrby(key, score, member);
+			public Double execute(final BinaryJedis conn) throws Exception {
+				return conn.zincrby(SafeEncoder.encode(key), score, SafeEncoder.encode(member));
 			}
 		});
     }
@@ -642,8 +1030,8 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long zrank(final String key, final String member){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.zrank(key, member);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.zrank(SafeEncoder.encode(key), SafeEncoder.encode(member));
 			}
 		});
     }
@@ -656,8 +1044,8 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long zrevrank(final String key, final String member){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.zrevrank(key, member);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.zrevrank(SafeEncoder.encode(key), SafeEncoder.encode(member));
 			}
 		});
     }
@@ -671,10 +1059,11 @@ public class RedisBuket extends RedisTemplate {
      */
     public Set<Tuple> zrangeWithScores(final String key, final int page, final int limit){
     	return this.execute(new RedisCommand<Set<Tuple>>(){
-			public Set<Tuple> execute(final Jedis conn) throws Exception {
+			public Set<Tuple> execute(final BinaryJedis conn) throws Exception {
 				long start = (page - 1) * limit;
 				long end = start + limit;
-				return conn.zrangeWithScores(key, start, end);
+				Set<Tuple> bs = conn.zrangeWithScores(SafeEncoder.encode(key), start, end);
+                return bs;
 			}
 		});
     }
@@ -688,10 +1077,10 @@ public class RedisBuket extends RedisTemplate {
      */
     public Set<Tuple> zrevrangeWithScores(final String key, final int page, final int limit){
     	return this.execute(new RedisCommand<Set<Tuple>>(){
-			public Set<Tuple> execute(final Jedis conn) throws Exception {
+			public Set<Tuple> execute(final BinaryJedis conn) throws Exception {
 				long start = (page - 1) * limit;
 				long end = start + limit;
-				return conn.zrevrangeWithScores(key, start, end);
+				return conn.zrevrangeWithScores(SafeEncoder.encode(key), start, end);
 			}
 		});
     }
@@ -703,8 +1092,8 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long zcard(final String key){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.zcard(key);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.zcard(SafeEncoder.encode(key));
 			}
 		});
     }
@@ -717,24 +1106,24 @@ public class RedisBuket extends RedisTemplate {
      */
     public Double zscore(final String key, final String member){
     	return this.execute(new RedisCommand<Double>(){
-			public Double execute(final Jedis conn) throws Exception {
-				return conn.zscore(key, member);
+			public Double execute(final BinaryJedis conn) throws Exception {
+				return conn.zscore(SafeEncoder.encode(key), SafeEncoder.encode(member));
 			}
 		});
     }
     
     public Long zcount(final String key, final double min, final double max){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.zcount(key, min, max);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.zcount(SafeEncoder.encode(key), min, max);
 			}
 		});
     }
 
     public Long zcount(final String key, final String min, final String max){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.zcount(key, min, max);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.zcount(SafeEncoder.encode(key), SafeEncoder.encode(min), SafeEncoder.encode(max));
 			}
 		});
     }
@@ -749,32 +1138,60 @@ public class RedisBuket extends RedisTemplate {
      */
     public Set<String> zrangeByScore(final String key, final double min, final double max){
     	return this.execute(new RedisCommand<Set<String>>(){
-			public Set<String> execute(final Jedis conn) throws Exception {
-				return conn.zrangeByScore(key, min, max);
+			public Set<String> execute(final BinaryJedis conn) throws Exception {
+				Set<byte[]> bs = conn.zrangeByScore(SafeEncoder.encode(key), min, max);
+                Set<String> ret = Sets.newHashSet();
+                for (byte[] b : bs){
+                    if (b != null) {
+                        ret.add(new String(b, Protocol.CHARSET));
+                    }
+                }
+                return ret;
 			}
 		});
     }
 
     public Set<String> zrangeByScore(final String key, final String min, final String max){
     	return this.execute(new RedisCommand<Set<String>>(){
-			public Set<String> execute(final Jedis conn) throws Exception {
-				return conn.zrangeByScore(key, min, max);
+			public Set<String> execute(final BinaryJedis conn) throws Exception {
+				Set<byte[]> bs = conn.zrangeByScore(SafeEncoder.encode(key), SafeEncoder.encode(min), SafeEncoder.encode(max));
+                Set<String> ret = Sets.newHashSet();
+                for (byte[] b : bs){
+                    if (b != null) {
+                        ret.add(new String(b, Protocol.CHARSET));
+                    }
+                }
+                return ret;
 			}
 		});
     }
 
     public Set<String> zrevrangeByScore(final String key, final double min, final double max){
     	return this.execute(new RedisCommand<Set<String>>(){
-			public Set<String> execute(final Jedis conn) throws Exception {
-				return conn.zrevrangeByScore(key, min, max);
+			public Set<String> execute(final BinaryJedis conn) throws Exception {
+				Set<byte[]> bs = conn.zrevrangeByScore(SafeEncoder.encode(key), min, max);
+                Set<String> ret = Sets.newHashSet();
+                for (byte[] b : bs){
+                    if (b != null) {
+                        ret.add(new String(b, Protocol.CHARSET));
+                    }
+                }
+                return ret;
 			}
 		});
     }
     
     public Set<String> zrevrangeByScore(final String key, final String min, final String max){
     	return this.execute(new RedisCommand<Set<String>>(){
-			public Set<String> execute(final Jedis conn) throws Exception {
-				return conn.zrevrangeByScore(key, min, max);
+			public Set<String> execute(final BinaryJedis conn) throws Exception {
+                Set<byte[]> bs = conn.zrevrangeByScore(SafeEncoder.encode(key), SafeEncoder.encode(min), SafeEncoder.encode(max));
+                Set<String> ret = Sets.newHashSet();
+                for (byte[] b : bs){
+                    if (b != null) {
+                        ret.add(new String(b, Protocol.CHARSET));
+                    }
+                }
+                return ret;
 			}
 		});
     }
@@ -789,32 +1206,32 @@ public class RedisBuket extends RedisTemplate {
      */
     public Set<Tuple> zrangeByScoreWithScores(final String key, final double min, final double max){
     	return this.execute(new RedisCommand<Set<Tuple>>(){
-			public Set<Tuple> execute(final Jedis conn) throws Exception {
-				return conn.zrangeByScoreWithScores(key, min, max);
+			public Set<Tuple> execute(final BinaryJedis conn) throws Exception {
+				return conn.zrangeByScoreWithScores(SafeEncoder.encode(key), min, max);
 			}
 		});
     }
 
     public Set<Tuple> zrevrangeByScoreWithScores(final String key, final double max, final double min){
     	return this.execute(new RedisCommand<Set<Tuple>>(){
-			public Set<Tuple> execute(final Jedis conn) throws Exception {
-				return conn.zrangeByScoreWithScores(key, min, max);
+			public Set<Tuple> execute(final BinaryJedis conn) throws Exception {
+				return conn.zrangeByScoreWithScores(SafeEncoder.encode(key), min, max);
 			}
 		});
     }
 
     public Set<Tuple> zrangeByScoreWithScores(final String key, final String min, final String max){
     	return this.execute(new RedisCommand<Set<Tuple>>(){
-			public Set<Tuple> execute(final Jedis conn) throws Exception {
-				return conn.zrangeByScoreWithScores(key, min, max);
+			public Set<Tuple> execute(final BinaryJedis conn) throws Exception {
+				return conn.zrangeByScoreWithScores(SafeEncoder.encode(key), SafeEncoder.encode(min), SafeEncoder.encode(max));
 			}
 		});
     }
     
     public Set<Tuple> zrevrangeByScoreWithScores(final String key, final String max, final String min){
     	return this.execute(new RedisCommand<Set<Tuple>>(){
-			public Set<Tuple> execute(final Jedis conn) throws Exception {
-				return conn.zrevrangeByScoreWithScores(key, min, max);
+			public Set<Tuple> execute(final BinaryJedis conn) throws Exception {
+				return conn.zrevrangeByScoreWithScores(SafeEncoder.encode(key), SafeEncoder.encode(min), SafeEncoder.encode(max));
 			}
 		});
     }
@@ -828,24 +1245,24 @@ public class RedisBuket extends RedisTemplate {
      */
     public Long zremrangeByRank(final String key, final int start, final int end){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.zremrangeByRank(key, start, end);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.zremrangeByRank(SafeEncoder.encode(key), start, end);
 			}
 		});
     }
 
     public Long zremrangeByScore(final String key, final double start, final double end){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.zremrangeByScore(key, start, end);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.zremrangeByScore(SafeEncoder.encode(key), start, end);
 			}
 		});
     }
     
     public Long zremrangeByScore(final String key, final String start, final String end){
     	return this.execute(new RedisCommand<Long>(){
-			public Long execute(final Jedis conn) throws Exception {
-				return conn.zremrangeByScore(key, start, end);
+			public Long execute(final BinaryJedis conn) throws Exception {
+				return conn.zremrangeByScore(SafeEncoder.encode(key), SafeEncoder.encode(start), SafeEncoder.encode(end));
 			}
 		});
     }

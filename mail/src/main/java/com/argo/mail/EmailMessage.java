@@ -2,6 +2,7 @@ package com.argo.mail;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.msgpack.annotation.Message;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 /**
  * Created by yaming_deng on 14-8-27.
  */
+@Message
 public class EmailMessage implements Serializable {
 
     public static final String FORMAT_HTML = "html";
