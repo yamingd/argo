@@ -19,10 +19,15 @@ import java.nio.charset.Charset;
 /**
  * @since 1.0
  */
-public class XJsonHttpMessageConverter extends AbstractHttpMessageConverter<Object> implements InitializingBean {
+public class BSONHttpMessageConverter extends AbstractHttpMessageConverter<Object> implements InitializingBean {
 
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
-    protected Logger logger = LoggerFactory.getLogger(XJsonHttpMessageConverter.class);
+
+    public final static String APPLICATION_BJSON_VALUE = "application/bson";
+
+    public final static MediaType APPLICATION_BJSON = MediaType.valueOf(APPLICATION_BJSON_VALUE);
+
+    protected Logger logger = LoggerFactory.getLogger(BSONHttpMessageConverter.class);
 
     private MessagePack messagePack;
 
@@ -32,8 +37,8 @@ public class XJsonHttpMessageConverter extends AbstractHttpMessageConverter<Obje
     /**
      * Construct a new {@code GsonHttpMessageConverter} with a default {@link com.google.gson.Gson#Gson() Gson}.
      */
-    public XJsonHttpMessageConverter() {
-        super(new MediaType("application", "x-json", DEFAULT_CHARSET));
+    public BSONHttpMessageConverter() {
+        super(new MediaType("application", "bson", DEFAULT_CHARSET));
     }
 
     /**
@@ -41,8 +46,8 @@ public class XJsonHttpMessageConverter extends AbstractHttpMessageConverter<Obje
      *
      * @param serializeNulls true to generate json for null values
      */
-    public XJsonHttpMessageConverter(boolean serializeNulls) {
-        super(new MediaType("application", "x-json", DEFAULT_CHARSET));
+    public BSONHttpMessageConverter(boolean serializeNulls) {
+        super(new MediaType("application", "bson", DEFAULT_CHARSET));
         this.serializeNulls = serializeNulls;
     }
 
