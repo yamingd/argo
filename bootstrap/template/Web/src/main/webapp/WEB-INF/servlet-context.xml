@@ -18,6 +18,7 @@
             <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
             <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
             <bean class="com.argo.core.web.spring.GsonHttpMessageConverter" />
+            <bean class="com.argo.core.web.spring.BSONHttpMessageConverter" />
             <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
         </mvc:message-converters>
     </mvc:annotation-driven>
@@ -42,6 +43,7 @@
         <property name="mediaTypes">
             <map>
                 <entry key="json" value="application/json" />
+                <entry key="bson" value="application/bson" />
                 <entry key="xml" value="text/xml" />
             </map>
         </property>

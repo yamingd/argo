@@ -1,4 +1,4 @@
-package com.argo.core.json;
+package com.argo.core.web.spring;
 
 import com.google.gson.JsonIOException;
 import org.msgpack.MessagePack;
@@ -22,10 +22,6 @@ import java.nio.charset.Charset;
 public class BSONHttpMessageConverter extends AbstractHttpMessageConverter<Object> implements InitializingBean {
 
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
-
-    public final static String APPLICATION_BJSON_VALUE = "application/bson";
-
-    public final static MediaType APPLICATION_BJSON = MediaType.valueOf(APPLICATION_BJSON_VALUE);
 
     protected Logger logger = LoggerFactory.getLogger(BSONHttpMessageConverter.class);
 
