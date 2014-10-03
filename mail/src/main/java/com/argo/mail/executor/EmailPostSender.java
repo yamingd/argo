@@ -52,15 +52,15 @@ public class EmailPostSender extends BaseBean {
 
     public boolean send(EmailMessage emailMessage) {
 
-        Assert.notNull(emailMessage.getTitle(), "emailMessage.title should not be null");
+        Assert.notNull(emailMessage.title, "emailMessage.title should not be null");
 
-        if (StringUtils.isBlank(emailMessage.getBody())){
-            Assert.notNull(emailMessage.getBodyFtl(), "emailMessage.bodyFtl should not be null.");
+        if (StringUtils.isBlank(emailMessage.body)){
+            Assert.notNull(emailMessage.bodyFtl, "emailMessage.bodyFtl should not be null.");
             try {
-                String body = freemarkerComponent.render(emailMessage.getBodyFtl(), emailMessage.getParams());
-                emailMessage.setBody(body);
+                String body = freemarkerComponent.render(emailMessage.bodyFtl, emailMessage.params);
+                emailMessage.body = body;
             } catch (Exception e) {
-                logger.error("邮件模板处理错误! 邮件为: " + emailMessage.getId() + ", ftl=" + emailMessage.getBodyFtl(), e);
+                logger.error("邮件模板处理错误! 邮件为: " + emailMessage.id + ", ftl=" + emailMessage.bodyFtl, e);
                 return false;
             }
         }
@@ -69,30 +69,30 @@ public class EmailPostSender extends BaseBean {
 
             MimeMessage msg = mailSender.createMimeMessage();
             MimeMessageHelper message = null;
-            if (emailMessage.getAttachments() != null && emailMessage.getAttachments().size() > 0) {
+            if (emailMessage.attachments != null && emailMessage.attachments.size() > 0) {
                 message = new MimeMessageHelper(msg, true, "UTF-8");
             }else{
                 message = new MimeMessageHelper(msg, false, "UTF-8");
             }
 
-            message.setFrom(emailMessage.getFromAddress());
-            message.setSubject(emailMessage.getTitle());
-            message.setTo(emailMessage.getToAddress().toArray(new String[0]));
+            message.setFrom(emailMessage.fromAddress);
+            message.setSubject(emailMessage.title);
+            message.setTo(emailMessage.toAddress.toArray(new String[0]));
 
-            if (emailMessage.getCcAddress() != null && emailMessage.getCcAddress().size() > 0){
-                message.setCc(emailMessage.getCcAddress().toArray(new String[0]));
+            if (emailMessage.ccAddress != null && emailMessage.ccAddress.size() > 0){
+                message.setCc(emailMessage.ccAddress.toArray(new String[0]));
             }
-            if (emailMessage.getBccAddress() != null && emailMessage.getBccAddress().size() > 0){
-                message.setBcc(emailMessage.getBccAddress().toArray(new String[0]));
+            if (emailMessage.bccAddress != null && emailMessage.bccAddress.size() > 0){
+                message.setBcc(emailMessage.bccAddress.toArray(new String[0]));
             }
 
-            message.setText(emailMessage.getBody(), emailMessage.getFormat().equalsIgnoreCase("html"));
+            message.setText(emailMessage.body, emailMessage.format.equalsIgnoreCase("html"));
 
-            if (emailMessage.getAttachments() != null) {
-                Iterator<String> itor = emailMessage.getAttachments().keySet().iterator();
+            if (emailMessage.attachments != null) {
+                Iterator<String> itor = emailMessage.attachments.keySet().iterator();
                 while (itor.hasNext()){
                     String name = itor.next();
-                    String filePath = emailMessage.getAttachments().get(name);
+                    String filePath = emailMessage.attachments.get(name);
                     message.addAttachment(name, new File(filePath));
                 }
             }
@@ -100,16 +100,16 @@ public class EmailPostSender extends BaseBean {
             mailSender.send(msg);
 
         } catch (MessagingException e) {
-            logger.error("邮件信息导常! 邮件为: " + emailMessage.getId(), e);
+            logger.error("邮件信息导常! 邮件为: " + emailMessage.id, e);
             MetricCollectorImpl.current().markMeter(this.getClass(), STATUS_FAILED);
             return false;
         } catch (MailException me) {
-            logger.warn("发送邮件失败! 邮件为: " + emailMessage.getId(), me);
+            logger.warn("发送邮件失败! 邮件为: " + emailMessage.id, me);
             MetricCollectorImpl.current().markMeter(this.getClass(), STATUS_FAILED);
             return false;
         }
         if (logger.isDebugEnabled()){
-            logger.debug("邮件发送成功. id=" + emailMessage.getId());
+            logger.debug("邮件发送成功. id=" + emailMessage.id);
         }
 
         MetricCollectorImpl.current().markMeter(this.getClass(), STATUS_SUCCESS);

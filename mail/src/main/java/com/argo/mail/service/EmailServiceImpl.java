@@ -130,8 +130,8 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
     protected void postSend(final EmailMessage item) {
         boolean flag = emailPostSender.send(item);
         if (!flag){
-            item.setTryLimit(item.getTryLimit() - 1);
-            if (item.getTryLimit() > 0){
+            item.tryLimit--;
+            if (item.tryLimit > 0){
                 add(item);
             }
         }
