@@ -59,6 +59,10 @@ public class ServiceClientPoolListener implements ServicePoolListener, Initializ
     @Override
     public void afterPropertiesSet() throws Exception {
         //从配置文件读取.
+        if (ServiceConfig.instance == null){
+            logger.warn("ServiceClientPoolListener is disabled.");
+            return;
+        }
         List<String> servers = ServiceConfig.instance.get(List.class, "rmis");
         if (servers != null){
             for (String name : servers){

@@ -20,6 +20,7 @@
         <module>task</module>
         <module>mail</module>
         <module>service</module>
+        <module>dbtest</module>
     </modules>
 
     <properties>
