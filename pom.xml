@@ -358,6 +358,12 @@
             <version>2.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.msgpack</groupId>
+            <artifactId>msgpack</artifactId>
+            <version>0.6.11</version>
+        </dependency>
+
     </dependencies>
 
 </project>
