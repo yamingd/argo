@@ -1,12 +1,18 @@
 package com.argo.demo;
 
+import com.argo.core.annotation.EntityDef;
+import com.argo.core.annotation.PK;
+import com.argo.core.base.BaseEntity;
+
 import java.util.Date;
 
 /**
  * Created by yaming_deng on 2014/9/30.
  */
-public class Person {
+@EntityDef(table = "person")
+public class Person extends BaseEntity {
 
+    @PK("id")
     private Long id;
     private String name;
     private Date createAt;
@@ -52,5 +58,10 @@ public class Person {
                 ", createAt=" + createAt +
                 ", updateAt=" + updateAt +
                 '}';
+    }
+
+    @Override
+    public String getPK() {
+        return ":" + id;
     }
 }

@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * 实体定义的注解
  *  
- *  @EntityDef(table="t_person",defid=1)
+ *  @EntityDef(table="t_person",id=1)
  *  public class Person{
  *  	//...
  *  }
@@ -30,17 +30,5 @@ public @interface EntityDef {
 	 * 唯一标识
 	 * @return
 	 */
-	int defid() default -1;
-	
-	/**
-	 * 主键字段名，多个用逗号分隔
-	 * @return
-	 */
-	String pkColumns() default "id";
-	
-	/**
-	 * 主键属性名，多个用逗号分隔
-	 * @return
-	 */
-	String pkFields() default "id";
+	int id() default -1;
 }

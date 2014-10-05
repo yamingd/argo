@@ -2,7 +2,7 @@ package com.{{_company_}}.{{_module_}}.service.impl;
 
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.password.PasswordServiceFactory;
-import com.argo.core.service.annotation.RmiService;
+import com.argo.service.annotation.RmiService;
 import com.{{_company_}}.service.BaseServiceImpl;
 import com.{{_company_}}.{{_module_}}.service.{{_entity_}}Service;
 import com.{{_company_}}.{{_module_}}.{{_entity_}};

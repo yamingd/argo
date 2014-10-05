@@ -12,12 +12,12 @@ pool:
 common:
    type: mysql
    user: root
-   pwd: yamingd
+   pwd: yamingd51
 
 ems:
    person: member
 
 ms:
    - name: member
-     master: 10.10.121.135:3306/cs_test
-     slaves: 10.10.121.135:3306/cs_test
+     master: 127.0.0.1:3306/cs_test
+     slaves: 127.0.0.1:3306/cs_test

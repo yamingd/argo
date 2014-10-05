@@ -58,11 +58,13 @@ def gen_service_def(module, folder, settings):
     kwargs.pop('_entitys_')
     #entity and service
     for tbl in module['tables']:
-        cols = dbm.columns(tbl)
+        cols, pks = dbm.columns(tbl)
         name = dbm.java_name(tbl)
         kwargs['_entity_'] = name
+        kwargs['_tblname_'] = tbl
         fname = os.path.join(folder, name + '.java')
         kwargs['_cols_'] = cols
+        kwargs['_pks_'] = pks
         javagen.render_entity(fname, **kwargs)
         kwargs['_service_'] = name + 'Service'
         fname = os.path.join(folder, 'service', name + 'Service.java')
@@ -81,6 +83,7 @@ def gen_service_impl(module, folder, settings):
     for tbl in module['tables']:
         name = dbm.java_name(tbl)
         kwargs['_entity_'] = name
+        kwargs['_tblname_'] = tbl
         fname = os.path.join(folder, name + 'ServiceImpl.java')
         javagen.render_service_impl(fname, **kwargs)
 
@@ -95,6 +98,7 @@ def gen_controller_impl(module, folder, settings):
     for tbl in module['tables']:
         name = dbm.java_name(tbl)
         kwargs['_entity_'] = name
+        kwargs['_mvcurl_'] = '/'.join(tbl.split('_'))
         fname = os.path.join(folder, name + 'Controller.java')
         javagen.render_controller(fname, **kwargs)
 

@@ -25,7 +25,7 @@ class Column(object):
         self.name = row[0]
         self.typeName = row[1]
         self.null = row[3]
-        self.key = row[4]
+        self.key = row[4] and row[4] == 'PRI'
         self.default = row[5] if row[5] else u''
         self.extra = row[6] if row[6] else u''
         self.comment = row[8]
@@ -45,6 +45,11 @@ class Column(object):
             return u'默认为: ' + self.default
         return u''
 
+    @property
+    def pkMark(self):
+        if self.key:
+           return '@PK("' + self.name + '")\n\t'
+        return ''
 
 class Table(object):
 
@@ -80,9 +85,13 @@ def columns(tbl_name):
     n = cursor.execute(sql)
     print n
     cols = []
+    pks = []
     for row in cursor.fetchall():
-        cols.append(Column(row))
-    return cols
+        c = Column(row)
+        cols.append(c)
+        if c.key:
+           pks.append(c)
+    return cols, pks
 
 
 def java_name(tbl_name, suffix=[]):

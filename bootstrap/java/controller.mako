@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-@RequestMapping("/{{_module_}}")
+@RequestMapping("/{{_module_}}/{{_mvcurl_}}")
 public class {{_entity_}}Controller extends BaseController {
 
     

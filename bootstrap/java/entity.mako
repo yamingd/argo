@@ -1,11 +1,14 @@
 package com.{{_company_}}.{{_module_}};
 
 import com.argo.core.base.BaseEntity;
+import com.argo.core.annotation.EntityDef;
+import com.argo.core.annotation.PK;
 import java.util.Date;
 
 /**
  * Created by $User on {{now.strftime('%Y-%m-%d %H:%M')}}.
  */
+@EntityDef(table = "{{_tblname_}}")
 public class {{_entity_}} extends BaseEntity {
     
     {% for col in _cols_ %}
@@ -13,12 +16,12 @@ public class {{_entity_}} extends BaseEntity {
      * {{col.comment}}
      * {{col.defaultTips}}
      */
-    private {{col.java_type}} {{col.name}};
+    {{col.pkMark}}private {{col.java_type}} {{col.name}};
     {% endfor %}
 
     @Override
     public String getPK() {
-        return null;
+        return {% if _pks_ %}{% for pk in _pks_ %} ":" + {{pk.name}}{% endfor %} {% else %}null{% endif %};
     }
 
     {% for col in _cols_ %}

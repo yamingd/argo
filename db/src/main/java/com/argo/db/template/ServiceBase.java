@@ -21,7 +21,7 @@ public interface ServiceBase<T> {
      * @return
      * @throws com.argo.core.exception.ServiceException
      */
-    boolean add(T entity) throws ServiceException;
+    Long add(T entity) throws ServiceException;
 
     /**
      * 更新记录
@@ -33,10 +33,9 @@ public interface ServiceBase<T> {
 
     /**
      * 移除记录.
-     * @param clazz
      * @param oid
      * @return
      * @throws ServiceException
      */
-    boolean remove(Class<T> clazz, Long oid) throws ServiceException;
+    boolean remove(Long oid) throws ServiceException;
 }
