@@ -27,7 +27,7 @@ public class DefaultPasswordService extends AbstractPasswordService {
 	@Override
 	public boolean validate(String password, String email, BaseUser user) {
 		String encrypt_passwd = this.encrypt(password, email);
-		return user.getHashPasswd().equals(encrypt_passwd);
+		return user.getPasswd().equals(encrypt_passwd);
 	}
 
 	@Override

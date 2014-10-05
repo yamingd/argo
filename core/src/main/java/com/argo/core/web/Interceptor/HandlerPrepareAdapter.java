@@ -91,7 +91,7 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
                     user = authorizationService.verifyCookie(currentUid);
                     SessionUserHolder.set(user);
                     if (logger.isDebugEnabled()){
-                        logger.debug("preHandle verifyCookie is OK. BaseUser=" + user.getUserName());
+                        logger.debug("preHandle verifyCookie is OK. BaseUser=" + user.getLoginId());
                     }
                     String lastAccessUrl = this.getLastAccessUrl(request);
                     if (lastAccessUrl != null){

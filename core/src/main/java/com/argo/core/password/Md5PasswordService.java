@@ -21,9 +21,9 @@ public class Md5PasswordService extends AbstractPasswordService {
 	public boolean validate(String password, String email, BaseUser user) {
 		String encrypt_passwd = this.encrypt(password, email);
 		if(logger.isDebugEnabled()){
-			this.logger.debug("validate MD5 Password, dp=" + user.getHashPasswd() + ", up=" + encrypt_passwd);
+			this.logger.debug("validate MD5 Password, dp=" + user.getPasswd() + ", up=" + encrypt_passwd);
 		}
-		return user.getHashPasswd().equalsIgnoreCase(encrypt_passwd);
+		return user.getPasswd().equalsIgnoreCase(encrypt_passwd);
 	}
 
 	@Override

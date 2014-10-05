@@ -12,6 +12,6 @@ public class AnonymousUser extends BaseUser {
 
     public AnonymousUser() {
         this.setUid(0L);
-        this.setUserName("Anonymous");
+        this.setLoginId("Anonymous");
     }
 }

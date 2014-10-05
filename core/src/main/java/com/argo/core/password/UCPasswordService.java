@@ -21,13 +21,13 @@ public class UCPasswordService extends AbstractPasswordService {
 
 	@Override
 	public boolean validate(String password, String email, BaseUser user) {
-		String[] epwd = user.getHashPasswd().split(",");
+		String[] epwd = user.getPasswd().split(",");
 		if(epwd.length<=1){
 			return false;
 		}
 		String encrypt_passwd = this.encrypt(password, epwd[0]);
 		if(logger.isDebugEnabled()){
-			this.logger.debug("validate MD5 Password, dp=" + user.getHashPasswd() + ", up=" + encrypt_passwd);
+			this.logger.debug("validate MD5 Password, dp=" + user.getPasswd() + ", up=" + encrypt_passwd);
 		}
 		return epwd[1].equalsIgnoreCase(encrypt_passwd);
 	}

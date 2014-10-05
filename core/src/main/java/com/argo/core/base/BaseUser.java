@@ -1,5 +1,7 @@
 package com.argo.core.base;
 
+import com.argo.core.annotation.PK;
+
 import java.util.Date;
 
 /**
@@ -9,121 +11,101 @@ import java.util.Date;
  * @date 2012-12-7
  */
 public class BaseUser extends BaseEntity {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -38551281936005697L;
+    /**
+     * 用户id
+     *
+     */
+    @PK("uid")
+    private Long uid;
 
-	private Long uid;
-	
-	private String email;
-	
-	//登录名
-	private String userName;
-	
-	//中文名/真实名称
-	private String realName;
-	
-	private String loginIpAddress;
-	
-	private Date addAt;
-	
-	private Date updateAt;
-	
-	private String iconUrl;
-	
-	private String mobile;
-	
-	private String hashPasswd;
-	private Integer passwdMode;
-	
-	@Override
-	public String getPK() {
-		return uid+"";
-	}
+    /**
+     * 登录id
+     *
+     */
+    private String loginId;
 
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * 登录密码
+     *
+     */
+    private String passwd;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * 最后登录时间
+     *
+     */
+    private Date loginAt;
 
-	public String getUserName() {
-		return userName;
-	}
+    /**
+     * 更新时间
+     *
+     */
+    private Date updateAt;
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    /**
+     * 是否确认(0/1)
+     *
+     */
+    private Integer confirmed;
 
-	public String getRealName() {
-		return realName;
-	}
+    /**
+     * 密码方式
+     */
+    private Integer passwdMode;
 
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
+    public Long getUid() {
+        return uid;
+    }
 
-	public String getLoginIpAddress() {
-		return loginIpAddress;
-	}
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
 
-	public void setLoginIpAddress(String loginIpAddress) {
-		this.loginIpAddress = loginIpAddress;
-	}
+    public String getLoginId() {
+        return loginId;
+    }
 
-	public Date getAddAt() {
-		return addAt;
-	}
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
 
-	public void setAddAt(Date addAt) {
-		this.addAt = addAt;
-	}
+    public String getPasswd() {
+        return passwd;
+    }
 
-	public Date getUpdateAt() {
-		return updateAt;
-	}
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
 
-	public void setUpdateAt(Date updateAt) {
-		this.updateAt = updateAt;
-	}
+    public Date getLoginAt() {
+        return loginAt;
+    }
 
-	public void setUid(Long uid) {
-		this.uid = uid;
-	}
+    public void setLoginAt(Date loginAt) {
+        this.loginAt = loginAt;
+    }
 
-	public Long getUid() {
-		return uid;
-	}
+    public Date getUpdateAt() {
+        return updateAt;
+    }
 
-	public void setIconUrl(String iconUrl) {
-		this.iconUrl = iconUrl;
-	}
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+    }
 
-	public String getIconUrl() {
-		return iconUrl;
-	}
+    public Integer getConfirmed() {
+        return confirmed;
+    }
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+    public void setConfirmed(Integer confirmed) {
+        this.confirmed = confirmed;
+    }
 
-	public String getMobile() {
-		return mobile;
-	}
-
-	public void setHashPasswd(String hashPasswd) {
-		this.hashPasswd = hashPasswd;
-	}
-
-	public String getHashPasswd() {
-		return hashPasswd;
-	}
-
-	public void setPasswdMode(Integer passwdMode) {
+    public void setPasswdMode(Integer passwdMode) {
 		this.passwdMode = passwdMode;
 	}
 
@@ -150,5 +132,10 @@ public class BaseUser extends BaseEntity {
     @Override
     public int hashCode() {
         return uid.hashCode();
+    }
+
+    @Override
+    public String getPK() {
+        return ":" + uid;
     }
 }
