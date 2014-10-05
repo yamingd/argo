@@ -102,7 +102,7 @@ public class JsonUtil {
      * @return
      * @throws Exception
      */
-    public static byte[] toBytes(Object obj) throws Exception {
+    public static <T> byte[] toBytes(T obj) throws Exception {
         if (obj == null){
             throw new IllegalArgumentException("obj is NULL.");
         }
