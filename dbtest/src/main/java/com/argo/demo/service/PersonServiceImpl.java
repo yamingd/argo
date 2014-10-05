@@ -30,7 +30,7 @@ public class PersonServiceImpl extends ServiceMSTemplate<Person> implements Pers
     @Override
     public Long add(final Person user) throws ServiceException {
 
-        long id = super.add(user);
+        long id = super.addEntity(user);
 
         user.setId(id);
 

@@ -28,7 +28,7 @@ import java.util.*;
 /**
  * Created by yaming_deng on 14-8-28.
  */
-public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean implements ServiceBase<T> {
+public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean {
 
     public static final String SQL_FIND_BYID = "select * from %s where %s = ?";
     protected JdbcTemplate jdbcTemplateM;
@@ -86,8 +86,7 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean i
      * @return
      * @throws ServiceException
      */
-    @Override
-    public T findById(Long oid)throws EntityNotFoundException {
+    protected T findEntityById(Long oid)throws EntityNotFoundException {
         final String sql = String.format(SQL_FIND_BYID, this.entityTemplate.getTable(), this.entityTemplate.getPk());
         List<T> list = this.jdbcTemplateS.query(sql, this.entityMapper, oid);
         if (list.size() == 0){
@@ -102,8 +101,7 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean i
      * @return 主键
      * @throws ServiceException
      */
-    @Override
-    public Long add(T entity) throws ServiceException{
+    protected Long addEntity(T entity) throws ServiceException{
 
         StringBuffer sql = new StringBuffer("insert into ").append(this.entityTemplate.getTable()).append(" (");
         final List<Object> args = new ArrayList<Object>();
@@ -185,8 +183,7 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean i
      * @return
      * @throws ServiceException
      */
-    @Override
-    public boolean update(T entity) throws ServiceException{
+    protected boolean updateEntity(T entity) throws ServiceException{
         return false;
     }
 
@@ -197,8 +194,7 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean i
      * @return
      * @throws ServiceException
      */
-    @Override
-    public boolean remove(Long oid) throws ServiceException{
+    protected boolean removeEntity(Long oid) throws ServiceException{
         String sql;
         int count = 0;
         if (this.entityTemplate.isHasIfDeleted()){

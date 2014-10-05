@@ -1,6 +1,7 @@
 package com.{{_company_}}.{{_module_}}.service.impl;
 
 import com.argo.core.exception.EntityNotFoundException;
+import com.argo.core.exception.ServiceException;
 import com.argo.core.password.PasswordServiceFactory;
 import com.argo.service.annotation.RmiService;
 import com.{{_company_}}.service.BaseServiceImpl;
@@ -25,11 +26,31 @@ import java.util.Map;
  * Created by $User on {{now.strftime('%Y-%m-%d %H:%M')}}.
  */
 @RmiService(serviceInterface={{_entity_}}Service.class)
-public class {{_entity_}}ServiceImpl extends BaseServiceImpl implements {{_entity_}}Service{
+public class {{_entity_}}ServiceImpl extends BaseServiceImpl<{{_entity_}}> implements {{_entity_}}Service{
 	
 	@Override
     protected String getServerName() {
     	//TODO: must set this
         return null;
+    }
+
+    @Override
+    public {{_entity_}} findById(Long oid) throws EntityNotFoundException {
+        return this.findEntityById(oid);
+    }
+
+    @Override
+    public Long add({{_entity_}} entity) throws ServiceException {
+        return this.addEntity(entity);
+    }
+
+    @Override
+    public boolean update({{_entity_}} entity) throws ServiceException {
+        return false;
+    }
+
+    @Override
+    public boolean remove(Long oid) throws ServiceException {
+        return this.removeEntity(oid);
     }
 }
