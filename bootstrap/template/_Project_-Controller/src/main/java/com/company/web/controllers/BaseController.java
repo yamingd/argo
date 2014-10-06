@@ -1,6 +1,5 @@
 package com.company.web.controllers;
 
-import com.argo.core.web.ActResponse;
 import com.argo.core.web.MvcController;
 import org.springframework.context.annotation.Scope;
 
