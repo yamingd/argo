@@ -2,6 +2,7 @@ package com.company.service;
 
 import com.argo.db.template.ServiceMSTemplate;
 import com.argo.redis.RedisBuket;
+import com.argo.core.base.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

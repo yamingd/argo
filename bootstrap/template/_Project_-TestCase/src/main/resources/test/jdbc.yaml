@@ -1,0 +1,46 @@
+pool:
+   idleConnectionTestPeriod : 60
+   idleMaxAge : 240
+   maxConnectionsPerPartition : 9
+   minConnectionsPerPartition : 3
+   partitionCount : 3
+   acquireIncrement : 2
+   statementsCacheSize : 100
+   releaseHelperThreads : 3
+   queryExecuteTimeLimitInMs : 3000
+
+common:
+   type: mysql
+   user: root
+   pwd: 123456
+
+ems:
+   user: member
+   invite: member
+   picture: image
+   event: score
+
+ms:
+   - name: member
+     master: 127.0.0.1:3306/ec_member
+     slaves: 127.0.0.1:3306/ec_member
+
+   - name: score
+     master: 127.0.0.1:3306/ec_score
+     slaves: 127.0.0.1:3306/ec_score
+
+   - name: home
+     master: 127.0.0.1:3306/ec_home
+     slaves: 127.0.0.1:3306/ec_home
+
+   - name: url
+     master: 127.0.0.1:3306/ec_url
+     slaves: 127.0.0.1:3306/ec_url
+
+   - name: mall
+     master: 127.0.0.1:3306/ec_mall
+     slaves: 127.0.0.1:3306/ec_mall
+
+   - name: image
+     master: 127.0.0.1:3306/ec_image
+     slaves: 127.0.0.1:3306/ec_image

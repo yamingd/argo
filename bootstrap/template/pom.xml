@@ -9,6 +9,7 @@
         <module>_Project_-Core</module>
         <module>_Project_-Service</module>
         <module>_Project_-Controller</module>
+        <module>_Project_-TestCase</module>
         <module>Web</module>
     </modules>
     <packaging>pom</packaging>

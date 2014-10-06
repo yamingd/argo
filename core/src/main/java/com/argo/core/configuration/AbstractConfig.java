@@ -23,14 +23,7 @@ import java.util.*;
 public abstract class AbstractConfig implements InitializingBean, ConfigListener {
     protected String cfgFile;
     protected Map<String, Object> cfg = null;
-    protected Logger logger = null;
-
-    protected Logger getLogger(){
-        if (logger == null){
-            logger = LoggerFactory.getLogger(this.getClass());
-        }
-        return logger;
-    }
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void afterPropertiesSet() throws Exception {

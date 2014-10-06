@@ -27,7 +27,7 @@ public class ServiceConfig extends AbstractConfig implements ConfigListener {
     public Map getMail(){
         Map ret = this.get(Map.class, "mail");
         if (ret == null){
-            this.getLogger().error("Can't not find mail config in service.yaml");
+            this.logger.error("Can't not find mail config in service.yaml");
         }
         return ret;
     }
@@ -35,7 +35,7 @@ public class ServiceConfig extends AbstractConfig implements ConfigListener {
     public Map getRPC(){
         Map ret = this.get(Map.class, "rpc");
         if (ret == null){
-            this.getLogger().error("Can't not find rpc config in service.yaml");
+            this.logger.error("Can't not find rpc config in service.yaml");
         }
         return ret;
     }

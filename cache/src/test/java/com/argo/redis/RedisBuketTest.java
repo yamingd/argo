@@ -2,7 +2,7 @@ package com.argo.redis;
 
 import com.argo.core.ContextConfig;
 import junit.framework.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -11,10 +11,10 @@ import java.util.List;
 
 public class RedisBuketTest {
 
-    private RedisBuket redisBuket;
+    private static RedisBuket redisBuket;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
         System.setProperty(ContextConfig.RUNNING_ENV, "dev");
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-redis.xml");
         redisBuket = context.getBean("redisBuket", RedisBuket.class);
