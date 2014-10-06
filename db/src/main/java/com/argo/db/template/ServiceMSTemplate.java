@@ -78,7 +78,9 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean {
         return this.jdbcTemplateM.update(sb.toString().intern(), params.toArray());
     }
 
-    protected abstract String getServerName();
+    protected String getServerName(){
+        return this.entityTemplate.getTable();
+    }
 
     /**
      * 读取详情

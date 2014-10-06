@@ -97,5 +97,5 @@ def columns(tbl_name):
 def java_name(tbl_name, suffix=[]):
     tmp = tbl_name.split('_')
     tmp.extend(suffix)
-    tmp = [string.capitalize(item) for item in tmp]
+    tmp = [item[0].upper() + item[1:] for item in tmp]
     return ''.join(tmp)

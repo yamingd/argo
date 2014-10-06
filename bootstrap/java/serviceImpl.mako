@@ -27,12 +27,6 @@ import java.util.Map;
  */
 @RmiService(serviceInterface={{_entity_}}Service.class)
 public class {{_entity_}}ServiceImpl extends BaseServiceImpl<{{_entity_}}> implements {{_entity_}}Service{
-	
-	@Override
-    protected String getServerName() {
-    	//TODO: must set this
-        return null;
-    }
 
     @Override
     public {{_entity_}} findById(Long oid) throws EntityNotFoundException {
