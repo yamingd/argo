@@ -9,7 +9,8 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Hello world!
+ *
+ * http://galeracluster.com/documentation-webpages/dbconfiguration.html#
  *
  */
 public class App 
@@ -21,7 +22,7 @@ public class App
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/root-context.xml");
         personService = context.getBean(PersonService.class);
 
-        testAdd(100, 1000);
+        testAdd(8, 10000);
     }
 
     public static void testAdd(int threads, final int limit){
@@ -49,6 +50,12 @@ public class App
 
             thread.start();
 
+        }
+
+        try {
+            Thread.sleep(600 * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         System.out.println("duration: " + duration.get());

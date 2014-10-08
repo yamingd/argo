@@ -21,6 +21,7 @@
         <module>mail</module>
         <module>service</module>
         <module>dbtest</module>
+        <module>acl</module>
     </modules>
 
     <properties>
