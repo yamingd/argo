@@ -4,8 +4,6 @@ import com.argo.acl.SysRole;
 import com.argo.acl.service.SysRoleService;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.web.JsonResponse;
-import com.argo.web.controllers.BaseController;
-import com.argo.web.controllers.ErrorCodes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/acl/sys/role")
-public class SysRoleController extends BaseController {
+public class SysRoleController extends AclBaseController {
 
     @Autowired
     private SysRoleService sysRoleService;

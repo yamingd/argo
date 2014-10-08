@@ -3,6 +3,7 @@ package com.argo.acl.service.impl;
 import com.argo.acl.AclMappers;
 import com.argo.acl.SysRole;
 import com.argo.acl.service.SysRoleService;
+import com.argo.core.annotation.Model;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 import com.argo.service.annotation.RmiService;
@@ -12,17 +13,18 @@ import java.util.List;
 /**
  * Created by $User on 2014-10-08 09:58.
  */
+@Model(SysRole.class)
 @RmiService(serviceInterface=SysRoleService.class)
 public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysRoleService{
 
     @Override
     public SysRole findById(Long oid) throws EntityNotFoundException {
-        return this.findEntityById(oid);
+        return super.findById(oid);
     }
 
     @Override
     public Long add(SysRole entity) throws ServiceException {
-        return this.addEntity(entity);
+        return super.add(entity);
     }
 
     @Override
@@ -33,7 +35,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 
     @Override
     public boolean remove(Long oid) throws ServiceException {
-        return this.removeEntity(oid);
+        return this.remove(oid);
     }
 
     @Override

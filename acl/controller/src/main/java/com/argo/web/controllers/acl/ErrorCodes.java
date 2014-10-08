@@ -1,4 +1,4 @@
-package com.argo.web.controllers;
+package com.argo.web.controllers.acl;
 
 /**
  * Created with IntelliJ IDEA.

@@ -2,6 +2,7 @@ package com.argo.acl.service.impl;
 
 import com.argo.acl.SysRoleResource;
 import com.argo.acl.service.SysRoleResourceService;
+import com.argo.core.annotation.Model;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 import com.argo.service.annotation.RmiService;
@@ -11,17 +12,18 @@ import java.util.List;
 /**
  * Created by $User on 2014-10-08 09:58.
  */
+@Model(SysRoleResource.class)
 @RmiService(serviceInterface=SysRoleResourceService.class)
 public class SysRoleResourceServiceImpl extends BaseServiceImpl<SysRoleResource> implements SysRoleResourceService{
 
     @Override
     public SysRoleResource findById(Long oid) throws EntityNotFoundException {
-        return this.findEntityById(oid);
+        return super.findById(oid);
     }
 
     @Override
     public Long add(SysRoleResource entity) throws ServiceException {
-        return this.addEntity(entity);
+        return super.add(entity);
     }
 
     @Override

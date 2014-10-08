@@ -3,8 +3,6 @@ package com.argo.web.controllers.acl;
 import com.argo.acl.SysRoleUser;
 import com.argo.acl.service.SysRoleUserService;
 import com.argo.core.web.JsonResponse;
-import com.argo.web.controllers.BaseController;
-import com.argo.web.controllers.ErrorCodes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -22,7 +20,7 @@ import java.util.Date;
 
 @Controller
 @RequestMapping("/acl/sys/role/user")
-public class SysRoleUserController extends BaseController {
+public class SysRoleUserController extends AclBaseController {
 
     @Autowired
     private SysRoleUserService sysRoleUserService;

@@ -7,7 +7,7 @@ settings = {
     '_company_': 'equation',
     'company': 'equation',
     'Company': 'Equation',
-    '_output_': 'e:/projects',
+    '_output_': 'E:\\stuff\\sample',
     '_mysql_': {
         'host': '127.0.0.1',
         'port': 3306,

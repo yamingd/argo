@@ -5,8 +5,6 @@ import com.argo.acl.SysRoleResource;
 import com.argo.acl.service.SysResourceService;
 import com.argo.acl.service.SysRoleResourceService;
 import com.argo.core.web.JsonResponse;
-import com.argo.web.controllers.BaseController;
-import com.argo.web.controllers.ErrorCodes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -27,7 +25,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/acl/sys/role/resource")
-public class SysRoleResourceController extends BaseController {
+public class SysRoleResourceController extends AclBaseController {
 
     @Autowired
     private SysRoleResourceService sysRoleResourceService;

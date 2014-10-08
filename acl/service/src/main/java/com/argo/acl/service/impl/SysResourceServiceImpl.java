@@ -4,6 +4,7 @@ import com.argo.acl.AclMappers;
 import com.argo.acl.SysResource;
 import com.argo.acl.service.SysResourceService;
 import com.argo.acl.service.SysResourceTx;
+import com.argo.core.annotation.Model;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 import com.argo.service.annotation.RmiService;
@@ -13,18 +14,19 @@ import java.util.List;
 /**
  * Created by $User on 2014-10-08 09:58.
  */
+@Model(SysResource.class)
 @RmiService(serviceInterface=SysResourceService.class)
 public class SysResourceServiceImpl extends BaseServiceImpl<SysResource> implements SysResourceService{
 
     @Override
     public SysResource findById(Long oid) throws EntityNotFoundException {
-        return this.findEntityById(oid);
+        return super.findById(oid);
     }
 
     @SysResourceTx
     @Override
     public Long add(SysResource entity) throws ServiceException {
-        return this.addEntity(entity);
+        return super.add(entity);
     }
 
     @SysResourceTx
@@ -36,7 +38,7 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResource> impleme
     @SysResourceTx
     @Override
     public boolean remove(Long oid) throws ServiceException {
-        return this.removeEntity(oid);
+        return super.remove(oid);
     }
 
     @Override

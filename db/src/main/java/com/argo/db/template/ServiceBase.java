@@ -1,12 +1,13 @@
 package com.argo.db.template;
 
+import com.argo.core.base.BaseEntity;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 
 /**
  * Created by yaming_deng on 14-8-28.
  */
-public interface ServiceBase<T> {
+public interface ServiceBase<T extends BaseEntity> {
     /**
      * 读取详情
      * @param oid

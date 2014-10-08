@@ -44,8 +44,8 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
             executor = this.applicationContext.getBean(beanName + "EmailExecutor", EmailExecutor.class);
         }
 
-        batch = (Integer)cfg.get("batch");
-        interval = (Integer)cfg.get("interval");
+        batch = cfg.get("batch") == null ? 10 : (Integer)cfg.get("batch");
+        interval = cfg.get("interval") == null ? 1 : (Integer)cfg.get("interval");
 
         pools = new ThreadPoolTaskExecutor();
         pools.setCorePoolSize(batch / 10);

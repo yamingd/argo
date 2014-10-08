@@ -21,16 +21,11 @@ public class PersonServiceImpl extends ServiceMSTemplate<Person> implements Pers
     protected static final RowMapper<Person> Person_ROWMAPPER = new BeanPropertyRowMapper<Person>(
             Person.class);
 
-    @Override
-    protected String getServerName() {
-        return "person";
-    }
-
     @PersonTx
     @Override
     public Long add(final Person user) throws ServiceException {
 
-        long id = super.addEntity(user);
+        long id = super.add(user);
 
         user.setId(id);
 

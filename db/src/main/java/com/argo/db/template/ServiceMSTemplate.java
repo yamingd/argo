@@ -1,14 +1,16 @@
 package com.argo.db.template;
 
-import com.argo.core.base.BaseBean;
+import com.argo.core.annotation.Model;
 import com.argo.core.base.BaseEntity;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
-import com.argo.core.utils.ClassUtils;
 import com.argo.db.JdbcConfig;
 import com.argo.db.MasterSlaveJdbcTemplate;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,7 +30,9 @@ import java.util.*;
 /**
  * Created by yaming_deng on 14-8-28.
  */
-public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean {
+public abstract class ServiceMSTemplate<T extends BaseEntity> implements InitializingBean, ServiceBase<T> {
+
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public static final String SQL_FIND_BYID = "select * from %s where %s = ?";
     protected JdbcTemplate jdbcTemplateM;
@@ -43,6 +47,13 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean {
     protected RowMapper<T> entityMapper;
     protected EntityTemplate entityTemplate;
 
+    public ServiceMSTemplate() {
+        Model annotation = this.getClass().getAnnotation(Model.class);
+        this.entityClass = annotation == null ? null : (Class<T>)annotation.value();
+        this.entityTemplate = new EntityTemplate<T>(this.entityClass);
+        this.entityMapper = new BeanPropertyRowMapper<T>(this.entityClass);
+    }
+
     @Override
     public void afterPropertiesSet() throws Exception {
         jdbcConfig = JdbcConfig.current;
@@ -54,10 +65,6 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean {
 
         jdbcTemplateM = masterSlaveJdbcTemplate.get(name, true);
         jdbcTemplateS = masterSlaveJdbcTemplate.get(name, false);
-
-        this.entityClass = (Class<T>) ClassUtils.getTypeArguments(ServiceMSTemplate.class, getClass()).get(0);
-        this.entityTemplate = new EntityTemplate<T>(this.entityClass);
-        this.entityMapper = new BeanPropertyRowMapper<T>(this.entityClass);
 
         Assert.notNull(jdbcTemplateM, "jdbcTemplateM is NULL.");
         Assert.notNull(jdbcTemplateS, "jdbcTemplateS is NULl");
@@ -88,7 +95,8 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean {
      * @return
      * @throws ServiceException
      */
-    protected T findEntityById(Long oid)throws EntityNotFoundException {
+    @Override
+    public T findById(Long oid)throws EntityNotFoundException {
         final String sql = String.format(SQL_FIND_BYID, this.entityTemplate.getTable(), this.entityTemplate.getPk());
         List<T> list = this.jdbcTemplateS.query(sql, this.entityMapper, oid);
         if (list.size() == 0){
@@ -103,7 +111,8 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean {
      * @return 主键
      * @throws ServiceException
      */
-    protected Long addEntity(T entity) throws ServiceException{
+    @Override
+    public Long add(T entity) throws ServiceException{
 
         StringBuffer sql = new StringBuffer("insert into ").append(this.entityTemplate.getTable()).append(" (");
         final List<Object> args = new ArrayList<Object>();
@@ -185,7 +194,8 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean {
      * @return
      * @throws ServiceException
      */
-    protected boolean updateEntity(T entity) throws ServiceException{
+    @Override
+    public boolean update(T entity) throws ServiceException{
         return false;
     }
 
@@ -196,7 +206,8 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> extends BaseBean {
      * @return
      * @throws ServiceException
      */
-    protected boolean removeEntity(Long oid) throws ServiceException{
+    @Override
+    public boolean remove(Long oid) throws ServiceException{
         String sql;
         int count = 0;
         if (this.entityTemplate.isHasIfDeleted()){
