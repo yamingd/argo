@@ -26,13 +26,16 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResource> impleme
     @SysResourceTx
     @Override
     public Long add(SysResource entity) throws ServiceException {
-        return super.add(entity);
+        Long id = super.add(entity);
+        entity.setId(id.intValue());
+        return id;
     }
 
     @SysResourceTx
     @Override
     public boolean update(SysResource entity) throws ServiceException {
-        return false;
+        String sql = "update sys_resource set name=?, title=?, url=? where id =? ";
+        return this.jdbcTemplateM.update(sql, entity.getName(), entity.getTitle(), entity.getUrl(), entity.getId()) > 0;
     }
 
     @SysResourceTx

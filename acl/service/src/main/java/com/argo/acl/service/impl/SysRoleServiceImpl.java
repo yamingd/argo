@@ -24,7 +24,9 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 
     @Override
     public Long add(SysRole entity) throws ServiceException {
-        return super.add(entity);
+        Long id =  super.add(entity);
+        entity.setId(id.intValue());
+        return id;
     }
 
     @Override
@@ -35,7 +37,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 
     @Override
     public boolean remove(Long oid) throws ServiceException {
-        return this.remove(oid);
+        return super.remove(oid);
     }
 
     @Override

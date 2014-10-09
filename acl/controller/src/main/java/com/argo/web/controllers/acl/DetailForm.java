@@ -8,13 +8,15 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class DetailForm {
 
-    @NotEmpty(message = "name")
-    @Length(min=0, max=20)
+    @NotEmpty(message = "name_empty")
+    @Length(min=0, max=20, message = "name_too_long")
     private String name;
 
-    @NotEmpty(message = "title")
-    @Length(min=0, max=20)
+    @NotEmpty(message = "title_empty")
+    @Length(min=0, max=20, message = "title_too_long")
     private String title;
+
+    private String url;
 
     public String getName() {
         return name;
@@ -30,5 +32,13 @@ public class DetailForm {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

@@ -29,6 +29,8 @@ public class JsonUtil {
         messagePack = new MessagePack();
         //创建GsonBuilder
         GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Object.class, new NaturalDeserializer());
+
         //设置时间格式
         builder.setDateFormat(ContextConfig.DATE_TIME_FORMAT);
         gson = builder.create();

@@ -1,5 +1,6 @@
 package com.argo.core.web;
 
+import com.argo.core.json.JsonUtil;
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -22,5 +23,10 @@ public class JsonResponse extends MvcResponse {
 
     public List<Object> getData() {
         return data;
+    }
+
+    @Override
+    public String toString() {
+        return JsonUtil.toJson(this);
     }
 }

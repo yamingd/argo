@@ -14,7 +14,7 @@ public interface SysRoleUserService extends ServiceBase<SysRoleUser>  {
      *
      * @param item
      */
-    void remove(SysRoleUser item);
+    boolean remove(SysRoleUser item);
 
     /**
      * 读取已授权的用户id

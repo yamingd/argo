@@ -5,10 +5,12 @@ import com.argo.acl.SysRoleResource;
 import com.argo.acl.service.SysResourceService;
 import com.argo.acl.service.SysRoleResourceService;
 import com.argo.core.web.JsonResponse;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,7 +53,12 @@ public class SysRoleResourceController extends AclBaseController {
     public JsonResponse postAdd(@Valid AssignForm form, BindingResult result, JsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
+            List<String> fields = Lists.newArrayList();
+            for(FieldError error : result.getFieldErrors()){
+                fields.add(error.getField());
+            }
             actResponse.setCode(ErrorCodes.FORM_DATA_INVALID);
+            actResponse.getData().add(fields);
             return actResponse;
         }
 
@@ -70,7 +77,7 @@ public class SysRoleResourceController extends AclBaseController {
     public JsonResponse postRemove(@Valid AssignForm form, BindingResult result, JsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
-            actResponse.setCode(ErrorCodes.FORM_DATA_INVALID);
+            this.wrapError(result, actResponse);
             return actResponse;
         }
 

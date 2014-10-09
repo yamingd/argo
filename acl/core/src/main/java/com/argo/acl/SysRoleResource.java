@@ -71,5 +71,13 @@ public class SysRoleResource extends BaseEntity {
     public void setCreateAt(Date createAt){
         this.createAt = createAt;
     }
-    
+
+    @Override
+    public String toString() {
+        return "SysRoleResource{" +
+                "roleId=" + roleId +
+                ", resourceId=" + resourceId +
+                ", createAt=" + createAt +
+                '}';
+    }
 }

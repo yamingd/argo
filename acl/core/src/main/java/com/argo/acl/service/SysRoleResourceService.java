@@ -14,7 +14,7 @@ public interface SysRoleResourceService extends ServiceBase<SysRoleResource>  {
      *
      * @param item
      */
-    void remove(SysRoleResource item);
+    boolean remove(SysRoleResource item);
 
     /**
      * 读取已关联的资源.

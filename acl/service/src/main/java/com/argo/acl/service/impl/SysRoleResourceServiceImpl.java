@@ -18,7 +18,7 @@ public class SysRoleResourceServiceImpl extends BaseServiceImpl<SysRoleResource>
 
     @Override
     public SysRoleResource findById(Long oid) throws EntityNotFoundException {
-        return super.findById(oid);
+        return null;
     }
 
     @Override
@@ -37,14 +37,14 @@ public class SysRoleResourceServiceImpl extends BaseServiceImpl<SysRoleResource>
     }
 
     @Override
-    public void remove(SysRoleResource item) {
+    public boolean remove(SysRoleResource item) {
         String sql = "delete from sys_role_resource where roleId=? and resourceId=?";
-        this.jdbcTemplateM.update(sql, item.getRoleId(), item.getResourceId());
+        return this.jdbcTemplateM.update(sql, item.getRoleId(), item.getResourceId()) > 0;
     }
 
     @Override
     public List<Integer> findByRole(Long id) {
-        String sql = "select userId from sys_role_resource where roleId=? order by createAt desc";
+        String sql = "select resourceId from sys_role_resource where roleId=? order by createAt desc";
         return this.jdbcTemplateS.queryForList(sql, Integer.class, id);
     }
 }

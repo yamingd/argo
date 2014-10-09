@@ -37,9 +37,9 @@ public class SysRoleUserServiceImpl extends BaseServiceImpl<SysRoleUser> impleme
     }
 
     @Override
-    public void remove(SysRoleUser item) {
+    public boolean remove(SysRoleUser item) {
         String sql = "delete from sys_role_user where roleId=? and userId=?";
-        this.jdbcTemplateM.update(sql, item.getRoleId(), item.getUserId());
+        return this.jdbcTemplateM.update(sql, item.getRoleId(), item.getUserId()) > 0;
     }
 
     @Override

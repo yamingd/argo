@@ -39,7 +39,8 @@ public class SysRoleController extends AclBaseController {
         return model;
     }
 
-    @RequestMapping(value="select", method = RequestMethod.GET)
+    @RequestMapping(value="select", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public JsonResponse select(ModelAndView model, JsonResponse actResponse){
 
         List<SysRole> list = sysRoleService.findAll();
@@ -77,7 +78,7 @@ public class SysRoleController extends AclBaseController {
     public JsonResponse postCreate(@Valid DetailForm form, BindingResult result, JsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
-            actResponse.setCode(ErrorCodes.FORM_DATA_INVALID);
+            this.wrapError(result, actResponse);
             return actResponse;
         }
 
@@ -97,7 +98,7 @@ public class SysRoleController extends AclBaseController {
     public JsonResponse postSave(@Valid DetailForm form, BindingResult result, @PathVariable Long id, JsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
-            actResponse.setCode(ErrorCodes.FORM_DATA_INVALID);
+            this.wrapError(result, actResponse);
             return actResponse;
         }
 

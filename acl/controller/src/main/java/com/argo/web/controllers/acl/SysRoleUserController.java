@@ -30,7 +30,7 @@ public class SysRoleUserController extends AclBaseController {
     public JsonResponse postAdd(@Valid AssignForm form, BindingResult result, JsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
-            actResponse.setCode(ErrorCodes.FORM_DATA_INVALID);
+            this.wrapError(result, actResponse);
             return actResponse;
         }
 
@@ -49,7 +49,7 @@ public class SysRoleUserController extends AclBaseController {
     public JsonResponse postRemove(@Valid AssignForm form, BindingResult result, JsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
-            actResponse.setCode(ErrorCodes.FORM_DATA_INVALID);
+            this.wrapError(result, actResponse);
             return actResponse;
         }
 

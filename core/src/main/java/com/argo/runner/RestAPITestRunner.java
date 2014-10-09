@@ -195,6 +195,7 @@ public class RestAPITestRunner {
         assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
         String body = consumeResponse(httpResponse);
+        logger.info(body);
         return JsonUtil.asT(JsonResponse.class, body);
     }
 
@@ -234,6 +235,7 @@ public class RestAPITestRunner {
             assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
             String body = consumeResponse(httpResponse);
+            logger.info(body);
             return JsonUtil.asT(JsonResponse.class, body);
 
         }else{
@@ -245,6 +247,7 @@ public class RestAPITestRunner {
             assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
             String body = consumeResponse(httpResponse);
+            logger.info(body);
             return JsonUtil.asT(JsonResponse.class, body);
         }
     }

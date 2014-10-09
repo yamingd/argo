@@ -1,16 +1,16 @@
 package com.argo.web.controllers.acl;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by yaming_deng on 2014/10/8.
  */
 public class AssignForm {
 
-    @NotEmpty(message = "roleId")
+    @NotNull(message = "roleId_empty")
     private Integer roleId;
 
-    @NotEmpty(message = "itemId")
+    @NotNull(message = "itemId_empty")
     private Integer itemId;
 
     public Integer getRoleId() {

@@ -1,9 +1,8 @@
 package com.argo.acl;
 
-import com.argo.core.base.BaseEntity;
 import com.argo.core.annotation.EntityDef;
 import com.argo.core.annotation.PK;
-import java.util.Date;
+import com.argo.core.base.BaseEntity;
 
 /**
  * Created by $User on 2014-10-08 09:58.
@@ -70,5 +69,13 @@ public class SysRole extends BaseEntity {
     public void setTitle(String title){
         this.title = title;
     }
-    
+
+    @Override
+    public String toString() {
+        return "SysRole{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }
