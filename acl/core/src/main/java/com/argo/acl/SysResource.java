@@ -3,12 +3,14 @@ package com.argo.acl;
 import com.argo.core.annotation.EntityDef;
 import com.argo.core.annotation.PK;
 import com.argo.core.base.BaseEntity;
+import org.msgpack.annotation.MessagePackMessage;
 
 import java.util.List;
 
 /**
  * Created by $User on 2014-10-08 09:58.
  */
+@MessagePackMessage
 @EntityDef(table = "sys_resource")
 public class SysResource extends BaseEntity {
     

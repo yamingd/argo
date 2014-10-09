@@ -3,10 +3,12 @@ package com.argo.acl;
 import com.argo.core.annotation.EntityDef;
 import com.argo.core.annotation.PK;
 import com.argo.core.base.BaseEntity;
+import org.msgpack.annotation.MessagePackMessage;
 
 /**
  * Created by $User on 2014-10-08 09:58.
  */
+@MessagePackMessage
 @EntityDef(table = "sys_role")
 public class SysRole extends BaseEntity {
     

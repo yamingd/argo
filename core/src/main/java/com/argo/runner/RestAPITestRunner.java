@@ -5,6 +5,7 @@ import com.argo.core.configuration.SiteConfig;
 import com.argo.core.json.JsonUtil;
 import com.argo.core.web.BsonResponse;
 import com.argo.core.web.JsonResponse;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -124,6 +125,32 @@ public class RestAPITestRunner {
         return request;
     }
 
+    private static byte[] consumeAsBytes(HttpResponse response) {
+        HttpEntity entity = null;
+        InputStream stream = null;
+        try {
+            entity = response.getEntity();
+            stream = entity.getContent();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (stream == null){
+            return null;
+        }
+
+        try {
+            byte[] bytes = IOUtils.toByteArray(stream);
+            return bytes;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     /**
      *
      * @param response
@@ -140,6 +167,11 @@ public class RestAPITestRunner {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        if (stream == null){
+            return null;
+        }
+
         StringBuffer document = new StringBuffer();
         String line = null;
         BufferedReader reader;
@@ -205,8 +237,16 @@ public class RestAPITestRunner {
      * @param args
      * @return
      */
-    protected BsonResponse getBson(String url, Map<String, String> args) {
-        return null;
+    protected BsonResponse getBson(String url, Map<String, String> args) throws Exception {
+        HttpUriRequest request = createRequest(HttpGet.METHOD_NAME, url, args);
+        // When
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+        assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
+
+        byte[] body = consumeAsBytes(httpResponse);
+        logger.info("body length: " + body.length);
+        return JsonUtil.asT(BsonResponse.class, body);
     }
 
     /**
@@ -258,8 +298,40 @@ public class RestAPITestRunner {
      * @param args
      * @return
      */
-    protected BsonResponse postForm2(String url, Map<String, Object> args) {
-        return null;
+    protected BsonResponse postForm2(String url, Map<String, Object> args) throws Exception {
+        Map<String, File> files = new HashMap<String, File>();
+        Map<String, String> params = new HashMap<String, String>();
+        for (String name : args.keySet()){
+            Object v = args.get(name);
+            if (v instanceof File){
+                files.put(name, (File)v);
+            }else{
+                params.put(name, v + "");
+            }
+        }
+        if (files.size() > 0){
+            HttpUriRequest request = createFileRequest(url, params, files);
+            // When
+            HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+            assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
+
+            byte[] body = consumeAsBytes(httpResponse);
+            logger.info("body length: " + body.length);
+            return JsonUtil.asT(BsonResponse.class, body);
+
+        }else{
+
+            HttpUriRequest request = createRequest(HttpPost.METHOD_NAME, url, params);
+            // When
+            HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+            assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
+
+            byte[] body = consumeAsBytes(httpResponse);
+            logger.info("body length: " + body.length);
+            return JsonUtil.asT(BsonResponse.class, body);
+        }
     }
 
 }

@@ -3,6 +3,8 @@ package com.argo.web.controllers.acl;
 import com.argo.acl.SysRole;
 import com.argo.acl.service.SysRoleService;
 import com.argo.core.exception.EntityNotFoundException;
+import com.argo.core.web.BsonResponse;
+import com.argo.core.web.Enums;
 import com.argo.core.web.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -45,6 +47,22 @@ public class SysRoleController extends AclBaseController {
 
         List<SysRole> list = sysRoleService.findAll();
         actResponse.getData().addAll(list);
+
+        return actResponse;
+    }
+
+    @RequestMapping(value="select.bson", method = RequestMethod.GET, produces = Enums.APPLICATION_BJSON_VALUE)
+    @ResponseBody
+    public BsonResponse select2(ModelAndView model, BsonResponse actResponse){
+
+        List<SysRole> list = sysRoleService.findAll();
+        for(SysRole role : list){
+            try {
+                actResponse.add(role);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         return actResponse;
     }
