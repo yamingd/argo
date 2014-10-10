@@ -1,4 +1,4 @@
-package com.company.service;
+package com.company._project_.service;
 
 import com.argo.db.template.ServiceMSTemplate;
 import com.argo.redis.RedisBuket;

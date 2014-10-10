@@ -1,4 +1,4 @@
-package com.company.web.controllers.demo;
+package com.company._project_.web.controllers.sample;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;

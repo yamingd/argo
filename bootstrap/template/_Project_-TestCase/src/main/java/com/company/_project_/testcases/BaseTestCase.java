@@ -1,4 +1,4 @@
-package com.company.testcases;
+package com.company._project_.testcases;
 
 import com.argo.core.ContextConfig;
 import com.argo.runner.RestAPITestRunner;

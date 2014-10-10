@@ -1,6 +1,6 @@
-package com.company.testcases.service;
+package com.company._project_.testcases.service;
 
-import com.company.testcases.BaseTestCase;
+import com.company._project_.testcases.BaseTestCase;
 import org.junit.Test;
 
 /**

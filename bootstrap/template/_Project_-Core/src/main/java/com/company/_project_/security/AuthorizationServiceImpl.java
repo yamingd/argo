@@ -1,4 +1,4 @@
-package com.company.security;
+package com.company._project_.security;
 
 import com.argo.core.base.BaseBean;
 import com.argo.core.exception.EntityNotFoundException;

@@ -1,7 +1,6 @@
-package com.company.web.controllers;
+package com.company._project_.web.controllers;
 
 import com.argo.core.web.MvcController;
-import org.springframework.context.annotation.Scope;
 
 /**
  * Created by yaming_deng on 14-8-25.

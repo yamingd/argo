@@ -105,11 +105,11 @@ def gen_controller_impl(module, folder, settings):
 
 def gen_modules(settings):
     ms = settings['_modules_']
-    core_folder = os.path.join(settings['_root_'], '_Project_-Core/src/main/java/com/company')
+    core_folder = os.path.join(settings['_root_'], '_Project_-Core/src/main/java/com/company/_project_')
     core_folder = format_line(core_folder, settings)
-    service_folder = os.path.join(settings['_root_'], '_Project_-Service/src/main/java/com/company')
+    service_folder = os.path.join(settings['_root_'], '_Project_-Service/src/main/java/com/company/_project_')
     service_folder = format_line(service_folder, settings)
-    controller_folder = os.path.join(settings['_root_'], '_Project_-Controller/src/main/java/com/company/web/controllers')
+    controller_folder = os.path.join(settings['_root_'], '_Project_-Controller/src/main/java/com/company/_project_/web/controllers')
     controller_folder = format_line(controller_folder, settings)
     for m in ms:
         mf = ms[m]
@@ -145,7 +145,6 @@ def main():
         shutil.rmtree(root)
     os.makedirs(root)
     settings['_root_'] = root
-    settings['ArgoTemplate'] = settings['_Project_']
     folders = gen_structs(settings)
     _tmpl_ = 'template/'
     for folder in folders:

@@ -1,10 +1,10 @@
-package com.company.web.controllers.demo;
+package com.company._project_.web.controllers.sample;
 
 import com.argo.core.web.BsonResponse;
 import com.argo.core.web.Enums;
 import com.argo.core.web.JsonResponse;
-import com.company.web.controllers.BaseController;
-import com.company.web.controllers.ErrorCodes;
+import com.company._project_.web.controllers.BaseController;
+import com.company._project_.web.controllers.ErrorCodes;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

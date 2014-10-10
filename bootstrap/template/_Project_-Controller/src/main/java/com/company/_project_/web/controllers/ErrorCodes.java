@@ -1,4 +1,4 @@
-package com.company.web.controllers;
+package com.company._project_.web.controllers;
 
 /**
  * Created with IntelliJ IDEA.
