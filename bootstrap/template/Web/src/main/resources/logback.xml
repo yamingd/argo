@@ -16,7 +16,7 @@
         <Encoding>UTF-8</Encoding>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>
-                ../logs/project-name.%d{yyyy-MM-dd}.log
+                ../logs/_project_web.%d{yyyy-MM-dd}.log
             </FileNamePattern>
         </rollingPolicy>
         <MaxHistory>30</MaxHistory>
