@@ -25,6 +25,13 @@ public class BsonResponse extends MvcResponse {
         data.add(bytes);
     }
 
+    public <T> void addAll(List<T> list) throws Exception {
+        for (T o : list){
+            byte[] bytes = JsonUtil.toBytes(o);
+            data.add(bytes);
+        }
+    }
+
     public List<byte[]> getData() {
         return data;
     }
