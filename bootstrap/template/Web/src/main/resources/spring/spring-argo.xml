@@ -6,10 +6,7 @@
 
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-    <bean id="freemarkerConfiguration"
-          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location" value="classpath:freemarker.properties" />
-    </bean>
+    <import resource="classpath:/main/resources/com/argo/freemarker/config.xml" />
 
     <context:component-scan base-package="com.argo.core">
         <context:exclude-filter type="regex"

@@ -9,96 +9,11 @@
              http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <import resource="classpath:/main/resources/com/argo/freemarker/freemarker-layout-directives.xml" />
-
-    <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
-        <mvc:message-converters register-defaults="true">
-            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
-            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
-            <bean class="com.argo.core.web.spring.GsonHttpMessageConverter" />
-            <bean class="com.argo.core.web.spring.BSONHttpMessageConverter" />
-            <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
-        </mvc:message-converters>
-    </mvc:annotation-driven>
-
-    <mvc:interceptors>
-        <bean class="com.argo.core.web.Interceptor.HandlerPrepareAdapter" />
-    </mvc:interceptors>
-
-    <context:annotation-config />
+    <import resource="classpath:/main/resources/com/argo/spring/mvc-context.xml" />
 
     <!-- Imports user-defined @Controller beans that process client requests -->
     <context:component-scan base-package="com.company.web.controllers">
         <context:include-filter type="regex" expression=".*web.*Controller"/>
     </context:component-scan>
-
-    <bean id="mvcExceptionHandler" class="com.argo.core.web.Interceptor.ExceptionHandler" />
-
-    <bean id="contentNegotiationManager"
-          class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-        <property name="defaultContentType" value="application/json" />
-        <property name="favorPathExtension" value="true" />
-        <property name="mediaTypes">
-            <map>
-                <entry key="json" value="application/json" />
-                <entry key="bson" value="application/bson" />
-                <entry key="xml" value="text/xml" />
-            </map>
-        </property>
-    </bean>
-
-    <!-- Handles HTTP GET requests for /asserts/** by efficiently serving up static resources in the ${webappRoot}/resources/ directory -->
-    <mvc:resources mapping="/asserts/**" location="/asserts/"  cache-period="0" />
-
-    <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/views/" />
-        <property name="suffix" value=".jsp" />
-    </bean>
-     -->
-
-    <!-- Only needed because we require fileupload in the org.springframework.samples.mvc.fileupload package -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="10000000" />
-    </bean>
-
-    <bean id="viewResolver"
-          class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-        <property name="cache" value="true" />
-        <property name="prefix" value="" />
-        <property name="suffix" value=".ftl" />
-        <property name="contentType" value="text/html;charset=UTF-8" />
-        <property name="requestContextAttribute" value="request" />
-        <property name="exposeSpringMacroHelpers" value="true" />
-        <property name="exposeRequestAttributes" value="true" />
-        <property name="exposeSessionAttributes" value="true" />
-    </bean>
-
-    <bean id="freemarkerConfig"
-          class="com.argo.core.freemarker.HtmlFreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/views/" />
-        <property name="freemarkerSettings">
-            <props>
-                <prop key="template_update_delay">0</prop>
-                <prop key="default_encoding">UTF-8</prop>
-                <prop key="number_format">0.##########</prop>
-                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
-                <prop key="classic_compatible">true</prop>
-                <prop key="template_exception_handler">ignore</prop>
-            </props>
-        </property>
-        <property name="freemarkerVariables">
-            <map>
-                <entry key="xml_escape" value-ref="fmXmlEscape"/>
-                <entry key="layout" value-ref="freemarkerLayoutDirectives" />
-                <entry key="h" value-ref="ftlHelper"/>
-            </map>
-        </property>
-    </bean>
-
-    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
-    <bean id="ftlHelper" class="com.argo.core.freemarker.FTLHelper" />
 
 </beans>
