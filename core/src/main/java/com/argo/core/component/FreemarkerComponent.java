@@ -1,70 +1,48 @@
 package com.argo.core.component;
 
 import com.argo.core.base.BaseBean;
+import com.argo.core.freemarker.HtmlFreeMarkerConfigurer;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * @author yaming_deng
  *
  */
-@Component("freemarkerComponent")
 public class FreemarkerComponent extends BaseBean {
-	
-	private static final String TEMPLATE_FOLDER = "template_folder";
 
 	private Configuration configuration ;
-	
-	private String contextPath;
-	
+
 	private final Logger logger = LoggerFactory.getLogger(FreemarkerComponent.class);
 
-	private Properties properties;
-	
-	@Override
+    private HtmlFreeMarkerConfigurer freeMarkerConfig;
+
+    public HtmlFreeMarkerConfigurer getFreeMarkerConfig() {
+        return freeMarkerConfig;
+    }
+
+    public void setFreeMarkerConfig(HtmlFreeMarkerConfigurer freeMarkerConfig) {
+        this.freeMarkerConfig = freeMarkerConfig;
+    }
+
+    @Override
 	public void afterPropertiesSet() throws Exception {
 		super.afterPropertiesSet();
-        try {
-            this.properties = applicationContext.getBean("freemarkerConfiguration", Properties.class);
-        } catch (BeansException e) {
-            logger.warn("FreemarkerComponent is disabled. Missing freemarkerConfiguration");
-            return;
+        if (this.freeMarkerConfig == null){
+            logger.warn("freeMarkerConfig is missing.");
+        }else {
+            logger.info("found freeMarkerConfig.");
+            this.configuration = freeMarkerConfig.getConfiguration();
         }
-        if (this.properties == null){
-            logger.warn("FreemarkerComponent is disabled. Missing freemarkerConfiguration");
-            return;
-        }
-		this.buildRenderConfig();		
 	}
-	
-	//初始化生成模板配置对象
-	private void buildRenderConfig() throws TemplateException, IOException{
-		configuration = new Configuration();
-		Iterator<Object> itor = this.properties.keySet().iterator();
-		while(itor.hasNext()){
-			String key = itor.next().toString();
-			if(key.equalsIgnoreCase(TEMPLATE_FOLDER)){
-				continue;
-			}
-			configuration.setSetting(key, this.properties.getProperty(key));
-		}
-		contextPath = FreemarkerComponent.class.getResource("/").getPath().split("WEB-INF")[0];
-		configuration.setDirectoryForTemplateLoading(new File(contextPath));
-	}
-	
+
 	public Map<String, Object> getGlobalParams(){
 		Map<String, Object> map = new HashMap<String, Object>();
 		//配置
@@ -84,8 +62,8 @@ public class FreemarkerComponent extends BaseBean {
 			template = configuration.getTemplate(filePath);
 			return template;
 		}catch (IOException e) {
-			logger.error("==============load FTL template error:contextPath="+this.contextPath+",filePath="+filePath, e);
-			throw new Exception("系统IO异常！contextPath="+this.contextPath+",filePath="+filePath,e);
+			logger.error("==============load FTL template error:,filePath="+filePath, e);
+			throw new Exception("系统IO异常！,filePath="+filePath,e);
 		}
 	}
 	

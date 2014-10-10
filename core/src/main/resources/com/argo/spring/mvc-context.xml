@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+             http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <import resource="classpath:/main/resources/com/argo/freemarker/freemarker-layout-directives.xml" />
+
+    <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+            <bean class="com.argo.core.web.spring.GsonHttpMessageConverter" />
+            <bean class="com.argo.core.web.spring.BSONHttpMessageConverter" />
+            <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <mvc:interceptors>
+        <bean class="com.argo.core.web.Interceptor.HandlerPrepareAdapter" />
+    </mvc:interceptors>
+
+    <context:annotation-config />
+
+    <context:component-scan base-package="com.argo.web.controllers">
+        <context:include-filter type="regex" expression=".*web.*Controller"/>
+    </context:component-scan>
+
+    <bean id="mvcExceptionHandler" class="com.argo.core.web.Interceptor.ExceptionHandler" />
+
+    <bean id="contentNegotiationManager"
+          class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="defaultContentType" value="application/json" />
+        <property name="favorPathExtension" value="true" />
+        <property name="mediaTypes">
+            <map>
+                <entry key="json" value="application/json" />
+                <entry key="bson" value="application/bson" />
+                <entry key="xml" value="text/xml" />
+                <entry key="html" value="text/html"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- Handles HTTP GET requests for /asserts/** by efficiently serving up static resources in the ${webappRoot}/resources/ directory -->
+    <mvc:resources mapping="/assets/**" location="/assets/"  cache-period="0" />
+
+    <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+     -->
+
+    <!-- Only needed because we require fileupload in the org.springframework.samples.mvc.fileupload package -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10000000" />
+    </bean>
+
+    <bean id="viewResolver"
+          class="com.argo.core.web.view.FreeMarkerResourceViewResolver">
+        <property name="cache" value="true" />
+        <property name="prefix" value="" />
+        <property name="suffix" value=".ftl" />
+        <property name="contentType" value="text/html;charset=UTF-8" />
+        <property name="requestContextAttribute" value="request" />
+        <property name="exposeSpringMacroHelpers" value="true" />
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+    </bean>
+
+</beans>
