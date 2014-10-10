@@ -41,7 +41,7 @@ public class SysResourceController extends AclBaseController {
 
     @RequestMapping(value="select", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public JsonResponse select(ModelAndView model, JsonResponse actResponse){
+    public JsonResponse<SysResource> select(ModelAndView model, JsonResponse<SysResource> actResponse){
 
         List<SysResource> list = sysResourceService.findAll();
         actResponse.getData().addAll(list);

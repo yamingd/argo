@@ -43,7 +43,7 @@ public class SysRoleController extends AclBaseController {
 
     @RequestMapping(value="select", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public JsonResponse select(ModelAndView model, JsonResponse actResponse){
+    public JsonResponse<SysRole> select(ModelAndView model, JsonResponse<SysRole> actResponse){
 
         List<SysRole> list = sysRoleService.findAll();
         actResponse.getData().addAll(list);
@@ -53,16 +53,10 @@ public class SysRoleController extends AclBaseController {
 
     @RequestMapping(value="select.bson", method = RequestMethod.GET, produces = Enums.APPLICATION_BJSON_VALUE)
     @ResponseBody
-    public BsonResponse select2(ModelAndView model, BsonResponse actResponse){
+    public BsonResponse select2(ModelAndView model, BsonResponse actResponse) throws Exception {
 
         List<SysRole> list = sysRoleService.findAll();
-        for(SysRole role : list){
-            try {
-                actResponse.add(role);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        actResponse.addAll(list);
 
         return actResponse;
     }

@@ -8,20 +8,20 @@ import java.util.List;
 /**
  * Created by yaming_deng on 14-8-20.
  */
-public class JsonResponse extends MvcResponse {
+public class JsonResponse<T> extends MvcResponse {
 
-    protected List<Object> data;
+    protected List<T> data;
 
     public JsonResponse() {
         super();
         this.data = Lists.newArrayList();
     }
 
-    public void add(Object o){
+    public void add(T o){
        this.data.add(o);
     }
 
-    public List<Object> getData() {
+    public List<T> getData() {
         return data;
     }
 
