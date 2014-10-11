@@ -27,6 +27,7 @@ class Column(object):
         self.null = row[2] == 'YES'  # is_nullable
         self.key = row[3] and row[3] == 'PRI'  # column_key
         self.default = row[4] if row[4] else u''  # column_default
+        self.max = row[5] if row[5] else None
         self.comment = row[-1]
 
     @property
@@ -49,6 +50,19 @@ class Column(object):
         if self.key:
             return '@PK("' + self.name + '")\n\t'
         return ''
+
+    @property
+    def isString(self):
+        return self.typeName.startswith('varchar') or self.typeName.startswith('text')
+    
+    @property
+    def validate(self):
+        if self.null and self.max is None:
+            return u''
+        maxs = u''
+        if self.max:
+            maxs = u'@Length(min=0, max=%s)\n\t' % self.max
+        return '@NotEmpty(message = "%s_empty")\n\t%s' % (java_name(self.name, upperFirst=False), maxs)
 
 
 class Table(object):
@@ -92,7 +106,7 @@ def get_table(module, tbl_name):
     if tbl is None:
         print 'table not found. ', tbl_name
         raise
-    sql = "select column_name,column_type,is_nullable,column_key,column_default,column_comment from INFORMATION_SCHEMA.COLUMNS where table_schema=%s and table_name=%s"
+    sql = "select column_name,column_type,is_nullable,column_key,column_default,CHARACTER_MAXIMUM_LENGTH,column_comment from INFORMATION_SCHEMA.COLUMNS where table_schema=%s and table_name=%s"
     cursor = db.cursor()
     cursor.execute(sql, [module['db'], tbl_name])
     cols = []
@@ -126,8 +140,9 @@ def columns(tbl_name):
     return cols, pks
 
 
-def java_name(tbl_name, suffix=[]):
+def java_name(tbl_name, suffix=[], upperFirst=True):
     tmp = tbl_name.split('_')
     tmp.extend(suffix)
-    tmp = [item[0].upper() + item[1:] for item in tmp]
+    if upperFirst:
+        tmp = [item[0].upper() + item[1:] for item in tmp]
     return ''.join(tmp)

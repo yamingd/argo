@@ -49,4 +49,9 @@ public class {{_entity_}}ServiceImpl extends BaseServiceImpl<{{_entity_}}> imple
     public boolean remove(Long oid) throws ServiceException {
         return super.remove(oid);
     }
+
+    @Override
+    public List<{{_entity_}}> findAll(){
+        return null;
+    }
 }

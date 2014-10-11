@@ -96,9 +96,32 @@ def gen_controller_impl(module, folder, settings):
     for tbl in module['tables']:
         name = dbm.java_name(tbl)
         kwargs['_entity_'] = name
-        kwargs['_mvcurl_'] = '/'.join(tbl.split('_'))
+        kwargs['_entityL_'] = dbm.java_name(tbl, upperFirst=False)
+        url = tbl.replace(module['name'], '')
+        if url.startswith('_'):
+            url = url[1:]
+        kwargs['_mvcurl_'] = '/'.join(url.split('_'))
         fname = os.path.join(folder, name + 'Controller.java')
         javagen.render_controller(fname, **kwargs)
+        # render controller form
+        tbi = dbm.get_table(module, tbl)
+        cols = []
+        for c in tbi.columns:
+            if c.isString:
+                cols.append(c)
+        kwargs['_cols_'] = cols
+        kwargs['_tbi_'] = tbi
+        fname = os.path.join(folder, name + 'Form.java')
+        javagen.render_form(fname, **kwargs)
+        # make view folder
+        folder2 = os.path.join(settings['_root_'], 'Web/src/main/webapp/WEB-INF/views')
+        folder2 = os.path.join(folder2, module['name'], kwargs['_mvcurl_'])
+        if not os.path.exists(folder2):
+            os.makedirs(folder2)
+        for name in ['add', 'view', 'list']:
+            f = os.path.join(folder2, name + '.ftl')
+            with open(f, 'w+') as fw:
+                fw.write('')
 
 
 def gen_jdbc_yml(settings):

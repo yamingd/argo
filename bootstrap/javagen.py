@@ -46,3 +46,8 @@ def render_controller(fname, **kwargs):
 def render_jdbc_yaml(fname, **kwargs):
     with open(fname, 'w+') as fw:
         fw.write(serve_template('jdbc.mako', **kwargs))
+
+
+def render_form(fname, **kwargs):
+    with open(fname, 'w+') as fw:
+        fw.write(serve_template('form.mako', **kwargs))

@@ -5,10 +5,13 @@ import com.argo.db.template.ServiceBase;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_tbi_.entityName}};
 
 import java.util.Map;
+import java.util.List;
 
 /**
  * Created by $User on {{now.strftime('%Y-%m-%d %H:%M')}}.
  */
 public interface {{_tbi_.entityName}}Service extends ServiceBase<{{_tbi_.entityName}}>  {
+	
+	List<{{_tbi_.entityName}}> findAll();
 
 }

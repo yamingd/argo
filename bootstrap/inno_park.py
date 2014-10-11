@@ -19,7 +19,8 @@ settings = {
             'db': 'inno_park',
             'tables': ['catalog_bizarea', 'catalog_biztype', 'catalog_degree',
                         'catalog_emp','catalog_person','catalog_relation',
-                        'catalog_spendtype','catalog_stage']
+                        'catalog_spendtype','catalog_stage', 'catalog_jobtype',
+                        'catalog_level', 'catalog_college', 'catalog_major']
         },
         'proposal': {
             'db': 'inno_park',

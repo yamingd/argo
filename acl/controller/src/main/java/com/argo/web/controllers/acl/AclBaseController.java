@@ -1,5 +1,6 @@
 package com.argo.web.controllers.acl;
 
+import com.argo.core.web.BsonResponse;
 import com.argo.core.web.JsonResponse;
 import com.argo.core.web.MvcController;
 import com.google.common.collect.Lists;
@@ -22,4 +23,12 @@ public abstract class AclBaseController extends MvcController {
         actResponse.getData().add(fields);
     }
 
+    protected void wrapError(BindingResult result, BsonResponse actResponse) throws Exception {
+        List<String> fields = Lists.newArrayList();
+        for(FieldError error : result.getFieldErrors()){
+            fields.add(error.getDefaultMessage());
+        }
+        actResponse.setCode(ErrorCodes.FORM_DATA_INVALID);
+        actResponse.add(fields);
+    }
 }
