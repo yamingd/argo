@@ -146,6 +146,7 @@ public class DemoController extends BaseController {
      * @return ActResponse
      */
     @RequestMapping(value="get/{userid}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public JsonResponse getJson(@PathVariable String userId, JsonResponse actResponse) {
         DemoJson item = new DemoJson();
         item.setId(1L);
@@ -165,6 +166,7 @@ public class DemoController extends BaseController {
      * @return DemoJson
      */
     @RequestMapping(value="get2/{userid}", method=RequestMethod.GET, produces = Enums.APPLICATION_BJSON_VALUE)
+    @ResponseBody
     public BsonResponse getJson2(@PathVariable String userId, BsonResponse actResponse) {
 
         DemoJson item = new DemoJson();
