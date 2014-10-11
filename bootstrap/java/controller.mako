@@ -1,6 +1,6 @@
-package com.{{_company_}}.web.controllers.{{_module_}};
+package com.{{_company_}}.{{_project_}}.web.controllers.{{_module_}};
 
-import com.{{_company_}}.web.controllers.BaseController;
+import com.{{_company_}}.{{_project_}}.web.controllers.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

@@ -22,13 +22,12 @@ class Column(object):
     """docstring for Column"""
 
     def __init__(self, row):
-        self.name = row[0]
-        self.typeName = row[1]
-        self.null = row[3]
-        self.key = row[4] and row[4] == 'PRI'
-        self.default = row[5] if row[5] else u''
-        self.extra = row[6] if row[6] else u''
-        self.comment = row[8]
+        self.name = row[0]  # column_name
+        self.typeName = row[1]  # column_type
+        self.null = row[2] == 'YES'  # is_nullable
+        self.key = row[3] and row[3] == 'PRI'  # column_key
+        self.default = row[4] if row[4] else u''  # column_default
+        self.comment = row[-1]
 
     @property
     def java_type(self):
@@ -48,18 +47,24 @@ class Column(object):
     @property
     def pkMark(self):
         if self.key:
-           return '@PK("' + self.name + '")\n\t'
+            return '@PK("' + self.name + '")\n\t'
         return ''
+
 
 class Table(object):
 
     """docstring for Table"""
 
-    def __init__(self, name):
+    def __init__(self, name, hint):
         self.name = name
+        self.hint = hint
 
     @property
     def capName(self):
+        return java_name(self.name)
+    
+    @property
+    def entityName(self):
         return java_name(self.name)
 
     @property
@@ -73,6 +78,33 @@ class Table(object):
     @property
     def controllerName(self):
         return self.capName + 'Controller'
+
+
+def get_table(module, tbl_name):
+    global db
+    sql = "SELECT table_name, table_comment FROM INFORMATION_SCHEMA.tables t WHERE table_schema=%s and table_name=%s"
+    cursor = db.cursor()
+    cursor.execute(sql, [module['db'], tbl_name])
+    tbl = None
+    for row in cursor.fetchall():
+        tbl = Table(tbl_name, row[1])
+        break
+    if tbl is None:
+        print 'table not found. ', tbl_name
+        raise
+    sql = "select column_name,column_type,is_nullable,column_key,column_default,column_comment from INFORMATION_SCHEMA.COLUMNS where table_schema=%s and table_name=%s"
+    cursor = db.cursor()
+    cursor.execute(sql, [module['db'], tbl_name])
+    cols = []
+    pks = []
+    for row in cursor.fetchall():
+        c = Column(row)
+        cols.append(c)
+        if c.key:
+            pks.append(c)
+    tbl.columns = cols
+    tbl.pks = pks
+    return tbl
 
 
 def columns(tbl_name):
@@ -90,7 +122,7 @@ def columns(tbl_name):
         c = Column(row)
         cols.append(c)
         if c.key:
-           pks.append(c)
+            pks.append(c)
     return cols, pks
 
 

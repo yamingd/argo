@@ -1,7 +1,7 @@
-package com.{{_company_}}.{{_module_}};
+package com.{{_company_}}.{{_project_}}.{{_module_}};
 
 {% for _entity_ in _entitys_ %}
-import com.{{_company_}}.{{_module_}}.{{_entity_}};
+import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
 {% endfor %}
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

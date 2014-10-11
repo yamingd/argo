@@ -1,4 +1,4 @@
-package com.{{_company_}}.{{_module_}}.service;
+package com.{{_company_}}.{{_project_}}.{{_module_}}.service;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,5 +13,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Transactional(value="{{_module_}}Tx", rollbackFor=Exception.class)
-public @interface {{_entity_}}Tx {
+public @interface {{_tbi_.entityName}}Tx {
 }

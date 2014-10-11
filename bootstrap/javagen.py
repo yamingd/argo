@@ -41,3 +41,8 @@ def render_mapper(fname, **kwargs):
 def render_controller(fname, **kwargs):
     with open(fname, 'w+') as fw:
         fw.write(serve_template('controller.mako', **kwargs))
+
+
+def render_jdbc_yaml(fname, **kwargs):
+    with open(fname, 'w+') as fw:
+        fw.write(serve_template('jdbc.mako', **kwargs))

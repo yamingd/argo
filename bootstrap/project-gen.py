@@ -58,18 +58,16 @@ def gen_service_def(module, folder, settings):
     kwargs.pop('_entitys_')
     #entity and service
     for tbl in module['tables']:
-        cols, pks = dbm.columns(tbl)
-        name = dbm.java_name(tbl)
-        kwargs['_entity_'] = name
-        kwargs['_tblname_'] = tbl
-        fname = os.path.join(folder, name + '.java')
-        kwargs['_cols_'] = cols
-        kwargs['_pks_'] = pks
+        tbi = dbm.get_table(module, tbl)
+        kwargs['_tbi_'] = tbi
+        fname = os.path.join(folder, tbi.entityName + '.java')
+        kwargs['_cols_'] = tbi.columns
+        kwargs['_pks_'] = tbi.pks
         javagen.render_entity(fname, **kwargs)
-        kwargs['_service_'] = name + 'Service'
-        fname = os.path.join(folder, 'service', name + 'Service.java')
+        kwargs['_service_'] = tbi.entityName + 'Service'
+        fname = os.path.join(folder, 'service', tbi.entityName + 'Service.java')
         javagen.render_service(fname, **kwargs)
-        fname = os.path.join(folder, 'service', name + 'Tx.java')
+        fname = os.path.join(folder, 'service', tbi.entityName + 'Tx.java')
         javagen.render_tx(fname, **kwargs)
 
 
@@ -103,6 +101,14 @@ def gen_controller_impl(module, folder, settings):
         javagen.render_controller(fname, **kwargs)
 
 
+def gen_jdbc_yml(settings):
+    ms = settings['_modules_']
+    kwargs = {'_modules_': ms}
+    folder = os.path.join(settings['_root_'], 'Web/src/main/resources/dev')
+    fname = os.path.join(folder, 'jdbc.yaml')
+    javagen.render_jdbc_yaml(fname, **kwargs)
+
+
 def gen_modules(settings):
     ms = settings['_modules_']
     core_folder = os.path.join(settings['_root_'], '_Project_-Core/src/main/java/com/company/_project_')
@@ -131,7 +137,7 @@ def gen_modules(settings):
         folder = os.path.join(controller_folder, m)
         os.makedirs(folder)
         gen_controller_impl(mf, folder, settings)
-
+    
 
 def main():
     name = sys.argv[1]
@@ -163,7 +169,7 @@ def main():
                 gen_file(fname, dst, settings)
     # project modules
     gen_modules(settings)
-
+    gen_jdbc_yml(settings)
 
 if __name__ == '__main__':
     main()

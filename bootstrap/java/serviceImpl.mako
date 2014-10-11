@@ -1,13 +1,13 @@
-package com.{{_company_}}.{{_module_}}.service.impl;
+package com.{{_company_}}.{{_project_}}.{{_module_}}.service.impl;
 
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 import com.argo.core.password.PasswordServiceFactory;
 import com.argo.service.annotation.RmiService;
 import com.argo.core.annotation.Model;
-import com.{{_company_}}.service.BaseServiceImpl;
-import com.{{_company_}}.{{_module_}}.service.{{_entity_}}Service;
-import com.{{_company_}}.{{_module_}}.{{_entity_}};
+import com.{{_company_}}.{{_project_}}.service.BaseServiceImpl;
+import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_entity_}}Service;
+import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.PreparedStatementCreator;
