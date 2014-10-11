@@ -47,6 +47,10 @@ settings = {
         'news': {
             'db': 'inno_park',
             'tables': ['kit', 'post', 'post_content', 'post_file']
+        },
+        'system': {
+            'db': 'inno_park',
+            'tables': ['sys_user']
         }
     }
 }
