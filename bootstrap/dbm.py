@@ -59,10 +59,12 @@ class Column(object):
     def validate(self):
         if self.null and self.max is None:
             return u''
-        maxs = u''
+        hint = u''
         if self.max:
-            maxs = u'@Length(min=0, max=%s)\n\t' % self.max
-        return '@NotEmpty(message = "%s_empty")\n\t%s' % (java_name(self.name, upperFirst=False), maxs)
+            hint = u'@Length(min=0, max=%s)\n\t' % self.max
+        if not self.null:
+            hint = '@NotEmpty(message = "%s_empty")\n\t%s' % (java_name(self.name, upperFirst=False), hint)
+        return hint
 
 
 class Table(object):
