@@ -22,6 +22,7 @@
         <module>service</module>
         <module>dbtest</module>
         <module>acl</module>
+        <module>tools</module>
     </modules>
 
     <properties>
