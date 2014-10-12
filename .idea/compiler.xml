@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Javac" />
+    <resourceExtensions />
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+      <entry name="!?*.form" />
+      <entry name="!?*.class" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.flex" />
+      <entry name="!?*.kt" />
+      <entry name="!?*.clj" />
+    </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="argo-acl-controller" />
+        <module name="argo-acl-core" />
+        <module name="argo-acl-service" />
+        <module name="argo-mail" />
+        <module name="argo-service" />
+        <module name="argo-tools" />
+        <module name="cache" />
+        <module name="cluster" />
+        <module name="core" />
+        <module name="data" />
+        <module name="db" />
+        <module name="dbtest" />
+        <module name="message" />
+        <module name="search" />
+        <module name="task" />
+        <module name="web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Argo" target="1.6" />
+      <module name="argo-acl" target="1.6" />
+      <module name="argo-acl-controller" target="1.6" />
+      <module name="argo-acl-core" target="1.6" />
+      <module name="argo-acl-service" target="1.6" />
+      <module name="argo-mail" target="1.6" />
+      <module name="argo-service" target="1.6" />
+      <module name="argo-tools" target="1.6" />
+      <module name="cache" target="1.6" />
+      <module name="cluster" target="1.6" />
+      <module name="core" target="1.6" />
+      <module name="data" target="1.6" />
+      <module name="db" target="1.6" />
+      <module name="dbtest" target="1.6" />
+      <module name="message" target="1.6" />
+      <module name="search" target="1.6" />
+      <module name="task" target="1.6" />
+      <module name="web" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
+

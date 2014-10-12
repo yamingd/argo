@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.sf.jxls:jxls-core:1.0.5">
+    <CLASSES>
+      <root url="jar://E:/.m2/repository/net/sf/jxls/jxls-core/1.0.5/jxls-core-1.0.5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://E:/.m2/repository/net/sf/jxls/jxls-core/1.0.5/jxls-core-1.0.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://E:/.m2/repository/net/sf/jxls/jxls-core/1.0.5/jxls-core-1.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

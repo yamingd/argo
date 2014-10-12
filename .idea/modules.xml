@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Argo.iml" filepath="$PROJECT_DIR$/Argo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/acl/argo-acl.iml" filepath="$PROJECT_DIR$/acl/argo-acl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/acl/controller/argo-acl-controller.iml" filepath="$PROJECT_DIR$/acl/controller/argo-acl-controller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/acl/core/argo-acl-core.iml" filepath="$PROJECT_DIR$/acl/core/argo-acl-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/acl/service/argo-acl-service.iml" filepath="$PROJECT_DIR$/acl/service/argo-acl-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mail/argo-mail.iml" filepath="$PROJECT_DIR$/mail/argo-mail.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service/argo-service.iml" filepath="$PROJECT_DIR$/service/argo-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tools/argo-tools.iml" filepath="$PROJECT_DIR$/tools/argo-tools.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cache/cache.iml" filepath="$PROJECT_DIR$/cache/cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cluster/cluster.iml" filepath="$PROJECT_DIR$/cluster/cluster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/data/data.iml" filepath="$PROJECT_DIR$/data/data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/db/db.iml" filepath="$PROJECT_DIR$/db/db.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dbtest/dbtest.iml" filepath="$PROJECT_DIR$/dbtest/dbtest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/message/message.iml" filepath="$PROJECT_DIR$/message/message.iml" />
+      <module fileurl="file://$PROJECT_DIR$/search/search.iml" filepath="$PROJECT_DIR$/search/search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/task/task.iml" filepath="$PROJECT_DIR$/task/task.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />
+    </modules>
+  </component>
+</project>
+

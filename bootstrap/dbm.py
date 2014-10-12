@@ -60,10 +60,11 @@ class Column(object):
         if self.null and self.max is None:
             return u''
         hint = u''
+        name = java_name(self.name, upperFirst=False)
         if self.max:
-            hint = u'@Length(min=0, max=%s)\n\t' % self.max
+            hint = u'@Length(min=0, max=%s, message="%s_too_long")\n\t' % (self.max, name)
         if not self.null:
-            hint = '@NotEmpty(message = "%s_empty")\n\t%s' % (java_name(self.name, upperFirst=False), hint)
+            hint = '@NotEmpty(message="%s_empty")\n\t%s' % (name, hint)
         return hint
 
 
