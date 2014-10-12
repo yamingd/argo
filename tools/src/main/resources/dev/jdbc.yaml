@@ -12,7 +12,7 @@ pool:
 common:
    type: mysql
    user: root
-   pwd: 123456
+   pwd: yamingd51
 
 ems:
    tables: schema

@@ -7,12 +7,12 @@ settings = {
     '_company_': 'inno',
     'company': 'inno',
     'Company': 'Inno',
-    '_output_': 'E:\\stuff\\sample\\gen',
+    '_output_': 'I:\\GitRepo\\argo\\gen',
     '_mysql_': {
         'host': '127.0.0.1',
         'port': 3306,
         'user': 'root',
-        'passwd': '123456'
+        'passwd': 'yamingd51'
     },
     '_modules_': {
         'catalog': {
@@ -31,7 +31,7 @@ settings = {
         },
         'project': {
             'db': 'inno_park',
-            'tables': ['project', 'outcome', 'outcome_file']
+            'tables': ['project', 'outcome', 'outcome_file', 'spend', 'spend_file']
         },
         'expert': {
             'db': 'inno_park',
@@ -43,7 +43,7 @@ settings = {
         },
         'company': {
             'db': 'inno_park',
-            'tables': ['company', 'company_member', 'spend', 'spend_file']
+            'tables': ['company', 'company_member', 'company_event', 'financy', 'financy_item']
         },
         'news': {
             'db': 'inno_park',
