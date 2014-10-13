@@ -1,6 +1,6 @@
 package com.{{_company_}}.{{_project_}}.web.controllers.admin.{{_module_}};
 
-import com.{{_company_}}.{{_project_}}.web.controllers.BaseController;
+import com.{{_company_}}.{{_project_}}.web.controllers.admin.AdminBaseController;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.web.JsonResponse;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
@@ -26,7 +26,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin/{{_mvcurl_}}")
-public class {{_entity_}}Controller extends BaseController {
+public class {{_entity_}}Controller extends AdminBaseController {
 	
 	@Autowired
     private {{_entity_}}Service {{_entityL_}}Service;
