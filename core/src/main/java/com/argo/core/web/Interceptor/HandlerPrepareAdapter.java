@@ -58,7 +58,7 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
 
         String url = request.getRequestURI();
         url = url.replace(request.getContextPath(), "");
-        if (!url.startsWith("/asserts/")){
+        if (!url.startsWith("/assets/")){
             MetricCollectorImpl.current().incrementCounter(handler.getClass(), url);
         }else{
             //读取css, js, image等，直接返回

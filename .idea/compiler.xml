@@ -27,6 +27,7 @@
         <module name="argo-acl-service" />
         <module name="argo-mail" />
         <module name="argo-service" />
+        <module name="argo-task" />
         <module name="argo-tools" />
         <module name="cache" />
         <module name="cluster" />
@@ -48,6 +49,7 @@
       <module name="argo-acl-service" target="1.6" />
       <module name="argo-mail" target="1.6" />
       <module name="argo-service" target="1.6" />
+      <module name="argo-task" target="1.6" />
       <module name="argo-tools" target="1.6" />
       <module name="cache" target="1.6" />
       <module name="cluster" target="1.6" />

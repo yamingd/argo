@@ -7,12 +7,12 @@ settings = {
     '_company_': 'inno',
     'company': 'inno',
     'Company': 'Inno',
-    '_output_': 'I:\\GitRepo\\argo\\gen',
+    '_output_': 'E:\\stuff\\sample\\gen',
     '_mysql_': {
         'host': '127.0.0.1',
         'port': 3306,
         'user': 'root',
-        'passwd': 'yamingd51'
+        'passwd': '123456'
     },
     '_modules_': {
         'catalog': {

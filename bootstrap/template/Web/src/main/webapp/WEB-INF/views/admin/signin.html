@@ -1,0 +1,33 @@
+<@layout.extends name="admin/base.html">
+
+    <@layout.put block="contents" type="replace">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-wrapper">
+                    <div class="box">
+                        <div class="content-wrap">
+                            <h6>登录管理后台</h6>
+                            <div class="social"></div>
+                            <input class="form-control" type="text" id="uname" name="uname" placeholder="你的用户名">
+                            <input class="form-control" type="password" id="passwd" name="passwd" placeholder="你的密码">
+                            <div class="action">
+                                <a class="btn btn-primary signup" href="index.html">登录</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="already">
+                        <p> @2014 </p>
+                        <a href="/contact">Contact us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </@layout.put>
+
+    <@layout.put block="scripts">
+
+    </@layout.put>
+
+</@layout.extends>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>后台管理</title>
+        <!-- Bootstrap core CSS -->
+        <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- CSS Implementing Plugins -->
+        <link rel="stylesheet" href="/assets/font-awesome-4.0.3/css/font-awesome.min.css" type="text/css">
+        <link href="/assets/admin/css/base.css" rel="stylesheet">
+        <link rel="shortcut icon" href="/assets/app/ico/favicon.ico">
+        <@layout.block name="head">
+        </@layout.block>
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="/assets/lib/js/html5shiv.js"></script>
+        <script src="/assets/lib/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="page-wrapper login-bg">
+        <@layout.block name="header">
+        <div class="header">
+             <div class="container">
+                <div class="row">
+                   <#if currentUser?? && currentUser.uid gt 0 >
+                   <div class="col-md-5">
+                      <!-- Logo -->
+                      <div class="logo">
+                         <h1><a href="index.html">Bootstrap Admin Theme</a></h1>
+                      </div>
+                   </div>
+                   <div class="col-md-5">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="input-group form">
+                               <input type="text" class="form-control" placeholder="Search...">
+                               <span class="input-group-btn">
+                                 <button class="btn btn-primary" type="button">Search</button>
+                               </span>
+                          </div>
+                        </div>
+                      </div>
+                   </div>
+                   <div class="col-md-2">
+                      <div class="navbar navbar-inverse" role="banner">
+                          <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+                            <ul class="nav navbar-nav">
+                              <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+                                <ul class="dropdown-menu animated fadeInUp">
+                                  <li><a href="profile.html">Profile</a></li>
+                                  <li><a href="login.html">Logout</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </nav>
+                      </div>
+                   </div>
+                   <#else>
+                   <div class="col-md-12">
+                      <!-- Logo -->
+                      <div class="logo">
+                         <h1><a href="index.html">Bootstrap Admin Theme</a></h1>
+                      </div>
+                   </div>
+                   </#if>
+                </div>
+             </div>
+        </div>
+        </@layout.block>
+        <div class="page-content">
+            <@layout.block name="contents">
+                <h2>Contents will be here</h2>
+            </@layout.block>
+        </div>
+        <@layout.block name="footer">
+        <#if currentUser?? && currentUser.uid gt 0 >
+        <div class="footer">
+             <div class="container">
+                <div class="copy text-center">
+                   Copyright 2014 <a href='#'>Website</a>
+                </div>
+             </div>
+        </div>
+        </#if>
+        </@layout.block>
+
+        <!-- JS Global Compulsory -->
+        <script type="text/javascript" src="/assets/lib/js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="/assets/lib/js/modernizr.custom.js"></script>
+        <script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script type="text/javascript" src="/assets/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+        <!-- JS Implementing Plugins -->
+
+        <script type="text/javascript" src="/assets/admin/js/app.js"></script>
+
+        <@layout.block name="scripts">
+
+        </@layout.block>
+
+    </body>
+
+</html>

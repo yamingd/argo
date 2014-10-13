@@ -68,7 +68,7 @@
           class="com.argo.core.web.view.FreeMarkerResourceViewResolver">
         <property name="cache" value="true" />
         <property name="prefix" value="" />
-        <property name="suffix" value=".ftl" />
+        <property name="suffix" value=".html" />
         <property name="contentType" value="text/html;charset=UTF-8" />
         <property name="requestContextAttribute" value="request" />
         <property name="exposeSpringMacroHelpers" value="true" />
