@@ -1,4 +1,4 @@
-package com.{{_company_}}.{{_project_}}.web.controllers.{{_module_}};
+package com.{{_company_}}.{{_project_}}.web.controllers.admin.{{_module_}};
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;

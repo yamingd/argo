@@ -1,4 +1,4 @@
-package com.{{_company_}}.{{_project_}}.web.controllers.{{_module_}};
+package com.{{_company_}}.{{_project_}}.web.controllers.admin.{{_module_}};
 
 import com.{{_company_}}.{{_project_}}.web.controllers.BaseController;
 import com.argo.core.exception.EntityNotFoundException;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/{{_module_}}/{{_mvcurl_}}")
+@RequestMapping("/admin/{{_mvcurl_}}")
 public class {{_entity_}}Controller extends BaseController {
 	
 	@Autowired
@@ -35,7 +35,7 @@ public class {{_entity_}}Controller extends BaseController {
     public ModelAndView all(ModelAndView model){
 
         List<{{_entity_}}> list = {{_entityL_}}Service.findAll();
-        model.setViewName("{{_module_}}/{{_mvcurl_}}/list");
+        model.setViewName("/admin/{{_mvcurl_}}/list");
         model.addObject("items", list);
 
         return model;
@@ -44,7 +44,7 @@ public class {{_entity_}}Controller extends BaseController {
 	@RequestMapping(value="add", method = RequestMethod.GET)
     public ModelAndView add(ModelAndView model){
 
-        model.setViewName("{{_module_}}/{{_mvcurl_}}/add");
+        model.setViewName("/admin/{{_mvcurl_}}/add");
         model.addObject("{{_entity_}}", new {{_entity_}}());
 
         return model;
@@ -56,7 +56,7 @@ public class {{_entity_}}Controller extends BaseController {
         try {
             {{_entity_}} item = {{_entityL_}}Service.findById(id);
             model.addObject("{{_entity_}}", item);
-            model.setViewName("{{_module_}}/{{_mvcurl_}}/view");
+            model.setViewName("/admin/{{_mvcurl_}}/view");
         } catch (EntityNotFoundException e) {
             RedirectView view = new RedirectView("404");
             model.setView(view);

@@ -43,7 +43,7 @@ def gen_structs(settings):
     return folders
 
 
-def gen_service_def(module, folder, settings):
+def gen_service_def(module, folder, test_folder, settings):
     #mapper
     fname = os.path.join(folder, string.capitalize(module['name']) + 'Mappers.java')
     kwargs = {}
@@ -63,12 +63,18 @@ def gen_service_def(module, folder, settings):
         fname = os.path.join(folder, tbi.entityName + '.java')
         kwargs['_cols_'] = tbi.columns
         kwargs['_pks_'] = tbi.pks
+        #entity
         javagen.render_entity(fname, **kwargs)
         kwargs['_service_'] = tbi.entityName + 'Service'
         fname = os.path.join(folder, 'service', tbi.entityName + 'Service.java')
+        #service
         javagen.render_service(fname, **kwargs)
         fname = os.path.join(folder, 'service', tbi.entityName + 'Tx.java')
+        #db-tx
         javagen.render_tx(fname, **kwargs)
+        # service test
+        fname = os.path.join(test_folder, tbi.entityName + 'ServiceTest.java')
+        javagen.render_service_test(fname, **kwargs)
 
 
 def gen_service_impl(module, folder, settings):
@@ -84,9 +90,9 @@ def gen_service_impl(module, folder, settings):
         kwargs['_tblname_'] = tbl
         fname = os.path.join(folder, name + 'ServiceImpl.java')
         javagen.render_service_impl(fname, **kwargs)
+        
 
-
-def gen_controller_impl(module, folder, settings):
+def gen_controller_impl(module, folder, test_folder, settings):
     kwargs = {}
     kwargs.update(settings)
     kwargs['now'] = datetime.now()
@@ -100,7 +106,16 @@ def gen_controller_impl(module, folder, settings):
         url = tbl.replace(module['name'], '')
         if url.startswith('_'):
             url = url[1:]
-        kwargs['_mvcurl_'] = '/'.join(url.split('_'))
+        if url.endswith('_'):
+            url = url[0:-1]
+        url = '/'.join(url.split('_'))
+        if url.endswith('/'):
+            url = url[0:-1]
+        if len(url) > 0:
+            url = module['name'] + '/' + url
+        else:
+            url = module['name']
+        kwargs['_mvcurl_'] = url
         fname = os.path.join(folder, name + 'Controller.java')
         javagen.render_controller(fname, **kwargs)
         # render controller form
@@ -113,16 +128,19 @@ def gen_controller_impl(module, folder, settings):
         kwargs['_tbi_'] = tbi
         fname = os.path.join(folder, name + 'Form.java')
         javagen.render_form(fname, **kwargs)
+        # gen controller test
+        fname = os.path.join(test_folder, name + 'ControllerTest.java')
+        javagen.render_controller_test(fname, **kwargs)
         # make view folder
-        folder2 = os.path.join(settings['_root_'], 'Web/src/main/webapp/WEB-INF/views')
-        folder2 = os.path.join(folder2, module['name'], kwargs['_mvcurl_'])
+        folder2 = os.path.join(settings['_root_'], 'Web/src/main/webapp/WEB-INF/views/admin')
+        folder2 = os.path.join(folder2, kwargs['_mvcurl_'])
         if not os.path.exists(folder2):
             os.makedirs(folder2)
         for name in ['add', 'view', 'list']:
             f = os.path.join(folder2, name + '.ftl')
             with open(f, 'w+') as fw:
                 fw.write('')
-
+        
 
 def gen_jdbc_yml(settings):
     ms = settings['_modules_']
@@ -138,8 +156,13 @@ def gen_modules(settings):
     core_folder = format_line(core_folder, settings)
     service_folder = os.path.join(settings['_root_'], '_Project_-Service/src/main/java/com/company/_project_')
     service_folder = format_line(service_folder, settings)
-    controller_folder = os.path.join(settings['_root_'], '_Project_-Controller/src/main/java/com/company/_project_/web/controllers')
+    controller_folder = os.path.join(settings['_root_'], '_Project_-Controller/src/main/java/com/company/_project_/web/controllers/admin')
     controller_folder = format_line(controller_folder, settings)
+    controller_test_folder = os.path.join(settings['_root_'], '_Project_-TestCase/src/main/java/com/company/_project_/testcases/controller/admin')
+    controller_test_folder = format_line(controller_test_folder, settings)
+    service_test_folder = os.path.join(settings['_root_'], '_Project_-TestCase/src/main/java/com/company/_project_/testcases/service')
+    service_test_folder = format_line(service_test_folder, settings)
+
     for m in ms:
         mf = ms[m]
         mf['name'] = m
@@ -149,7 +172,9 @@ def gen_modules(settings):
         os.makedirs(folder)
         folder1 = os.path.join(folder, 'service')
         os.makedirs(folder1)
-        gen_service_def(mf, folder, settings)
+        folder2 = os.path.join(service_test_folder, m)
+        os.makedirs(folder2)
+        gen_service_def(mf, folder, folder2, settings)
         # service impl
         folder = os.path.join(service_folder, m)
         os.makedirs(folder)
@@ -159,7 +184,9 @@ def gen_modules(settings):
         # controller impl
         folder = os.path.join(controller_folder, m)
         os.makedirs(folder)
-        gen_controller_impl(mf, folder, settings)
+        folder2 = os.path.join(controller_test_folder, m)
+        os.makedirs(folder2)
+        gen_controller_impl(mf, folder, folder2, settings)
     
 
 def main():

@@ -33,6 +33,11 @@ def render_service_impl(fname, **kwargs):
         fw.write(serve_template('serviceImpl.mako', **kwargs))
 
 
+def render_service_test(fname, **kwargs):
+    with open(fname, 'w+') as fw:
+        fw.write(serve_template('serviceTest.mako', **kwargs))
+
+
 def render_mapper(fname, **kwargs):
     with open(fname, 'w+') as fw:
         fw.write(serve_template('mappers.mako', **kwargs))
@@ -41,6 +46,11 @@ def render_mapper(fname, **kwargs):
 def render_controller(fname, **kwargs):
     with open(fname, 'w+') as fw:
         fw.write(serve_template('controller.mako', **kwargs))
+
+
+def render_controller_test(fname, **kwargs):
+    with open(fname, 'w+') as fw:
+        fw.write(serve_template('controllerTest.mako', **kwargs))
 
 
 def render_jdbc_yaml(fname, **kwargs):
