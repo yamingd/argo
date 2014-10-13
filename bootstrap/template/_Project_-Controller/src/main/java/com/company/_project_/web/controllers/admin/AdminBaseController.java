@@ -1,6 +1,6 @@
-package com.argo.equation.web.controllers.admin;
+package com.company._project_.web.controllers.admin;
 
-import com.argo.equation.web.controllers.BaseController;
+import com.company._project_.web.controllers.BaseController;
 
 /**
  * Created by Yaming on 2014/10/13.

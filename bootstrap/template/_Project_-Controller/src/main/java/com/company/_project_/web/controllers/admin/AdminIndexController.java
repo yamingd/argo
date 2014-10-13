@@ -1,8 +1,8 @@
-package com.argo.equation.web.controllers.admin;
+package com.company._project_.web.controllers.admin;
 
 import com.argo.core.exception.UserNotAuthorizationException;
 import com.argo.core.web.JsonResponse;
-import com.argo.equation.web.controllers.BaseController;
+import com.company._project_.web.controllers.BaseController;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
