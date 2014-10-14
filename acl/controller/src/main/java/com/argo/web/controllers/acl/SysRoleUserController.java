@@ -19,7 +19,7 @@ import java.util.Date;
  */
 
 @Controller
-@RequestMapping("/acl/sys/role/user")
+@RequestMapping("/admin/acl/sys/role/user")
 public class SysRoleUserController extends AclBaseController {
 
     @Autowired

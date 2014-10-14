@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/acl/sys/resource")
+@RequestMapping("/admin/acl/sys/resource")
 public class SysResourceController extends AclBaseController {
 
     @Autowired
