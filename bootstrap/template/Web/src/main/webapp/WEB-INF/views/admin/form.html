@@ -1,0 +1,128 @@
+<@layout.extends name="admin/base.html">
+    <@layout.put block="head">
+    <link href="/assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css" rel="stylesheet" />
+    <link href="/assets/vendors/select/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="/assets/admin/css/forms.css" rel="stylesheet" />
+    </@layout.put>
+    <@layout.put block="contents" type="replace">
+    <div class="row">
+        <div class="col-md-3">
+            <#include "admin/include/menu.html">
+        </div>
+        <div class="col-md-6">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title">Form样板</div>
+                    <div class="panel-options">
+                        <a href="#" data-rel="collapse" title="刷新"><i class="glyphicon glyphicon-refresh"></i></a>
+                        <a href="#" data-rel="reload" title="配置项"><i class="glyphicon glyphicon-cog"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form id="form1" method="post" class="form-vertical">
+                        <fieldset>
+                            <legend>Default Form Elements</legend>
+                            <div class="form-group">
+                                <label>帐号</label>
+                                <input class="form-control" placeholder="Text field" type="text" name="username">
+                            </div>
+                            <div class="form-group">
+                                <label>邮箱</label>
+                                <input class="form-control" placeholder="Password" type="password" value="" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label>多行文本输入</label>
+                                <textarea class="form-control" placeholder="Textarea" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>只读</label>
+                                <span class="form-control">Read only text</span>
+                            </div>
+                            <div class="form-group">
+                                <label>多选组</label>
+                                <div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Checkbox
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Checkbox
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group has-warning">
+                                <label>文本输入</label>
+                                <input class="form-control" placeholder="Password" type="text" value="">
+                                <span class="help-block">Something may have gone wrong</span>
+                            </div>
+                            <div class="form-group">
+                                <label>单选组</label>
+                                <div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender"> 男
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gender"> 女
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group has-error">
+                                <label>文本输入</label>
+                                <input class="form-control" placeholder="YYYY/MM/DD" type="text" value="" name="birthday">
+                                <span class="help-block">Something may have gone wrong</span>
+                            </div>
+                            <div class="form-group">
+                                <label>上传文件</label>
+                                <div>
+                                    <input type="file" class="btn btn-default" id="exampleInputFile1">
+                                    <p class="help-block">
+                                        some help text here.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>下拉单选</label>
+                                <div>
+                                    <select class="selectpicker">
+                                        <option>Mustard</option>
+                                        <option>Ketchup</option>
+                                        <option>Relish</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>下拉多选</label>
+                                <div>
+                                    <select class="selectpicker" multiple>
+                                        <option>Mustard</option>
+                                        <option>Ketchup</option>
+                                        <option>Relish</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </@layout.put>
+
+    <@layout.put block="scripts">
+        <script type="text/javascript" src="/assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js"></script>
+        <script type="text/javascript" src="/assets/vendors/bootstrapvalidator/js/language/zh_CN.js"></script>
+        <script src="/assets/vendors/select/bootstrap-select.min.js"></script>
+        <script src="/assets/admin/js/forms.js"></script>
+    </@layout.put>
+
+</@layout.extends>

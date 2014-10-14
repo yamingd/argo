@@ -6,7 +6,7 @@ body {
   font-size: 12px;
   padding: 0px;
 }
-
+body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 { font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
 .page-content > .row {
   margin-left: 0px !important;
   margin-right: 0px !important;

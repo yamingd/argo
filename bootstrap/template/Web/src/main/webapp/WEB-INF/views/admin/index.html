@@ -3,111 +3,78 @@
     <link href="/assets/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
     </@layout.put>
     <@layout.put block="contents" type="replace">
-        <div class="row">
-            <div class="col-md-2">
-                <div class="sidebar content-box" style="display: block;">
-                    <ul class="nav">
-                        <!-- Main menu -->
-                        <li><a href="index.html"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
-                        <li><a href="calendar.html"><i class="glyphicon glyphicon-calendar"></i> Calendar</a></li>
-                        <li><a href="stats.html"><i class="glyphicon glyphicon-stats"></i> Statistics (Charts)</a></li>
-                        <li class="current"><a href="tables.html"><i class="glyphicon glyphicon-list"></i> Tables</a></li>
-                        <li><a href="buttons.html"><i class="glyphicon glyphicon-record"></i> Buttons</a></li>
-                        <li><a href="editors.html"><i class="glyphicon glyphicon-pencil"></i> Editors</a></li>
-                        <li><a href="forms.html"><i class="glyphicon glyphicon-tasks"></i> Forms</a></li>
-                        <li class="submenu">
-                             <a href="#">
-                                <i class="glyphicon glyphicon-list"></i> Pages
-                                <span class="caret pull-right"></span>
-                             </a>
-                             <!-- Sub menu -->
-                             <ul>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="signup.html">Signup</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                             <a href="#">
-                                <i class="glyphicon glyphicon-list"></i> Pages
-                                <span class="caret pull-right"></span>
-                             </a>
-                             <!-- Sub menu -->
-                             <ul>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="signup.html">Signup</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-10">
-                <div class="content-box-large">
-                    <div class="panel-heading">
-                        <div class="panel-title">Bootstrap dataTables</div>
-                        <div class="panel-options">
-                            <a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
-                            <a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
-                        </div>
+    <div class="row">
+        <div class="col-md-2">
+            <#include "admin/include/menu.html">
+        </div>
+        <div class="col-md-10">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title">Bootstrap dataTables</div>
+                    <div class="panel-options">
+                        <a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+                        <a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
                     </div>
-                    <div class="panel-body">
-                        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
-                            <thead>
-                                <tr>
-                                    <th>Rendering engine</th>
-                                    <th>Browser</th>
-                                    <th>Platform(s)</th>
-                                    <th>Engine version</th>
-                                    <th>CSS grade</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="odd gradeX">
-                                    <td>Trident</td>
-                                    <td>Internet
-                                         Explorer 4.0</td>
-                                    <td>Win 95+</td>
-                                    <td class="center"> 4</td>
-                                    <td class="center">X</td>
-                                </tr>
-                                <#assign x=10>
-                                <#list 1..x as i>
-                                <tr class="even gradeC">
-                                    <td>Trident</td>
-                                    <td>InternetExplorer 5.0</td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5</td>
-                                    <td class="center">C</td>
-                                </tr>
-                                <tr class="odd gradeA">
-                                    <td>Trident</td>
-                                    <td>InternetExplorer 5.5</td>
-                                    <td>Win 95+</td>
-                                    <td class="center">5.5</td>
-                                    <td class="center">A</td>
-                                </tr>
-                                </#list>
-                            </tbody>
-                        </table>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <div class="dataTables_info" id="example_info">Showing 1 to 10 of 57 entries</div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="dataTables_paginate paging_bootstrap">
-                                    <ul class="pagination">
-                                        <li class="prev disabled"><a href="#">← Previous</a></li>
-                                        <li class="active"><a href="#">1</a></li><li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li><li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li class="next"><a href="#">Next → </a></li>
-                                    </ul>
-                                </div>
+                </div>
+                <div class="panel-body">
+                    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                        <thead>
+                            <tr>
+                                <th>Rendering engine</th>
+                                <th>Browser</th>
+                                <th>Platform(s)</th>
+                                <th>Engine version</th>
+                                <th>CSS grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd gradeX">
+                                <td>Trident</td>
+                                <td>Internet
+                                     Explorer 4.0</td>
+                                <td>Win 95+</td>
+                                <td class="center"> 4</td>
+                                <td class="center">X</td>
+                            </tr>
+                            <#assign x=10>
+                            <#list 1..x as i>
+                            <tr class="even gradeC">
+                                <td>Trident</td>
+                                <td>InternetExplorer 5.0</td>
+                                <td>Win 95+</td>
+                                <td class="center">5</td>
+                                <td class="center">C</td>
+                            </tr>
+                            <tr class="odd gradeA">
+                                <td>Trident</td>
+                                <td>InternetExplorer 5.5</td>
+                                <td>Win 95+</td>
+                                <td class="center">5.5</td>
+                                <td class="center">A</td>
+                            </tr>
+                            </#list>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="dataTables_info" id="example_info">Showing 1 to 10 of 57 entries</div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="dataTables_paginate paging_bootstrap">
+                                <ul class="pagination">
+                                    <li class="prev disabled"><a href="#">← Previous</a></li>
+                                    <li class="active"><a href="#">1</a></li><li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li><li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li class="next"><a href="#">Next → </a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </@layout.put>
 
     <@layout.put block="scripts">
