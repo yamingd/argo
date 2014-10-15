@@ -1,5 +1,6 @@
 package com.{{_company_}}.{{_project_}}.web.controllers.admin.{{_module_}};
 
+import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_tbi_.entityName}};
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -24,4 +25,12 @@ public class {{_tbi_.entityName}}Form {
         this.{{col.name}} = {{col.name}};
     }
     {% endfor %}
+
+    public {{_tbi_.entityName}} to(){
+        {{_tbi_.entityName}} item = new {{_tbi_.entityName}}();
+        {% for col in _cols_ %}
+        item.set{{col.capName}}(this.get{{col.capName}}());
+        {% endfor %}
+        return item;
+    }
 }

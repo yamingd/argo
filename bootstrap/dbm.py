@@ -75,6 +75,7 @@ class Table(object):
     def __init__(self, name, hint):
         self.name = name
         self.hint = hint
+        self.pks = []
 
     @property
     def capName(self):
@@ -95,6 +96,12 @@ class Table(object):
     @property
     def controllerName(self):
         return self.capName + 'Controller'
+    
+    @property
+    def pkType(self):
+        if self.pks:
+            return self.pks[0].java_type
+        return ''
 
 
 def get_table(module, tbl_name):

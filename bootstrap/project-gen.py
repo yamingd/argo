@@ -116,9 +116,7 @@ def gen_controller_impl(module, folder, test_folder, settings):
         else:
             url = module['name']
         kwargs['_mvcurl_'] = url
-        fname = os.path.join(folder, name + 'Controller.java')
-        javagen.render_controller(fname, **kwargs)
-        # render controller form
+        # table info
         tbi = dbm.get_table(module, tbl)
         cols = []
         for c in tbi.columns:
@@ -126,6 +124,10 @@ def gen_controller_impl(module, folder, test_folder, settings):
                 cols.append(c)
         kwargs['_cols_'] = cols
         kwargs['_tbi_'] = tbi
+        # render controller
+        fname = os.path.join(folder, name + 'Controller.java')
+        javagen.render_controller(fname, **kwargs)
+        # render controller form
         fname = os.path.join(folder, name + 'Form.java')
         javagen.render_form(fname, **kwargs)
         # gen controller test

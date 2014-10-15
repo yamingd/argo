@@ -74,9 +74,8 @@ public class {{_entity_}}Controller extends AdminBaseController {
             return actResponse;
         }
 
-        {{_entity_}} item = new {{_entity_}}();
+        {{_entity_}} item = form.to();
         Long id = {{_entityL_}}Service.add(item);
-        item.setId(id);
 
         actResponse.add(item);
 
@@ -85,14 +84,14 @@ public class {{_entity_}}Controller extends AdminBaseController {
 
     @RequestMapping(value="save/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public JsonResponse postSave(@Valid {{_entity_}}Form form, BindingResult result, @PathVariable Long id, JsonResponse actResponse) throws Exception {
+    public JsonResponse postSave(@Valid {{_entity_}}Form form, BindingResult result, @PathVariable {{_tbi_.pkType}} id, JsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
             this.wrapError(result, actResponse);
             return actResponse;
         }
 
-        {{_entity_}} item = new {{_entity_}}();
+        {{_entity_}} item = form.to();
         item.setId(id);
 
         {{_entityL_}}Service.update(item);
