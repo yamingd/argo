@@ -1,5 +1,6 @@
 package com.argo.equation.web.controllers;
 
+import com.company._project_.web.controllers.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

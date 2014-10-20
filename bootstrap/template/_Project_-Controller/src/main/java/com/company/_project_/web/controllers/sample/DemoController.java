@@ -4,7 +4,7 @@ import com.argo.core.web.BsonResponse;
 import com.argo.core.web.Enums;
 import com.argo.core.web.JsonResponse;
 import com.company._project_.web.controllers.BaseController;
-import com.company._project_.web.controllers.ErrorCodes;
+import com.company._project_.ErrorCodes;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -167,18 +167,16 @@ public class DemoController extends BaseController {
      */
     @RequestMapping(value="get2/{userid}", method=RequestMethod.GET, produces = Enums.APPLICATION_BJSON_VALUE)
     @ResponseBody
-    public BsonResponse getJson2(@PathVariable String userId, BsonResponse actResponse) {
+    public BsonResponse getJson2(@PathVariable String userId, BsonResponse actResponse, @PathVariable("1") Integer page) throws Exception {
 
         DemoJson item = new DemoJson();
         item.setId(1L);
         item.setName("demo");
         item.setCreateAt(new Date());
 
-        try {
-            actResponse.add(item);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        actResponse.add(item);
+        actResponse.setCode(404);
+        actResponse.setMsg("");
 
         return actResponse;
     }

@@ -12,7 +12,7 @@ from datetime import datetime
 
 def format_line(line, settings):
     for key in settings:
-        if key not in ['_modules_', '_mysql_']:
+        if key not in ['_modules_', '_mysql_', '_mobile_', '_pc_']:
             line = line.replace(key, settings[key])
     return line
 
@@ -36,8 +36,11 @@ def gen_file(src, dst, settings):
 def gen_structs(settings):
     root = settings['_root_']
     folders = os.listdir('template')
-    print folders
+    #print folders
     for folder in folders:
+        print 'dst: ', folder
+        if folder in ['target', 'out']:
+            continue
         dst = format_line(folder, settings)
         gen_file(os.path.join('template', folder), os.path.join(root, dst), settings)
     return folders
@@ -92,12 +95,13 @@ def gen_service_impl(module, folder, settings):
         javagen.render_service_impl(fname, **kwargs)
         
 
-def gen_controller_impl(module, folder, test_folder, settings):
+def gen_controller_impl(module, folder, test_folder, has_view, prj, settings):
     kwargs = {}
     kwargs.update(settings)
     kwargs['now'] = datetime.now()
     kwargs['_module_'] = module['name']
     kwargs['_moduleC_'] = string.capitalize(module['name'])
+    kwargs['_cprj_'] = prj
     #entity and service
     for tbl in module['tables']:
         name = dbm.java_name(tbl)
@@ -134,7 +138,11 @@ def gen_controller_impl(module, folder, test_folder, settings):
         fname = os.path.join(test_folder, name + 'ControllerTest.java')
         javagen.render_controller_test(fname, **kwargs)
         # make view folder
-        folder2 = os.path.join(settings['_root_'], 'Web/src/main/webapp/WEB-INF/views/admin')
+        if not has_view:
+            continue
+        folder2 = os.path.join(settings['_root_'], 'Web/src/main/webapp/WEB-INF/views/')
+        if prj == 'admin':
+            folder2 = os.path.join(folder2, 'admin')
         folder2 = os.path.join(folder2, kwargs['_mvcurl_'])
         if not os.path.exists(folder2):
             os.makedirs(folder2)
@@ -158,10 +166,25 @@ def gen_modules(settings):
     core_folder = format_line(core_folder, settings)
     service_folder = os.path.join(settings['_root_'], '_Project_-Service/src/main/java/com/company/_project_')
     service_folder = format_line(service_folder, settings)
-    controller_folder = os.path.join(settings['_root_'], '_Project_-Controller/src/main/java/com/company/_project_/web/controllers/admin')
-    controller_folder = format_line(controller_folder, settings)
-    controller_test_folder = os.path.join(settings['_root_'], '_Project_-TestCase/src/main/java/com/company/_project_/testcases/controller/admin')
-    controller_test_folder = format_line(controller_test_folder, settings)
+    #controller
+    controller_admin_folder = os.path.join(settings['_root_'], '_Project_-Controller-Admin/src/main/java/com/company/_project_/web/controllers/admin')
+    controller_admin_folder = format_line(controller_admin_folder, settings)
+
+    controller_mobile_folder = os.path.join(settings['_root_'], '_Project_-Controller-Mobile/src/main/java/com/company/_project_/web/controllers/mobile')
+    controller_mobile_folder = format_line(controller_mobile_folder, settings)
+
+    controller_pc_folder = os.path.join(settings['_root_'], '_Project_-Controller/src/main/java/com/company/_project_/web/controllers')
+    controller_pc_folder = format_line(controller_pc_folder, settings)
+    #controller test
+    controller_test_admin_folder = os.path.join(settings['_root_'], '_Project_-TestCase/src/main/java/com/company/_project_/testcases/controller/admin')
+    controller_test_admin_folder = format_line(controller_test_admin_folder, settings)
+
+    controller_test_mobile_folder = os.path.join(settings['_root_'], '_Project_-TestCase/src/main/java/com/company/_project_/testcases/controller/mobile')
+    controller_test_mobile_folder = format_line(controller_test_mobile_folder, settings)
+
+    controller_test_pc_folder = os.path.join(settings['_root_'], '_Project_-TestCase/src/main/java/com/company/_project_/testcases/controller')
+    controller_test_pc_folder = format_line(controller_test_pc_folder, settings)
+
     service_test_folder = os.path.join(settings['_root_'], '_Project_-TestCase/src/main/java/com/company/_project_/testcases/service')
     service_test_folder = format_line(service_test_folder, settings)
 
@@ -183,13 +206,37 @@ def gen_modules(settings):
         folder1 = os.path.join(folder, 'service', 'impl')
         os.makedirs(folder1)
         gen_service_impl(mf, folder1, settings)
-        # controller impl
-        folder = os.path.join(controller_folder, m)
+        # admin controller impl
+        folder = os.path.join(controller_admin_folder, m)
         os.makedirs(folder)
-        folder2 = os.path.join(controller_test_folder, m)
+        folder2 = os.path.join(controller_test_admin_folder, m)
         os.makedirs(folder2)
-        gen_controller_impl(mf, folder, folder2, settings)
-    
+        gen_controller_impl(mf, folder, folder2, True, 'admin', settings)
+
+    ms = settings['_pc_']
+    for m in ms:
+        mf = ms[m]
+        mf['name'] = m
+        dbm.open(mf, settings)
+        # pc controller impl
+        folder = os.path.join(controller_pc_folder, m)
+        os.makedirs(folder)
+        folder2 = os.path.join(controller_test_pc_folder, m)
+        os.makedirs(folder2)
+        gen_controller_impl(mf, folder, folder2, True, 'pc', settings)
+
+    ms = settings['_mobile_']
+    for m in ms:
+        mf = ms[m]
+        mf['name'] = m
+        dbm.open(mf, settings)
+        # mobile controller impl
+        folder = os.path.join(controller_mobile_folder, m)
+        os.makedirs(folder)
+        folder2 = os.path.join(controller_test_mobile_folder, m)
+        os.makedirs(folder2)
+        gen_controller_impl(mf, folder, folder2, False, 'mobile', settings)
+
 
 def main():
     name = sys.argv[1]

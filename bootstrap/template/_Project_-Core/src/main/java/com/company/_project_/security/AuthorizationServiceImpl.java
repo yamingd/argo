@@ -7,8 +7,6 @@ import com.argo.core.exception.UserNotAuthorizationException;
 import com.argo.core.password.PasswordServiceFactory;
 import com.argo.core.security.AuthorizationService;
 import com.argo.core.web.session.SecurityIdGenerator;
-import com.k12.society.Account;
-import com.k12.society.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +40,7 @@ public class AuthorizationServiceImpl extends BaseBean implements AuthorizationS
     public Account verifyUserPassword(String userName, String password) {
         try {
             Account user = accountService.findByUserName(userName);
-            boolean flag = passwordServiceFactory.getDefaultService().validate(password, user.getLoginid(), user);
+            boolean flag = passwordServiceFactory.getDefaultService().validate(password, user.getLoginId(), user);
             if (flag){
                 return user;
             }

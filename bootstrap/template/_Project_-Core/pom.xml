@@ -10,7 +10,7 @@
     <artifactId>_project_-core</artifactId>
     <packaging>jar</packaging>
 
-    <name>_project_-core</name>
+    <name>_Project_-Core</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

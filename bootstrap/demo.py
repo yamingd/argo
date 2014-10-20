@@ -23,5 +23,25 @@ settings = {
             'db': 'ec_score',
             'tables': ['score', 'event', 'user_score']
         }
+    },
+    '_mobile_': {
+        'member': {
+            'db': 'ec_member',
+            'tables': ['invite']
+        },
+        'score': {
+            'db': 'ec_score',
+            'tables': ['score', 'event']
+        }
+    },
+    '_pc_': {
+        'member': {
+            'db': 'ec_member',
+            'tables': ['invite']
+        },
+        'score': {
+            'db': 'ec_score',
+            'tables': ['event']
+        }
     }
 }

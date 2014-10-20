@@ -53,5 +53,29 @@ settings = {
             'db': 'inno_park',
             'tables': ['sys_user']
         }
+    },
+    '_mobile_': {
+    },
+    '_pc_': {
+        'news': {
+            'db': 'inno_park',
+            'tables': ['kit', 'post']
+        },
+        'proposal': {
+            'db': 'inno_park',
+            'tables': ['proposal']
+        },
+        'project': {
+            'db': 'inno_park',
+            'tables': ['project']
+        },
+        'expert': {
+            'db': 'inno_park',
+            'tables': ['expert']
+        },
+        'person': {
+            'db': 'inno_park',
+            'tables': ['person']
+        },
     }
 }

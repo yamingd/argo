@@ -8,9 +8,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>_project_-controller</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
-    <name>_project_-controller</name>
+    <name>_Project_-Controller</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -21,12 +21,34 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+            <exclusions>
+                <!-- Exclude Commons Logging in favor of SLF4j -->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 		<dependency>
             <groupId>com._company_</groupId>
             <artifactId>_project_-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.argo</groupId>
+            <artifactId>argo-core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
