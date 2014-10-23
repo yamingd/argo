@@ -9,7 +9,6 @@
       <module fileurl="file://$PROJECT_DIR$/acl/service/argo-acl-service.iml" filepath="$PROJECT_DIR$/acl/service/argo-acl-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/mail/argo-mail.iml" filepath="$PROJECT_DIR$/mail/argo-mail.iml" />
       <module fileurl="file://$PROJECT_DIR$/service/argo-service.iml" filepath="$PROJECT_DIR$/service/argo-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/task/argo-task.iml" filepath="$PROJECT_DIR$/task/argo-task.iml" />
       <module fileurl="file://$PROJECT_DIR$/tools/argo-tools.iml" filepath="$PROJECT_DIR$/tools/argo-tools.iml" />
       <module fileurl="file://$PROJECT_DIR$/cache/cache.iml" filepath="$PROJECT_DIR$/cache/cache.iml" />
       <module fileurl="file://$PROJECT_DIR$/cluster/cluster.iml" filepath="$PROJECT_DIR$/cluster/cluster.iml" />
@@ -19,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/dbtest/dbtest.iml" filepath="$PROJECT_DIR$/dbtest/dbtest.iml" />
       <module fileurl="file://$PROJECT_DIR$/message/message.iml" filepath="$PROJECT_DIR$/message/message.iml" />
       <module fileurl="file://$PROJECT_DIR$/search/search.iml" filepath="$PROJECT_DIR$/search/search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/task/task.iml" filepath="$PROJECT_DIR$/task/task.iml" />
       <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />
     </modules>
   </component>
