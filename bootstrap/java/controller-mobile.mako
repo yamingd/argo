@@ -3,6 +3,7 @@ package com.{{_company_}}.{{_project_}}.web.controllers.mobile.{{_module_}};
 import com.{{_company_}}.{{_project_}}.web.controllers.mobile.MobileBaseController;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.web.BsonResponse;
+import com.argo.core.web.Enums;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
 import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_entity_}}Service;
 import com.{{_company_}}.{{_project_}}.ErrorCodes;
@@ -49,7 +50,7 @@ public class {{_entity_}}Controller extends MobileBaseController {
         try {
             {{_entity_}} item = {{_entityL_}}Service.findById(id);
             actResponse.add(item);
-        } catch (EntityNotFoundException e) {
+        } catch (Exception e) {
             actResponse.setCode(ErrorCodes.RECORD_NOT_FOUND);
             actResponse.setMsg("");
         }
