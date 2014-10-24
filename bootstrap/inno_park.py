@@ -7,7 +7,7 @@ settings = {
     '_company_': 'inno',
     'company': 'inno',
     'Company': 'Inno',
-    '_output_': 'E:\\stuff\\sample\\gen',
+    '_output_': 'E:\\stuff\\gen',
     '_mysql_': {
         'host': '127.0.0.1',
         'port': 3306,

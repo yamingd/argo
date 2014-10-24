@@ -1,6 +1,5 @@
 package com.argo.core.entity;
 
-import com.argo.core.base.BaseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +24,6 @@ public class EntityGetter {
     }
 
     private Long oid = null;
-    private BaseService service = null;
 
     public EntityGetter(Long oid){
         this.oid = oid;

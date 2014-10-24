@@ -2,7 +2,6 @@ package com.argo.db.template;
 
 import com.argo.core.annotation.EntityDef;
 import com.argo.core.annotation.PK;
-import com.argo.core.base.BaseEntity;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -13,16 +12,16 @@ import java.util.*;
  * Date: 2014/10/5
  * Time: 18:58
  */
-public class EntityTemplate<T extends BaseEntity> {
+public class EntityTemplate {
 
-    private Class<T> clazz;
+    private Class<?> clazz;
     private EntityDef def;
     private Map<String, Field> mapping;
     private List<PK> pks;
     private Collection<Field> fields;
     private boolean hasIfDeleted = false;
 
-    public EntityTemplate(Class<T> clazz) {
+    public EntityTemplate(Class<?> clazz) {
         this.clazz = clazz;
         this.def = clazz.getAnnotation(EntityDef.class);
         this.mapping = new HashMap<String, Field>();

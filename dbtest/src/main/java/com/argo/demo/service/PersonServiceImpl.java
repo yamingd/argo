@@ -1,6 +1,6 @@
 package com.argo.demo.service;
 
-import com.argo.core.exception.EntityNotFoundException;
+import com.argo.core.annotation.Model;
 import com.argo.core.exception.ServiceException;
 import com.argo.db.template.ServiceMSTemplate;
 import com.argo.demo.Person;
@@ -9,20 +9,19 @@ import com.google.common.collect.Maps;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by yaming_deng on 2014/9/30.
  */
+@Model(Person.class)
 @RmiService(serviceInterface = PersonService.class)
-public class PersonServiceImpl extends ServiceMSTemplate<Person> implements PersonService {
+public class PersonServiceImpl extends ServiceMSTemplate implements PersonService {
 
     protected static final RowMapper<Person> Person_ROWMAPPER = new BeanPropertyRowMapper<Person>(
             Person.class);
 
     @PersonTx
-    @Override
     public Long add(final Person user) throws ServiceException {
 
         long id = super.add(user);
@@ -34,17 +33,6 @@ public class PersonServiceImpl extends ServiceMSTemplate<Person> implements Pers
         return id;
     }
 
-    @Override
-    public Person findById(Long oid) throws EntityNotFoundException {
-        String sql = "select * from person where id = ?";
-        List<Person> rs =  this.jdbcTemplateS.query(sql, Person_ROWMAPPER, oid);
-        if(rs.size() == 0){
-            throw new EntityNotFoundException("Person", "findById", "Not Found", oid);
-        }
-        return rs.get(0);
-    }
-
-    @Override
     public boolean update(Person person) throws ServiceException {
         Map<String, Object> args = Maps.newHashMap();
         args.put("name", person.getName());

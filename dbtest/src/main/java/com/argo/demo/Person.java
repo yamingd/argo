@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by yaming_deng on 2014/9/30.
  */
-@EntityDef(table = "person")
+@EntityDef(table = "user")
 public class Person extends BaseEntity {
 
     @PK("id")

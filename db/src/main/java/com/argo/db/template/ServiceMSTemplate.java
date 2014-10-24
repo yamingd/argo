@@ -1,7 +1,6 @@
 package com.argo.db.template;
 
 import com.argo.core.annotation.Model;
-import com.argo.core.base.BaseEntity;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 import com.argo.db.JdbcConfig;
@@ -30,7 +29,7 @@ import java.util.*;
 /**
  * Created by yaming_deng on 14-8-28.
  */
-public abstract class ServiceMSTemplate<T extends BaseEntity> implements InitializingBean, ServiceBase<T> {
+public abstract class ServiceMSTemplate implements InitializingBean, ServiceBase {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -43,15 +42,18 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> implements Initial
 
     private JdbcConfig jdbcConfig;
 
-    protected Class<T> entityClass;
-    protected RowMapper<T> entityMapper;
+    protected RowMapper<?> entityMapper;
     protected EntityTemplate entityTemplate;
 
     public ServiceMSTemplate() {
         Model annotation = this.getClass().getAnnotation(Model.class);
-        this.entityClass = annotation == null ? null : (Class<T>)annotation.value();
-        this.entityTemplate = new EntityTemplate<T>(this.entityClass);
-        this.entityMapper = new BeanPropertyRowMapper<T>(this.entityClass);
+        if (annotation == null){
+            return;
+        }
+
+        Class<?> entityClass = annotation == null ? null : annotation.value();
+        this.entityTemplate = new EntityTemplate(entityClass);
+        this.entityMapper = new BeanPropertyRowMapper(entityClass);
     }
 
     @Override
@@ -96,9 +98,9 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> implements Initial
      * @throws ServiceException
      */
     @Override
-    public T findById(Long oid)throws EntityNotFoundException {
+    public <T> T findById(Long oid)throws EntityNotFoundException {
         final String sql = String.format(SQL_FIND_BYID, this.entityTemplate.getTable(), this.entityTemplate.getPk());
-        List<T> list = this.jdbcTemplateS.query(sql, this.entityMapper, oid);
+        List<T> list = (List<T>) this.jdbcTemplateS.query(sql, this.entityMapper, oid);
         if (list.size() == 0){
             throw new EntityNotFoundException(this.entityTemplate.getTable(), "findById", "id not found", oid);
         }
@@ -112,7 +114,7 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> implements Initial
      * @throws ServiceException
      */
     @Override
-    public Long add(T entity) throws ServiceException{
+    public <T> Long add(T entity) throws ServiceException{
 
         StringBuffer sql = new StringBuffer("insert into ").append(this.entityTemplate.getTable()).append(" (");
         final List<Object> args = new ArrayList<Object>();
@@ -195,7 +197,7 @@ public abstract class ServiceMSTemplate<T extends BaseEntity> implements Initial
      * @throws ServiceException
      */
     @Override
-    public boolean update(T entity) throws ServiceException{
+    public <T> boolean update(T entity) throws ServiceException{
         return false;
     }
 

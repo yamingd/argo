@@ -1,5 +1,6 @@
 package com.argo;
 
+import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 import com.argo.demo.Person;
 import com.argo.demo.service.PersonService;
@@ -22,7 +23,14 @@ public class App
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/root-context.xml");
         personService = context.getBean(PersonService.class);
 
-        testAdd(8, 10000);
+        try {
+            Person person = personService.findById(1L);
+            System.out.println(person);
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        //testAdd(8, 10000);
     }
 
     public static void testAdd(int threads, final int limit){
