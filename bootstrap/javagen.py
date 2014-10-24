@@ -55,8 +55,14 @@ def render_controller(fname, **kwargs):
 
 
 def render_controller_test(fname, **kwargs):
+    prj = kwargs.pop('_cprj_', 'admin')
     with open(fname, 'w+') as fw:
-        fw.write(serve_template('controllerTest.mako', **kwargs))
+        if prj == 'pc':
+            fw.write(serve_template('controller-pc-test.mako', **kwargs))
+        elif prj == 'mobile':
+            fw.write(serve_template('controller-mobile-test.mako', **kwargs))
+        elif prj == 'admin':
+            fw.write(serve_template('controller-admin-test.mako', **kwargs))
 
 
 def render_jdbc_yaml(fname, **kwargs):

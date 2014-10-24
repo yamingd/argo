@@ -43,6 +43,16 @@
             <artifactId>_project_-controller</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com._company_</groupId>
+            <artifactId>_project_-controller-admin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com._company_</groupId>
+            <artifactId>_project_-controller-mobile</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

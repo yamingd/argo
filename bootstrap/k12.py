@@ -7,17 +7,17 @@ settings = {
     '_company_': 'inno',
     'company': 'inno',
     'Company': 'Inno',
-    '_output_': 'I:/GitRepo/argo/gen',
+    '_output_': 'E:/stuff/gen',
     '_mysql_': {
-        'host': '127.0.0.1',
-        'port': 3306,
-        'user': 'root',
-        'passwd': 'yamingd51'
+        'host': '120.24.65.250',
+        'port': 33060,
+        'user': 'jiaxiao',
+        'passwd': 'jiaxiao@2014'
     },
     '_modules_': {
         'catalog': {
             'db': 'k12_society',
-            'tables': ['country', 'province', 'city']
+            'tables': ['country', 'province', 'city', 'catalog']
         },
         'society': {
             'db': 'k12_society',
@@ -27,7 +27,7 @@ settings = {
         'school': {
             'db': 'k12_school',
             'tables': ['class_room', 'class_member', 'class_course',
-                       'course', 'course_member', 'homework', 'homework_member',
+                       'course', 'course_member', 'homework', 'homework_member', 'homework_comment',
                        'notice', 'notice_member', 'invitation', 'student', 'teacher']
         },
         'message': {
@@ -46,7 +46,7 @@ settings = {
     '_mobile_': {
         'catalog': {
             'db': 'k12_society',
-            'tables': ['country', 'province', 'city']
+            'tables': ['country', 'province', 'city', 'catalog']
         },
         'society': {
             'db': 'k12_society',
@@ -54,12 +54,14 @@ settings = {
         },
         'school': {
             'db': 'k12_school',
-            'tables': ['class_room','course', 'homework',
-                       'notice', 'invitation', 'student', 'teacher']
+            'tables': ['class_room', 'course',
+                       'homework', 'homework_member', 'homework_comment',
+                       'notice', 'notice_member',
+                       'invitation', 'student', 'teacher']
         },
         'message': {
             'db': 'k12_message',
-            'tables': ['chat']
+            'tables': ['chat', 'chat_member', 'chat_message']
         },
         'file': {
             'db': 'k12_file',
