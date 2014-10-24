@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by $User on 2014-10-08 09:58.
  */
-public interface SysRoleService extends ServiceBase<SysRole>  {
+public interface SysRoleService extends ServiceBase  {
 
     /**
      * 读取所有的角色

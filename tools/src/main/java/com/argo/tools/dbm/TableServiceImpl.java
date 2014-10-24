@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @Model(Table.class)
 @RmiService(serviceInterface = TableService.class)
-public class TableServiceImpl extends ServiceMSTemplate<Table> implements TableService {
+public class TableServiceImpl extends ServiceMSTemplate implements TableService {
 
     public static RowMapper<Table> Table_Mapper = new BeanPropertyRowMapper<Table>(Table.class);
 

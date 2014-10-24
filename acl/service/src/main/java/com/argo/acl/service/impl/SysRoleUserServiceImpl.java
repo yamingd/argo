@@ -14,19 +14,17 @@ import java.util.List;
  */
 @Model(SysRoleUser.class)
 @RmiService(serviceInterface=SysRoleUserService.class)
-public class SysRoleUserServiceImpl extends BaseServiceImpl<SysRoleUser> implements SysRoleUserService{
+public class SysRoleUserServiceImpl extends BaseServiceImpl implements SysRoleUserService{
 
     @Override
     public SysRoleUser findById(Long oid) throws EntityNotFoundException {
         return super.findById(oid);
     }
 
-    @Override
     public Long add(SysRoleUser entity) throws ServiceException {
         return super.add(entity);
     }
 
-    @Override
     public boolean update(SysRoleUser entity) throws ServiceException {
         return false;
     }

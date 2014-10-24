@@ -15,21 +15,19 @@ import java.util.List;
  */
 @Model(SysRole.class)
 @RmiService(serviceInterface=SysRoleService.class)
-public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysRoleService{
+public class SysRoleServiceImpl extends BaseServiceImpl implements SysRoleService{
 
     @Override
     public SysRole findById(Long oid) throws EntityNotFoundException {
         return super.findById(oid);
     }
 
-    @Override
     public Long add(SysRole entity) throws ServiceException {
         Long id =  super.add(entity);
         entity.setId(id.intValue());
         return id;
     }
 
-    @Override
     public boolean update(SysRole entity) throws ServiceException {
         String sql = "update sys_role set name=?, title=? where id =? ";
         return this.jdbcTemplateM.update(sql, entity.getName(), entity.getTitle(), entity.getId()) > 0;

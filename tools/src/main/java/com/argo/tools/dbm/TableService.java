@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2014/10/11.
  */
-public interface TableService extends ServiceBase<Table> {
+public interface TableService extends ServiceBase {
 
     /**
      *

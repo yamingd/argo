@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by $User on 2014-10-08 09:58.
  */
-public interface SysRoleUserService extends ServiceBase<SysRoleUser>  {
+public interface SysRoleUserService extends ServiceBase  {
 
     /**
      *
