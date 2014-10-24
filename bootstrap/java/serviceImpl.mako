@@ -28,19 +28,17 @@ import java.util.Map;
  */
 @Model({{_entity_}}.class)
 @RmiService(serviceInterface={{_entity_}}Service.class)
-public class {{_entity_}}ServiceImpl extends BaseServiceImpl<{{_entity_}}> implements {{_entity_}}Service{
+public class {{_entity_}}ServiceImpl extends BaseServiceImpl implements {{_entity_}}Service{
 
     @Override
     public {{_entity_}} findById(Long oid) throws EntityNotFoundException {
         return super.findById(oid);
     }
 
-    @Override
     public Long add({{_entity_}} entity) throws ServiceException {
         return super.add(entity);
     }
 
-    @Override
     public boolean update({{_entity_}} entity) throws ServiceException {
         return false;
     }

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by $User on {{now.strftime('%Y-%m-%d %H:%M')}}.
  */
-public interface {{_tbi_.entityName}}Service extends ServiceBase<{{_tbi_.entityName}}>  {
+public interface {{_tbi_.entityName}}Service extends ServiceBase  {
 	
 	List<{{_tbi_.entityName}}> findAll();
 

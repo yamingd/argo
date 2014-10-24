@@ -1,4 +1,4 @@
-package com.argo.equation.web.controllers;
+package com.{{_company_}}.{{_project_}}.web.controllers;
 
 import com.company._project_.web.controllers.BaseController;
 import org.springframework.stereotype.Controller;
