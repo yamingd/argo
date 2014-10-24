@@ -1,5 +1,6 @@
 package com.{{_company_}}.{{_project_}}.{{_module_}};
 
+import org.msgpack.annotation.MessagePackMessage;
 import com.argo.core.base.BaseEntity;
 import com.argo.core.annotation.EntityDef;
 import com.argo.core.annotation.PK;
@@ -9,6 +10,7 @@ import java.util.Date;
  * {{ _tbi_.hint }}
  * Created by $User on {{now.strftime('%Y-%m-%d %H:%M')}}.
  */
+@MessagePackMessage
 @EntityDef(table = "{{ _tbi_.name }}")
 public class {{_tbi_.entityName}} extends BaseEntity {
     

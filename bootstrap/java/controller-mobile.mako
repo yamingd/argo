@@ -1,6 +1,7 @@
 package com.{{_company_}}.{{_project_}}.web.controllers.mobile.{{_module_}};
 
 import com.{{_company_}}.{{_project_}}.web.controllers.mobile.MobileBaseController;
+import com.argo.core.base.BaseException;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.web.BsonResponse;
 import com.argo.core.web.Enums;
@@ -50,9 +51,14 @@ public class Mobile{{_entity_}}Controller extends MobileBaseController {
         try {
             {{_entity_}} item = {{_entityL_}}Service.findById(id);
             actResponse.add(item);
+        } catch (BaseException e) {
+            logger.error(e.getMessage(), e);
+            actResponse.setCode(e.getErrcode());
+            actResponse.setMsg(e.getMessage());
         } catch (Exception e) {
-            actResponse.setCode(ErrorCodes.RECORD_NOT_FOUND);
-            actResponse.setMsg("");
+            logger.error(e.getMessage(), e);
+            actResponse.setCode(500);
+            actResponse.setMsg(e.getMessage());
         }
 
         return actResponse;
