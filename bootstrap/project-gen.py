@@ -102,14 +102,21 @@ def gen_controller_impl(module, folder, test_folder, has_view, prj, settings):
     kwargs['_module_'] = module['name']
     kwargs['_moduleC_'] = string.capitalize(module['name'])
     kwargs['_cprj_'] = prj
+    cprefix = prj
+    if prj == 'pc':
+        cprefix = ''
+    elif prj == 'mobile':
+        cprefix = 'Mobile'
+    else:
+        cprefix = 'Admin'
     #entity and service
     for tbl in module['tables']:
         name = dbm.java_name(tbl)
         kwargs['_entity_'] = name
         kwargs['_entityL_'] = dbm.java_name(tbl, upperFirst=False)
-        url = tbl.replace(module['name'], '')
-        if url.startswith('_'):
-            url = url[1:]
+        url = tbl
+        if url.startswith(module['name']):
+            url = url[len(module['name']) + 1:]
         if url.endswith('_'):
             url = url[0:-1]
         url = '/'.join(url.split('_'))
@@ -129,10 +136,10 @@ def gen_controller_impl(module, folder, test_folder, has_view, prj, settings):
         kwargs['_cols_'] = cols
         kwargs['_tbi_'] = tbi
         # render controller
-        fname = os.path.join(folder, name + 'Controller.java')
+        fname = os.path.join(folder, cprefix + name + 'Controller.java')
         javagen.render_controller(fname, **kwargs)
         # render controller form
-        fname = os.path.join(folder, name + 'Form.java')
+        fname = os.path.join(folder, cprefix + name + 'Form.java')
         javagen.render_form(fname, **kwargs)
         # gen controller test
         fname = os.path.join(test_folder, name + 'ControllerTest.java')

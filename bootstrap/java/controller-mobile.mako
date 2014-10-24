@@ -7,7 +7,7 @@ import com.argo.core.web.Enums;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
 import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_entity_}}Service;
 import com.{{_company_}}.{{_project_}}.ErrorCodes;
-import com.{{_company_}}.{{_project_}}.web.controllers.mobile.{{_module_}}.{{_entity_}}Form;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/mobile/{{_mvcurl_}}")
-public class {{_entity_}}Controller extends MobileBaseController {
+public class Mobile{{_entity_}}Controller extends MobileBaseController {
 	
 	@Autowired
     private {{_entity_}}Service {{_entityL_}}Service;
@@ -60,7 +60,7 @@ public class {{_entity_}}Controller extends MobileBaseController {
 
     @RequestMapping(value="create", method = RequestMethod.POST, produces = Enums.APPLICATION_BJSON_VALUE)
     @ResponseBody
-    public BsonResponse postCreate(@Valid {{_entity_}}Form form, BindingResult result, BsonResponse actResponse) throws Exception {
+    public BsonResponse postCreate(@Valid Mobile{{_entity_}}Form form, BindingResult result, BsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
             this.wrapError(result, actResponse);
@@ -77,7 +77,7 @@ public class {{_entity_}}Controller extends MobileBaseController {
 
     @RequestMapping(value="save/{id}", method = RequestMethod.POST, produces = Enums.APPLICATION_BJSON_VALUE)
     @ResponseBody
-    public BsonResponse postSave(@Valid {{_entity_}}Form form, BindingResult result, @PathVariable {{_tbi_.pkType}} id, BsonResponse actResponse) throws Exception {
+    public BsonResponse postSave(@Valid Mobile{{_entity_}}Form form, BindingResult result, @PathVariable {{_tbi_.pkType}} id, BsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
             this.wrapError(result, actResponse);

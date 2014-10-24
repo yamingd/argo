@@ -6,7 +6,7 @@ import com.argo.core.web.JsonResponse;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
 import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_entity_}}Service;
 import com.{{_company_}}.{{_project_}}.ErrorCodes;
-import com.{{_company_}}.{{_project_}}.web.controllers.admin.{{_module_}}.{{_entity_}}Form;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/admin/{{_mvcurl_}}")
-public class {{_entity_}}Controller extends AdminBaseController {
+public class Admin{{_entity_}}Controller extends AdminBaseController {
 	
 	@Autowired
     private {{_entity_}}Service {{_entityL_}}Service;
@@ -70,7 +70,7 @@ public class {{_entity_}}Controller extends AdminBaseController {
 
     @RequestMapping(value="create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public JsonResponse postCreate(@Valid {{_entity_}}Form form, BindingResult result, JsonResponse actResponse) throws Exception {
+    public JsonResponse postCreate(@Valid Admin{{_entity_}}Form form, BindingResult result, JsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
             this.wrapError(result, actResponse);
@@ -87,7 +87,7 @@ public class {{_entity_}}Controller extends AdminBaseController {
 
     @RequestMapping(value="save/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public JsonResponse postSave(@Valid {{_entity_}}Form form, BindingResult result, @PathVariable {{_tbi_.pkType}} id, JsonResponse actResponse) throws Exception {
+    public JsonResponse postSave(@Valid Admin{{_entity_}}Form form, BindingResult result, @PathVariable {{_tbi_.pkType}} id, JsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
             this.wrapError(result, actResponse);

@@ -3,8 +3,10 @@ package com.{{_company_}}.{{_project_}}.web.controllers.admin.{{_module_}};
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_tbi_.entityName}};
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.context.annotation.Scope;
 
-public class {{_tbi_.entityName}}Form {
+@Scope("prototype")
+public class Admin{{_tbi_.entityName}}Form {
     
     {% for col in _cols_ %}
     /**

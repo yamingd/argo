@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>_project_-controller</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>_Project_-Controller</name>
     <url>http://maven.apache.org</url>

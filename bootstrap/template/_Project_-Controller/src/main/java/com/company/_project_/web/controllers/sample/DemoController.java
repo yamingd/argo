@@ -47,9 +47,6 @@ public class DemoController extends BaseController {
             return actResponse;
         }
 
-        String val = this.request.getHeader("header-name");
-        this.response.addHeader("header-name", "value");
-
         return actResponse;
     }
 
@@ -71,9 +68,6 @@ public class DemoController extends BaseController {
             model.setViewName("demo/view-error");
             return model;
         }
-
-        String val = this.request.getHeader("header-name");
-        this.response.addHeader("header-name", "value");
 
         model.addObject("uid", 100L);
         model.setViewName("demo/view-ok");

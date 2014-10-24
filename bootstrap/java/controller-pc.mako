@@ -6,7 +6,7 @@ import com.argo.core.web.JsonResponse;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
 import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_entity_}}Service;
 import com.{{_company_}}.{{_project_}}.ErrorCodes;
-import com.{{_company_}}.{{_project_}}.web.controllers.{{_module_}}.{{_entity_}}Form;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
