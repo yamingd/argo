@@ -3,7 +3,7 @@ package com.{{_company_}}.{{_project_}}.web.controllers.mobile.{{_module_}};
 import com.{{_company_}}.{{_project_}}.web.controllers.mobile.MobileBaseController;
 import com.argo.core.base.BaseException;
 import com.argo.core.exception.EntityNotFoundException;
-import com.argo.core.web.BsonResponse;
+import com.argo.core.web.JsonResponse;
 import com.argo.core.web.Enums;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
 import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_entity_}}Service;
@@ -30,23 +30,25 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @Controller
-@RequestMapping("/mobile/{{_mvcurl_}}")
+@RequestMapping("/m/{{_mvcurl_}}")
 public class Mobile{{_entity_}}Controller extends MobileBaseController {
-	
-	@Autowired
+    
+    @Autowired
     private {{_entity_}}Service {{_entityL_}}Service;
     
-    @RequestMapping(value="all/{page}", method=RequestMethod.GET, produces = Enums.APPLICATION_BJSON_VALUE)
+    @RequestMapping(value="all/{page}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public BsonResponse all(BsonResponse actResponse, @PathVariable Integer page) throws Exception {
+    public JsonResponse all(JsonResponse actResponse, @PathVariable Integer page) throws Exception {
         List<{{_entity_}}> list = {{_entityL_}}Service.findAll();
-        actResponse.addAll(list);
+        for({{_entity_}} item : list) {
+            actResponse.add(item);
+        }
         return actResponse;
     }
 
-    @RequestMapping(value="view/{id}", method=RequestMethod.GET, produces = Enums.APPLICATION_BJSON_VALUE)
+    @RequestMapping(value="view/{id}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public BsonResponse view(BsonResponse actResponse, @PathVariable Long id){
+    public JsonResponse view(JsonResponse actResponse, @PathVariable Long id){
 
         try {
             {{_entity_}} item = {{_entityL_}}Service.findById(id);
@@ -64,9 +66,9 @@ public class Mobile{{_entity_}}Controller extends MobileBaseController {
         return actResponse;
     }
 
-    @RequestMapping(value="create", method = RequestMethod.POST, produces = Enums.APPLICATION_BJSON_VALUE)
+    @RequestMapping(value="create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public BsonResponse postCreate(@Valid Mobile{{_entity_}}Form form, BindingResult result, BsonResponse actResponse) throws Exception {
+    public JsonResponse postCreate(@Valid Mobile{{_entity_}}Form form, BindingResult result, JsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
             this.wrapError(result, actResponse);
@@ -81,9 +83,9 @@ public class Mobile{{_entity_}}Controller extends MobileBaseController {
         return actResponse;
     }
 
-    @RequestMapping(value="save/{id}", method = RequestMethod.POST, produces = Enums.APPLICATION_BJSON_VALUE)
+    @RequestMapping(value="save/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public BsonResponse postSave(@Valid Mobile{{_entity_}}Form form, BindingResult result, @PathVariable {{_tbi_.pkType}} id, BsonResponse actResponse) throws Exception {
+    public JsonResponse postSave(@Valid Mobile{{_entity_}}Form form, BindingResult result, @PathVariable {{_tbi_.pkType}} id, JsonResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
             this.wrapError(result, actResponse);
@@ -98,9 +100,9 @@ public class Mobile{{_entity_}}Controller extends MobileBaseController {
         return actResponse;
     }
 
-    @RequestMapping(value="remove/{id}", method = RequestMethod.POST, produces = Enums.APPLICATION_BJSON_VALUE)
+    @RequestMapping(value="remove/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public BsonResponse postRemove(@PathVariable Long id, BsonResponse actResponse) throws Exception {
+    public JsonResponse postRemove(@PathVariable Long id, JsonResponse actResponse) throws Exception {
 
         if (id != null) {
             {{_entityL_}}Service.remove(id);

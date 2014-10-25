@@ -1,0 +1,12 @@
+option java_package = "com.argo.core.mobile";
+option java_multiple_files = true;
+
+message ProtobufMessage {
+    optional string msg = 1;
+    optional string sessionId = 2;
+    optional string version = 3;
+    required int32 code = 4;
+    required int32 total = 5;
+    repeated bytes data = 6;
+    repeated string errors = 7;
+}

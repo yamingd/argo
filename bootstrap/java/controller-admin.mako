@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @Controller
-@RequestMapping("/admin/{{_mvcurl_}}")
+@RequestMapping("/a/{{_mvcurl_}}")
 public class Admin{{_entity_}}Controller extends AdminBaseController {
 	
 	@Autowired

@@ -17,18 +17,18 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
 
     @Test
     public void testAll() throws Exception {
-        String url = "/admin/{{_mvcurl_}}/list";
+        String url = "/a/{{_mvcurl_}}/list";
         String html = super.getUrlView(url, null);
         Assert.assertNotNull(html);
     }
 
     @Test
     public void testAdd() throws Exception {
-        String url = "/admin/{{_mvcurl_}}/add";
+        String url = "/a/{{_mvcurl_}}/add";
         String html = super.getUrlView(url, null);
         Assert.assertNotNull(html);
 
-        url = "/admin/{{_mvcurl_}}/create";
+        url = "/a/{{_mvcurl_}}/create";
         Map<String, Object> map = Maps.newHashMap();
         //TODO:设置map属性
         JsonResponse jsonResponse = super.postForm(url, map);
@@ -38,11 +38,11 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
 
     @Test
     public void testAddWithError0() throws Exception {
-        String url = "/admin/{{_mvcurl_}}/add";
+        String url = "/a/{{_mvcurl_}}/add";
         String html = super.getUrlView(url, null);
         Assert.assertNotNull(html);
 
-        url = "/admin/{{_mvcurl_}}/create";
+        url = "/a/{{_mvcurl_}}/create";
         Map<String, Object> map = Maps.newHashMap();
         //TODO:设置map属性
         JsonResponse jsonResponse = super.postForm(url, map);
@@ -52,11 +52,11 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
 
     @Test
     public void testAddWithError1() throws Exception {
-        String url = "/admin/{{_mvcurl_}}/add";
+        String url = "/a/{{_mvcurl_}}/add";
         String html = super.getUrlView(url, null);
         Assert.assertNotNull(html);
 
-        url = "/admin/{{_mvcurl_}}/create";
+        url = "/a/{{_mvcurl_}}/create";
         Map<String, Object> map = Maps.newHashMap();
         //TODO: 设置map属性
         JsonResponse jsonResponse = super.postForm(url, map);
@@ -66,17 +66,17 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
 
     @Test
     public void testView() throws Exception {
-        String url = "/admin/{{_mvcurl_}}/view/3";
+        String url = "/a/{{_mvcurl_}}/view/3";
         String html = super.getUrlView(url, null);
         Assert.assertNotNull(html);
 
-        url = "/admin/{{_mvcurl_}}/save/3";
+        url = "/a/{{_mvcurl_}}/save/3";
         Map<String, Object> map = Maps.newHashMap();
         //TODO:设置map属性
         JsonResponse jsonResponse = super.postForm(url, map);
         System.out.println(jsonResponse);
 
-        url = "/admin/{{_mvcurl_}}/remove/3";
+        url = "/a/{{_mvcurl_}}/remove/3";
         jsonResponse = super.postForm(url, map);
         System.out.println(jsonResponse);
     }

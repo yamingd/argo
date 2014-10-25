@@ -6,6 +6,7 @@ public abstract class MvcResponse implements Serializable {
 
     protected String msg;
     protected Integer code;
+    protected Integer total;
 
     public MvcResponse() {
         this.code = 200;
@@ -28,4 +29,11 @@ public abstract class MvcResponse implements Serializable {
         this.code = code;
     }
 
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
 }

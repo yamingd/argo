@@ -2,6 +2,7 @@ package com.argo.core.web;
 
 import com.argo.core.base.BaseUser;
 import com.argo.core.exception.UserNotAuthorizationException;
+import com.argo.core.mobile.ProtobufResponse;
 import com.argo.core.web.session.SessionUserHolder;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
@@ -56,5 +57,11 @@ public abstract class MvcController {
             fields.add(error.getDefaultMessage());
         }
         actResponse.add(fields);
+    }
+
+    protected void wrapError(BindingResult result, ProtobufResponse actResponse) throws Exception {
+        for(FieldError error : result.getFieldErrors()){
+            actResponse.getBuilder().addErrors(error.getDefaultMessage());
+        }
     }
 }

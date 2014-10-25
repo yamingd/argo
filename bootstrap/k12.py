@@ -7,7 +7,7 @@ settings = {
     '_company_': 'inno',
     'company': 'inno',
     'Company': 'Inno',
-    '_output_': 'E:/stuff/gen',
+    '_output_': 'I:\\GitRepo\\argo\\gen',
     '_mysql_': {
         'host': '120.24.65.250',
         'port': 33060,
