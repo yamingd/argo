@@ -3,6 +3,7 @@ package com.argo.runner;
 import com.argo.core.ContextConfig;
 import com.argo.core.configuration.SiteConfig;
 import com.argo.core.json.JsonUtil;
+import com.argo.core.mobile.ProtobufMessage;
 import com.argo.core.web.BsonResponse;
 import com.argo.core.web.JsonResponse;
 import org.apache.commons.io.IOUtils;
@@ -249,7 +250,7 @@ public class RestAPITestRunner {
         return JsonUtil.asT(BsonResponse.class, body);
     }
 
-    protected byte[] getProtobuf(String url, Map<String, String> args) throws Exception {
+    protected ProtobufMessage getProtobuf(String url, Map<String, String> args) throws Exception {
         HttpUriRequest request = createRequest(HttpGet.METHOD_NAME, url, args);
         request.setHeader("Accept", "application/x-protobuf");
         // When
@@ -259,7 +260,7 @@ public class RestAPITestRunner {
 
         byte[] body = consumeAsBytes(httpResponse);
         logger.info("body length: " + body.length);
-        return body;
+        return ProtobufMessage.parseFrom(body);
     }
 
     /**
