@@ -12,6 +12,7 @@ public class ProtobufResponse {
 
     public ProtobufResponse() {
         builder = ProtobufMessage.newBuilder();
+        builder.setCode(200).setTotal(0);
     }
 
     public ProtobufMessage getContent() {

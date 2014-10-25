@@ -249,6 +249,19 @@ public class RestAPITestRunner {
         return JsonUtil.asT(BsonResponse.class, body);
     }
 
+    protected byte[] getProtobuf(String url, Map<String, String> args) throws Exception {
+        HttpUriRequest request = createRequest(HttpGet.METHOD_NAME, url, args);
+        request.setHeader("Accept", "application/x-protobuf");
+        // When
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+        assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
+
+        byte[] body = consumeAsBytes(httpResponse);
+        logger.info("body length: " + body.length);
+        return body;
+    }
+
     /**
      *
      * @param url
