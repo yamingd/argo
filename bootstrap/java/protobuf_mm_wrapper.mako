@@ -4,7 +4,7 @@
 //
 
 #import "TS{{_tbi.entityName}}.hh"
-#import "P{{_tbi.entityName}}.pb.hh"
+#import "{{_moduleC_}}Proto.pb.hh"
 
 @interface TS{{_tbi.entityName}} ()
 
@@ -26,13 +26,18 @@
     
     if(self = [super init]) {
         // c++
-        {{_module_}}::P{{_tbi.entityName}}* item = [self deserialize:data];
-        //TODO:
-        
+        {{_module_}}::P{{_tbi.entityName}}* pitem = [self deserialize:data];
+        //
+        {% for col in _tbi.columns %}
+        const {{col.cpp_type}} {{col.name}} = pitem->{{col.protobuf_name}}();
+        {% endfor %}
+
         // c++->objective C
         self.protocolData = data;
-        //TODO:
-        
+        //
+        {% for col in _tbi.columns %}
+        self.{{col.name}} = [self {{col.cpp_objc}}:{{col.name}}];
+        {% endfor %}
     }
     return self;
 }
@@ -40,14 +45,19 @@
 #pragma mark private
  
 -(const std::string) serializedProtocolBufferAsString {
-    {{_module_}}::P{{_tbi.entityName}} *message = new {{_module_}}::P{{_tbi.entityName}};
+    {{_module_}}::P{{_tbi.entityName}} *pmsg = new {{_module_}}::P{{_tbi.entityName}};
     // objective c->c++
-    // TODO
-    
+    // 
+    {% for col in _tbi.columns %}
+    const {{col.cpp_type}} {{col.name}} = [self {{col.objc_cpp}}:self.{{col.name}}];
+    {% endfor %}
+
     // c++->protocol buffer
-    // TODO
+    {% for col in _tbi.columns %}
+    pmsg->set_{{col.protobuf_name}}({{col.name}});
+    {% endfor %}
     
-    std::string ps = message->SerializeAsString();
+    std::string ps = pmsg->SerializeAsString();
     return ps;
 }
  

@@ -30,6 +30,7 @@ class Column(object):
         self.max = row[5] if row[5] else None
         self.comment = row[-1]
         self.index = index
+        self.lname = self.name.lower()
 
     @property
     def java_type(self):
@@ -48,9 +49,30 @@ class Column(object):
         return mapping.protobuf_types.get(tname, 'string')
     
     @property
+    def protobuf_name(self):
+        if self.lname in ['typeid', 'typename']:
+            return self.lname + '_'
+        return self.lname
+
+    @property
     def ios_type(self):
         tname = self.typeName.split('(')[0]
         return mapping.ios_types.get(tname, '')
+    
+    @property
+    def cpp_type(self):
+        tname = self.typeName.split('(')[0]
+        return mapping.cpp_types.get(tname, '')
+    
+    @property
+    def cpp_objc(self):
+        tname = self.typeName.split('(')[0]
+        return mapping.cpp_objcs.get(tname, '')
+
+    @property
+    def objc_cpp(self):
+        tname = self.typeName.split('(')[0]
+        return mapping.objc_cpps.get(tname, '')
 
     @property
     def capName(self):

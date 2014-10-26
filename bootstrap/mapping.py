@@ -35,10 +35,10 @@ protobuf_types = {
     'text': 'string',
     'varchar': 'string',
 
-    'datetime': 'int32',
-    'date': 'int32',
-    'timestamp': 'int32',
-    'time': 'int32'
+    'datetime': 'int64',
+    'date': 'int64',
+    'timestamp': 'int64',
+    'time': 'int64'
 }
 
 ios_types = {
@@ -59,4 +59,64 @@ ios_types = {
     'date': 'NSDate',
     'timestamp': 'NSDate',
     'time': 'NSDate'
+}
+
+cpp_types = {
+    'int': 'uint32_t',
+    'tinyint': 'uint32_t',
+    'smallint': 'uint32_t',
+    'mediumint': 'uint32_t',
+    'bigint': 'uint64_t',
+
+    'float': 'float',
+    'decimal': 'float',
+    'double': 'double',
+
+    'text': 'std::string',
+    'varchar': 'std::string',
+
+    'datetime': 'uint64_t',
+    'date': 'uint64_t',
+    'timestamp': 'uint64_t',
+    'time': 'uint64_t'
+}
+
+cpp_objcs = {
+    'int': 'cppUInt32ToNSNumber',
+    'tinyint': 'cppUInt32ToNSNumber',
+    'smallint': 'cppUInt32ToNSNumber',
+    'mediumint': 'cppUInt32ToNSNumber',
+    'bigint': 'cppUInt64ToNSNumber',
+
+    'float': 'cppFloatToNSNumber',
+    'decimal': 'cppFloatToNSNumber',
+    'double': 'cppDoubleToNSNumber',
+
+    'text': 'cppStringToObjc',
+    'varchar': 'cppStringToObjc',
+
+    'datetime': 'cppDateToObjc',
+    'date': 'cppDateToObjc',
+    'timestamp': 'cppDateToObjc',
+    'time': 'cppDateToObjc'
+}
+
+objc_cpps = {
+    'int': 'objcNumberToCppUInt32',
+    'tinyint': 'objcNumberToCppUInt32',
+    'smallint': 'objcNumberToCppUInt32',
+    'mediumint': 'objcNumberToCppUInt32',
+    'bigint': 'objcNumberToCppUInt64',
+
+    'float': 'objcNumberToCppFloat',
+    'decimal': 'objcNumberToCppFloat',
+    'double': 'objcNumberToCppDouble',
+
+    'text': 'objcStringToCpp',
+    'varchar': 'objcStringToCpp',
+
+    'datetime': 'objcDateToCpp',
+    'date': 'objcDateToCpp',
+    'timestamp': 'objcDateToCpp',
+    'time': 'objcDateToCpp'
 }

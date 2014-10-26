@@ -2,108 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db93b134-e637-410e-9cb1-baf63115f8c3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/thrift-0.9.1.exe" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_google_protobuf_protobuf_java_2_5_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Protobuf/_Project_-Protobuf.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Protobuf/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/java/protobuf_entity.mako" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/java/protobuf_hh_wrapper.mako" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/java/protobuf_mm_wrapper.mako" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/java/protobuf_wrapper.mako" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_0_13.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_0_13.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__ch_qos_logback_logback_core_1_0_13.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__ch_qos_logback_logback_core_1_0_13.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_cache_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_cache_1_0_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_core_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_core_1_0_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_db_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_db_1_0_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_mail_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_mail_1_0_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_service_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_service_1_0_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_codahale_metrics_metrics_core_3_0_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_codahale_metrics_metrics_core_3_0_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_google_code_gson_gson_2_2_4.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_google_code_gson_gson_2_2_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_google_guava_guava_cdi1_0_15_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_google_guava_guava_cdi1_0_15_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_googlecode_json_simple_json_simple_1_1_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_googlecode_json_simple_json_simple_1_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_jolbox_bonecp_0_8_0_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_jolbox_bonecp_0_8_0_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_jolbox_bonecp_spring_0_8_0_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_jolbox_bonecp_spring_0_8_0_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_sun_jmx_jmxri_1_2_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_sun_jmx_jmxri_1_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_codec_commons_codec_1_6.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_codec_commons_codec_1_6.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_logging_commons_logging_1_1_3.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_logging_commons_logging_1_1_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_activation_activation_1_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_activation_activation_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_annotation_jsr250_api_1_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_annotation_jsr250_api_1_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_mail_mail_1_4_7.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_mail_mail_1_4_7.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_jsp_jsp_api_2_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_jsp_jsp_api_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_jstl_1_2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_jstl_1_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_validation_validation_api_1_0_0_GA.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_validation_validation_api_1_0_0_GA.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__joda_time_joda_time_2_3.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__joda_time_joda_time_2_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__junit_junit_4_11.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__junit_junit_4_11.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__junit_junit_4_8_2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__junit_junit_4_8_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_32.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_32.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_3_5.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_3_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_3_2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_3_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_3_5.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_3_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_aspectj_aspectjrt_1_7_4.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_aspectj_aspectjrt_1_7_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_5_4.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_5_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_freemarker_freemarker_2_3_20.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_freemarker_freemarker_2_3_20.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_hibernate_hibernate_validator_4_3_1_Final.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_hibernate_hibernate_validator_4_3_1_Final.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_javassist_javassist_3_18_1_GA.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_javassist_javassist_3_18_1_GA.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_1_0_CR2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_1_0_CR2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_jboss_spec_javax_jms_jboss_jms_api_1_1_spec_1_0_1_Final.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_jboss_spec_javax_jms_jboss_jms_api_1_1_spec_1_0_1_Final.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_msgpack_msgpack_0_6_11.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_msgpack_msgpack_0_6_11.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_5_11.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_5_11.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_5.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_aop_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_aop_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_beans_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_beans_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_context_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_context_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_context_support_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_context_support_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_core_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_core_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_expression_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_expression_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_jdbc_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_jdbc_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_orm_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_orm_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_test_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_test_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_tx_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_tx_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_web_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_web_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_webmvc_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_webmvc_3_2_11_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_yaml_snakeyaml_1_13.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_yaml_snakeyaml_1_13.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__redis_clients_jedis_2_6_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__redis_clients_jedis_2_6_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__taglibs_standard_1_1_2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__taglibs_standard_1_1_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/Web/Web.iml" afterPath="$PROJECT_DIR$/bootstrap/template/Web/Web.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Admin/_Project_-Controller-Admin.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Admin/_Project_-Controller-Admin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Mobile/_Project_-Controller-Mobile.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Mobile/_Project_-Controller-Mobile.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller/_Project_-Controller.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller/_Project_-Controller.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Core/_Project_-Core.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Core/_Project_-Core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Service/_Project_-Service.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Service/_Project_-Service.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-TestCase/_Project_-TestCase.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-TestCase/_Project_-TestCase.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/compiler.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/java/controller-mobile.mako" afterPath="$PROJECT_DIR$/bootstrap/java/controller-mobile.mako" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/dbm.py" afterPath="$PROJECT_DIR$/bootstrap/dbm.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/encodings.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/javagen.py" afterPath="$PROJECT_DIR$/bootstrap/javagen.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/mapping.py" afterPath="$PROJECT_DIR$/bootstrap/mapping.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/misc.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/modules.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/com/argo/spring/mvc-context.xml" afterPath="$PROJECT_DIR$/core/src/main/resources/com/argo/spring/mvc-context.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/pom.xml" afterPath="$PROJECT_DIR$/bootstrap/template/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Mobile/pom.xml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Mobile/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/project-gen.py" afterPath="$PROJECT_DIR$/bootstrap/project-gen.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\ExtensionRegistryInitializer.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ExtensionRegistryInitializer.java" />
-      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\MobileProto.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/MobileProto.java" />
-      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\ProtobufHttpMessageConverter.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufHttpMessageConverter.java" />
-      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\ProtobufMessage.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufMessage.java" />
-      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\ProtobufMessageOrBuilder.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufMessageOrBuilder.java" />
-      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\ProtobufResponse.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufResponse.java" />
     </list>
     <ignored path="Argo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1145,30 +1045,6 @@
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
         </PATH_ELEMENT>
       </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="argo-parent" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="argo-parent" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Lifecycle" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
-        </PATH_ELEMENT>
-      </PATH>
     </treeState>
   </component>
   <component name="MavenRunner">
@@ -1831,7 +1707,11 @@
       <created>1414248339593</created>
       <updated>1414248339593</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="mobile protobuf support">
+      <created>1414302145961</created>
+      <updated>1414302145961</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1859,7 +1739,7 @@
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.53958" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.53958" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279483" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -1869,9 +1749,10 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35309973" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32580644" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5889488" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32148626" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27265373" sideWeight="0.19093852" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20145631" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20145631" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.22132471" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18770227" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
@@ -1880,7 +1761,6 @@
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6235864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5889488" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
@@ -2307,6 +2187,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6841216" vertical-offset="360" max-vertical-offset="969">
           <caret line="61" column="59" selection-start-line="61" selection-start-column="59" selection-end-line="61" selection-end-column="59" />
+          <folding />
         </state>
       </provider>
     </entry>
