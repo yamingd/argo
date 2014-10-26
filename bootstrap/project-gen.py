@@ -12,7 +12,7 @@ from datetime import datetime
 
 def format_line(line, settings):
     for key in settings:
-        if key not in ['_modules_', '_mysql_', '_mobile_', '_pc_']:
+        if key not in ['_modules_', '_mysql_', '_mobile_', '_pc_', '_sqlite3_']:
             line = line.replace(key, settings[key])
     return line
 

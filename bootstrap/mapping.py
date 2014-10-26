@@ -61,6 +61,26 @@ ios_types = {
     'time': 'NSDate'
 }
 
+sqlite_types = {
+    'int': 'integer',
+    'tinyint': 'integer',
+    'smallint': 'integer',
+    'mediumint': 'integer',
+    'bigint': 'integer',
+
+    'float': 'real',
+    'decimal': 'real',
+    'double': 'real',
+
+    'text': 'text',
+    'varchar': 'text',
+
+    'datetime': 'integer',
+    'date': 'integer',
+    'timestamp': 'integer',
+    'time': 'integer'
+}
+
 cpp_types = {
     'int': 'uint32_t',
     'tinyint': 'uint32_t',

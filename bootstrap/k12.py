@@ -9,10 +9,10 @@ settings = {
     'Company': 'Inno',
     '_output_': 'I:\\GitRepo\\argo\\gen',
     '_mysql_': {
-        'host': '120.24.65.250',
-        'port': 33060,
-        'user': 'jiaxiao',
-        'passwd': 'jiaxiao@2014'
+        'host': '127.0.0.1',
+        'port': 3306,
+        'user': 'test',
+        'passwd': '12333'
     },
     '_modules_': {
         'catalog': {
@@ -72,5 +72,20 @@ settings = {
             'tables': ['forum', 'post']
         }
     },
-    '_pc_': {}
+    '_pc_': {},
+    '_sqlite3_': {
+        'catalog': {
+            'k12_society': ['country', 'province', 'city', 'catalog']
+        },
+        'profile': {
+            'k12_society': ['person', 'account', 'school'],
+            'k12_school': ['class_room', 'class_member', 'class_course',
+                       'course', 'course_member', 'homework',
+                       'homework_member', 'homework_comment',
+                       'notice', 'notice_member', 'invitation', 'student', 'teacher'],
+            'k12_message': ['chat', 'chat_member', 'chat_message'],
+            'k12_file': ['attachment'],
+            'k12_community': ['forum', 'post', 'post_comment', 'post_content']
+        }
+    }
 }

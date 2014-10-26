@@ -38,6 +38,11 @@ class Column(object):
         return mapping.java_types.get(tname, 'String')
     
     @property
+    def sqlite3_type(self):
+        tname = self.typeName.split('(')[0]
+        return mapping.sqlite_types.get(tname, 'Text')
+
+    @property
     def protobuf_value(self):
         if self.java_type == 'Date':
             return '.getTime()'
