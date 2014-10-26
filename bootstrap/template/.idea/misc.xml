@@ -11,7 +11,6 @@
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/_Project_-Controller/Admin/pom.xml" />
       </set>
     </option>
   </component>

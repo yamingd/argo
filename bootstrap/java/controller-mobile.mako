@@ -3,9 +3,12 @@ package com.{{_company_}}.{{_project_}}.web.controllers.mobile.{{_module_}};
 import com.{{_company_}}.{{_project_}}.web.controllers.mobile.MobileBaseController;
 import com.argo.core.base.BaseException;
 import com.argo.core.exception.EntityNotFoundException;
-import com.argo.core.web.JsonResponse;
+import com.argo.core.protobuf.ProtobufMessage;
+import com.argo.core.protobuf.ProtobufResponse;
 import com.argo.core.web.Enums;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
+import com.{{_company_}}.{{_project_}}.protobuf.{{_module_}}.P{{_entity_}};
+import com.{{_company_}}.{{_project_}}.protobuf.{{_module_}}.P{{_entity_}}Wrapper;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_entity_}}Service;
 import com.{{_company_}}.{{_project_}}.ErrorCodes;
 
@@ -36,60 +39,63 @@ public class Mobile{{_entity_}}Controller extends MobileBaseController {
     @Autowired
     private {{_entity_}}Service {{_entityL_}}Service;
     
-    @RequestMapping(value="all/{page}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="all/{page}", method=RequestMethod.GET, produces = Enums.PROTOBUF_VALUE)
     @ResponseBody
-    public JsonResponse all(JsonResponse actResponse, @PathVariable Integer page) throws Exception {
+    public ProtobufMessage all(ProtobufResponse actResponse, @PathVariable Integer page) throws Exception {
         List<{{_entity_}}> list = {{_entityL_}}Service.findAll();
         for({{_entity_}} item : list) {
-            actResponse.add(item);
+            //convert item to P{{_entity_}}
+            P{{_entity_}} msg = P{{_entity_}}Wrapper.fromEntity(item);
+            actResponse.getBuilder().addData(msg.toByteString());
         }
-        return actResponse;
+        return actResponse.build();
     }
 
-    @RequestMapping(value="view/{id}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="view/{id}", method=RequestMethod.GET, produces = Enums.PROTOBUF_VALUE)
     @ResponseBody
-    public JsonResponse view(JsonResponse actResponse, @PathVariable Long id){
+    public ProtobufMessage view(ProtobufResponse actResponse, @PathVariable Long id){
 
         try {
             {{_entity_}} item = {{_entityL_}}Service.findById(id);
-            actResponse.add(item);
+            //TODO: convert item to P{{_entity_}}
+            P{{_entity_}} msg = P{{_entity_}}Wrapper.fromEntity(item);
+            actResponse.getBuilder().addData(msg.toByteString());
         } catch (BaseException e) {
             logger.error(e.getMessage(), e);
-            actResponse.setCode(e.getErrcode());
-            actResponse.setMsg(e.getMessage());
+            actResponse.getBuilder().setCode(e.getErrcode()).setMsg(e.getMessage());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            actResponse.setCode(500);
-            actResponse.setMsg(e.getMessage());
+            actResponse.getBuilder().setCode(500).setMsg(e.getMessage());
         }
 
-        return actResponse;
+        return actResponse.build();
     }
 
-    @RequestMapping(value="create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="create", method = RequestMethod.POST, produces = Enums.PROTOBUF_VALUE)
     @ResponseBody
-    public JsonResponse postCreate(@Valid Mobile{{_entity_}}Form form, BindingResult result, JsonResponse actResponse) throws Exception {
+    public ProtobufMessage postCreate(@Valid Mobile{{_entity_}}Form form, BindingResult result, ProtobufResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
             this.wrapError(result, actResponse);
-            return actResponse;
+            return actResponse.build();
         }
 
         {{_entity_}} item = form.to();
         Long id = {{_entityL_}}Service.add(item);
 
-        actResponse.add(item);
+        P{{_entity_}} msg = P{{_entity_}}Wrapper.fromEntity(item);
+        actResponse.getBuilder().addData(msg.toByteString());
 
-        return actResponse;
+        return actResponse.build();
     }
 
-    @RequestMapping(value="save/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="save/{id}", method = RequestMethod.POST, produces = Enums.PROTOBUF_VALUE)
     @ResponseBody
-    public JsonResponse postSave(@Valid Mobile{{_entity_}}Form form, BindingResult result, @PathVariable {{_tbi_.pkType}} id, JsonResponse actResponse) throws Exception {
+    public ProtobufMessage postSave(@Valid Mobile{{_entity_}}Form form, BindingResult result, @PathVariable {{_tbi_.pkType}} id, ProtobufResponse actResponse) throws Exception {
 
         if (result.hasErrors()){
             this.wrapError(result, actResponse);
-            return actResponse;
+            return actResponse.build();
         }
 
         {{_entity_}} item = form.to();
@@ -97,18 +103,21 @@ public class Mobile{{_entity_}}Controller extends MobileBaseController {
 
         {{_entityL_}}Service.update(item);
 
-        return actResponse;
+        P{{_entity_}} msg = P{{_entity_}}Wrapper.fromEntity(item);
+        actResponse.getBuilder().addData(msg.toByteString());
+        
+        return actResponse.build();
     }
 
-    @RequestMapping(value="remove/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="remove/{id}", method = RequestMethod.POST, produces = Enums.PROTOBUF_VALUE)
     @ResponseBody
-    public JsonResponse postRemove(@PathVariable Long id, JsonResponse actResponse) throws Exception {
+    public ProtobufMessage postRemove(@PathVariable Long id, ProtobufResponse actResponse) throws Exception {
 
         if (id != null) {
             {{_entityL_}}Service.remove(id);
         }
 
-        return actResponse;
+        return actResponse.build();
     }
     
 }

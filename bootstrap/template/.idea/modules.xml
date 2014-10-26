@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/_Project_-Controller-Admin/_Project_-Controller-Admin.iml" filepath="$PROJECT_DIR$/_Project_-Controller-Admin/_Project_-Controller-Admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/_Project_-Controller-Mobile/_Project_-Controller-Mobile.iml" filepath="$PROJECT_DIR$/_Project_-Controller-Mobile/_Project_-Controller-Mobile.iml" />
       <module fileurl="file://$PROJECT_DIR$/_Project_-Core/_Project_-Core.iml" filepath="$PROJECT_DIR$/_Project_-Core/_Project_-Core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_Project_-Protobuf/_Project_-Protobuf.iml" filepath="$PROJECT_DIR$/_Project_-Protobuf/_Project_-Protobuf.iml" />
       <module fileurl="file://$PROJECT_DIR$/_Project_-Service/_Project_-Service.iml" filepath="$PROJECT_DIR$/_Project_-Service/_Project_-Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/_Project_-TestCase/_Project_-TestCase.iml" filepath="$PROJECT_DIR$/_Project_-TestCase/_Project_-TestCase.iml" />
     </modules>

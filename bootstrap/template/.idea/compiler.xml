@@ -22,12 +22,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="_Project_-Controller" />
         <module name="_Project_-Controller-Admin" />
         <module name="_Project_-Controller-Mobile" />
         <module name="_Project_-Core" />
+        <module name="_Project_-Protobuf" />
         <module name="_Project_-Service" />
         <module name="_project_-TestCase" />
-        <module name="_Project_-TestCase" />
         <module name="Admin" />
         <module name="Mobile" />
         <module name="Web" />

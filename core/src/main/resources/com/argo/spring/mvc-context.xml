@@ -17,7 +17,7 @@
             <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
             <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
             <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
-            <bean class="com.argo.core.mobile.ProtobufHttpMessageConverter" />
+            <bean class="com.argo.core.protobuf.ProtobufHttpMessageConverter" />
             <bean class="com.argo.core.web.spring.GsonHttpMessageConverter" />
             <bean class="com.argo.core.web.spring.BSONHttpMessageConverter" />
             <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />

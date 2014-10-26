@@ -13,6 +13,7 @@
         <module>_Project_-Controller-Mobile</module>
         <module>_Project_-TestCase</module>
         <module>Web</module>
+        <module>_Project_-Protobuf</module>
     </modules>
     <packaging>pom</packaging>
 

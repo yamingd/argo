@@ -80,6 +80,55 @@ def gen_service_def(module, folder, test_folder, settings):
         javagen.render_service_test(fname, **kwargs)
 
 
+def gen_protobuf_def(module, folder, settings):
+    #mapper
+    folder0 = os.path.join(folder, 'protobuf', module['name'])
+    print folder0
+    os.makedirs(folder0)
+    outname = string.capitalize(module['name']) + 'Proto.proto'
+    fname = os.path.join(folder0, outname)
+    kwargs = {}
+    kwargs.update(settings)
+    kwargs['now'] = datetime.now()
+    kwargs['_module_'] = module['name']
+    kwargs['_moduleC_'] = string.capitalize(module['name'])
+    #entity and service
+    _tbis = []
+    for tbl in module['tables']:
+        tbi = dbm.get_table(module, tbl)
+        _tbis.append(tbi)
+    kwargs['_tbis'] = _tbis
+    javagen.render_protobuf(fname, **kwargs)
+    #java out
+    java_out = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/java')
+    java_out = format_line(java_out, settings)
+    cmd = '%s/../protobuf/protoc.exe -I=%s --java_out=%s %s' % (os.getcwd(), folder0, java_out, fname)
+    print cmd
+    os.system(cmd)
+    #render java wrapper
+    for tbl in _tbis:
+        kwargs['_tbi'] = tbl
+        fnamet = os.path.join(folder0, 'P%sWrapper.java' % tbl.entityName)
+        javagen.render_protobuf_wrapper(fnamet, **kwargs)
+    #ios out
+    cpp_out = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/ios', module['name'])
+    cpp_out = format_line(cpp_out, settings)
+    os.makedirs(cpp_out)
+    cmd = '%s/../protobuf/protoc.exe -I=%s --cpp_out=%s %s' % (os.getcwd(), folder0, cpp_out, fname)
+    print cmd
+    os.system(cmd)
+    #rename cpp to .hh and .mm for iOS
+    fname = os.path.join(cpp_out, outname.replace('.proto', ''))
+    print fname
+    os.rename(fname + '.pb.h', fname + '.pb.hh')
+    os.rename(fname + '.pb.cc', fname + '.pb.mm')
+    #generate ios
+    for tbl in _tbis:
+        kwargs['_tbi'] = tbl
+        fname = os.path.join(cpp_out, 'TS' + tbl.entityName)
+        javagen.render_ios(fname, **kwargs)
+
+
 def gen_service_impl(module, folder, settings):
     kwargs = {}
     kwargs.update(settings)
@@ -171,6 +220,10 @@ def gen_modules(settings):
     ms = settings['_modules_']
     core_folder = os.path.join(settings['_root_'], '_Project_-Core/src/main/java/com/company/_project_')
     core_folder = format_line(core_folder, settings)
+    #
+    protobuf_folder = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/java/com/company/_project_')
+    protobuf_folder = format_line(protobuf_folder, settings)
+    #
     service_folder = os.path.join(settings['_root_'], '_Project_-Service/src/main/java/com/company/_project_')
     service_folder = format_line(service_folder, settings)
     #controller
@@ -207,6 +260,7 @@ def gen_modules(settings):
         folder2 = os.path.join(service_test_folder, m)
         os.makedirs(folder2)
         gen_service_def(mf, folder, folder2, settings)
+        gen_protobuf_def(mf, protobuf_folder, settings)
         # service impl
         folder = os.path.join(service_folder, m)
         os.makedirs(folder)

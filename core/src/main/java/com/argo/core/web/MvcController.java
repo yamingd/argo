@@ -2,7 +2,7 @@ package com.argo.core.web;
 
 import com.argo.core.base.BaseUser;
 import com.argo.core.exception.UserNotAuthorizationException;
-import com.argo.core.mobile.ProtobufResponse;
+import com.argo.core.protobuf.ProtobufResponse;
 import com.argo.core.web.session.SessionUserHolder;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;

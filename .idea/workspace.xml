@@ -2,49 +2,108 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db93b134-e637-410e-9cb1-baf63115f8c3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/protoc.exe" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ExtensionRegistryInitializer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_2_5_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/MobileProto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ProtobufHttpMessageConverter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ProtobufMessage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ProtobufMessageOrBuilder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ProtobufResponse.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/mobile_proto.proto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/readme.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/task/task.iml" />
-      <change type="DELETED" beforePath="I:\GitRepo\argo\bootstrap\template\_Project_-Core\src\main\java\com\company\_project_\security\Account.java" afterPath="" />
-      <change type="DELETED" beforePath="I:\GitRepo\argo\bootstrap\template\_Project_-Core\src\main\java\com\company\_project_\security\AccountService.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Argo.iml" afterPath="$PROJECT_DIR$/Argo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Enums.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Enums.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/thrift-0.9.1.exe" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_google_protobuf_protobuf_java_2_5_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Protobuf/_Project_-Protobuf.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Protobuf/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/java/protobuf_entity.mako" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/java/protobuf_hh_wrapper.mako" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/java/protobuf_mm_wrapper.mako" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bootstrap/java/protobuf_wrapper.mako" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_0_13.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_0_13.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__ch_qos_logback_logback_core_1_0_13.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__ch_qos_logback_logback_core_1_0_13.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_cache_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_cache_1_0_SNAPSHOT.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_core_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_core_1_0_SNAPSHOT.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_db_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_db_1_0_SNAPSHOT.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_mail_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_mail_1_0_SNAPSHOT.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_service_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_argo_argo_service_1_0_SNAPSHOT.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_codahale_metrics_metrics_core_3_0_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_codahale_metrics_metrics_core_3_0_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_google_code_gson_gson_2_2_4.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_google_code_gson_gson_2_2_4.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_google_guava_guava_cdi1_0_15_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_google_guava_guava_cdi1_0_15_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_googlecode_json_simple_json_simple_1_1_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_googlecode_json_simple_json_simple_1_1_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_jolbox_bonecp_0_8_0_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_jolbox_bonecp_0_8_0_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_jolbox_bonecp_spring_0_8_0_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_jolbox_bonecp_spring_0_8_0_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_sun_jmx_jmxri_1_2_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__com_sun_jmx_jmxri_1_2_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_codec_commons_codec_1_6.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_codec_commons_codec_1_6.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_logging_commons_logging_1_1_3.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__commons_logging_commons_logging_1_1_3.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_activation_activation_1_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_activation_activation_1_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_annotation_jsr250_api_1_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_annotation_jsr250_api_1_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_inject_javax_inject_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_mail_mail_1_4_7.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_mail_mail_1_4_7.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_jsp_jsp_api_2_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_jsp_jsp_api_2_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_jstl_1_2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_jstl_1_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_validation_validation_api_1_0_0_GA.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__javax_validation_validation_api_1_0_0_GA.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__joda_time_joda_time_2_3.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__joda_time_joda_time_2_3.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__junit_junit_4_11.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__junit_junit_4_11.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__junit_junit_4_8_2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__junit_junit_4_8_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_32.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_32.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_1.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_3_5.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_3_5.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_3_2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_3_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_3_5.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_3_5.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_aspectj_aspectjrt_1_7_4.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_aspectj_aspectjrt_1_7_4.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_5_4.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_5_4.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_freemarker_freemarker_2_3_20.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_freemarker_freemarker_2_3_20.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_hibernate_hibernate_validator_4_3_1_Final.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_hibernate_hibernate_validator_4_3_1_Final.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_javassist_javassist_3_18_1_GA.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_javassist_javassist_3_18_1_GA.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_1_0_CR2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_1_0_CR2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_jboss_spec_javax_jms_jboss_jms_api_1_1_spec_1_0_1_Final.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_jboss_spec_javax_jms_jboss_jms_api_1_1_spec_1_0_1_Final.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_msgpack_msgpack_0_6_11.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_msgpack_msgpack_0_6_11.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_5_11.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_5_11.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_5.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_5.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_aop_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_aop_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_beans_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_beans_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_context_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_context_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_context_support_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_context_support_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_core_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_core_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_expression_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_expression_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_jdbc_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_jdbc_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_orm_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_orm_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_test_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_test_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_tx_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_tx_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_web_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_web_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_webmvc_3_2_11_RELEASE.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_springframework_spring_webmvc_3_2_11_RELEASE.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_yaml_snakeyaml_1_13.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__org_yaml_snakeyaml_1_13.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__redis_clients_jedis_2_6_0.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__redis_clients_jedis_2_6_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__taglibs_standard_1_1_2.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/libraries/Maven__taglibs_standard_1_1_2.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcResponse.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcResponse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/controller/argo-acl-controller.iml" afterPath="$PROJECT_DIR$/acl/controller/argo-acl-controller.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/core/argo-acl-core.iml" afterPath="$PROJECT_DIR$/acl/core/argo-acl-core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/service/argo-acl-service.iml" afterPath="$PROJECT_DIR$/acl/service/argo-acl-service.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/argo-acl.iml" afterPath="$PROJECT_DIR$/acl/argo-acl.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mail/argo-mail.iml" afterPath="$PROJECT_DIR$/mail/argo-mail.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/argo-service.iml" afterPath="$PROJECT_DIR$/service/argo-service.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task/argo-task.iml" afterPath="$PROJECT_DIR$/task/argo-task.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/argo-tools.iml" afterPath="$PROJECT_DIR$/tools/argo-tools.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cache/cache.iml" afterPath="$PROJECT_DIR$/cache/cache.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cluster/cluster.iml" afterPath="$PROJECT_DIR$/cluster/cluster.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/java/controller-admin-test.mako" afterPath="$PROJECT_DIR$/bootstrap/java/controller-admin-test.mako" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/java/controller-admin.mako" afterPath="$PROJECT_DIR$/bootstrap/java/controller-admin.mako" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/java/controller-mobile-test.mako" afterPath="$PROJECT_DIR$/bootstrap/java/controller-mobile-test.mako" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/Web/Web.iml" afterPath="$PROJECT_DIR$/bootstrap/template/Web/Web.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Admin/_Project_-Controller-Admin.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Admin/_Project_-Controller-Admin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Mobile/_Project_-Controller-Mobile.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Mobile/_Project_-Controller-Mobile.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller/_Project_-Controller.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller/_Project_-Controller.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Core/_Project_-Core.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Core/_Project_-Core.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Service/_Project_-Service.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Service/_Project_-Service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-TestCase/_Project_-TestCase.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-TestCase/_Project_-TestCase.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_.iml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/compiler.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/java/controller-mobile.mako" afterPath="$PROJECT_DIR$/bootstrap/java/controller-mobile.mako" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/data.iml" afterPath="$PROJECT_DIR$/data/data.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/db.iml" afterPath="$PROJECT_DIR$/db/db.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbtest/dbtest.iml" afterPath="$PROJECT_DIR$/dbtest/dbtest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/java/entity.mako" afterPath="$PROJECT_DIR$/bootstrap/java/entity.mako" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/k12.py" afterPath="$PROJECT_DIR$/bootstrap/k12.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/message/message.iml" afterPath="$PROJECT_DIR$/message/message.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/dbm.py" afterPath="$PROJECT_DIR$/bootstrap/dbm.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/encodings.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/javagen.py" afterPath="$PROJECT_DIR$/bootstrap/javagen.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/mapping.py" afterPath="$PROJECT_DIR$/bootstrap/mapping.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/misc.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/modules.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/com/argo/spring/mvc-context.xml" afterPath="$PROJECT_DIR$/core/src/main/resources/com/argo/spring/mvc-context.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/search/search.iml" afterPath="$PROJECT_DIR$/search/search.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/web.iml" afterPath="$PROJECT_DIR$/web/web.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/pom.xml" afterPath="$PROJECT_DIR$/bootstrap/template/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Mobile/pom.xml" afterPath="$PROJECT_DIR$/bootstrap/template/_Project_-Controller-Mobile/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/project-gen.py" afterPath="$PROJECT_DIR$/bootstrap/project-gen.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bootstrap/template/.idea/workspace.xml" afterPath="$PROJECT_DIR$/bootstrap/template/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\ExtensionRegistryInitializer.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ExtensionRegistryInitializer.java" />
+      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\MobileProto.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/MobileProto.java" />
+      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\ProtobufHttpMessageConverter.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufHttpMessageConverter.java" />
+      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\ProtobufMessage.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufMessage.java" />
+      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\ProtobufMessageOrBuilder.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufMessageOrBuilder.java" />
+      <change type="MOVED" beforePath="I:\GitRepo\argo\core\src\main\java\com\argo\core\mobile\ProtobufResponse.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufResponse.java" />
     </list>
     <ignored path="Argo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1010,8 +1069,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/cache/src/test/java/com/argo/redis/RedisBuketTest.java" />
-        <option value="$PROJECT_DIR$/bootstrap/template/_Project_-TestCase/src/main/java/com/company/testcases/BaseTestCase.java" />
         <option value="$PROJECT_DIR$/bootstrap/template/_Project_-Controller/src/main/java/com/company/web/controllers/BaseController.java" />
         <option value="$PROJECT_DIR$/bootstrap/template/_Project_-Core/src/main/java/com/company/security/AuthorizationServiceImpl.java" />
         <option value="$PROJECT_DIR$/bootstrap/template/Web/pom.xml" />
@@ -1056,11 +1113,13 @@
         <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/spring/ProtobufHttpMessageConverter.java" />
         <option value="$PROJECT_DIR$/core/src/main/resources/com/argo/spring/mvc-context.xml" />
         <option value="$PROJECT_DIR$/protobuf/core.proto" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ProtobufHttpMessageConverter.java" />
         <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcResponse.java" />
         <option value="$PROJECT_DIR$/protobuf/mobile_proto.proto" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java" />
         <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ProtobufResponse.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ProtobufHttpMessageConverter.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufResponse.java" />
       </list>
     </option>
   </component>
@@ -1084,6 +1143,30 @@
         <PATH_ELEMENT>
           <option name="myItemId" value="" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="argo-parent" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="argo-parent" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Lifecycle" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
         </PATH_ELEMENT>
       </PATH>
     </treeState>
@@ -1150,7 +1233,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -1172,6 +1254,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1736,7 +1819,19 @@
       <created>1414133883343</created>
       <updated>1414133883343</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="mobile protobuf support">
+      <created>1414213090215</created>
+      <updated>1414213090215</updated>
+    </task>
+    <task id="LOCAL-00036" summary="mobile protobuf support">
+      <created>1414248276209</created>
+      <updated>1414248276209</updated>
+    </task>
+    <task id="LOCAL-00037" summary="mobile protobuf support">
+      <created>1414248339593</created>
+      <updated>1414248339593</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1774,32 +1869,32 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35309973" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32580644" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32148626" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27265373" sideWeight="0.19093852" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14805825" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20145631" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.22132471" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23867314" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5799677" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18770227" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5347334" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6235864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5889488" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5403226" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.53958" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24878837" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32903227" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35309973" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32580644" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32148626" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27427185" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5799677" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2710356" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.53634894" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1812,7 +1907,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5889488" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27265373" sideWeight="0.19093852" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14805825" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19872814" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.22132471" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
@@ -1846,7 +1941,8 @@
     <MESSAGE value="fall back to spring 3.2.11" />
     <MESSAGE value="service refactor" />
     <MESSAGE value="bootstrap" />
-    <option name="LAST_COMMIT_MESSAGE" value="bootstrap" />
+    <MESSAGE value="mobile protobuf support" />
+    <option name="LAST_COMMIT_MESSAGE" value="mobile protobuf support" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1858,34 +1954,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bootstrap/java/controller-mobile.mako">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2646638" vertical-offset="0" max-vertical-offset="1887">
-          <caret line="52" column="31" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bootstrap/k12.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1877729" vertical-offset="0" max-vertical-offset="1360">
-          <caret line="48" column="63" selection-start-line="48" selection-start-column="63" selection-end-line="48" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/com/argo/service/factory/ServiceFactoryBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23842917" vertical-offset="0" max-vertical-offset="713">
-          <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/com/argo/service/ServiceMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.119382024" vertical-offset="0" max-vertical-offset="712">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/service/src/main/java/com/argo/service/ServiceConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.78792137" vertical-offset="0" max-vertical-offset="969">
@@ -2096,30 +2164,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/resources/com/argo/spring/mvc-context.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2081218" vertical-offset="51" max-vertical-offset="1462">
-          <caret line="45" column="61" selection-start-line="45" selection-start-column="61" selection-end-line="45" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/spring/BSONHttpMessageConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2368866" vertical-offset="255" max-vertical-offset="1479">
-          <caret line="78" column="56" selection-start-line="78" selection-start-column="56" selection-end-line="78" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8274112" vertical-offset="3761" max-vertical-offset="4437">
           <caret line="386" column="26" selection-start-line="386" selection-start-column="26" selection-end-line="386" selection-end-column="26" />
-          <folding>
-            <element signature="tag#build#0;tag#project#0" expanded="false" />
-            <element signature="tag#resources#0;tag#build#0;tag#project#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2127,26 +2175,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334" vertical-offset="92" max-vertical-offset="3570">
           <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ExtensionRegistryInitializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3733108" vertical-offset="0" max-vertical-offset="592">
-          <caret line="13" column="4" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/MobileProto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="356" max-vertical-offset="935">
-          <caret line="28" column="25" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-          <folding>
-            <element signature="e#1252#1954#0" expanded="false" />
-            <element signature="e#1945#1946#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2154,18 +2182,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5456081" vertical-offset="357" max-vertical-offset="1054">
           <caret line="45" column="6" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-          <folding>
-            <element signature="e#788#789#0" expanded="false" />
-            <element signature="e#815#816#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Enums.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29360968" vertical-offset="0" max-vertical-offset="579">
-          <caret line="12" column="32" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2173,7 +2189,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.23011844" vertical-offset="0" max-vertical-offset="591">
           <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2181,15 +2196,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24028268" vertical-offset="0" max-vertical-offset="566">
           <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5972927" vertical-offset="378" max-vertical-offset="969">
-          <caret line="59" column="6" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2197,35 +2203,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1" max-vertical-offset="595">
           <caret line="21" column="6" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-          <folding>
-            <element signature="e#374#375#0" expanded="true" />
-            <element signature="e#405#406#0" expanded="true" />
-            <element signature="e#437#438#0" expanded="true" />
-            <element signature="e#464#465#0" expanded="true" />
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#554#555#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ProtobufHttpMessageConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.05882353" vertical-offset="0" max-vertical-offset="1394">
-          <caret line="2" column="32" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
-          <folding>
-            <element signature="method#getNewBuilderMessageMethod#0;class#ProtobufHttpMessageConverter#0" expanded="false" />
-            <element signature="method#initializeExtentionRegistry#0;class#ProtobufHttpMessageConverter#0" expanded="false" />
-            <element signature="method#convertInputStreamToString#0;class#ProtobufHttpMessageConverter#0" expanded="false" />
-            <element signature="method#setProtoHeader#0;class#ProtobufHttpMessageConverter#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ProtobufMessageOrBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11505922" vertical-offset="0" max-vertical-offset="1904">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2233,29 +2210,115 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.50592214" vertical-offset="58" max-vertical-offset="15606">
           <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/.m2/repository/org/springframework/spring-web/3.2.11.RELEASE/spring-web-3.2.11.RELEASE-sources.jar!/org/springframework/http/converter/AbstractHttpMessageConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="415" max-vertical-offset="3553">
+          <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Enums.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4890017" vertical-offset="0" max-vertical-offset="591">
+          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/spring/BSONHttpMessageConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.37394246" vertical-offset="714" max-vertical-offset="1479">
+          <caret line="45" column="72" selection-start-line="45" selection-start-column="69" selection-end-line="45" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://E:/.m2/repository/org/springframework/spring-core/3.2.11.RELEASE/spring-core-3.2.11.RELEASE-sources.jar!/org/springframework/util/FileCopyUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="1588" max-vertical-offset="3672">
+          <caret line="131" column="23" selection-start-line="131" selection-start-column="23" selection-end-line="131" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Interceptor/ExceptionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5294118" vertical-offset="799" max-vertical-offset="1581">
+          <caret line="79" column="49" selection-start-line="79" selection-start-column="46" selection-end-line="79" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6557093" vertical-offset="2647" max-vertical-offset="4641">
+          <caret line="262" column="47" selection-start-line="262" selection-start-column="47" selection-end-line="262" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ExtensionRegistryInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38169256" vertical-offset="0" max-vertical-offset="579">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ProtobufMessage.java">
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/MobileProto.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33217993" vertical-offset="16332" max-vertical-offset="18751">
-          <caret line="1066" column="51" selection-start-line="1066" selection-start-column="51" selection-end-line="1066" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.73402417" vertical-offset="0" max-vertical-offset="884">
+          <caret line="28" column="25" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/mobile/ProtobufResponse.java">
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufHttpMessageConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23011844" vertical-offset="0" max-vertical-offset="591">
-          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="680" max-vertical-offset="1802">
+          <caret line="62" column="38" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2" max-vertical-offset="18751">
+          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufMessageOrBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11486486" vertical-offset="0" max-vertical-offset="1904">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/resources/com/argo/spring/mvc-context.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20552677" vertical-offset="204" max-vertical-offset="1462">
+          <caret line="19" column="57" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6841216" vertical-offset="360" max-vertical-offset="969">
+          <caret line="61" column="59" selection-start-line="61" selection-start-column="59" selection-end-line="61" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="591">
+          <caret line="0" column="30" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="30" />
           <folding>
-            <element signature="e#230#231#0" expanded="true" />
-            <element signature="e#284#285#0" expanded="true" />
-            <element signature="e#327#328#0" expanded="true" />
-            <element signature="e#365#366#0" expanded="true" />
-            <element signature="e#416#417#0" expanded="true" />
-            <element signature="e#446#447#0" expanded="true" />
+            <element signature="e#366#367#0" expanded="true" />
+            <element signature="e#404#405#0" expanded="true" />
+            <element signature="e#455#456#0" expanded="true" />
+            <element signature="e#485#486#0" expanded="true" />
           </folding>
         </state>
       </provider>

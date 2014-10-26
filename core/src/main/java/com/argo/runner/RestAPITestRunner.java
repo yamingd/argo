@@ -3,7 +3,7 @@ package com.argo.runner;
 import com.argo.core.ContextConfig;
 import com.argo.core.configuration.SiteConfig;
 import com.argo.core.json.JsonUtil;
-import com.argo.core.mobile.ProtobufMessage;
+import com.argo.core.protobuf.ProtobufMessage;
 import com.argo.core.web.BsonResponse;
 import com.argo.core.web.JsonResponse;
 import org.apache.commons.io.IOUtils;

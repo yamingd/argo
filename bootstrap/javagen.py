@@ -43,6 +43,24 @@ def render_mapper(fname, **kwargs):
         fw.write(serve_template('mappers.mako', **kwargs))
 
 
+def render_protobuf(fname, **kwargs):
+    with open(fname, 'w+') as fw:
+        fw.write(serve_template('protobuf_entity.mako', **kwargs))
+
+
+def render_protobuf_wrapper(fname, **kwargs):
+    with open(fname, 'w+') as fw:
+        fw.write(serve_template('protobuf_wrapper.mako', **kwargs))
+
+
+def render_ios(fname, **kwargs):
+    with open(fname + ".hh", 'w+') as fw:
+        fw.write(serve_template('protobuf_hh_wrapper.mako', **kwargs))
+
+    with open(fname + ".mm", 'w+') as fw:
+        fw.write(serve_template('protobuf_mm_wrapper.mako', **kwargs))
+
+
 def render_controller(fname, **kwargs):
     prj = kwargs.pop('_cprj_', 'admin')
     with open(fname, 'w+') as fw:

@@ -20,3 +20,43 @@ java_types = {
     'timestamp': 'Date',
     'time': 'Date'
 }
+
+protobuf_types = {
+    'int': 'int32',
+    'tinyint': 'int32',
+    'smallint': 'int32',
+    'mediumint': 'int32',
+    'bigint': 'int64',
+
+    'float': 'float',
+    'decimal': 'double',
+    'double': 'double',
+
+    'text': 'string',
+    'varchar': 'string',
+
+    'datetime': 'int32',
+    'date': 'int32',
+    'timestamp': 'int32',
+    'time': 'int32'
+}
+
+ios_types = {
+    'int': 'NSNumber',
+    'tinyint': 'NSNumber',
+    'smallint': 'NSNumber',
+    'mediumint': 'NSNumber',
+    'bigint': 'NSNumber',
+
+    'float': 'NSNumber',
+    'decimal': 'NSNumber',
+    'double': 'NSNumber',
+
+    'text': 'NSString',
+    'varchar': 'NSString',
+
+    'datetime': 'NSDate',
+    'date': 'NSDate',
+    'timestamp': 'NSDate',
+    'time': 'NSDate'
+}

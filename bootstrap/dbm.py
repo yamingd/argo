@@ -21,7 +21,7 @@ class Column(object):
 
     """docstring for Column"""
 
-    def __init__(self, row):
+    def __init__(self, row, index):
         self.name = row[0]  # column_name
         self.typeName = row[1]  # column_type
         self.null = row[2] == 'YES'  # is_nullable
@@ -29,11 +29,28 @@ class Column(object):
         self.default = row[4] if row[4] else u''  # column_default
         self.max = row[5] if row[5] else None
         self.comment = row[-1]
+        self.index = index
 
     @property
     def java_type(self):
         tname = self.typeName.split('(')[0]
         return mapping.java_types.get(tname, 'String')
+    
+    @property
+    def protobuf_value(self):
+        if self.java_type == 'Date':
+            return '.getTime()'
+        return ''
+
+    @property
+    def protobuf_type(self):
+        tname = self.typeName.split('(')[0]
+        return mapping.protobuf_types.get(tname, 'string')
+    
+    @property
+    def ios_type(self):
+        tname = self.typeName.split('(')[0]
+        return mapping.ios_types.get(tname, '')
 
     @property
     def capName(self):
@@ -121,9 +138,11 @@ def get_table(module, tbl_name):
     cursor.execute(sql, [module['db'], tbl_name])
     cols = []
     pks = []
+    index = 0
     for row in cursor.fetchall():
-        c = Column(row)
+        c = Column(row, index)
         cols.append(c)
+        index += 1
         if c.key:
             pks.append(c)
     tbl.columns = cols
