@@ -4,7 +4,7 @@
 from jinja2 import Environment, FileSystemLoader
 
 loader = FileSystemLoader('java')
-env = Environment(loader=loader)
+env = Environment(loader=loader, trim_blocks=True)
 
 
 def serve_template(name, **kwargs):
