@@ -122,6 +122,13 @@ def gen_protobuf_def(module, folder, settings):
     print fname
     os.rename(fname + '.pb.h', fname + '.pb.hh')
     os.rename(fname + '.pb.cc', fname + '.pb.mm')
+    token = outname.replace('.proto', '') + '.pb.h'
+    print token
+    with open(fname + '.pb.mm', 'r') as f:
+        txt = f.read()
+        txt = txt.replace(token, token + 'h')
+        with open(fname + '.pb.mm', 'w+') as fw:
+            fw.write(txt)
     #generate ios
     for tbl in _tbis:
         kwargs['_tbi'] = tbl
