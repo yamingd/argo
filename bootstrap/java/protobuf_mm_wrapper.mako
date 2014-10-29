@@ -29,17 +29,24 @@
         {{_module_}}::P{{_tbi.entityName}}* pitem = [self deserialize:data];
         //
         {% for col in _tbi.columns %}
-        const {{col.cpp_type}} {{col.name}} = pitem->{{col.protobuf_name}}();
+if(pitem->has_{{col.protobuf_name}}()){
+            const {{col.cpp_type}} {{col.name}} = pitem->{{col.protobuf_name}}();
+            self.{{col.name}} = [self {{col.cpp_objc}}:{{col.name}}];
+        }
         {% endfor %}
 
         // c++->objective C
         self.protocolData = data;
-        //
-        {% for col in _tbi.columns %}
-        self.{{col.name}} = [self {{col.cpp_objc}}:{{col.name}}];
-        {% endfor %}
     }
     return self;
+}
+
+-(NSMutableDictionary*)asDict{
+    NSMutableDictionary* ret = [[NSMutableDictionary alloc] init];
+    {% for col in _tbi.columns %}
+[ret setObject:self.{{col.name}} forKey:@"{{col.name}}"];
+    {% endfor %}
+return ret;
 }
 
 #pragma mark private

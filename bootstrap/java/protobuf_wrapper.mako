@@ -7,10 +7,10 @@ public class P{{_tbi.entityName}}Wrapper{
 	public static P{{_tbi.entityName}} fromEntity({{_tbi.entityName}} item){
 	    P{{_tbi.entityName}}.Builder builder = P{{_tbi.entityName}}.newBuilder();
 	    {% for col in _tbi.columns %}
-	    if(item.get{{col.capName}}()!=null){
+if(item.get{{col.capName}}()!=null){
 	    	builder.set{{col.capName}}(item.get{{col.capName}}(){{col.protobuf_value}});
 	    }
     	{% endfor %}
-	    return builder.build();
+return builder.build();
 	}
 }

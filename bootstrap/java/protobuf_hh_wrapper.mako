@@ -13,4 +13,6 @@
 @property (nonatomic,strong) {{col.ios_type}}* {{col.name}};
 {% endfor %}
 
+-(NSMutableDictionary*)asDict;
+
 @end

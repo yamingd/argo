@@ -7,12 +7,12 @@ settings = {
     '_company_': 'inno',
     'company': 'inno',
     'Company': 'Inno',
-    '_output_': 'I:\\GitRepo\\argo\\gen',
+    '_output_': 'E:\\stuff\\gen',
     '_mysql_': {
         'host': '127.0.0.1',
-        'port': 3306,
-        'user': 'test',
-        'passwd': '12333'
+        'port': 33060,
+        'user': 'abc',
+        'passwd': 'abc'
     },
     '_modules_': {
         'catalog': {
@@ -28,11 +28,12 @@ settings = {
             'db': 'k12_school',
             'tables': ['class_room', 'class_member', 'class_course',
                        'course', 'course_member', 'homework', 'homework_member', 'homework_comment',
-                       'notice', 'notice_member', 'invitation', 'student', 'teacher']
+                       'notice', 'notice_member', 'invitation', 'student', 'teacher',
+                       'group', 'group_member', 'group_homework']
         },
         'message': {
             'db': 'k12_message',
-            'tables': ['chat', 'chat_member', 'chat_message']
+            'tables': ['chat', 'chat_member', 'chat_message', 'chat_ack']
         },
         'file': {
             'db': 'k12_file',
@@ -57,11 +58,12 @@ settings = {
             'tables': ['class_room', 'course',
                        'homework', 'homework_member', 'homework_comment',
                        'notice', 'notice_member',
-                       'invitation', 'student', 'teacher']
+                       'invitation', 'student', 'teacher',
+                       'group', 'group_member', 'group_homework']
         },
         'message': {
             'db': 'k12_message',
-            'tables': ['chat', 'chat_member', 'chat_message']
+            'tables': ['chat', 'chat_member', 'chat_message', 'chat_ack']
         },
         'file': {
             'db': 'k12_file',
@@ -82,8 +84,9 @@ settings = {
             'k12_school': ['class_room', 'class_member', 'class_course',
                        'course', 'course_member', 'homework',
                        'homework_member', 'homework_comment',
-                       'notice', 'notice_member', 'invitation', 'student', 'teacher'],
-            'k12_message': ['chat', 'chat_member', 'chat_message'],
+                       'notice', 'notice_member', 'invitation',
+                       'student', 'teacher', 'group', 'group_member'],
+            'k12_message': ['chat', 'chat_member', 'chat_message', 'chat_ack'],
             'k12_file': ['attachment'],
             'k12_community': ['forum', 'post', 'post_comment', 'post_content']
         }

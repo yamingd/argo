@@ -13,7 +13,7 @@ import java.util.Date;
 public class {{_tbi_.entityName}} extends BaseEntity {
     
     {% for col in _cols_ %}
-    /**
+/**
      * {{col.comment}}
      * {{col.typeName}} {{col.defaultTips}}
      */
@@ -26,7 +26,7 @@ public class {{_tbi_.entityName}} extends BaseEntity {
     }
 
     {% for col in _cols_ %}
-    /**
+/**
      * {{col.comment}}
      * {{col.defaultTips}}
      */
