@@ -4,15 +4,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TSProtocolBufferWrapper.hh"
+#import <Realm/Realm.h>
+#import "NSObject+Probobuf.hh"
 
-@interface TS{{_tbi.entityName}} : TSProtocolBufferWrapper
+@interface TS{{_tbi.entityName}} : RLMObject
 
 {% for col in _tbi.columns %}
 // {{col.comment}}
-@property (nonatomic,strong) {{col.ios_type}}* {{col.name}};
+@property {{col.ios_type}}* {{col.name}};
 {% endfor %}
 
 -(NSMutableDictionary*)asDict;
 
 @end
+
+RLM_ARRAY_TYPE(TS{{_tbi.entityName}})
