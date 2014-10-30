@@ -5,6 +5,7 @@
 
 #import "TS{{_tbi.entityName}}.hh"
 #import "{{_moduleC_}}Proto.pb.hh"
+#import "ObjCpps.hh"
 
 @interface TS{{_tbi.entityName}} ()
 
@@ -31,7 +32,7 @@
         {% for col in _tbi.columns %}
 if(pitem->has_{{col.protobuf_name}}()){
             const {{col.cpp_type}} {{col.name}} = pitem->{{col.protobuf_name}}();
-            self.{{col.name}} = [self {{col.cpp_objc}}:{{col.name}}];
+            self.{{col.name}} = [ObjCpps {{col.cpp_objc}}:{{col.name}}];
         }
         {% endfor %}
 
@@ -44,7 +45,7 @@ if(pitem->has_{{col.protobuf_name}}()){
 -(NSMutableDictionary*)asDict{
     NSMutableDictionary* ret = [[NSMutableDictionary alloc] init];
     {% for col in _tbi.columns %}
-[ret setObject:self.{{col.name}} forKey:@"{{col.name}}"];
+[ret setObject:{{col.ios_value}} forKey:@"{{col.name}}"];
     {% endfor %}
 return ret;
 }
@@ -56,7 +57,7 @@ return ret;
     // objective c->c++
     // 
     {% for col in _tbi.columns %}
-    const {{col.cpp_type}} {{col.name}} = [self {{col.objc_cpp}}:self.{{col.name}}];
+    const {{col.cpp_type}} {{col.name}} = [ObjCpps {{col.objc_cpp}}:self.{{col.name}}];
     {% endfor %}
 
     // c++->protocol buffer

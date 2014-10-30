@@ -42,15 +42,15 @@ protobuf_types = {
 }
 
 ios_types = {
-    'int': 'NSNumber',
-    'tinyint': 'NSNumber',
-    'smallint': 'NSNumber',
-    'mediumint': 'NSNumber',
-    'bigint': 'NSNumber',
+    'int': 'int',
+    'tinyint': 'int',
+    'smallint': 'int',
+    'mediumint': 'int',
+    'bigint': 'long',
 
-    'float': 'NSNumber',
-    'decimal': 'NSNumber',
-    'double': 'NSNumber',
+    'float': 'float',
+    'decimal': 'float',
+    'double': 'double',
 
     'text': 'NSString',
     'varchar': 'NSString',
@@ -102,15 +102,15 @@ cpp_types = {
 }
 
 cpp_objcs = {
-    'int': 'cppUInt32ToNSNumber',
-    'tinyint': 'cppUInt32ToNSNumber',
-    'smallint': 'cppUInt32ToNSNumber',
-    'mediumint': 'cppUInt32ToNSNumber',
-    'bigint': 'cppUInt64ToNSNumber',
+    'int': 'cppUInt32ToInt',
+    'tinyint': 'cppUInt32ToInt',
+    'smallint': 'cppUInt32ToInt',
+    'mediumint': 'cppUInt32ToInt',
+    'bigint': 'cppUInt64ToLong',
 
-    'float': 'cppFloatToNSNumber',
-    'decimal': 'cppFloatToNSNumber',
-    'double': 'cppDoubleToNSNumber',
+    'float': 'cppFloatToFloat',
+    'decimal': 'cppFloatToFloat',
+    'double': 'cppDoubleToDouble',
 
     'text': 'cppStringToObjc',
     'varchar': 'cppStringToObjc',
@@ -122,15 +122,15 @@ cpp_objcs = {
 }
 
 objc_cpps = {
-    'int': 'objcNumberToCppUInt32',
-    'tinyint': 'objcNumberToCppUInt32',
-    'smallint': 'objcNumberToCppUInt32',
-    'mediumint': 'objcNumberToCppUInt32',
-    'bigint': 'objcNumberToCppUInt64',
+    'int': 'cppUInt32ToInt',
+    'tinyint': 'cppUInt32ToInt',
+    'smallint': 'cppUInt32ToInt',
+    'mediumint': 'cppUInt32ToInt',
+    'bigint': 'cppUInt64ToLong',
 
-    'float': 'objcNumberToCppFloat',
-    'decimal': 'objcNumberToCppFloat',
-    'double': 'objcNumberToCppDouble',
+    'float': 'cppFloatToFloat',
+    'decimal': 'cppFloatToFloat',
+    'double': 'cppDoubleToDouble',
 
     'text': 'objcStringToCpp',
     'varchar': 'objcStringToCpp',

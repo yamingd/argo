@@ -65,6 +65,22 @@ class Column(object):
         return mapping.ios_types.get(tname, '')
     
     @property
+    def ios_type_ref(self):
+        tname = self.typeName.split('(')[0]
+        tname = mapping.ios_types.get(tname, '')
+        if tname.startswith('NS'):
+            return tname + '*'
+        return tname
+    
+    @property
+    def ios_value(self):
+        tname = self.typeName.split('(')[0]
+        tname = mapping.ios_types.get(tname, '')
+        if tname.startswith('NS'):
+            return 'self.%s' % self.name
+        return '@(self.%s)' % self.name
+
+    @property
     def cpp_type(self):
         tname = self.typeName.split('(')[0]
         return mapping.cpp_types.get(tname, '')
