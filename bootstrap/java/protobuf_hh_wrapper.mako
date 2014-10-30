@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Realm/Realm.h>
-#import "NSObject+Probobuf.hh"
+#import "NSObject+Protobuf.hh"
 
 @interface TS{{_tbi.entityName}} : RLMObject
 
