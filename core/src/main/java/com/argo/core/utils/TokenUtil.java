@@ -96,10 +96,10 @@ public class TokenUtil {
 	 * @param value
 	 * @return
 	 */
-	public static String createSignedValue(String name, String value){
+	public static String createSignedValue(String name, String value) throws Exception {
 		String secret = getCookieSecretSalt();
 		long timestamp = new Date().getTime();
-		value = BaseEncoding.base64Url().encode(value.getBytes());
+		value = BaseEncoding.base64Url().encode(value.getBytes("UTF-8"));
 		String signature = createSignatureValue(timestamp+"", secret, name+"|"+value);
 		return value+"|"+timestamp+"|"+signature;
 	}

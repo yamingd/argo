@@ -74,8 +74,14 @@ public class SessionCookieHolder {
 	}
     public static void setCurrentUID(HttpServletResponse response, String uid){
         String name = getAuthCookieId();
-        String value = TokenUtil.createSignedValue(name, uid);
-        setCookie(response, name, value);
+        String value = null;
+        try {
+            value = TokenUtil.createSignedValue(name, uid);
+            setCookie(response, name, value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
     public static void removeCurrentUID(HttpServletResponse response){
         String name = getAuthCookieId();

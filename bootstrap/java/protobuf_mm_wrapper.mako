@@ -60,6 +60,9 @@ return ret;
     return @"{{_tbi.pkCol.name}}";
 }
 {% endif %}
++ (NSArray*)ignoredProperties{
+    return @[@"protocolData"];
+}
 
 #pragma mark private
  

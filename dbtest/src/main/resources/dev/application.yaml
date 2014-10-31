@@ -21,7 +21,7 @@ cookie:
   sessionid : x-sess
   secure : true
   age : 30
-  secret: cookie_encrypt_secret
+  secret: 123456a
 
 #image fs
 file:
