@@ -162,6 +162,12 @@ class Table(object):
         if self.pks:
             return self.pks[0].java_type
         return ''
+    
+    @property
+    def pkCol(self):
+        if self.pks and len(self.pks) == 1:
+            return self.pks[0]
+        return None
 
 
 def get_table(module, tbl_name):

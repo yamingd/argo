@@ -5,7 +5,7 @@
 
 #import "TS{{_tbi.entityName}}.hh"
 #import "{{_moduleC_}}Proto.pb.hh"
-#import "ObjCpps.hh"
+#import "PBObjc.hh"
 
 @interface TS{{_tbi.entityName}} ()
 
@@ -18,7 +18,18 @@
 -(instancetype) initWithProtocolData:(NSData*) data {
     return [self initWithData:data];
 }
- 
+-(instancetype) initWithProtocolObj:(google::protobuf::Message*) pbmsg {
+    // c++
+    {{_module_}}::P{{_tbi.entityName}}* pbobj = ({{_module_}}::P{{_tbi.entityName}}*)pbmsg;
+    //
+    {% for col in _tbi.columns %}
+if(pbobj->has_{{col.protobuf_name}}()){
+        const {{col.cpp_type}} {{col.name}} = pbobj->{{col.protobuf_name}}();
+        self.{{col.name}} = [PBObjc {{col.cpp_objc}}:{{col.name}}];
+    }
+    {% endfor %}
+    return self;
+} 
 -(NSData*) getProtocolData {
     return self.protocolData;
 }
@@ -27,15 +38,9 @@
     
     if(self = [super init]) {
         // c++
-        {{_module_}}::P{{_tbi.entityName}}* pitem = [self deserialize:data];
+        {{_module_}}::P{{_tbi.entityName}}* pbmsg = [self deserialize:data];
         //
-        {% for col in _tbi.columns %}
-if(pitem->has_{{col.protobuf_name}}()){
-            const {{col.cpp_type}} {{col.name}} = pitem->{{col.protobuf_name}}();
-            self.{{col.name}} = [ObjCpps {{col.cpp_objc}}:{{col.name}}];
-        }
-        {% endfor %}
-
+        self = [self initWithProtocolObj:pbmsg];
         // c++->objective C
         self.protocolData = data;
     }
@@ -50,6 +55,12 @@ if(pitem->has_{{col.protobuf_name}}()){
 return ret;
 }
 
+{% if _tbi.pkCol %}
++ (NSString*)primaryKey{
+    return @"{{_tbi.pkCol.name}}";
+}
+{% endif %}
+
 #pragma mark private
  
 -(const std::string) serializedProtocolBufferAsString {
@@ -57,7 +68,7 @@ return ret;
     // objective c->c++
     // 
     {% for col in _tbi.columns %}
-    const {{col.cpp_type}} {{col.name}} = [ObjCpps {{col.objc_cpp}}:self.{{col.name}}];
+    const {{col.cpp_type}} {{col.name}} = [PBObjc {{col.objc_cpp}}:self.{{col.name}}];
     {% endfor %}
 
     // c++->protocol buffer
