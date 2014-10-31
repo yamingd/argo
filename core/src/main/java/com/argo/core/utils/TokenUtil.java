@@ -29,7 +29,7 @@ public class TokenUtil {
 
     private static Logger logger = LoggerFactory.getLogger(TokenUtil.class);
 
-	private static final String HMAC_SHA1 = "HmacSHA1";
+	private static final String HMAC_SHA1 = "HmacSHA256";
 	private static Random RAND = new Random();
 	
 	public static String generate(String data, String secret) {
