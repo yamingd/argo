@@ -3,8 +3,6 @@ package com.argo.core.web.Interceptor;
 import com.argo.core.ApplicationContextHolder;
 import com.argo.core.ContextConfig;
 import com.argo.core.base.BaseUser;
-import com.argo.core.configuration.SiteConfig;
-import com.argo.core.exception.PermissionDeniedException;
 import com.argo.core.exception.UserNotAuthorizationException;
 import com.argo.core.metric.MetricCollectorImpl;
 import com.argo.core.security.AuthorizationService;
@@ -16,7 +14,6 @@ import com.argo.core.web.WebContext;
 import com.argo.core.web.session.SessionCookieHolder;
 import com.argo.core.web.session.SessionUserHolder;
 import com.google.common.io.BaseEncoding;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +23,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,6 +32,7 @@ import java.util.Map;
  */
 public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
 
+    public static final String X_MOBILE = "X-app";
     private final String cookieId = "_after";
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -56,6 +53,8 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             //logger.debug("handler is {} ", handler.getClass());
         }
 
+        boolean isMobile = request.getHeader(X_MOBILE) != null;
+
         String url = request.getRequestURI();
         url = url.replace(request.getContextPath(), "");
         if (!url.startsWith("/assets/")){
@@ -69,10 +68,7 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         WebContext.getContext().setRootPath(request.getContextPath());
         ContextConfig.set("contextPath", request.getContextPath());
 
-        Map app = SiteConfig.instance.getApp();
-
         AuthorizationService authorizationService = null;
-        String loginUrl = ObjectUtils.toString(app.get("login"));
         String currentUid = null;
         try {
             currentUid = SessionCookieHolder.getCurrentUID(request);
@@ -99,9 +95,10 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
                         return false;
                     }
                 }catch (UserNotAuthorizationException ex){
-                    saveLastAccessUrl(request, response);
-                    response.sendRedirect(loginUrl);
-                    return false;
+                    if (!isMobile) {
+                        saveLastAccessUrl(request, response);
+                    }
+                    throw ex;
                 }
             }
         }
@@ -109,23 +106,16 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             user = new AnonymousUser();
         }
         request.setAttribute("currentUser", user);
-        if (request.getMethod().equalsIgnoreCase("GET")){
+        if (!isMobile && request.getMethod().equalsIgnoreCase("GET")){
             request.setAttribute("csrf", new CSRFToken(request, response, user));
         }
         if (logger.isDebugEnabled()){
             logger.debug("preHandle currentUid="+currentUid);
         }
         if (authorizationService != null){
-            try {
-                authorizationService.verifyAccess(request.getRequestURI());
-                if (logger.isDebugEnabled()){
-                    logger.debug("preHandle verifyAccess is OK.");
-                }
-            } catch (PermissionDeniedException e) {
-                logger.warn("You do not have permission to access. " + request.getRequestURI());
-                String deniedUrl = (String)app.get("denied");
-                response.sendRedirect(deniedUrl);
-                return false;
+            authorizationService.verifyAccess(request.getRequestURI());
+            if (logger.isDebugEnabled()){
+                logger.debug("preHandle verifyAccess is OK.");
             }
         }
 
@@ -137,11 +127,22 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         return true;
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     */
     private void saveLastAccessUrl(HttpServletRequest request, HttpServletResponse response){
         String lastAccessUrl = request.getRequestURL() + "?" + request.getQueryString();
         lastAccessUrl = BaseEncoding.base64Url().encode(lastAccessUrl.getBytes());
         SessionCookieHolder.setCookie(response, cookieId, lastAccessUrl, 3600*8);
     }
+
+    /**
+     *
+     * @param request
+     * @return
+     */
     private String getLastAccessUrl(HttpServletRequest request){
         Cookie cookie = SessionCookieHolder.getCookie(request, cookieId);
         if (cookie == null){
@@ -151,6 +152,11 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         return new String(lastAccessUrl);
     }
 
+    /**
+     *
+     * @param handler
+     * @return
+     */
     private MvcController getController(Object handler){
         if(handler instanceof MvcController){
             return (MvcController)handler;

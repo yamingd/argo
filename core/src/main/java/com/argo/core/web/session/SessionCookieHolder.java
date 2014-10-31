@@ -25,11 +25,11 @@ public class SessionCookieHolder {
 	/**
 	 * SESSION-ID
 	 */
-	public static final String KSESS = "_sess";
+	public static final String KSESS = "x-sess";
 	/**
 	 * 验证COOKIE-ID
 	 */
-	public static final String KAUTH = "_auth";
+	public static final String KAUTH = "x-auth";
 	
 	public static String getAuthCookieId(){
 		String temp = ObjectUtils.toString(getConfig().get("name"));
@@ -59,13 +59,16 @@ public class SessionCookieHolder {
 	 */
 	public static String getCurrentUID(HttpServletRequest request) throws UserNotAuthorizationException {
 		Cookie cookie = WebUtils.getCookie(request, getAuthCookieId());
+        String value = cookie.getValue();
 		if(cookie==null){
-			throw new UserNotAuthorizationException("_auth is NULL.");
+            value = request.getHeader(StringUtils.capitalize(getAuthCookieId()));
+            if (StringUtils.isBlank(value)) {
+                throw new UserNotAuthorizationException("x-auth is NULL.");
+            }
 		}
-		String value = cookie.getValue();
 		String uid = TokenUtil.decodeSignedValue(getAuthCookieId(), value);
 		if(uid==null){
-			throw new UserNotAuthorizationException("_auth is invalid");
+			throw new UserNotAuthorizationException("x-auth is invalid");
 		}
 		return uid;
 	}
