@@ -12,7 +12,8 @@ from datetime import datetime
 
 def format_line(line, settings):
     for key in settings:
-        if key not in ['_modules_', '_mysql_', '_mobile_', '_pc_', '_sqlite3_']:
+        v = settings[key]
+        if isinstance(v, str) or isinstance(v, unicode):
             line = line.replace(key, settings[key])
     return line
 
@@ -81,12 +82,39 @@ def gen_service_def(module, folder, test_folder, settings):
 
 
 def gen_protobuf_def(module, folder, settings):
+    base_folder = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/')
+    base_folder = format_line(base_folder, settings)
+    if not os.path.exists(base_folder):
+        os.makedirs(base_folder)
+    #mapper
+    outname = string.capitalize(module['name']) + 'Proto.proto'
+    proto_file = os.path.join(base_folder, outname)
+    kwargs = {}
+    kwargs.update(settings)
+    kwargs['now'] = datetime.now()
+    kwargs['_module_'] = module['name']
+    kwargs['_moduleC_'] = string.capitalize(module['name'])
+    kwargs['_ms_'] = module['ref']
+    print module['name'], kwargs['_ms_']
+    #entity and service
+    _tbis = []
+    for tbl in module['tables']:
+        tbi = dbm.get_table(module, tbl)
+        _tbis.append(tbi)
+    kwargs['_tbis'] = _tbis
+    javagen.render_protobuf(proto_file, **kwargs)
+
+
+def gen_protobuf_impl(module, folder, settings):
+    base_folder = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/')
+    base_folder = format_line(base_folder, settings)
+    base_folder = base_folder.replace('\\', '/')
     #mapper
     folder0 = os.path.join(folder, 'protobuf', module['name'])
     print folder0
     os.makedirs(folder0)
     outname = string.capitalize(module['name']) + 'Proto.proto'
-    fname = os.path.join(folder0, outname)
+    proto_file = os.path.join(base_folder, outname)
     kwargs = {}
     kwargs.update(settings)
     kwargs['now'] = datetime.now()
@@ -98,11 +126,10 @@ def gen_protobuf_def(module, folder, settings):
         tbi = dbm.get_table(module, tbl)
         _tbis.append(tbi)
     kwargs['_tbis'] = _tbis
-    javagen.render_protobuf(fname, **kwargs)
     #java out
     java_out = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/java')
     java_out = format_line(java_out, settings)
-    cmd = '%s/../protobuf/protoc.exe -I=%s --java_out=%s %s' % (os.getcwd(), folder0, java_out, fname)
+    cmd = '%s/../protobuf/protoc.exe --proto_path=%s --java_out=%s %s' % (os.getcwd(), base_folder, java_out, proto_file)
     print cmd
     os.system(cmd)
     #render java wrapper
@@ -114,7 +141,7 @@ def gen_protobuf_def(module, folder, settings):
     cpp_out = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/ios', module['name'])
     cpp_out = format_line(cpp_out, settings)
     os.makedirs(cpp_out)
-    cmd = '%s/../protobuf/protoc.exe -I=%s --cpp_out=%s %s' % (os.getcwd(), folder0, cpp_out, fname)
+    cmd = '%s/../protobuf/protoc.exe --proto_path=%s --cpp_out=%s %s' % (os.getcwd(), base_folder, cpp_out, proto_file)
     print cmd
     os.system(cmd)
     #rename cpp to .hh and .mm for iOS
@@ -122,12 +149,15 @@ def gen_protobuf_def(module, folder, settings):
     print fname
     os.rename(fname + '.pb.h', fname + '.pb.hh')
     os.rename(fname + '.pb.cc', fname + '.pb.mm')
-    token = outname.replace('.proto', '') + '.pb.h'
-    print token
     with open(fname + '.pb.mm', 'r') as f:
         txt = f.read()
-        txt = txt.replace(token, token + 'h')
+        txt = txt.replace('Proto.pb.h', 'Proto.pb.hh')
         with open(fname + '.pb.mm', 'w+') as fw:
+            fw.write(txt)
+    with open(fname + '.pb.hh', 'r') as f:
+        txt = f.read()
+        txt = txt.replace('Proto.pb.h', 'Proto.pb.hh')
+        with open(fname + '.pb.hh', 'w+') as fw:
             fw.write(txt)
     #generate ios
     for tbl in _tbis:
@@ -254,7 +284,15 @@ def gen_modules(settings):
 
     service_test_folder = os.path.join(settings['_root_'], '_Project_-TestCase/src/main/java/com/company/_project_/testcases/service')
     service_test_folder = format_line(service_test_folder, settings)
-
+    
+    tbm = {}
+    for m in ms:
+        mf = ms[m]
+        mf['name'] = m
+        for tbl in mf['tables']:
+            tbm[tbl] = m
+    #print tbm
+    settings['_tbm_'] = tbm
     for m in ms:
         mf = ms[m]
         mf['name'] = m
@@ -280,6 +318,12 @@ def gen_modules(settings):
         folder2 = os.path.join(controller_test_admin_folder, m)
         os.makedirs(folder2)
         gen_controller_impl(mf, folder, folder2, True, 'admin', settings)
+    
+    for m in settings['_order_']:
+        mf = ms[m]
+        mf['name'] = m
+        dbm.open(mf, settings)
+        gen_protobuf_impl(mf, protobuf_folder, settings)
 
     ms = settings['_pc_']
     for m in ms:

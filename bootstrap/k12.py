@@ -10,38 +10,45 @@ settings = {
     '_output_': 'E:\\stuff\\gen',
     '_mysql_': {
         'host': '127.0.0.1',
-        'port': 33060,
-        'user': 'abc',
-        'passwd': 'abc'
+        'port': 3306,
+        'user': 'root',
+        'passwd': '123456'
     },
+    '_order_': ['catalog', 'file', 'society', 'message', 'school', 'community'],
     '_modules_': {
         'catalog': {
             'db': 'k12_society',
-            'tables': ['country', 'province', 'city', 'catalog']
+            'tables': ['country', 'province', 'city', 'catalog'],
+            'ref': []
         },
         'society': {
             'db': 'k12_society',
             'tables': ['family', 'person', 'device',
-                       'account', 'social', 'school']
+                       'account', 'social', 'school'],
+            'ref': []
         },
         'school': {
             'db': 'k12_school',
             'tables': ['class_room', 'class_member', 'class_course',
                        'course', 'course_member', 'homework', 'homework_member', 'homework_comment',
                        'notice', 'notice_member', 'invitation', 'student', 'teacher',
-                       'group', 'group_member', 'group_homework']
+                       'group', 'group_member', 'group_homework'],
+            'ref': ['society', 'file']
         },
         'message': {
             'db': 'k12_message',
-            'tables': ['chat', 'chat_member', 'chat_message', 'chat_ack']
+            'tables': ['chat', 'chat_member', 'chat_message', 'chat_ack'],
+            'ref': ['society', 'file']
         },
         'file': {
             'db': 'k12_file',
-            'tables': ['attachment']
+            'tables': ['attachment'],
+            'ref': []
         },
         'community': {
             'db': 'k12_community',
-            'tables': ['forum', 'post', 'post_comment', 'post_content']
+            'tables': ['forum', 'post', 'post_comment', 'post_content'],
+            'ref': ['society', 'file']
         }
     },
     '_mobile_': {

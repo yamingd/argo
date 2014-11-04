@@ -11,6 +11,11 @@ if(item.get{{col.capName}}()!=null){
 	    	builder.set{{col.capName}}(item.get{{col.capName}}(){{col.protobuf_value}});
 	    }
     	{% endfor %}
+
+        {% for col in _tbi.refs %}
+        //TODO: GET {{col.ref_obj.entityName}}
+        {% endfor %}
+
 return builder.build();
 	}
 }

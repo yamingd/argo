@@ -31,6 +31,15 @@ class Column(object):
         self.comment = row[-1]
         self.index = index
         self.lname = self.name.lower()
+        if self.comment and self.comment.startswith('@'):
+            i = self.comment.index('.')
+            self.ref_obj = Table(self.comment[1:i], '')
+            self.ref_varName = self.name.replace('Id', '')
+            self.ref_type = 'optional'  # single
+            if self.name.endswith('s'):
+                self.ref_type = 'repeated'  # many
+        else:
+            self.ref_obj = None
 
     @property
     def java_type(self):
@@ -142,6 +151,10 @@ class Table(object):
         return java_name(self.name)
     
     @property
+    def varName(self):
+        return java_name(self.name, upperFirst=False)
+
+    @property
     def entityName(self):
         return java_name(self.name)
 
@@ -168,6 +181,19 @@ class Table(object):
         if self.pks and len(self.pks) == 1:
             return self.pks[0]
         return None
+    
+    def protobufRefAs(self, kind):
+        if kind == 'repeated':
+            return 'NSArray*'
+        else:
+            return 'TS%s*' % self.entityName
+    
+    def refImport(self):
+        cs = []
+        for c in self.refs:
+            cs.append(c.ref_obj.entityName)
+        cs = list(set(cs))
+        return cs
 
 
 def get_table(module, tbl_name):
@@ -187,6 +213,7 @@ def get_table(module, tbl_name):
     cursor.execute(sql, [module['db'], tbl_name])
     cols = []
     pks = []
+    refs = []
     index = 0
     for row in cursor.fetchall():
         c = Column(row, index)
@@ -194,8 +221,12 @@ def get_table(module, tbl_name):
         index += 1
         if c.key:
             pks.append(c)
+        if c.ref_obj:
+            refs.append(c)
     tbl.columns = cols
     tbl.pks = pks
+    tbl.refs = refs
+    tbl.mname = module['name']
     return tbl
 
 
