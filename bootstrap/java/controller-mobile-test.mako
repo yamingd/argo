@@ -3,6 +3,7 @@ package com.{{_company_}}.{{_project_}}.testcases.controller.mobile.{{_module_}}
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_tbi_.entityName}};
 import com.argo.core.web.BsonResponse;
 import com.argo.core.web.JsonResponse;
+import com.argo.core.protobuf.ProtobufMessage;
 import com.{{_company_}}.{{_project_}}.testcases.BaseTestCase;
 import com.google.common.collect.Maps;
 import org.junit.Assert;
@@ -18,7 +19,7 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
     @Test
     public void testAll() throws Exception {
         String url = "/m/{{_mvcurl_}}/list";
-        String html = super.getUrlView(url, null);
+        ProtobufMessage html = super.getProtobuf(url, null);
         Assert.assertNotNull(html);
     }
 
@@ -31,7 +32,7 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
         url = "/m/{{_mvcurl_}}/create";
         Map<String, Object> map = Maps.newHashMap();
         //TODO:设置map属性
-        JsonResponse jsonResponse = super.postForm(url, map);
+        ProtobufMessage jsonResponse = super.postFormProtobuf(url, map);
         Assert.assertEquals(200L, jsonResponse.getCode() * 1L);
         System.out.println(jsonResponse);
     }
@@ -45,7 +46,7 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
         url = "/m/{{_mvcurl_}}/create";
         Map<String, Object> map = Maps.newHashMap();
         //TODO:设置map属性
-        JsonResponse jsonResponse = super.postForm(url, map);
+        ProtobufMessage jsonResponse = super.postFormProtobuf(url, map);
         Assert.assertEquals(200L, jsonResponse.getCode() * 1L);
         System.out.println(jsonResponse);
     }
@@ -59,7 +60,7 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
         url = "/m/{{_mvcurl_}}/create";
         Map<String, Object> map = Maps.newHashMap();
         //TODO: 设置map属性
-        JsonResponse jsonResponse = super.postForm(url, map);
+        ProtobufMessage jsonResponse = super.postFormProtobuf(url, map);
         Assert.assertEquals(200L, jsonResponse.getCode() * 1L);
         System.out.println(jsonResponse);
     }
@@ -73,7 +74,7 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
         url = "/m/{{_mvcurl_}}/save/3";
         Map<String, Object> map = Maps.newHashMap();
         //TODO:设置map属性
-        JsonResponse jsonResponse = super.postForm(url, map);
+        ProtobufMessage jsonResponse = super.postFormProtobuf(url, map);
         System.out.println(jsonResponse);
 
         url = "/m/{{_mvcurl_}}/remove/3";

@@ -8,6 +8,7 @@ import com.argo.core.annotation.Model;
 import com.{{_company_}}.{{_project_}}.service.BaseServiceImpl;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_entity_}}Service;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
+import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_entity_}}Tx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -34,16 +35,19 @@ public class {{_entity_}}ServiceImpl extends BaseServiceImpl implements {{_entit
     public {{_entity_}} findById(Long oid) throws EntityNotFoundException {
         return super.findById(oid);
     }
-
+    
+    @{{_entity_}}Tx
     public Long add({{_entity_}} entity) throws ServiceException {
         return super.add(entity);
     }
-
+    
+    @{{_entity_}}Tx
     public boolean update({{_entity_}} entity) throws ServiceException {
         return false;
     }
 
     @Override
+    @{{_entity_}}Tx
     public boolean remove(Long oid) throws ServiceException {
         return super.remove(oid);
     }

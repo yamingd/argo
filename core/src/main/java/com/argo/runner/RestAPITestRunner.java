@@ -312,7 +312,7 @@ public class RestAPITestRunner {
      * @param args
      * @return
      */
-    protected BsonResponse postForm2(String url, Map<String, Object> args) throws Exception {
+    protected ProtobufMessage postFormProtobuf(String url, Map<String, Object> args) throws Exception {
         Map<String, File> files = new HashMap<String, File>();
         Map<String, String> params = new HashMap<String, String>();
         for (String name : args.keySet()){
@@ -332,7 +332,7 @@ public class RestAPITestRunner {
 
             byte[] body = consumeAsBytes(httpResponse);
             logger.info("body length: " + body.length);
-            return JsonUtil.asT(BsonResponse.class, body);
+            return ProtobufMessage.parseFrom(body);
 
         }else{
 
@@ -344,7 +344,7 @@ public class RestAPITestRunner {
 
             byte[] body = consumeAsBytes(httpResponse);
             logger.info("body length: " + body.length);
-            return JsonUtil.asT(BsonResponse.class, body);
+            return ProtobufMessage.parseFrom(body);
         }
     }
 
