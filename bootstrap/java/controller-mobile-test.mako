@@ -78,7 +78,7 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
         System.out.println(jsonResponse);
 
         url = "/m/{{_mvcurl_}}/remove/3";
-        jsonResponse = super.postForm(url, map);
+        jsonResponse = super.postFormProtobuf(url, map);
         System.out.println(jsonResponse);
     }
 }
