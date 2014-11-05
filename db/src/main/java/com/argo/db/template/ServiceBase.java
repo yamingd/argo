@@ -3,6 +3,8 @@ package com.argo.db.template;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 
+import java.util.List;
+
 /**
  * Created by yaming_deng on 14-8-28.
  */
@@ -15,6 +17,13 @@ public interface ServiceBase {
      */
     <T> T findById(Long oid)throws EntityNotFoundException;
 
+    /**
+     * 读取一系列id的值
+     * @param oids
+     * @param <T>
+     * @return
+     */
+    <T> List<T> findByIds(List<Long> oids);
     /**
      * 添加记录
      * @param entity
@@ -38,4 +47,11 @@ public interface ServiceBase {
      * @throws ServiceException
      */
     boolean remove(Long oid) throws ServiceException;
+
+    /**
+     * 删除缓存
+     * @param oid
+     * @return
+     */
+    void expire(Long oid);
 }

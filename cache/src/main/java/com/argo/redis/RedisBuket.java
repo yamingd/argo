@@ -1,10 +1,14 @@
 package com.argo.redis;
 
+import com.argo.core.base.CacheBucket;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.*;
+import redis.clients.jedis.BinaryJedis;
+import redis.clients.jedis.Pipeline;
+import redis.clients.jedis.Protocol;
+import redis.clients.jedis.Tuple;
 import redis.clients.util.SafeEncoder;
 
 import java.io.UnsupportedEncodingException;
@@ -14,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Component("redisBuket")
-public class RedisBuket extends RedisTemplate {
+public class RedisBuket extends RedisTemplate implements CacheBucket {
 
     public List<String> fromBytes(List<byte[]> lbs) throws UnsupportedEncodingException {
         List<String> ret = Lists.newArrayList();
@@ -107,6 +111,15 @@ public class RedisBuket extends RedisTemplate {
         });
     }
 
+    public <T> String set(final String key, final T value){
+        return this.execute(new RedisCommand<String>(){
+            public String execute(final BinaryJedis conn) throws Exception {
+                byte[] ds = messagePack.write(value);
+                return conn.set(SafeEncoder.encode(key), ds);
+            }
+        });
+    }
+
     /**
      * GETSET
      * @param key
@@ -146,7 +159,7 @@ public class RedisBuket extends RedisTemplate {
 		});
     }
 
-    public <T> Long setnx(final Class<T> clazz, final String key, final T value){
+    public <T> Long setnx(final String key, final T value){
         return this.execute(new RedisCommand<Long>(){
             public Long execute(final BinaryJedis conn) throws Exception {
                 byte[] ds = messagePack.write(value);
@@ -170,7 +183,7 @@ public class RedisBuket extends RedisTemplate {
 		});
     }
 
-    public <T> String setex(final Class<T> clazz, final String key, final int seconds, final T value){
+    public <T> String setex(final String key, final int seconds, final T value){
         return this.execute(new RedisCommand<String>(){
             public String execute(final BinaryJedis conn) throws Exception {
                 byte[] ds = messagePack.write(value);
@@ -1265,5 +1278,42 @@ public class RedisBuket extends RedisTemplate {
 				return conn.zremrangeByScore(SafeEncoder.encode(key), SafeEncoder.encode(start), SafeEncoder.encode(end));
 			}
 		});
+    }
+
+    @Override
+    public <T> boolean put(String key, T value) {
+        String ok = this.set(key, value);
+        return ok.equalsIgnoreCase("ok");
+    }
+
+    @Override
+    public <T> boolean put(String key, T value, int expireSeconds) {
+        String ok = this.setex(key, expireSeconds, value);
+        return ok.equalsIgnoreCase("ok");
+    }
+
+    @Override
+    public boolean remove(String key) {
+        return this.remove(key);
+    }
+
+    @Override
+    public String gets(String key) {
+        return this.get(key);
+    }
+
+    @Override
+    public List<String> gets(String[] key) {
+        return this.mget(key);
+    }
+
+    @Override
+    public <T> T geto(final Class<T> clazz, String key) {
+        return this.get(clazz, key);
+    }
+
+    @Override
+    public <T> List<T> geto(final Class<T> clazz, String[] key) {
+        return this.mget(clazz, key);
     }
 }

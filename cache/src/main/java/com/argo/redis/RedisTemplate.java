@@ -1,5 +1,6 @@
 package com.argo.redis;
 
+import com.argo.core.utils.IpUtil;
 import org.msgpack.MessagePack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 	private String beanName = "";
 	protected Logger logger = null;
 
-	private String serverName;
+	private String serverName = null;
 	private boolean ALIVE = true;
 	private boolean serverDown = false;
 	private RedisConfig redisConfig = null;
@@ -25,6 +26,9 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean {
 
 	public void afterPropertiesSet() throws Exception {
 		logger = LoggerFactory.getLogger(this.getClass() + "." + beanName);
+        if (serverName == null) {
+            serverName = IpUtil.getHostServerIp()[0];
+        }
 		redisConfig = new RedisConfig();
         redisConfig.afterPropertiesSet();
 

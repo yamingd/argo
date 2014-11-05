@@ -1,6 +1,8 @@
 package com.argo.db.template;
 
 import com.argo.core.annotation.Model;
+import com.argo.core.base.BaseBean;
+import com.argo.core.base.CacheBucket;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 import com.argo.db.JdbcConfig;
@@ -9,7 +11,6 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,11 +30,13 @@ import java.util.*;
 /**
  * Created by yaming_deng on 14-8-28.
  */
-public abstract class ServiceMSTemplate implements InitializingBean, ServiceBase {
+public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public static final String SQL_FIND_BYID = "select * from %s where %s = ?";
+    public static final String SQL_FIND_BYIDS = "select * from %s where %s";
+
     protected JdbcTemplate jdbcTemplateM;
     protected JdbcTemplate jdbcTemplateS;
 
@@ -44,6 +47,10 @@ public abstract class ServiceMSTemplate implements InitializingBean, ServiceBase
 
     protected RowMapper<?> entityMapper;
     protected EntityTemplate entityTemplate;
+    protected Class<?> entityClass;
+
+    @Autowired(required=false)
+    protected CacheBucket cacheBucket;
 
     public ServiceMSTemplate() {
         Model annotation = this.getClass().getAnnotation(Model.class);
@@ -51,7 +58,7 @@ public abstract class ServiceMSTemplate implements InitializingBean, ServiceBase
             return;
         }
 
-        Class<?> entityClass = annotation == null ? null : annotation.value();
+        this.entityClass = annotation == null ? null : annotation.value();
         this.entityTemplate = new EntityTemplate(entityClass);
         this.entityMapper = new BeanPropertyRowMapper(entityClass);
     }
@@ -70,21 +77,38 @@ public abstract class ServiceMSTemplate implements InitializingBean, ServiceBase
 
         Assert.notNull(jdbcTemplateM, "jdbcTemplateM is NULL.");
         Assert.notNull(jdbcTemplateS, "jdbcTemplateS is NULl");
+
+        if (this.cacheBucket == null){
+            logger.warn("CacheBucket Not Found. Cache is disabled.");
+        }else{
+            logger.info("CacheBucket Found. Cache is enabled.");
+        }
     }
 
-    protected int update(String tableName, Map<String, Object> args, String pk, Object pkvalue){
+    protected void disableCache(){
+        this.cacheBucket = null;
+    }
+
+    protected int update(Object pkvalue, Map<String, Object> args){
         List<Object> params = Lists.newArrayList();
         StringBuilder sb = new StringBuilder();
-        sb.append("update ").append(tableName).append(" set ");
+        sb.append("update ").append(this.entityTemplate.getTable()).append(" set ");
         for (String s : args.keySet()) {
             sb.append(s).append("= ? ,");
             params.add(args.get(s));
         }
         sb.delete(sb.length() - 1, sb.length());
-        sb.append("  where ").append(pk).append(" = ? ");
+        sb.append("  where ").append(this.entityTemplate.getPk()).append(" = ? ");
         params.add(pkvalue);
 
-        return this.jdbcTemplateM.update(sb.toString().intern(), params.toArray());
+        int count = this.jdbcTemplateM.update(sb.toString().intern(), params.toArray());
+
+        if (this.cacheBucket != null){
+            String key = String.format("%s:%s", this.entityTemplate.getTable(), pkvalue);
+            this.cacheBucket.remove(key);
+        }
+
+        return count;
     }
 
     protected String getServerName(){
@@ -99,12 +123,56 @@ public abstract class ServiceMSTemplate implements InitializingBean, ServiceBase
      */
     @Override
     public <T> T findById(Long oid)throws EntityNotFoundException {
+        if (oid == null){
+            return null;
+        }
+        String key = String.format("%s:%s", this.entityTemplate.getTable(), oid);
+        if (this.cacheBucket != null && this.entityClass != null){
+            Object o = this.cacheBucket.geto(this.entityClass, key);
+            if (o != null){
+                return (T)o;
+            }
+        }
         final String sql = String.format(SQL_FIND_BYID, this.entityTemplate.getTable(), this.entityTemplate.getPk());
         List<T> list = (List<T>) this.jdbcTemplateS.query(sql, this.entityMapper, oid);
         if (list.size() == 0){
             throw new EntityNotFoundException(this.entityTemplate.getTable(), "findById", "id not found", oid);
         }
-        return list.get(0);
+        T o = list.get(0);
+        if (this.cacheBucket != null && this.entityClass != null){
+            this.cacheBucket.put(key, o);
+        }
+        return o;
+    }
+
+    @Override
+    public <T> List<T> findByIds(List<Long> oids){
+        if (oids == null || oids.size() == 0){
+            return Collections.EMPTY_LIST;
+        }
+
+        if (this.cacheBucket != null && this.entityClass != null){
+            List<String> keys = Lists.newArrayList();
+            for (Long oid : oids){
+                keys.add(String.format("%s:%s", this.entityTemplate.getTable(), oid));
+            }
+            List items = this.cacheBucket.geto(this.entityClass, keys.toArray(new String[0]));
+            for (int i = 0; i < items.size(); i++) {
+                Object o = items.get(i);
+                items.set(i, (T)o);
+            }
+            return items;
+        }
+
+        StringBuffer s = new StringBuffer();
+        for (int i = 0; i < oids.size(); i++) {
+            s.append(String.format(" %s = ? ", this.entityTemplate.getPk()));
+            s.append(" OR ");
+        }
+        s.setLength(s.length() - 4);
+        final String sql = String.format(SQL_FIND_BYIDS, this.entityTemplate.getTable(), s.toString());
+        List<T> list = (List<T>) this.jdbcTemplateS.query(sql, this.entityMapper, oids.toArray(new Long[0]));
+        return list;
     }
 
     /**
@@ -185,7 +253,8 @@ public abstract class ServiceMSTemplate implements InitializingBean, ServiceBase
                 }
             }, holder);
 
-            return holder.getKey().longValue();
+            Long id = holder.getKey().longValue();
+            return id;
         }
 
     }
@@ -219,6 +288,15 @@ public abstract class ServiceMSTemplate implements InitializingBean, ServiceBase
             sql = String.format("delete from %s where %s = ?", this.entityTemplate.getTable(), this.entityTemplate.getPk());
             count = this.jdbcTemplateM.update(sql, oid);
         }
+        this.expire(oid);
         return count > 0;
+    }
+
+    @Override
+    public void expire(Long oid){
+        String key = String.format("%s:%s", this.entityTemplate.getTable(), oid);
+        if (this.cacheBucket != null){
+            this.cacheBucket.remove(key);
+        }
     }
 }
