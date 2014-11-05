@@ -4,8 +4,10 @@ import com.argo.core.ContextConfig;
 import com.argo.core.configuration.SiteConfig;
 import com.argo.core.json.JsonUtil;
 import com.argo.core.protobuf.ProtobufMessage;
+import com.argo.core.utils.TokenUtil;
 import com.argo.core.web.BsonResponse;
 import com.argo.core.web.JsonResponse;
+import com.argo.core.web.session.SessionCookieHolder;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
@@ -97,6 +99,9 @@ public class RestAPITestRunner {
             }
             request = httpPost;
         }
+        if (request != null){
+            prepareSession(request);
+        }
         return request;
     }
 
@@ -133,9 +138,9 @@ public class RestAPITestRunner {
             entity = response.getEntity();
             stream = entity.getContent();
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
         if (stream == null){
@@ -146,7 +151,7 @@ public class RestAPITestRunner {
             byte[] bytes = IOUtils.toByteArray(stream);
             return bytes;
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
         return null;
@@ -164,9 +169,9 @@ public class RestAPITestRunner {
             entity = response.getEntity();
             stream = entity.getContent();
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
         if (stream == null){
@@ -182,18 +187,48 @@ public class RestAPITestRunner {
                 document.append(line);
             }
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         return document.toString();
     }
 
-    protected void prepareSession() {
-
+    protected static void prepareSession(HttpUriRequest request) {
+        String cookieId = SessionCookieHolder.getAuthCookieId();
+        String userId = getCurrentUserId();
+        try {
+            if (userId != null) {
+                String signed = TokenUtil.createSignedValue(cookieId, userId);
+                if (isMobile()) {
+                    request.setHeader(cookieId, signed);
+                } else {
+                    request.setHeader("Cookie", cookieId + "=" + signed);
+                }
+            }
+            configHttpHeader(request);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
     }
+
+    protected static void configHttpHeader(HttpUriRequest request){
+        //TODO: implement this in subclass
+    }
+
+    protected static String getCurrentUserId(){
+        //TODO: implement this in subclass
+        return null;
+    }
+
+    protected static boolean isMobile(){
+        //TODO: implement this in subclass
+        return false;
+    }
+
+
 
     /**
      *

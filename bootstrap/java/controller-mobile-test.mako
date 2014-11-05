@@ -4,7 +4,7 @@ import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_tbi_.entityName}};
 import com.argo.core.web.BsonResponse;
 import com.argo.core.web.JsonResponse;
 import com.argo.core.protobuf.ProtobufMessage;
-import com.{{_company_}}.{{_project_}}.testcases.BaseTestCase;
+import com.{{_company_}}.{{_project_}}.testcases.MobileTestCase;
 import com.google.common.collect.Maps;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,10 +14,11 @@ import java.util.Map;
 
 /**
  */
-public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
+public class {{_tbi_.entityName}}ControllerTest extends MobileTestCase {
 
     @Test
     public void testAll() throws Exception {
+        currentUserId = null; //TODO:
         String url = "/m/{{_mvcurl_}}/list";
         ProtobufMessage html = super.getProtobuf(url, null);
         Assert.assertNotNull(html);
@@ -25,6 +26,8 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
 
     @Test
     public void testAdd() throws Exception {
+        currentUserId = null; //TODO:
+
         String url = "/m/{{_mvcurl_}}/add";
         String html = super.getUrlView(url, null);
         Assert.assertNotNull(html);
@@ -39,6 +42,8 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
 
     @Test
     public void testAddWithError0() throws Exception {
+        currentUserId = null; //TODO:
+
         String url = "/m/{{_mvcurl_}}/add";
         String html = super.getUrlView(url, null);
         Assert.assertNotNull(html);
@@ -53,6 +58,8 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
 
     @Test
     public void testAddWithError1() throws Exception {
+        currentUserId = null; //TODO:
+
         String url = "/m/{{_mvcurl_}}/add";
         String html = super.getUrlView(url, null);
         Assert.assertNotNull(html);
@@ -67,6 +74,8 @@ public class {{_tbi_.entityName}}ControllerTest extends BaseTestCase {
 
     @Test
     public void testView() throws Exception {
+        currentUserId = null; //TODO:
+        
         String url = "/m/{{_mvcurl_}}/view/3";
         String html = super.getUrlView(url, null);
         Assert.assertNotNull(html);

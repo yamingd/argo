@@ -5,7 +5,7 @@ import com.argo.runner.RestAPITestRunner;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
+import org.apache.http.client.methods.HttpUriRequest;
 /**
  * Created with IntelliJ IDEA.
  * User: Yaming
@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public abstract class BaseTestCase extends RestAPITestRunner {
 
     public static ClassPathXmlApplicationContext context;
+    public static String currentUserId;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -22,4 +23,11 @@ public abstract class BaseTestCase extends RestAPITestRunner {
         context = new ClassPathXmlApplicationContext("spring/root-context.xml");
     }
 
+    protected static void configHttpHeader(HttpUriRequest request){
+        //TODO: implement this in subclass
+    }
+
+    protected static String getCurrentUserId(){
+        return currentUserId;
+    }
 }
