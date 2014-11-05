@@ -3,6 +3,8 @@ package com.argo.core.web;
 import com.argo.core.base.BaseUser;
 import com.argo.core.exception.UserNotAuthorizationException;
 import com.argo.core.protobuf.ProtobufResponse;
+import com.argo.core.utils.TokenUtil;
+import com.argo.core.web.session.SessionCookieHolder;
 import com.argo.core.web.session.SessionUserHolder;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -34,6 +37,21 @@ public abstract class MvcController {
 
     public boolean needLogin() {
         return false;
+    }
+
+    public void rememberUser(HttpServletRequest request, HttpServletResponse response, Object userId){
+        String value = String.valueOf(userId);
+        String name = SessionCookieHolder.getAuthCookieId();
+        try {
+            value = TokenUtil.createSignedValue(name, value);
+            SessionCookieHolder.setCookie(response, name, value);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    public void clearUser(HttpServletRequest request, HttpServletResponse response){
+        SessionCookieHolder.removeCurrentUID(response);
     }
 
     @ExceptionHandler(Exception.class)
