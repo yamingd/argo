@@ -36,7 +36,7 @@ public class PersonServiceImpl extends ServiceMSTemplate implements PersonServic
     public boolean update(Person person) throws ServiceException {
         Map<String, Object> args = Maps.newHashMap();
         args.put("name", person.getName());
-        int ret = this.update("person", args, "id", person.getId());
+        int ret = this.update(person.getId(), args);
         return ret > 0;
     }
 
