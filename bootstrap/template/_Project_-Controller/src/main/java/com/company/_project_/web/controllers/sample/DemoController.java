@@ -1,6 +1,5 @@
 package com.company._project_.web.controllers.sample;
 
-import com.argo.core.web.BsonResponse;
 import com.argo.core.web.Enums;
 import com.argo.core.web.JsonResponse;
 import com.company._project_.web.controllers.BaseController;
@@ -148,29 +147,6 @@ public class DemoController extends BaseController {
         item.setCreateAt(new Date());
 
         actResponse.getData().add(item);
-
-        return actResponse;
-    }
-
-    /**
-     * 读取记录信息 <br />
-     * 返回二进制JSON.
-     * 访问URL: /demo/get2/{userid}
-     * @param userId
-     * @return DemoJson
-     */
-    @RequestMapping(value="get2/{userid}", method=RequestMethod.GET, produces = Enums.APPLICATION_BJSON_VALUE)
-    @ResponseBody
-    public BsonResponse getJson2(@PathVariable String userId, BsonResponse actResponse, @PathVariable("1") Integer page) throws Exception {
-
-        DemoJson item = new DemoJson();
-        item.setId(1L);
-        item.setName("demo");
-        item.setCreateAt(new Date());
-
-        actResponse.add(item);
-        actResponse.setCode(404);
-        actResponse.setMsg("");
 
         return actResponse;
     }

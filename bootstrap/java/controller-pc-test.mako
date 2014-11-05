@@ -1,7 +1,6 @@
 package com.{{_company_}}.{{_project_}}.testcases.controller.{{_module_}};
 
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_tbi_.entityName}};
-import com.argo.core.web.BsonResponse;
 import com.argo.core.web.JsonResponse;
 import com.{{_company_}}.{{_project_}}.testcases.BaseTestCase;
 import com.google.common.collect.Maps;

@@ -18,13 +18,4 @@ public abstract class AdminBaseController extends MvcController {
         return true;
     }
 
-    protected void wrapError(BindingResult result, JsonResponse actResponse){
-        List<String> fields = Lists.newArrayList();
-        for(FieldError error : result.getFieldErrors()){
-            fields.add(error.getDefaultMessage());
-        }
-        actResponse.setCode(ErrorCodes.FORM_DATA_INVALID);
-        actResponse.getData().add(fields);
-    }
-
 }

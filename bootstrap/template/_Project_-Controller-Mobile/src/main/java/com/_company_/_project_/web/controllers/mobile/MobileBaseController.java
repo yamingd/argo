@@ -1,6 +1,5 @@
 package com._company_._project_.web.controllers.mobile;
 
-import com.argo.core.web.BsonResponse;
 import com.argo.core.web.MvcController;
 import com.company._project_.ErrorCodes;
 import com.google.common.collect.Lists;
@@ -18,12 +17,4 @@ public abstract class MobileBaseController extends MvcController {
         return true;
     }
 
-    protected void wrapError(BindingResult result, BsonResponse actResponse) throws Exception {
-        List<String> fields = Lists.newArrayList();
-        for(FieldError error : result.getFieldErrors()){
-            fields.add(error.getDefaultMessage());
-        }
-        actResponse.setCode(ErrorCodes.FORM_DATA_INVALID);
-        actResponse.add(fields);
-    }
 }
