@@ -194,6 +194,24 @@ class Table(object):
             cs.append(c.ref_obj.entityName)
         cs = list(set(cs))
         return cs
+    
+    def mvc_url(self):
+        if hasattr(self, 'url'):
+            return self.url
+        url = self.name
+        if url.startswith(self.mname):
+            url = url[len(self.mname) + 1:]
+        if url.endswith('_'):
+            url = url[0:-1]
+        url = '/'.join(url.split('_'))
+        if url.endswith('/'):
+            url = url[0:-1]
+        if len(url) > 0:
+            url = self.mname + '/' + url
+        else:
+            url = self.mname
+        self.url = url
+        return url
 
 
 def get_table(module, tbl_name):

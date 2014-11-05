@@ -138,7 +138,7 @@ def gen_protobuf_impl(module, folder, settings):
         fnamet = os.path.join(folder0, 'P%sWrapper.java' % tbl.entityName)
         javagen.render_protobuf_wrapper(fnamet, **kwargs)
     #ios out
-    cpp_out = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/ios', module['name'])
+    cpp_out = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/ios/Models', module['name'])
     cpp_out = format_line(cpp_out, settings)
     os.makedirs(cpp_out)
     cmd = '%s/../protobuf/protoc.exe --proto_path=%s --cpp_out=%s %s' % (os.getcwd(), base_folder, cpp_out, proto_file)
@@ -179,7 +179,22 @@ def gen_service_impl(module, folder, settings):
         kwargs['_tblname_'] = tbl
         fname = os.path.join(folder, name + 'ServiceImpl.java')
         javagen.render_service_impl(fname, **kwargs)
-        
+
+
+def gen_ios_service(module, folder, settings):
+    kwargs = {}
+    kwargs.update(settings)
+    kwargs['now'] = datetime.now()
+    kwargs['_module_'] = module['name']
+    kwargs['_moduleC_'] = string.capitalize(module['name'])
+    #entity and service
+    for tbl in module['tables']:
+        name = 'TS' + dbm.java_name(tbl)
+        tbi = dbm.get_table(module, tbl)
+        kwargs['_tbi'] = tbi
+        fname = os.path.join(folder, name) + 'Service'
+        javagen.render_ios_service(fname, **kwargs)
+
 
 def gen_controller_impl(module, folder, test_folder, has_view, prj, settings):
     kwargs = {}
@@ -200,21 +215,9 @@ def gen_controller_impl(module, folder, test_folder, has_view, prj, settings):
         name = dbm.java_name(tbl)
         kwargs['_entity_'] = name
         kwargs['_entityL_'] = dbm.java_name(tbl, upperFirst=False)
-        url = tbl
-        if url.startswith(module['name']):
-            url = url[len(module['name']) + 1:]
-        if url.endswith('_'):
-            url = url[0:-1]
-        url = '/'.join(url.split('_'))
-        if url.endswith('/'):
-            url = url[0:-1]
-        if len(url) > 0:
-            url = module['name'] + '/' + url
-        else:
-            url = module['name']
-        kwargs['_mvcurl_'] = url
         # table info
         tbi = dbm.get_table(module, tbl)
+        kwargs['_mvcurl_'] = tbi.mvc_url()
         cols = []
         for c in tbi.columns:
             if c.isString:
@@ -260,6 +263,9 @@ def gen_modules(settings):
     #
     protobuf_folder = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/java/com/company/_project_')
     protobuf_folder = format_line(protobuf_folder, settings)
+    #
+    ios_service_folder = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/ios/Services')
+    ios_service_folder = format_line(ios_service_folder, settings)
     #
     service_folder = os.path.join(settings['_root_'], '_Project_-Service/src/main/java/com/company/_project_')
     service_folder = format_line(service_folder, settings)
@@ -348,6 +354,10 @@ def gen_modules(settings):
         folder2 = os.path.join(controller_test_mobile_folder, m)
         os.makedirs(folder2)
         gen_controller_impl(mf, folder, folder2, False, 'mobile', settings)
+        # ios service impl
+        folder3 = os.path.join(ios_service_folder, m)
+        os.makedirs(folder3)
+        gen_ios_service(mf, folder3, settings)
 
 
 def main():

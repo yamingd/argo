@@ -61,6 +61,14 @@ def render_ios(fname, **kwargs):
         fw.write(serve_template('protobuf_mm_wrapper.mako', **kwargs))
 
 
+def render_ios_service(fname, **kwargs):
+    with open(fname + ".h", 'w+') as fw:
+        fw.write(serve_template('ios-service-h.mako', **kwargs))
+
+    with open(fname + ".m", 'w+') as fw:
+        fw.write(serve_template('ios-service-m.mako', **kwargs))
+
+
 def render_controller(fname, **kwargs):
     prj = kwargs.pop('_cprj_', 'admin')
     with open(fname, 'w+') as fw:
