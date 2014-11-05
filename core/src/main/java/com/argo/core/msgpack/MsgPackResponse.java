@@ -1,6 +1,7 @@
-package com.argo.core.web;
+package com.argo.core.msgpack;
 
 import com.argo.core.json.JsonUtil;
+import com.argo.core.web.MvcResponse;
 import com.google.common.collect.Lists;
 import org.msgpack.annotation.MessagePackMessage;
 
@@ -11,11 +12,11 @@ import java.util.List;
  * Created by yaming_deng on 14-8-20.
  */
 @MessagePackMessage
-public class BsonResponse extends MvcResponse {
+public class MsgPackResponse extends MvcResponse {
 
     protected List<byte[]> data;
 
-    public BsonResponse() {
+    public MsgPackResponse() {
         super();
         this.data = Lists.newArrayList();
     }

@@ -1,5 +1,6 @@
-package com.argo.core.web.spring;
+package com.argo.core.msgpack;
 
+import com.argo.core.web.Enums;
 import com.google.gson.JsonIOException;
 import org.msgpack.MessagePack;
 import org.slf4j.Logger;
@@ -19,11 +20,11 @@ import java.nio.charset.Charset;
 /**
  * @since 1.0
  */
-public class BSONHttpMessageConverter extends AbstractHttpMessageConverter<Object> implements InitializingBean {
+public class MsgPackHttpMessageConverter extends AbstractHttpMessageConverter<Object> implements InitializingBean {
 
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
-    protected Logger logger = LoggerFactory.getLogger(BSONHttpMessageConverter.class);
+    protected Logger logger = LoggerFactory.getLogger(MsgPackHttpMessageConverter.class);
 
     private MessagePack messagePack;
 
@@ -33,8 +34,8 @@ public class BSONHttpMessageConverter extends AbstractHttpMessageConverter<Objec
     /**
      * Construct a new {@code GsonHttpMessageConverter} with a default {@link com.google.gson.Gson#Gson() Gson}.
      */
-    public BSONHttpMessageConverter() {
-        super(new MediaType("application", "bson", DEFAULT_CHARSET));
+    public MsgPackHttpMessageConverter() {
+        super(new MediaType("application", Enums.X_MSGPACK, DEFAULT_CHARSET));
     }
 
     /**
@@ -42,8 +43,8 @@ public class BSONHttpMessageConverter extends AbstractHttpMessageConverter<Objec
      *
      * @param serializeNulls true to generate json for null values
      */
-    public BSONHttpMessageConverter(boolean serializeNulls) {
-        super(new MediaType("application", "bson", DEFAULT_CHARSET));
+    public MsgPackHttpMessageConverter(boolean serializeNulls) {
+        super(new MediaType("application", Enums.X_MSGPACK, DEFAULT_CHARSET));
         this.serializeNulls = serializeNulls;
     }
 

@@ -2,6 +2,7 @@ package com.argo.core.web;
 
 import com.argo.core.base.BaseUser;
 import com.argo.core.exception.UserNotAuthorizationException;
+import com.argo.core.msgpack.MsgPackResponse;
 import com.argo.core.protobuf.ProtobufResponse;
 import com.argo.core.utils.TokenUtil;
 import com.argo.core.web.session.SessionCookieHolder;
@@ -69,7 +70,7 @@ public abstract class MvcController {
         actResponse.getData().add(fields);
     }
 
-    protected void wrapError(BindingResult result, BsonResponse actResponse) throws Exception {
+    protected void wrapError(BindingResult result, MsgPackResponse actResponse) throws Exception {
         List<String> fields = Lists.newArrayList();
         for(FieldError error : result.getFieldErrors()){
             fields.add(error.getDefaultMessage());

@@ -3,9 +3,9 @@ package com.argo.runner;
 import com.argo.core.ContextConfig;
 import com.argo.core.configuration.SiteConfig;
 import com.argo.core.json.JsonUtil;
+import com.argo.core.msgpack.MsgPackResponse;
 import com.argo.core.protobuf.ProtobufMessage;
 import com.argo.core.utils.TokenUtil;
-import com.argo.core.web.BsonResponse;
 import com.argo.core.web.JsonResponse;
 import com.argo.core.web.session.SessionCookieHolder;
 import org.apache.commons.io.IOUtils;
@@ -273,7 +273,7 @@ public class RestAPITestRunner {
      * @param args
      * @return
      */
-    protected BsonResponse getBson(String url, Map<String, String> args) throws Exception {
+    protected MsgPackResponse getMsgPack(String url, Map<String, String> args) throws Exception {
         HttpUriRequest request = createRequest(HttpGet.METHOD_NAME, url, args);
         // When
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
@@ -282,7 +282,7 @@ public class RestAPITestRunner {
 
         byte[] body = consumeAsBytes(httpResponse);
         logger.info("body length: " + body.length);
-        return JsonUtil.asT(BsonResponse.class, body);
+        return JsonUtil.asT(MsgPackResponse.class, body);
     }
 
     protected ProtobufMessage getProtobuf(String url, Map<String, String> args) throws Exception {
@@ -383,4 +383,45 @@ public class RestAPITestRunner {
         }
     }
 
+    /**
+     *
+     * @param url
+     * @param args
+     * @return
+     */
+    protected MsgPackResponse postFormMsgPack(String url, Map<String, Object> args) throws Exception {
+        Map<String, File> files = new HashMap<String, File>();
+        Map<String, String> params = new HashMap<String, String>();
+        for (String name : args.keySet()){
+            Object v = args.get(name);
+            if (v instanceof File){
+                files.put(name, (File)v);
+            }else{
+                params.put(name, v + "");
+            }
+        }
+        if (files.size() > 0){
+            HttpUriRequest request = createFileRequest(url, params, files);
+            // When
+            HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+            assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
+
+            byte[] body = consumeAsBytes(httpResponse);
+            logger.info("body length: " + body.length);
+            return JsonUtil.asT(MsgPackResponse.class, body);
+
+        }else{
+
+            HttpUriRequest request = createRequest(HttpPost.METHOD_NAME, url, params);
+            // When
+            HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+            assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
+
+            byte[] body = consumeAsBytes(httpResponse);
+            logger.info("body length: " + body.length);
+            return JsonUtil.asT(MsgPackResponse.class, body);
+        }
+    }
 }

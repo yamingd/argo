@@ -12,9 +12,10 @@ import java.nio.charset.Charset;
  */
 public class Enums {
 
-    public final static String APPLICATION_BJSON_VALUE = "application/bson";
+    public final static String X_MSGPACK = "x-msgpack";
+    public final static String APPLICATION_MSGPACK_VALUE = "application/x-msgpack";
 
-    public final static MediaType APPLICATION_BJSON = MediaType.valueOf(APPLICATION_BJSON_VALUE);
+    public final static MediaType APPLICATION_MSGPACK = MediaType.valueOf(APPLICATION_MSGPACK_VALUE);
 
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
     public static final MediaType PROTOBUF = new MediaType("application", "x-protobuf", DEFAULT_CHARSET);
