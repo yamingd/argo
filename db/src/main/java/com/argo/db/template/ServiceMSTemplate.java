@@ -104,7 +104,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         int count = this.jdbcTemplateM.update(sb.toString().intern(), params.toArray());
 
         if (this.cacheBucket != null){
-            String key = String.format("%s:%s", this.entityTemplate.getTable(), pkvalue);
+            String key = genCacheKey(pkvalue);
             this.cacheBucket.remove(key);
         }
 
@@ -126,7 +126,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         if (oid == null){
             return null;
         }
-        String key = String.format("%s:%s", this.entityTemplate.getTable(), oid);
+        String key = genCacheKey(oid);
         if (this.cacheBucket != null && this.entityClass != null){
             Object o = this.cacheBucket.geto(this.entityClass, key);
             if (o != null){
@@ -145,6 +145,10 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         return o;
     }
 
+    protected String genCacheKey(Object oid) {
+        return String.format("%s:%s", this.entityTemplate.getTable(), oid);
+    }
+
     @Override
     public <T> List<T> findByIds(List<Long> oids){
         if (oids == null || oids.size() == 0){
@@ -154,7 +158,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         if (this.cacheBucket != null && this.entityClass != null){
             List<String> keys = Lists.newArrayList();
             for (Long oid : oids){
-                keys.add(String.format("%s:%s", this.entityTemplate.getTable(), oid));
+                keys.add(genCacheKey(oid));
             }
             List items = this.cacheBucket.geto(this.entityClass, keys.toArray(new String[0]));
             for (int i = 0; i < items.size(); i++) {
@@ -294,7 +298,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
 
     @Override
     public void expire(Long oid){
-        String key = String.format("%s:%s", this.entityTemplate.getTable(), oid);
+        String key = genCacheKey(oid);
         if (this.cacheBucket != null){
             this.cacheBucket.remove(key);
         }
