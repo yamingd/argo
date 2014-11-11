@@ -11,8 +11,8 @@ settings = {
     '_mysql_': {
         'host': '127.0.0.1',
         'port': 3306,
-        'user': 'root',
-        'passwd': '123456'
+        'user': 'abc',
+        'passwd': 'abc@2014'
     },
     '_order_': ['catalog', 'file', 'society', 'message', 'school', 'community'],
     '_modules_': {
@@ -37,7 +37,7 @@ settings = {
         },
         'message': {
             'db': 'k12_message',
-            'tables': ['chat', 'chat_member', 'chat_message', 'chat_ack'],
+            'tables': ['chat', 'chat_member', 'chat_message', 'chat_ack', 'sms_message'],
             'ref': ['society', 'file']
         },
         'file': {
