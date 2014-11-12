@@ -25,7 +25,7 @@ import java.util.Map;
  * Date: 13-11-17
  * Time: 上午10:44
  */
-public class ExceptionHandler implements HandlerExceptionResolver {
+public class ExceptionGlobalResolver implements HandlerExceptionResolver {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -46,6 +46,10 @@ public class ExceptionHandler implements HandlerExceptionResolver {
         }else{
             return handleNormalRequest(request, response, ex, app);
         }
+    }
+
+    public void resolve(HttpServletRequest request, HttpServletResponse response, Exception ex){
+        this.resolveException(request, response, null, ex);
     }
 
     private void handleMobileRequest(HttpServletRequest request, HttpServletResponse response, Exception ex, Map app){

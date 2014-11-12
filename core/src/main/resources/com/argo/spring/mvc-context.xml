@@ -34,7 +34,7 @@
         <context:include-filter type="regex" expression=".*web.*Controller"/>
     </context:component-scan>
 
-    <bean id="mvcExceptionHandler" class="com.argo.core.web.Interceptor.ExceptionHandler" />
+    <bean id="mvcExceptionHandler" class="com.argo.core.web.Interceptor.ExceptionGlobalResolver" />
 
     <bean id="contentNegotiationManager"
           class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">

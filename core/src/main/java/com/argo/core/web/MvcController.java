@@ -5,6 +5,7 @@ import com.argo.core.exception.UserNotAuthorizationException;
 import com.argo.core.msgpack.MsgPackResponse;
 import com.argo.core.protobuf.ProtobufResponse;
 import com.argo.core.utils.TokenUtil;
+import com.argo.core.web.Interceptor.ExceptionGlobalResolver;
 import com.argo.core.web.session.SessionCookieHolder;
 import com.argo.core.web.session.SessionUserHolder;
 import com.google.common.collect.Lists;
@@ -27,6 +28,7 @@ import java.util.List;
 public abstract class MvcController {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected ExceptionGlobalResolver exceptionGlobalResolver = new ExceptionGlobalResolver();
 
     public BaseUser getCurrentUser() throws UserNotAuthorizationException {
        return SessionUserHolder.get();
@@ -56,10 +58,8 @@ public abstract class MvcController {
     }
 
     @ExceptionHandler(Exception.class)
-    public String handleException(Exception ex, HttpServletRequest request) {
-        logger.error(request.getPathInfo() + "?" + request.getQueryString());
-        logger.error("@@@@Error.", ex);
-        return "500";
+    public void handleException(Exception ex, HttpServletRequest request, HttpServletResponse response) {
+        exceptionGlobalResolver.resolve(request, response, ex);
     }
 
     protected void wrapError(BindingResult result, JsonResponse actResponse){
