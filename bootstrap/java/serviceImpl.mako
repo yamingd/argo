@@ -1,5 +1,6 @@
 package com.{{_company_}}.{{_project_}}.{{_module_}}.service.impl;
 
+import com.argo.core.entity.Pagination;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 import com.argo.core.password.PasswordServiceFactory;
@@ -53,7 +54,7 @@ public class {{_entity_}}ServiceImpl extends BaseServiceImpl implements {{_entit
     }
 
     @Override
-    public List<{{_entity_}}> findAll(){
+    public Pagination<{{_entity_}}> findAll(Pagination page){
         return null;
     }
 }
