@@ -167,6 +167,7 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
                 return (MvcController)hm.getBean();
             }
         }
+        logger.error("!!!Handler is not instanceof MvcController");
         return null;
     }
 }
