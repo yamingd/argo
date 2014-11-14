@@ -59,13 +59,15 @@ public class SessionCookieHolder {
 	 */
 	public static String getCurrentUID(HttpServletRequest request) throws UserNotAuthorizationException {
 		Cookie cookie = WebUtils.getCookie(request, getAuthCookieId());
-        String value = cookie.getValue();
+        String value = null;
 		if(cookie==null){
             value = request.getHeader(StringUtils.capitalize(getAuthCookieId()));
             if (StringUtils.isBlank(value)) {
                 throw new UserNotAuthorizationException("x-auth is NULL.");
             }
-		}
+		}else{
+            value = cookie.getValue();
+        }
 		String uid = TokenUtil.decodeSignedValue(getAuthCookieId(), value);
 		if(uid==null){
 			throw new UserNotAuthorizationException("x-auth is invalid");
