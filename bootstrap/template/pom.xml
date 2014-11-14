@@ -274,6 +274,7 @@
                     </httpConnector>
                     <webApp>
                         <contextPath>/</contextPath>
+                        <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
                         <descriptor>${basedir}/target/webapp-tmp/WEB-INF/web.xml</descriptor>
                     </webApp>
                     <webAppSourceDirectory>${basedir}/target/webapp-tmp</webAppSourceDirectory>
