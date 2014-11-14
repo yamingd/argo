@@ -68,7 +68,6 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         WebContext.getContext().setRootPath(request.getContextPath());
         ContextConfig.set("contextPath", request.getContextPath());
 
-        AuthorizationService authorizationService = null;
         String currentUid = null;
         try {
             currentUid = SessionCookieHolder.getCurrentUID(request);
@@ -76,6 +75,7 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             logger.debug("UserNotAuthorizationException currentUid="+currentUid);
         }
         BaseUser user = null;
+        MvcController c = this.getController(handler);
         if (StringUtils.isNotBlank(currentUid)){
             // 若是远程服务，则需要配置bean.authorizationService的实现
             // 若是本地服务，不需要配置
@@ -90,15 +90,17 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
                         logger.debug("preHandle verifyCookie is OK. BaseUser=" + user.getLoginId());
                     }
                     String lastAccessUrl = this.getLastAccessUrl(request);
-                    if (lastAccessUrl != null){
+                    if (lastAccessUrl != null && !isMobile){
                         response.sendRedirect(lastAccessUrl);
                         return false;
                     }
                 }catch (UserNotAuthorizationException ex){
-                    if (!isMobile) {
-                        saveLastAccessUrl(request, response);
+                    if (c.needLogin()) {
+                        if (!isMobile) {
+                            saveLastAccessUrl(request, response);
+                        }
+                        throw ex;
                     }
-                    throw ex;
                 }
             }
         }
@@ -112,14 +114,13 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         if (logger.isDebugEnabled()){
             logger.debug("preHandle currentUid="+currentUid);
         }
-        if (authorizationService != null){
+        if (authorizationService != null && c.needLogin()){
             authorizationService.verifyAccess(request.getRequestURI());
             if (logger.isDebugEnabled()){
                 logger.debug("preHandle verifyAccess is OK.");
             }
         }
 
-        MvcController c = this.getController(handler);
         if (c != null){
             c.init();
         }
