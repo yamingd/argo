@@ -1,5 +1,6 @@
 package com.{{_company_}}.{{_project_}}.testcases.service.{{_module_}};
 
+import com.argo.core.entity.Pagination;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_tbi_.entityName}};
 import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_tbi_.entityName}}Service;
 import com.{{_company_}}.{{_project_}}.testcases.BaseTestCase;
@@ -43,8 +44,10 @@ public class {{_tbi_.entityName}}ServiceTest extends BaseTestCase {
 
     @Test
     public void testFindAll() throws Exception {
+        Pagination<{{_tbi_.entityName}}> page = new Pagination<{{_tbi_.entityName}}>();
+        page.setIndex(1);
         {{_tbi_.entityName}}Service service = context.getBean({{_tbi_.entityName}}Service.class);
-        List<{{_tbi_.entityName}}> list = service.findAll();
-        Assert.assertEquals(1L, list.size());
+        Pagination<{{_tbi_.entityName}}> list = service.findAll(page);
+        
     }
 }
