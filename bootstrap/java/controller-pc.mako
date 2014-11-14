@@ -3,6 +3,7 @@ package com.{{_company_}}.{{_project_}}.web.controllers.{{_module_}};
 import com.{{_company_}}.{{_project_}}.web.controllers.BaseController;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.web.JsonResponse;
+import com.argo.core.entity.Pagination;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
 import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_entity_}}Service;
 import com.{{_company_}}.{{_project_}}.ErrorCodes;
@@ -36,8 +37,8 @@ public class {{_entity_}}Controller extends BaseController {
     
     @RequestMapping(value="list", method = RequestMethod.GET)
     public ModelAndView all(ModelAndView model, HttpServletRequest request, HttpServletResponse response){
-
-        List<{{_entity_}}> list = {{_entityL_}}Service.findAll();
+        Pagination<{{_entity_}}> page = new Pagination<{{_entity_}}>();
+        Pagination<{{_entity_}}> list = {{_entityL_}}Service.findAll(page);
         model.setViewName("/{{_mvcurl_}}/list");
         model.addObject("items", list);
 

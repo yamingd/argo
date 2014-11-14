@@ -2,6 +2,7 @@ package com.{{_company_}}.{{_project_}}.web.controllers.mobile.{{_module_}};
 
 import com.{{_company_}}.{{_project_}}.web.controllers.mobile.MobileBaseController;
 import com.argo.core.base.BaseException;
+import com.argo.core.entity.Pagination;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.protobuf.ProtobufMessage;
 import com.argo.core.protobuf.ProtobufResponse;
@@ -39,15 +40,18 @@ public class Mobile{{_entity_}}Controller extends MobileBaseController {
     @Autowired
     private {{_entity_}}Service {{_entityL_}}Service;
     
-    @RequestMapping(value="all/{page}", method=RequestMethod.GET, produces = Enums.PROTOBUF_VALUE)
+    @RequestMapping(value="all/{index}", method=RequestMethod.GET, produces = Enums.PROTOBUF_VALUE)
     @ResponseBody
-    public ProtobufMessage all(ProtobufResponse actResponse, @PathVariable Integer page) throws Exception {
-        List<{{_entity_}}> list = {{_entityL_}}Service.findAll();
-        for({{_entity_}} item : list) {
+    public ProtobufMessage all(ProtobufResponse actResponse, @PathVariable Integer index) throws Exception {
+        Pagination<{{_entity_}}> page = new Pagination<{{_entity_}}>();
+        page.setIndex(index);
+        Pagination<{{_entity_}}> list = {{_entityL_}}Service.findAll(page);
+        for({{_entity_}} item : list.getItems()) {
             //convert item to P{{_entity_}}
             P{{_entity_}} msg = P{{_entity_}}Wrapper.fromEntity(item);
             actResponse.getBuilder().addData(msg.toByteString());
         }
+        actResponse.getBuilder().setTotal(list.getTotal());
         return actResponse.build();
     }
 

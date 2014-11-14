@@ -3,6 +3,7 @@ package com.{{_company_}}.{{_project_}}.web.controllers.admin.{{_module_}};
 import com.{{_company_}}.{{_project_}}.web.controllers.admin.AdminBaseController;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.web.JsonResponse;
+import com.argo.core.entity.Pagination;
 import com.{{_company_}}.{{_project_}}.{{_module_}}.{{_entity_}};
 import com.{{_company_}}.{{_project_}}.{{_module_}}.service.{{_entity_}}Service;
 import com.{{_company_}}.{{_project_}}.ErrorCodes;
@@ -36,8 +37,8 @@ public class Admin{{_entity_}}Controller extends AdminBaseController {
     
     @RequestMapping(value="list", method = RequestMethod.GET)
     public ModelAndView all(ModelAndView model, HttpServletRequest request, HttpServletResponse response){
-
-        List<{{_entity_}}> list = {{_entityL_}}Service.findAll();
+        Pagination<{{_entity_}}> page = new Pagination<{{_entity_}}>();
+        Pagination<{{_entity_}}> list = {{_entityL_}}Service.findAll(page);
         model.setViewName("/admin/{{_mvcurl_}}/list");
         model.addObject("items", list);
 
