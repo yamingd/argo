@@ -23,6 +23,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,6 +44,19 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         this.authorizationService = ApplicationContextHolder.current.ctx.getBean(AuthorizationService.class);
     }
 
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        String url = request.getRequestURI();
+        if (url.startsWith("/assets/")){
+            return;
+        }
+
+        long ts = new Date().getTime();
+        ts = ts - WebContext.getContext().getStartAt();
+        logger.info("handle {}. duration={}ms", request.getPathInfo(), ts);
+    }
+
+    @Override
     public boolean preHandle(
             HttpServletRequest request,
             HttpServletResponse response,

@@ -3,6 +3,7 @@ package com.argo.core.web;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +43,12 @@ public class WebContext implements Serializable {
     	}
     	return ctx;
     }
-    	
+
+    private long startAt = 0;
+    public WebContext(){
+        startAt = new Date().getTime();
+    }
+
 	/**
 	 * 设置环境数据(Key,Value)
 	 * @param key
@@ -90,5 +96,9 @@ public class WebContext implements Serializable {
 
     public String getContextPath(){
         return ObjectUtils.toString(this.get(CONTEXT_PATH));
+    }
+
+    public long getStartAt() {
+        return startAt;
     }
 }
