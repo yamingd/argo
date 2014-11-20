@@ -1293,8 +1293,14 @@ public class RedisBuket extends RedisTemplate implements CacheBucket {
     }
 
     @Override
-    public boolean remove(String key) {
-        return this.remove(key);
+    public boolean remove(final String key) {
+        return this.execute(new RedisCommand<Boolean>() {
+            @Override
+            public Boolean execute(BinaryJedis conn) throws Exception {
+                Long ret = conn.del(SafeEncoder.encode(key));
+                return ret > 0;
+            }
+        });
     }
 
     @Override

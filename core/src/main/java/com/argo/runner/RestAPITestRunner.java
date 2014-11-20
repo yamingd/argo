@@ -81,7 +81,7 @@ public class RestAPITestRunner {
      * @return
      * @throws Exception
      */
-    private static HttpUriRequest createRequest(String method, String url, Map<String, String> args) throws Exception {
+    private HttpUriRequest createRequest(String method, String url, Map<String, String> args) throws Exception {
         HttpUriRequest request = null;
         if (method.equals(HttpGet.METHOD_NAME)) {
             request = new HttpGet(createURI(url, args));
@@ -131,7 +131,7 @@ public class RestAPITestRunner {
         return request;
     }
 
-    private static byte[] consumeAsBytes(HttpResponse response) {
+    private byte[] consumeAsBytes(HttpResponse response) {
         HttpEntity entity = null;
         InputStream stream = null;
         try {
@@ -162,7 +162,7 @@ public class RestAPITestRunner {
      * @param response
      * @return
      */
-    private static String consumeResponse(HttpResponse response) {
+    private String consumeResponse(HttpResponse response) {
         HttpEntity entity = null;
         InputStream stream = null;
         try {
@@ -196,7 +196,7 @@ public class RestAPITestRunner {
         return document.toString();
     }
 
-    protected static void prepareSession(HttpUriRequest request) {
+    protected void prepareSession(HttpUriRequest request) {
         String cookieId = SessionCookieHolder.getAuthCookieId();
         String userId = getCurrentUserId();
         try {
@@ -214,16 +214,16 @@ public class RestAPITestRunner {
         }
     }
 
-    protected static void configHttpHeader(HttpUriRequest request){
+    protected void configHttpHeader(HttpUriRequest request){
         //TODO: implement this in subclass
     }
 
-    protected static String getCurrentUserId(){
+    protected String getCurrentUserId(){
         //TODO: implement this in subclass
         return null;
     }
 
-    protected static boolean isMobile(){
+    protected boolean isMobile(){
         //TODO: implement this in subclass
         return false;
     }
@@ -242,6 +242,7 @@ public class RestAPITestRunner {
         // When
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
+        logger.info("HttpResponse Status: {}", httpResponse.getStatusLine());
         assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
         String body = consumeResponse(httpResponse);
@@ -260,6 +261,7 @@ public class RestAPITestRunner {
         // When
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
+        logger.info("HttpResponse Status: {}", httpResponse.getStatusLine());
         assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
         String body = consumeResponse(httpResponse);
@@ -278,6 +280,7 @@ public class RestAPITestRunner {
         // When
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
+        logger.info("HttpResponse Status: {}", httpResponse.getStatusLine());
         assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
         byte[] body = consumeAsBytes(httpResponse);
@@ -291,6 +294,7 @@ public class RestAPITestRunner {
         // When
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
+        logger.info("HttpResponse Status: {}", httpResponse.getStatusLine());
         assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
         byte[] body = consumeAsBytes(httpResponse);
@@ -321,6 +325,7 @@ public class RestAPITestRunner {
             // When
             HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
+            logger.info("HttpResponse Status: {}", httpResponse.getStatusLine());
             assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
             String body = consumeResponse(httpResponse);
@@ -333,6 +338,7 @@ public class RestAPITestRunner {
             // When
             HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
+            logger.info("HttpResponse Status: {}", httpResponse.getStatusLine());
             assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
             String body = consumeResponse(httpResponse);
@@ -360,9 +366,11 @@ public class RestAPITestRunner {
         }
         if (files.size() > 0){
             HttpUriRequest request = createFileRequest(url, params, files);
+            request.setHeader("Accept", "application/x-protobuf");
             // When
             HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
+            logger.info("HttpResponse Status: {}", httpResponse.getStatusLine());
             assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
             byte[] body = consumeAsBytes(httpResponse);
@@ -372,9 +380,11 @@ public class RestAPITestRunner {
         }else{
 
             HttpUriRequest request = createRequest(HttpPost.METHOD_NAME, url, params);
+            request.setHeader("Accept", "application/x-protobuf");
             // When
             HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
+            logger.info("HttpResponse Status: {}", httpResponse.getStatusLine());
             assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
             byte[] body = consumeAsBytes(httpResponse);
@@ -402,9 +412,11 @@ public class RestAPITestRunner {
         }
         if (files.size() > 0){
             HttpUriRequest request = createFileRequest(url, params, files);
+            request.setHeader("Accept", "application/x-msgpack");
             // When
             HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
+            logger.info("HttpResponse Status: {}", httpResponse.getStatusLine());
             assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
             byte[] body = consumeAsBytes(httpResponse);
@@ -414,9 +426,11 @@ public class RestAPITestRunner {
         }else{
 
             HttpUriRequest request = createRequest(HttpPost.METHOD_NAME, url, params);
+            request.setHeader("Accept", "application/x-msgpack");
             // When
             HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
+            logger.info("HttpResponse Status: {}", httpResponse.getStatusLine());
             assert httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
 
             byte[] body = consumeAsBytes(httpResponse);

@@ -23,7 +23,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,9 +50,8 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             return;
         }
 
-        long ts = new Date().getTime();
-        ts = ts - WebContext.getContext().getStartAt();
-        logger.info("handle {}. duration={}ms", request.getPathInfo(), ts);
+        long ts = System.currentTimeMillis() - WebContext.getContext().getStartAt();
+        logger.info("handle {}. duration={}ms", request.getRequestURI(), ts);
     }
 
     @Override
@@ -77,7 +75,10 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             //读取css, js, image等，直接返回
             return true;
         }
-
+        if (logger.isDebugEnabled()){
+            logger.info("WebContext: {}", WebContext.getContext());
+        }
+        WebContext.getContext().mark();
         WebContext.getContext().setRequestIp(IpUtil.getIpAddress(request));
         WebContext.getContext().setRootPath(request.getContextPath());
         ContextConfig.set("contextPath", request.getContextPath());

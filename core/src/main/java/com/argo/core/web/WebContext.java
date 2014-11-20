@@ -3,7 +3,6 @@ package com.argo.core.web;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,7 +45,7 @@ public class WebContext implements Serializable {
 
     private long startAt = 0;
     public WebContext(){
-        startAt = new Date().getTime();
+        startAt = System.currentTimeMillis();
     }
 
 	/**
@@ -100,5 +99,9 @@ public class WebContext implements Serializable {
 
     public long getStartAt() {
         return startAt;
+    }
+
+    public void mark(){
+        startAt = System.currentTimeMillis();
     }
 }

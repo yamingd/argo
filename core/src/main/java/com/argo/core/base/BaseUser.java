@@ -11,10 +11,6 @@ import java.util.Date;
  * @date 2012-12-7
  */
 public class BaseUser extends BaseEntity {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -38551281936005697L;
     /**
      * 用户id
      *
