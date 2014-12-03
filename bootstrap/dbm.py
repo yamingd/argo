@@ -1,19 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import MySQLdb
+from sqlalchemy import create_engine
+from sqlalchemy.sql import text
 import string
 import mapping
 
 db = None
+dbtype = 'mysql'
 
 
 def open(module, settings):
-    global db
-    db_kwargs = settings['_mysql_']
-    db_kwargs['db'] = module['db']
-    db_kwargs['charset'] = "utf8"
-    db = MySQLdb.connect(**db_kwargs)
+    """
+    http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
+    """
+    global db, dbtype
+    url = settings['_dburl_']  # "mysql://scott:tiger@localhost/test"
+    dbtype = url.split(':')[0]
+    engine = create_engine(url, echo=True, encoding="utf-8", convert_unicode=True)
+    db = engine.connect()
     return db
 
 
@@ -28,7 +33,7 @@ class Column(object):
         self.key = row[3] and row[3] == 'PRI'  # column_key
         self.default = row[4] if row[4] else u''  # column_default
         self.max = row[5] if row[5] else None
-        self.comment = row[-1]
+        self.comment = row[6]
         self.index = index
         self.lname = self.name.lower()
         if self.comment and self.comment.startswith('@'):
@@ -45,7 +50,7 @@ class Column(object):
     def java_type(self):
         tname = self.typeName.split('(')[0]
         return mapping.java_types.get(tname, 'String')
-    
+
     @property
     def sqlite3_type(self):
         tname = self.typeName.split('(')[0]
@@ -61,7 +66,7 @@ class Column(object):
     def protobuf_type(self):
         tname = self.typeName.split('(')[0]
         return mapping.protobuf_types.get(tname, 'string')
-    
+
     @property
     def protobuf_name(self):
         if self.lname in ['typeid', 'typename']:
@@ -72,7 +77,7 @@ class Column(object):
     def ios_type(self):
         tname = self.typeName.split('(')[0]
         return mapping.ios_types.get(tname, '')
-    
+
     @property
     def ios_type_ref(self):
         tname = self.typeName.split('(')[0]
@@ -80,7 +85,7 @@ class Column(object):
         if tname.startswith('NS'):
             return tname + '*'
         return tname
-    
+
     @property
     def ios_value(self):
         tname = self.typeName.split('(')[0]
@@ -93,7 +98,7 @@ class Column(object):
     def cpp_type(self):
         tname = self.typeName.split('(')[0]
         return mapping.cpp_types.get(tname, '')
-    
+
     @property
     def cpp_objc(self):
         tname = self.typeName.split('(')[0]
@@ -123,7 +128,7 @@ class Column(object):
     @property
     def isString(self):
         return self.typeName.startswith('varchar') or self.typeName.startswith('text')
-    
+
     @property
     def validate(self):
         if self.null and self.max is None:
@@ -131,7 +136,8 @@ class Column(object):
         hint = u''
         name = java_name(self.name, upperFirst=False)
         if self.max:
-            hint = u'@Length(min=0, max=%s, message="%s_too_long")\n\t' % (self.max, name)
+            hint = u'@Length(min=0, max=%s, message="%s_too_long")\n\t' % (
+                self.max, name)
         if not self.null:
             hint = '@NotEmpty(message="%s_empty")\n\t%s' % (name, hint)
         return hint
@@ -149,7 +155,7 @@ class Table(object):
     @property
     def capName(self):
         return java_name(self.name)
-    
+
     @property
     def varName(self):
         return java_name(self.name, upperFirst=False)
@@ -169,32 +175,32 @@ class Table(object):
     @property
     def controllerName(self):
         return self.capName + 'Controller'
-    
+
     @property
     def pkType(self):
         if self.pks:
             return self.pks[0].java_type
         return ''
-    
+
     @property
     def pkCol(self):
         if self.pks and len(self.pks) == 1:
             return self.pks[0]
         return None
-    
+
     def protobufRefAs(self, kind):
         if kind == 'repeated':
             return 'NSArray*'
         else:
             return 'TS%s*' % self.entityName
-    
+
     def refImport(self):
         cs = []
         for c in self.refs:
             cs.append(c.ref_obj.entityName)
         cs = list(set(cs))
         return cs
-    
+
     def mvc_url(self):
         if hasattr(self, 'url'):
             return self.url
@@ -214,26 +220,29 @@ class Table(object):
         return url
 
 
-def get_table(module, tbl_name):
+def get_mysql_table(module, tbl_name):
     global db
-    sql = "SELECT table_name, table_comment FROM INFORMATION_SCHEMA.tables t WHERE table_schema=%s and table_name=%s"
-    cursor = db.cursor()
-    cursor.execute(sql, [module['db'], tbl_name])
+    sql = text(
+        "SELECT table_name, table_comment FROM INFORMATION_SCHEMA.tables t WHERE table_schema=:x and table_name=:y")
+    rows = db.execute(sql, x=module['db'], y=tbl_name).fetchall()
     tbl = None
-    for row in cursor.fetchall():
+    for row in rows:
         tbl = Table(tbl_name, row[1])
         break
     if tbl is None:
         print 'table not found. ', tbl_name
         raise
-    sql = "select column_name,column_type,is_nullable,column_key,column_default,CHARACTER_MAXIMUM_LENGTH,column_comment from INFORMATION_SCHEMA.COLUMNS where table_schema=%s and table_name=%s"
-    cursor = db.cursor()
-    cursor.execute(sql, [module['db'], tbl_name])
+    sql = text(
+        "select column_name,column_type,is_nullable,column_key,column_default,CHARACTER_MAXIMUM_LENGTH,column_comment from INFORMATION_SCHEMA.COLUMNS where table_schema=:x and table_name=:y")
+    # cursor = db.cursor()
+    # cursor.execute(sql, [module['db'], tbl_name])
+    rows = db.execute(sql, x=module['db'], y=tbl_name).fetchall()
+    print rows
     cols = []
     pks = []
     refs = []
     index = 0
-    for row in cursor.fetchall():
+    for row in rows:
         c = Column(row, index)
         cols.append(c)
         index += 1
@@ -248,24 +257,49 @@ def get_table(module, tbl_name):
     return tbl
 
 
-def columns(tbl_name):
-    """
-    http://dev.mysql.com/doc/refman/5.0/en/show-columns.html
-    """
+def get_mssql_table(module, tbl_name):
     global db
-    sql = "show full columns from " + tbl_name
-    cursor = db.cursor()
-    n = cursor.execute(sql)
-    print n
+    sql = text(
+        "SELECT table_name, table_comment FROM INFORMATION_SCHEMA.tables t WHERE table_schema=:x and table_name=:y")
+    rows = db.execute(sql, x=module['db'], y=tbl_name).fetchall()
+    tbl = None
+    for row in rows:
+        tbl = Table(tbl_name, row[1])
+        break
+    if tbl is None:
+        print 'table not found. ', tbl_name
+        raise
+    sql = text(
+        "select column_name,column_type,is_nullable,column_key,column_default,CHARACTER_MAXIMUM_LENGTH,column_comment from INFORMATION_SCHEMA.COLUMNS where table_schema=:x and table_name=:y")
+    # cursor = db.cursor()
+    # cursor.execute(sql, [module['db'], tbl_name])
+    rows = db.execute(sql, x=module['db'], y=tbl_name).fetchall()
+    print rows
     cols = []
     pks = []
-    for row in cursor.fetchall():
-        c = Column(row)
+    refs = []
+    index = 0
+    for row in rows:
+        c = Column(row, index)
         cols.append(c)
+        index += 1
         if c.key:
             pks.append(c)
-    return cols, pks
+        if c.ref_obj:
+            refs.append(c)
+    tbl.columns = cols
+    tbl.pks = pks
+    tbl.refs = refs
+    tbl.mname = module['name']
+    return tbl
 
+
+def get_table(module, tbl_name):
+    if dbtype.startswith('mysql'):
+        return get_mysql_table(module, tbl_name)
+    elif dbtype.startswith('mssql'):
+        return get_mssql_table(module, tbl_name)
+    
 
 def java_name(tbl_name, suffix=[], upperFirst=True):
     tmp = tbl_name.split('_')

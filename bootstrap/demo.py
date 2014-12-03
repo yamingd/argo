@@ -8,12 +8,7 @@ settings = {
     'company': 'argo',
     'Company': 'Argo',
     '_output_': 'E:\\stuff\\sample\\gen',
-    '_mysql_': {
-        'host': '127.0.0.1',
-        'port': 3306,
-        'user': 'root',
-        'passwd': '123456'
-    },
+    '_dburl_': 'mysql://root:123456@127.0.0.1:3306/INFORMATION_SCHEMA?charset=utf8',
     '_modules_': {
         'member': {
             'db': 'ec_member',

@@ -1,6 +1,7 @@
 1. prepare
 pip install Jinja2
-pip install mysqldb
+pip install pymssql
+pip install sqlalchemy
 
 2. copy demo.py to $project.py and modify as your project settings
 

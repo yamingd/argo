@@ -7,6 +7,7 @@ java_types = {
     'smallint': 'Integer',
     'mediumint': 'Integer',
     'bigint': 'Long',
+    'bit': 'Integer',
 
     'float': 'Float',
     'decimal': 'Double',
@@ -14,6 +15,9 @@ java_types = {
 
     'text': 'String',
     'varchar': 'String',
+    'nvarchar': 'String',
+    'char': 'String',
+    'nchar': 'String',
 
     'datetime': 'Date',
     'date': 'Date',

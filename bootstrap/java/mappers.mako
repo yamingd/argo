@@ -12,10 +12,10 @@ import org.springframework.jdbc.core.RowMapper;
  */
 public class {{_moduleC_}}Mappers {
 	
-	{% for _entity_ in _entitys_ %}
+{% for _entity_ in _entitys_ %}
 
     public static final RowMapper<{{_entity_}}> {{_entity_}}_ROWMAPPER = new BeanPropertyRowMapper<{{_entity_}}>(
             {{_entity_}}.class);
 
-    {% endfor %}
+{% endfor %}
 }

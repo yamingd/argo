@@ -8,15 +8,15 @@ import org.springframework.context.annotation.Scope;
 @Scope("prototype")
 public class {{_tbi_.entityName}}Form {
     
-    {% for col in _cols_ %}
+{% for col in _cols_ %}
     /**
      * {{col.comment}}
      * {{col.typeName}}
      */
     {{col.validate}}private {{col.java_type}} {{col.name}};
-    {% endfor %}
+{% endfor %}
 
-    {% for col in _cols_ %}
+{% for col in _cols_ %}
     /**
      * {{col.comment}}
      */
@@ -26,7 +26,7 @@ public class {{_tbi_.entityName}}Form {
     public void set{{col.capName}}({{col.java_type}} {{col.name}}){
         this.{{col.name}} = {{col.name}};
     }
-    {% endfor %}
+{% endfor %}
 
     public {{_tbi_.entityName}} to(){
         {{_tbi_.entityName}} item = new {{_tbi_.entityName}}();
