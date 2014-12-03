@@ -15,7 +15,8 @@ def open(module, settings):
     http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
     """
     global db, dbtype
-    url = settings['_dburl_']  # "mysql://scott:tiger@localhost/test"
+    print settings['_dburl_']
+    url = settings['_dburl_'] % (module['db'],)  # "mysql://scott:tiger@localhost/%s"
     dbtype = url.split(':')[0]
     engine = create_engine(url, echo=True, encoding="utf-8", convert_unicode=True)
     db = engine.connect()
@@ -29,8 +30,8 @@ class Column(object):
     def __init__(self, row, index):
         self.name = row[0]  # column_name
         self.typeName = row[1]  # column_type
-        self.null = row[2] == 'YES'  # is_nullable
-        self.key = row[3] and row[3] == 'PRI'  # column_key
+        self.null = row[2] == 'YES' or row[2] == '1'  # is_nullable
+        self.key = row[3] and (row[3] == 'PRI' or row[3] == '1')  # column_key
         self.default = row[4] if row[4] else u''  # column_default
         self.max = row[5] if row[5] else None
         self.comment = row[6]
@@ -127,7 +128,7 @@ class Column(object):
 
     @property
     def isString(self):
-        return self.typeName.startswith('varchar') or self.typeName.startswith('text')
+        return self.typeName.startswith('varchar') or self.typeName.startswith('text') or self.typeName.startswith('nvarchar') or self.typeName.startswith('char') or self.typeName.startswith('nchar')
 
     @property
     def validate(self):
@@ -260,8 +261,8 @@ def get_mysql_table(module, tbl_name):
 def get_mssql_table(module, tbl_name):
     global db
     sql = text(
-        "SELECT table_name, table_comment FROM INFORMATION_SCHEMA.tables t WHERE table_schema=:x and table_name=:y")
-    rows = db.execute(sql, x=module['db'], y=tbl_name).fetchall()
+        "SELECT t.name,e.value as comment FROM sys.tables t, sys.extended_properties e WHERE t.object_id = e.major_id and e.minor_id=0 and t.object_id = OBJECT_ID(:x)")
+    rows = db.execute(sql, x=tbl_name).fetchall()
     tbl = None
     for row in rows:
         tbl = Table(tbl_name, row[1])
@@ -270,10 +271,8 @@ def get_mssql_table(module, tbl_name):
         print 'table not found. ', tbl_name
         raise
     sql = text(
-        "select column_name,column_type,is_nullable,column_key,column_default,CHARACTER_MAXIMUM_LENGTH,column_comment from INFORMATION_SCHEMA.COLUMNS where table_schema=:x and table_name=:y")
-    # cursor = db.cursor()
-    # cursor.execute(sql, [module['db'], tbl_name])
-    rows = db.execute(sql, x=module['db'], y=tbl_name).fetchall()
+        "select c.name as column_name, ty.name as column_type, c.is_nullable, c.is_identity, '' as column_default, c.max_length, e.value as comment from sys.columns c, sys.extended_properties e, sys.systypes ty where c.object_id = OBJECT_ID(:x) and ty.xusertype = c.user_type_id and c.object_id = e.major_id and e.minor_id = c.column_id")
+    rows = db.execute(sql, x=tbl_name).fetchall()
     print rows
     cols = []
     pks = []

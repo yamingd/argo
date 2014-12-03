@@ -31,6 +31,7 @@ protobuf_types = {
     'smallint': 'int32',
     'mediumint': 'int32',
     'bigint': 'int64',
+    'bit': 'int32',
 
     'float': 'float',
     'decimal': 'double',
@@ -38,6 +39,9 @@ protobuf_types = {
 
     'text': 'string',
     'varchar': 'string',
+    'nvarchar': 'string',
+    'char': 'string',
+    'nchar': 'string',
 
     'datetime': 'int64',
     'date': 'int64',
@@ -51,6 +55,7 @@ ios_types = {
     'smallint': 'int',
     'mediumint': 'int',
     'bigint': 'long',
+    'bit': 'int',
 
     'float': 'float',
     'decimal': 'float',
@@ -58,6 +63,9 @@ ios_types = {
 
     'text': 'NSString',
     'varchar': 'NSString',
+    'nvarchar': 'NSString',
+    'char': 'NSString',
+    'nchar': 'NSString',
 
     'datetime': 'NSDate',
     'date': 'NSDate',
@@ -71,6 +79,7 @@ sqlite_types = {
     'smallint': 'integer',
     'mediumint': 'integer',
     'bigint': 'integer',
+    'bit': 'integer',
 
     'float': 'real',
     'decimal': 'real',
@@ -78,6 +87,9 @@ sqlite_types = {
 
     'text': 'text',
     'varchar': 'text',
+    'nvarchar': 'text',
+    'char': 'text',
+    'nchar': 'text',
 
     'datetime': 'integer',
     'date': 'integer',
@@ -91,6 +103,7 @@ cpp_types = {
     'smallint': 'uint32_t',
     'mediumint': 'uint32_t',
     'bigint': 'uint64_t',
+    'bit': 'uint32_t',
 
     'float': 'float',
     'decimal': 'float',
@@ -98,6 +111,9 @@ cpp_types = {
 
     'text': 'std::string',
     'varchar': 'std::string',
+    'nvarchar': 'std::string',
+    'char': 'std::string',
+    'nchar': 'std::string',
 
     'datetime': 'uint64_t',
     'date': 'uint64_t',
@@ -118,7 +134,10 @@ cpp_objcs = {
 
     'text': 'cppStringToObjc',
     'varchar': 'cppStringToObjc',
-
+    'nvarchar': 'cppStringToObjc',
+    'char': 'cppStringToObjc',
+    'nchar': 'cppStringToObjc',
+    
     'datetime': 'cppDateToObjc',
     'date': 'cppDateToObjc',
     'timestamp': 'cppDateToObjc',
@@ -131,6 +150,7 @@ objc_cpps = {
     'smallint': 'cppUInt32ToInt',
     'mediumint': 'cppUInt32ToInt',
     'bigint': 'cppUInt64ToLong',
+    'bit': 'cppUInt32ToInt',
 
     'float': 'cppFloatToFloat',
     'decimal': 'cppFloatToFloat',
@@ -138,6 +158,9 @@ objc_cpps = {
 
     'text': 'objcStringToCpp',
     'varchar': 'objcStringToCpp',
+    'nvarchar': 'objcStringToCpp',
+    'char': 'objcStringToCpp',
+    'nchar': 'objcStringToCpp',
 
     'datetime': 'objcDateToCpp',
     'date': 'objcDateToCpp',
