@@ -1,5 +1,6 @@
 package com.argo.db.template;
 
+import com.argo.core.annotation.Column;
 import com.argo.core.annotation.EntityDef;
 import com.argo.core.annotation.PK;
 
@@ -35,6 +36,10 @@ public class EntityTemplate {
     private void popupFields(Class clazz){
         Field[] fs = clazz.getDeclaredFields();
         for (Field f : fs){
+            Column column = f.getAnnotation(Column.class);
+            if (column == null){
+                continue;
+            }
             if (mapping.containsKey(f.getName())){
                 continue;
             }

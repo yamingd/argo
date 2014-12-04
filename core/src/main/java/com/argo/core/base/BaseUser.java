@@ -1,5 +1,6 @@
 package com.argo.core.base;
 
+import com.argo.core.annotation.Column;
 import com.argo.core.annotation.PK;
 
 import java.util.Date;
@@ -16,6 +17,7 @@ public class BaseUser extends BaseEntity {
      *
      */
     @PK("uid")
+    @Column
     private Long uid;
 
     /**
