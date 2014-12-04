@@ -125,9 +125,10 @@ public class SessionCookieHolder {
 	 * @param value
 	 */
 	public static void setCookie(HttpServletResponse response, String name, String value){
-        String domain = (String)getConfig().get("domain");
+        Object domain = getConfig().get("domain");
 		String secure = SiteConfig.instance.isCookieSecure() ? "secure;" : "";
-		String cvalue = String.format("%s=%s;Path=/;domain=%s;%sHTTPOnly", name, value, domain, secure);
+		String cvalue = String.format("%s=%s;Path=/;domain=%s;%sHTTPOnly", name, value,
+                domain == null ? "" : domain, secure);
 		response.addHeader("Set-Cookie",  cvalue);
 	}
 	
@@ -138,9 +139,10 @@ public class SessionCookieHolder {
 	 * @param expireSeconds
 	 */
 	public static void setCookie(HttpServletResponse response, String name, String value, Integer expireSeconds){
-        String domain = (String)getConfig().get("domain");
+        Object domain = getConfig().get("domain");
         String secure = SiteConfig.instance.isCookieSecure() ? "secure;" : "";
-		String cvalue = String.format("%s=%s;Path=/;Max-Age=%s;domain=%s;%sHTTPOnly", name, value, expireSeconds, domain,secure);
+		String cvalue = String.format("%s=%s;Path=/;Max-Age=%s;domain=%s;%sHTTPOnly", name, value,
+                expireSeconds, domain == null ? "" : domain,secure);
 		response.addHeader("Set-Cookie",  cvalue);
 	}
 }
