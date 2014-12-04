@@ -30,9 +30,9 @@ public class {{_tbi_.entityName}}Form {
 
     public {{_tbi_.entityName}} to(){
         {{_tbi_.entityName}} item = new {{_tbi_.entityName}}();
-        {% for col in _cols_ %}
+{% for col in _cols_ %}
         item.set{{col.capName}}(this.get{{col.capName}}());
-        {% endfor %}
+{% endfor %}
         return item;
     }
 }

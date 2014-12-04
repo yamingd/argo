@@ -23,15 +23,15 @@ public abstract class MobileTestCase extends RestAPITestRunner {
         context = new ClassPathXmlApplicationContext("spring/root-context.xml");
     }
 
-    protected static void configHttpHeader(HttpUriRequest request){
+    protected void configHttpHeader(HttpUriRequest request){
         //TODO: implement this in subclass
     }
 
-    protected static String getCurrentUserId(){
+    protected String getCurrentUserId(){
         return currentUserId;
     }
 
-    protected static boolean isMobile(){
+    protected boolean isMobile(){
         return true;
     }
 }
