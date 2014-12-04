@@ -32,12 +32,14 @@
                 <entry key="xml_escape" value-ref="fmXmlEscape"/>
                 <entry key="layout" value-ref="freemarkerLayoutDirectives" />
                 <entry key="h" value-ref="ftlHelper"/>
+                <entry key="config" value-ref="siteConfig"/>
             </map>
         </property>
     </bean>
 
     <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
     <bean id="ftlHelper" class="com.argo.core.freemarker.FTLHelper" />
+    <bean id="siteConfig" class="com.argo.core.configuration.SiteConfigFactoryBean" />
 
     <bean id="freemarkerComponent" class="com.argo.core.component.FreemarkerComponent">
         <property name="freeMarkerConfig" ref="freemarkerConfig"></property>
