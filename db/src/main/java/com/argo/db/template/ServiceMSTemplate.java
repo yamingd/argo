@@ -7,6 +7,7 @@ import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 import com.argo.db.JdbcConfig;
 import com.argo.db.MasterSlaveJdbcTemplate;
+import com.argo.db.ServiceInstanceFactory;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -52,6 +53,9 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
     @Autowired(required=false)
     protected CacheBucket cacheBucket;
 
+    @Autowired
+    protected ServiceInstanceFactory serviceInstanceFactory;
+
     public ServiceMSTemplate() {
         Model annotation = this.getClass().getAnnotation(Model.class);
         if (annotation == null){
@@ -82,6 +86,10 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
             logger.warn("CacheBucket Not Found. Cache is disabled.");
         }else{
             logger.info("CacheBucket Found. Cache is enabled.");
+        }
+
+        if (this.entityClass != null) {
+            serviceInstanceFactory.add(this.entityClass, this);
         }
     }
 
