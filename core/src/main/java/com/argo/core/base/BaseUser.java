@@ -2,6 +2,7 @@ package com.argo.core.base;
 
 import com.argo.core.annotation.Column;
 import com.argo.core.annotation.PK;
+import com.google.gson.annotations.Expose;
 
 import java.util.Date;
 
@@ -30,6 +31,7 @@ public class BaseUser extends BaseEntity {
      * 登录密码
      *
      */
+    @Expose(serialize = false)
     private String passwd;
 
     /**
@@ -53,6 +55,7 @@ public class BaseUser extends BaseEntity {
     /**
      * 密码方式
      */
+    @Expose(serialize = false)
     private Integer passwdMode;
 
     public Long getUid() {
