@@ -257,8 +257,11 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
                 }
             }, holder);
 
-            Long id = holder.getKey().longValue();
-            return id;
+            if (holder.getKey() != null) {
+                Long id = holder.getKey().longValue();
+                return id;
+            }
+            return null;
         }
 
     }

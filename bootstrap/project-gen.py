@@ -243,7 +243,7 @@ def gen_controller_impl(module, folder, test_folder, has_view, prj, settings):
         if not os.path.exists(folder2):
             os.makedirs(folder2)
         for name in ['add', 'view', 'list']:
-            f = os.path.join(folder2, name + '.ftl')
+            f = os.path.join(folder2, name + '.html')
             with open(f, 'w+') as fw:
                 fw.write('')
         
