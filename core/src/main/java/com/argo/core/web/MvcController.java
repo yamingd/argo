@@ -7,13 +7,16 @@ import com.argo.core.protobuf.ProtobufResponse;
 import com.argo.core.utils.TokenUtil;
 import com.argo.core.web.Interceptor.ExceptionGlobalResolver;
 import com.argo.core.web.session.SessionCookieHolder;
-import com.argo.core.web.session.SessionUserHolder;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,8 +33,18 @@ public abstract class MvcController {
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
     protected ExceptionGlobalResolver exceptionGlobalResolver = new ExceptionGlobalResolver();
 
-    public BaseUser getCurrentUser() throws UserNotAuthorizationException {
-       return SessionUserHolder.get();
+    @ModelAttribute
+    public <T extends BaseUser> T getCurrentUser() throws UserNotAuthorizationException {
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = ((ServletRequestAttributes) ra).getRequest();
+        if (logger.isDebugEnabled()) {
+            logger.debug("getCurrentUser From Request");
+        }
+        T o = (T) request.getAttribute("currentUser");
+        if (o.isAnonymous()) {
+            throw new UserNotAuthorizationException("401");
+        }
+        return o;
     }
 
     public void init() throws Exception {
@@ -42,7 +55,7 @@ public abstract class MvcController {
         return false;
     }
 
-    public void rememberUser(HttpServletRequest request, HttpServletResponse response, Object userId){
+    public void rememberUser(HttpServletRequest request, HttpServletResponse response, Object userId) {
         String value = String.valueOf(userId);
         String name = SessionCookieHolder.getAuthCookieId();
         try {
@@ -53,8 +66,9 @@ public abstract class MvcController {
         }
     }
 
-    public void clearUser(HttpServletRequest request, HttpServletResponse response){
+    public void clearUser(HttpServletRequest request, HttpServletResponse response) {
         SessionCookieHolder.removeCurrentUID(response);
+        request.removeAttribute("currentUser");
     }
 
     @ExceptionHandler(Exception.class)
@@ -62,9 +76,9 @@ public abstract class MvcController {
         exceptionGlobalResolver.resolve(request, response, ex);
     }
 
-    protected void wrapError(BindingResult result, JsonResponse actResponse){
+    protected void wrapError(BindingResult result, JsonResponse actResponse) {
         List<String> fields = Lists.newArrayList();
-        for(FieldError error : result.getFieldErrors()){
+        for (FieldError error : result.getFieldErrors()) {
             fields.add(error.getDefaultMessage());
         }
         actResponse.getData().add(fields);
@@ -72,14 +86,14 @@ public abstract class MvcController {
 
     protected void wrapError(BindingResult result, MsgPackResponse actResponse) throws Exception {
         List<String> fields = Lists.newArrayList();
-        for(FieldError error : result.getFieldErrors()){
+        for (FieldError error : result.getFieldErrors()) {
             fields.add(error.getDefaultMessage());
         }
         actResponse.add(fields);
     }
 
     protected void wrapError(BindingResult result, ProtobufResponse actResponse) throws Exception {
-        for(FieldError error : result.getFieldErrors()){
+        for (FieldError error : result.getFieldErrors()) {
             actResponse.getBuilder().addErrors(error.getDefaultMessage());
         }
     }

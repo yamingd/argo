@@ -12,7 +12,6 @@ import com.argo.core.web.CSRFToken;
 import com.argo.core.web.MvcController;
 import com.argo.core.web.WebContext;
 import com.argo.core.web.session.SessionCookieHolder;
-import com.argo.core.web.session.SessionUserHolder;
 import com.google.common.io.BaseEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -100,7 +99,6 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             if (authorizationService != null){
                 try{
                     user = authorizationService.verifyCookie(currentUid);
-                    SessionUserHolder.set(user);
                     if (logger.isDebugEnabled()){
                         logger.debug("preHandle verifyCookie is OK. BaseUser=" + user.getLoginId());
                     }
