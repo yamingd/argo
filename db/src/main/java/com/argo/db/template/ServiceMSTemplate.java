@@ -117,7 +117,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         int count = this.jdbcTemplateM.update(sb.toString().intern(), params.toArray());
 
         if (this.cacheBucket != null){
-            String key = genCacheKey(pkvalue);
+            String key = genCacheKey(":"+pkvalue);
             this.cacheBucket.remove(key);
         }
 
@@ -139,7 +139,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         if (oid == null){
             return null;
         }
-        String key = genCacheKey(oid);
+        String key = genCacheKey(":"+oid);
         if (this.cacheBucket != null && this.entityClass != null){
             Object o = this.cacheBucket.geto(this.entityClass, key);
             if (o != null){
@@ -159,7 +159,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
     }
 
     protected String genCacheKey(Object oid) {
-        return String.format("%s:%s", this.entityTemplate.getTable(), oid);
+        return String.format("%s%s", this.entityTemplate.getTable(), oid);
     }
 
     @Override
@@ -173,7 +173,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
             cacheEnabled = true;
             List<String> keys = Lists.newArrayList();
             for (Long oid : oids){
-                keys.add(genCacheKey(oid));
+                keys.add(genCacheKey(":"+oid));
             }
             List items = this.cacheBucket.geto(this.entityClass, keys.toArray(new String[0]));
             for (int i = 0; i < items.size(); i++) {
@@ -329,7 +329,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
 
     @Override
     public void expire(Long oid){
-        String key = genCacheKey(oid);
+        String key = genCacheKey(":"+oid);
         if (this.cacheBucket != null){
             this.cacheBucket.remove(key);
         }
