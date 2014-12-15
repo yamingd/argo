@@ -41,7 +41,7 @@ public abstract class MvcController {
             logger.debug("getCurrentUser From Request");
         }
         T o = (T) request.getAttribute("currentUser");
-        if (o.isAnonymous()) {
+        if (this.needLogin() && (o == null || o.isAnonymous())) {
             throw new UserNotAuthorizationException("401");
         }
         return o;
