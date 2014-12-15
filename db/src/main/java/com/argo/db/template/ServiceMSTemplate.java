@@ -2,6 +2,7 @@ package com.argo.db.template;
 
 import com.argo.core.annotation.Model;
 import com.argo.core.base.BaseBean;
+import com.argo.core.base.BaseEntity;
 import com.argo.core.base.CacheBucket;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
@@ -27,6 +28,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by yaming_deng on 14-8-28.
@@ -37,6 +40,8 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
 
     public static final String SQL_FIND_BYID = "select * from %s where %s = ?";
     public static final String SQL_FIND_BYIDS = "select * from %s where %s";
+
+    protected static ExecutorService executor = Executors.newCachedThreadPool();
 
     protected JdbcTemplate jdbcTemplateM;
     protected JdbcTemplate jdbcTemplateS;
@@ -163,7 +168,9 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
             return Collections.EMPTY_LIST;
         }
 
+        boolean cacheEnabled = false;
         if (this.cacheBucket != null && this.entityClass != null){
+            cacheEnabled = true;
             List<String> keys = Lists.newArrayList();
             for (Long oid : oids){
                 keys.add(genCacheKey(oid));
@@ -183,7 +190,20 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         }
         s.setLength(s.length() - 4);
         final String sql = String.format(SQL_FIND_BYIDS, this.entityTemplate.getTable(), s.toString());
-        List<T> list = (List<T>) this.jdbcTemplateS.query(sql, this.entityMapper, oids.toArray(new Long[0]));
+        final List<T> list = (List<T>) this.jdbcTemplateS.query(sql, this.entityMapper, oids.toArray(new Long[0]));
+
+        if (cacheEnabled && list.size() > 0) {
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    for (T item : list) {
+                        String key = genCacheKey(((BaseEntity)item).getPK());
+                        cacheBucket.put(key, item);
+                    }
+                }
+            });
+        }
+
         return list;
     }
 
