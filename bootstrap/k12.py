@@ -8,7 +8,7 @@ settings = {
     'company': 'inno',
     'Company': 'Inno',
     '_output_': 'E:\\stuff\\gen',
-    '_dburl_': 'mysql://root:123456@127.0.0.1:3306/%s?charset=utf8',
+    '_dburl_': 'mysql://test:test@127.0.0.1:33060/%s?charset=utf8',
     '_order_': ['catalog', 'file', 'society', 'message', 'school', 'community'],
     '_modules_': {
         'catalog': {
@@ -19,7 +19,7 @@ settings = {
         'society': {
             'db': 'k12_society',
             'tables': ['family', 'person', 'device',
-                       'account', 'social', 'school'],
+                       'account', 'social', 'school', 'contact'],
             'ref': []
         },
         'school': {
@@ -53,7 +53,7 @@ settings = {
         },
         'society': {
             'db': 'k12_society',
-            'tables': ['person', 'device', 'account', 'school']
+            'tables': ['person', 'device', 'account', 'school', 'contact']
         },
         'school': {
             'db': 'k12_school',
@@ -77,20 +77,5 @@ settings = {
         }
     },
     '_pc_': {},
-    '_sqlite3_': {
-        'catalog': {
-            'k12_society': ['country', 'province', 'city', 'catalog']
-        },
-        'profile': {
-            'k12_society': ['person', 'account', 'school'],
-            'k12_school': ['class_room', 'class_member', 'class_course',
-                       'course', 'course_member', 'homework',
-                       'homework_member', 'homework_comment',
-                       'notice', 'notice_member', 'invitation',
-                       'student', 'teacher', 'group', 'group_member'],
-            'k12_message': ['chat', 'chat_member', 'chat_message', 'chat_ack'],
-            'k12_file': ['attachment'],
-            'k12_community': ['forum', 'post', 'post_comment', 'post_content']
-        }
-    }
+    '_sqlite3_': {}
 }
