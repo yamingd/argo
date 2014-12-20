@@ -31,16 +31,22 @@ public class TokenUtil {
 
 	private static final String HMAC_SHA1 = "HmacSHA256";
 	private static Random RAND = new Random();
-	
+
+    /**
+     * HMAC 256 with UTF-8 encoding
+     * @param data
+     * @param secret
+     * @return
+     */
 	public static String generate(String data, String secret) {
         byte[] byteHMAC = null;
         try {
             Mac mac = Mac.getInstance(HMAC_SHA1);
             SecretKeySpec spec;
             String oauthSignature = encode(secret) + "&";
-            spec = new SecretKeySpec(oauthSignature.getBytes(), HMAC_SHA1);
+            spec = new SecretKeySpec(oauthSignature.getBytes(Charset.forName("UTF-8")), HMAC_SHA1);
             mac.init(spec);
-            byteHMAC = mac.doFinal(data.getBytes());
+            byteHMAC = mac.doFinal(data.getBytes(Charset.forName("UTF-8")));
             return BaseEncoding.base64Url().encode(byteHMAC);
         } catch (InvalidKeyException e) {
             e.printStackTrace();

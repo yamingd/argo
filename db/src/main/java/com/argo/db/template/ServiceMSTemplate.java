@@ -137,7 +137,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
     @Override
     public <T> T findById(Long oid)throws EntityNotFoundException {
         if (oid == null){
-            return null;
+            throw new EntityNotFoundException(this.entityTemplate.getTable(), "findById", "id not found", oid);
         }
         String key = genCacheKey(":"+oid);
         if (this.cacheBucket != null && this.entityClass != null){
