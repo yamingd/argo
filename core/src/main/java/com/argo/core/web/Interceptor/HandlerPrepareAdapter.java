@@ -136,6 +136,7 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
 
         if (c != null){
             c.init();
+            request.setAttribute("menu", c.getMenu());
         }
 
         return true;

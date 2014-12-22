@@ -51,6 +51,10 @@ public abstract class MvcController {
 
     }
 
+    public String getMenu(){
+        return "default";
+    }
+
     public boolean needLogin() {
         return false;
     }
