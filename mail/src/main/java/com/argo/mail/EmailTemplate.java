@@ -11,6 +11,11 @@ import java.util.Map;
 public interface EmailTemplate {
 
     /**
+     * 模板id
+     * @return
+     */
+    Integer getId();
+    /**
      * 从模板生产内容.
      * @return
      */
