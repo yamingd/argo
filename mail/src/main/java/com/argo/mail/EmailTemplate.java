@@ -21,4 +21,9 @@ public interface EmailTemplate {
      */
     String render(Map params);
 
+    /**
+     * 邮件标题
+     * @return
+     */
+    String getTitle();
 }

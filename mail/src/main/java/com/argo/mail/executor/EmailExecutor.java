@@ -13,7 +13,7 @@ public interface EmailExecutor {
      *
      * @param message
      */
-    void add(final EmailMessage message);
+    void callback(final EmailMessage message, boolean result);
     /**
      *
      * @param limit

@@ -6,13 +6,13 @@ import com.argo.mail.executor.EmailExecutor;
 import com.argo.mail.executor.EmailPostSender;
 import com.argo.service.ServiceConfig;
 import com.argo.service.annotation.RmiService;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -39,9 +39,11 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
         stopping = false;
 
         Map<String, Object> cfg = ServiceConfig.instance.getMail();
-        String beanName = ObjectUtils.toString(cfg.get("executor"));
-        if (StringUtils.isNotBlank(beanName)) {
-            executor = this.applicationContext.getBean(beanName + "EmailExecutor", EmailExecutor.class);
+        try {
+            executor = this.applicationContext.getBean(EmailExecutor.class);
+        } catch (BeansException e) {
+            logger.error("没有实现EmailExecutor");
+            executor = null;
         }
 
         batch = cfg.get("batch") == null ? 10 : (Integer)cfg.get("batch");
@@ -67,29 +69,19 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
 
     @Override
     public void add(final EmailMessage message) {
-        if (executor != null) {
-            executor.add(message);
-        }else{
+        long total = pending.incrementAndGet();
+        logger.info("Pending Email to send. total = " + total);
 
-            long total = pending.incrementAndGet();
-            logger.info("Pending Email to send. total = " + total);
-
-            pools.submit(new Runnable() {
-                @Override
-                public void run() {
-                    postSend(message);
-                }
-            });
-        }
+        pools.submit(new Runnable() {
+            @Override
+            public void run() {
+                postSend(message);
+            }
+        });
     }
 
     @Override
     public void send(final EmailMessage message) {
-        if (this.stopping){
-            executor.add(message);
-            return;
-        }
-
         long total = pending.incrementAndGet();
         logger.info("Pending Email to send. total = " + total);
 
@@ -107,21 +99,34 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
         public void run() {
 
             while (!stopping){
+
+                try {
+                    Thread.sleep(interval * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 List<EmailMessage> items = executor.dequeueMessage(batch);
+                if (items.size() == 0){
+                    continue;
+                }
+
+                final CountDownLatch latch = new CountDownLatch(items.size());
                 for (final EmailMessage item : items){
                     pending.incrementAndGet();
                     pools.submit(new Runnable() {
                         @Override
                         public void run() {
                             postSend(item);
+                            latch.countDown();
                         }
                     });
                 }
 
                 try {
-                    Thread.sleep(interval * 1000);
+                    latch.await();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage(), e);
                 }
             }
         }
@@ -131,9 +136,9 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
         boolean flag = emailPostSender.send(item);
         if (!flag){
             item.tryLimit--;
-            if (item.tryLimit > 0){
-                add(item);
-            }
+            executor.callback(item, false);
+        }else{
+            executor.callback(item, true);
         }
         long total = pending.decrementAndGet();
         logger.info("Pending Email to send. total = " + total);

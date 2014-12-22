@@ -27,8 +27,12 @@ public class RedisEmailExecutor extends BaseBean implements EmailExecutor {
     }
 
     @Override
-    public void add(EmailMessage message) {
-        redisBuket.rpush(EmailMessage.class, queueNameM, message);
+    public void callback(EmailMessage message, boolean result) {
+        if (result){
+
+        }else{
+            redisBuket.rpush(EmailMessage.class, queueNameM, message);
+        }
     }
 
     @Override
