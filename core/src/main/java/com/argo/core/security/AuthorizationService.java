@@ -5,6 +5,7 @@ import com.argo.core.exception.PermissionDeniedException;
 import com.argo.core.exception.UserNotAuthorizationException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 授权和鉴权认证服务.
@@ -21,7 +22,7 @@ public interface AuthorizationService<T extends BaseUser> {
      * @return
      * @throws UserNotAuthorizationException
      */
-    T verifyCookie(HttpServletRequest request, String uid) throws UserNotAuthorizationException;
+    T verifyCookie(HttpServletRequest request, HttpServletResponse response,String uid) throws UserNotAuthorizationException;
 
     /**
      * 验证用户登录
