@@ -92,7 +92,14 @@ public class Pagination<T> implements Serializable {
      * @return
      */
     public boolean hasNext(){
-        return this.pages - this.index > 0;
+        return this.index < this.pages && this.pages > 1;
+    }
+
+    public Integer getNext(){
+        if (this.index + 1 > this.pages){
+            return this.pages;
+        }
+        return this.index + 1;
     }
 
     /**
@@ -101,6 +108,13 @@ public class Pagination<T> implements Serializable {
      */
     public boolean hasPrev(){
         return this.index > 1 && this.pages > 1;
+    }
+
+    public Integer getPrev(){
+        if (this.index > 1){
+            return this.index - 1;
+        }
+        return this.index;
     }
 
     /**
