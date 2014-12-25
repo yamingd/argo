@@ -31,12 +31,10 @@
     //
 {% for col in _tbi.refs %}
 {% if col.ref_type == 'repeated' %}
-    NSMutableArray *items= [[NSMutableArray alloc] init];
     for(int i=0; i<pbobj->{{col.ref_varName}}_size();i++){
         {{_tbm_[col.ref_obj.name]}}::P{{col.ref_obj.entityName}}* pbref = pbobj->mutable_{{col.ref_varName | lower}}(i);
-        [items addObject:[[TS{{col.ref_obj.entityName}} alloc] initWithProtocolObj: pbref]];
+        [self.{{col.ref_varName}} addObject:[[TS{{col.ref_obj.entityName}} alloc] initWithProtocolObj: pbref]];
     }
-    self.{{col.ref_varName}} = items;
 {% else %}
     if(pbobj->has_{{col.ref_varName | lower}}()){
         {{_tbm_[col.ref_obj.name]}}::P{{col.ref_obj.entityName}}* pbref = pbobj->mutable_{{col.ref_varName | lower}}();

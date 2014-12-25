@@ -191,7 +191,7 @@ class Table(object):
 
     def protobufRefAs(self, kind):
         if kind == 'repeated':
-            return 'NSArray*'
+            return 'RLMArray<TS%s>*' % self.entityName
         else:
             return 'TS%s*' % self.entityName
 
