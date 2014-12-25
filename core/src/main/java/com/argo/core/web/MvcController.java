@@ -86,6 +86,7 @@ public abstract class MvcController {
             fields.add(error.getDefaultMessage());
         }
         actResponse.getData().add(fields);
+        actResponse.setCode(6001);
     }
 
     protected void wrapError(BindingResult result, MsgPackResponse actResponse) throws Exception {
@@ -94,11 +95,13 @@ public abstract class MvcController {
             fields.add(error.getDefaultMessage());
         }
         actResponse.add(fields);
+        actResponse.setCode(6001);
     }
 
     protected void wrapError(BindingResult result, ProtobufResponse actResponse) throws Exception {
         for (FieldError error : result.getFieldErrors()) {
             actResponse.getBuilder().addErrors(error.getDefaultMessage());
         }
+        actResponse.getBuilder().setCode(6001);
     }
 }
