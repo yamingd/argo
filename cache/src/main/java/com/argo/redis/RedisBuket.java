@@ -1283,13 +1283,13 @@ public class RedisBuket extends RedisTemplate implements CacheBucket {
     @Override
     public <T> boolean put(String key, T value) {
         String ok = this.set(key, value);
-        return ok.equalsIgnoreCase("ok");
+        return "ok".equalsIgnoreCase(ok);
     }
 
     @Override
     public <T> boolean put(String key, T value, int expireSeconds) {
         String ok = this.setex(key, expireSeconds, value);
-        return ok.equalsIgnoreCase("ok");
+        return "ok".equalsIgnoreCase(ok);
     }
 
     @Override

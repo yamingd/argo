@@ -152,7 +152,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
             throw new EntityNotFoundException(this.entityTemplate.getTable(), "findById", "id not found", oid);
         }
         T o = list.get(0);
-        if (this.cacheBucket != null && this.entityClass != null){
+        if (o != null && this.cacheBucket != null && this.entityClass != null){
             this.cacheBucket.put(key, o);
         }
         return o;
