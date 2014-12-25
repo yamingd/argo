@@ -101,7 +101,7 @@ The base and overlay canvas are now using the CSS classes "flot-base" and
    translucent overlay that identifies the dataset when the mouse hovers over
    it. (patch by Eric Wendelin and Nate Abele, issues 168 and 299)
 
- - Added a plugin jquery.flot.errorbars, with an accompanying example, that
+ - Added a plugin jquery.flot.errorbars, with an acinnoing example, that
    adds the ability to plot error bars, commonly used in many kinds of
    statistical data visualizations. (patch by Rui Pereira, issue 215)
 

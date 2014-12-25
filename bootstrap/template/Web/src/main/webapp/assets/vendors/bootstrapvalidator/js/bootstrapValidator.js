@@ -7062,7 +7062,7 @@ if (typeof jQuery === 'undefined') {
 
         /**
          * Validate Italian VAT number, which consists of 11 digits.
-         * - First 7 digits are a company identifier
+         * - First 7 digits are a inno identifier
          * - Next 3 are the province of residence
          * - The last one is a check digit
          *
