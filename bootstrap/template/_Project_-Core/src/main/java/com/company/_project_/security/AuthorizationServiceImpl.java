@@ -25,7 +25,7 @@ public class AuthorizationServiceImpl extends BaseBean implements AuthorizationS
     private AccountService accountService;
 
     @Override
-    public Account verifyCookie(String value) throws UserNotAuthorizationException {
+    public User verifyCookie(HttpServletRequest request, HttpServletResponse response, String value) throws UserNotAuthorizationException {
         BigInteger uid = SecurityIdGenerator.Id62.decode(value);
         try {
             Account user = accountService.findById(uid.longValue());
