@@ -6,6 +6,8 @@ import com.argo.core.utils.IpUtil;
 import com.argo.core.utils.TokenUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
@@ -21,7 +23,8 @@ import java.util.Map;
  * @date 2012-6-11
  */
 public class SessionCookieHolder {
-	
+
+    private static Logger logger = LoggerFactory.getLogger(SessionCookieHolder.class);
 	/**
 	 * SESSION-ID
 	 */
@@ -65,7 +68,10 @@ public class SessionCookieHolder {
             if (StringUtils.isBlank(value)) {
                 throw new UserNotAuthorizationException("x-auth is NULL.");
             }
-		}else{
+            if (logger.isDebugEnabled()){
+                logger.debug("Before {}:{}", getAuthCookieId(), value);
+            }
+        }else{
             value = cookie.getValue();
         }
 		String uid = TokenUtil.decodeSignedValue(getAuthCookieId(), value);

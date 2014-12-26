@@ -134,6 +134,9 @@ public class TokenUtil {
 	 * @return
 	 */
 	public static String decodeSignedValue(String name, String value){
+        if (logger.isDebugEnabled()){
+            logger.debug("{}:{}", name, value);
+        }
 		Object days = SiteConfig.instance.getCookie().get("age");
         if (days==null){
             days = 30;
@@ -150,17 +153,17 @@ public class TokenUtil {
 		}
 		String signature = createSignatureValue(parts[1], secret, name+"|"+parts[0]);
 		if(!parts[2].equals(signature)){
-			logger.warn("Invalid Cookie signature: " + value);
+			logger.error("Invalid Cookie signature: " + value);
 			return null;
 		}
 		long timestamp = Long.parseLong(parts[1]);
 		long now = new Date().getTime();
 		if(timestamp < (now - days * 86400 * 1000L)){
-            logger.warn("Expired Cookie: " + value);
+            logger.error("Expired Cookie: " + value);
 			return null;
 		}
 		if(timestamp > (now + 31L * 86400 * 1000)){
-            logger.warn("Cookie timestamp in future; possible tampering " + value);
+            logger.error("Cookie timestamp in future; possible tampering " + value);
 			return null;
 		}
 		value = new String(BaseEncoding.base64().decode(parts[0]));
