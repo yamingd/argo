@@ -12,7 +12,7 @@
     <import resource="classpath:/main/resources/com/argo/spring/mvc-context.xml" />
 
     <!-- Imports user-defined @Controller beans that process client requests -->
-    <context:component-scan base-package="com.company._project_.web.controllers">
+    <context:component-scan base-package="com.argo.core.web.controllers,com.company._project_.web.controllers">
         <context:include-filter type="regex" expression=".*web.*Controller"/>
     </context:component-scan>
 
