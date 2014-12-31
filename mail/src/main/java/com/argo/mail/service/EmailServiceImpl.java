@@ -39,13 +39,6 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
         stopping = false;
 
         Map<String, Object> cfg = ServiceConfig.instance.getMail();
-        try {
-            executor = this.applicationContext.getBean(EmailExecutor.class);
-        } catch (BeansException e) {
-            logger.error("没有实现EmailExecutor");
-            executor = null;
-        }
-
         batch = cfg.get("batch") == null ? 10 : (Integer)cfg.get("batch");
         interval = cfg.get("interval") == null ? 1 : (Integer)cfg.get("interval");
 
@@ -54,11 +47,14 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
         pools.setMaxPoolSize(batch);
         pools.setWaitForTasksToCompleteOnShutdown(true);
         pools.afterPropertiesSet();
+    }
 
+    @Override
+    public void start(EmailExecutor executor) {
+        this.executor = executor;
         if (this.executor != null) {
             new PullThread().start();
         }
-
     }
 
     @Override
