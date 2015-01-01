@@ -33,7 +33,7 @@ public class SysResourceController extends AclBaseController {
     public ModelAndView all(ModelAndView model){
 
         List<SysResource> list = sysResourceService.findAll();
-        model.setViewName("acl/sys/resource/all");
+        model.setViewName("/admin/acl/sys/resource/all");
         model.addObject("roles", list);
 
         return model;
@@ -52,7 +52,7 @@ public class SysResourceController extends AclBaseController {
     @RequestMapping(value="add", method = RequestMethod.GET)
     public ModelAndView add(ModelAndView model){
 
-        model.setViewName("acl/sys/resource/add");
+        model.setViewName("/admin/acl/sys/resource/add");
         model.addObject("res", new SysResource());
 
         return model;
@@ -64,9 +64,9 @@ public class SysResourceController extends AclBaseController {
         try {
             SysResource res = sysResourceService.findById(id);
             model.addObject("res", res);
-            model.setViewName("acl/sys/resource/view");
+            model.setViewName("/admin/acl/sys/resource/view");
         } catch (EntityNotFoundException e) {
-            RedirectView view = new RedirectView("acl/sys/resource/404");
+            RedirectView view = new RedirectView("/admin/acl/sys/resource/404");
             model.setView(view);
         }
 

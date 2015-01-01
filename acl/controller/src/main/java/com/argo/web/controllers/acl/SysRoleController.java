@@ -33,7 +33,7 @@ public class SysRoleController extends AclBaseController {
     public ModelAndView all(ModelAndView model){
 
         List<SysRole> list = sysRoleService.findAll();
-        model.setViewName("acl/sys/role/all");
+        model.setViewName("/admin/acl/sys/role/all");
         model.addObject("roles", list);
 
         return model;
@@ -52,7 +52,7 @@ public class SysRoleController extends AclBaseController {
     @RequestMapping(value="add", method = RequestMethod.GET)
     public ModelAndView add(ModelAndView model){
 
-        model.setViewName("acl/sys/role/add");
+        model.setViewName("/admin/acl/sys/role/add");
         model.addObject("role", new SysRole());
 
         return model;
@@ -64,9 +64,9 @@ public class SysRoleController extends AclBaseController {
         try {
             SysRole role = sysRoleService.findById(id);
             model.addObject("role", role);
-            model.setViewName("acl/sys/role/view");
+            model.setViewName("/admin/acl/sys/role/view");
         } catch (EntityNotFoundException e) {
-            RedirectView view = new RedirectView("acl/sys/role/404");
+            RedirectView view = new RedirectView("/admin/acl/sys/role/404");
             model.setView(view);
         }
 

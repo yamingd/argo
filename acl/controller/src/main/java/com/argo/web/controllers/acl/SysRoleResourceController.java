@@ -43,7 +43,7 @@ public class SysRoleResourceController extends AclBaseController {
 
         model.addObject("resIds", resIds);
         model.addObject("resList", list);
-        model.setViewName("acl/sys/role/resource-assign");
+        model.setViewName("/admin/acl/sys/role/resource-assign");
 
         return model;
     }
