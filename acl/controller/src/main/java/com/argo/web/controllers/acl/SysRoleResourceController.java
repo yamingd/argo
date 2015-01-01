@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/admin/acl/sys/role/resource")
+@RequestMapping("/a/acl/sys/role/resource")
 public class SysRoleResourceController extends AclBaseController {
 
     @Autowired

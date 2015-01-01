@@ -2,10 +2,12 @@ package com.argo.web.controllers.acl;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.context.annotation.Scope;
 
 /**
  * Created by yaming_deng on 2014/10/8.
  */
+@Scope("prototype")
 public class DetailForm {
 
     @NotEmpty(message = "name_empty")
@@ -17,6 +19,7 @@ public class DetailForm {
     private String title;
 
     private String url;
+    private Integer kindId;
 
     public String getName() {
         return name;
@@ -40,5 +43,13 @@ public class DetailForm {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Integer getKindId() {
+        return kindId;
+    }
+
+    public void setKindId(Integer kindId) {
+        this.kindId = kindId;
     }
 }

@@ -19,7 +19,7 @@ import java.util.Date;
  */
 
 @Controller
-@RequestMapping("/admin/acl/sys/role/user")
+@RequestMapping("/a/acl/sys/role/user")
 public class SysRoleUserController extends AclBaseController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class SysRoleUserController extends AclBaseController {
 
         SysRoleUser item = new SysRoleUser();
         item.setCreateAt(new Date());
-        item.setUserId(form.getItemId());
+        item.setUserId(form.getItemId().longValue());
         item.setRoleId(form.getRoleId());
 
         sysRoleUserService.add(item);
@@ -54,7 +54,7 @@ public class SysRoleUserController extends AclBaseController {
         }
 
         SysRoleUser item = new SysRoleUser();
-        item.setUserId(form.getItemId());
+        item.setUserId(form.getItemId().longValue());
         item.setRoleId(form.getRoleId());
 
         sysRoleUserService.remove(item);

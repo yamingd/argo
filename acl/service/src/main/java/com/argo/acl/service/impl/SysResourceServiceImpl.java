@@ -32,8 +32,8 @@ public class SysResourceServiceImpl extends BaseServiceImpl implements SysResour
 
     @SysResourceTx
     public boolean update(SysResource entity) throws ServiceException {
-        String sql = "update sys_resource set name=?, title=?, url=? where id =? ";
-        return this.jdbcTemplateM.update(sql, entity.getName(), entity.getTitle(), entity.getUrl(), entity.getId()) > 0;
+        String sql = "update sys_resource set name=?, title=?, url=?, kindId=? where id =? ";
+        return this.jdbcTemplateM.update(sql, entity.getName(), entity.getTitle(), entity.getUrl(),entity.getKindId(), entity.getId()) > 0;
     }
 
     @SysResourceTx

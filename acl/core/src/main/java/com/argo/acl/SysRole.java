@@ -1,5 +1,6 @@
 package com.argo.acl;
 
+import com.argo.core.annotation.Column;
 import com.argo.core.annotation.EntityDef;
 import com.argo.core.annotation.PK;
 import com.argo.core.base.BaseEntity;
@@ -18,18 +19,21 @@ public class SysRole extends BaseEntity {
      * 
      */
     @PK("id")
+    @Column
 	private Integer id;
     
     /**
      * 角色代号
      * 
      */
+    @Column
     private String name;
     
     /**
      * 角色名称
      * 
      */
+    @Column
     private String title;
     
 

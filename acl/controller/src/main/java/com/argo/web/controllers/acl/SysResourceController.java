@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/admin/acl/sys/resource")
+@RequestMapping("/a/acl/sys/resource")
 public class SysResourceController extends AclBaseController {
 
     @Autowired
@@ -85,6 +85,7 @@ public class SysResourceController extends AclBaseController {
         SysResource res = new SysResource();
         res.setName(form.getName());
         res.setTitle(form.getTitle());
+        res.setKindId(form.getKindId());
         Long id = sysResourceService.add(res);
         res.setId(id.intValue());
 
@@ -105,6 +106,7 @@ public class SysResourceController extends AclBaseController {
         SysResource res = new SysResource();
         res.setName(form.getName());
         res.setTitle(form.getTitle());
+        res.setKindId(form.getKindId());
         res.setId(id.intValue());
 
         sysResourceService.update(res);

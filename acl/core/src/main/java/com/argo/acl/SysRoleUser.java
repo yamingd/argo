@@ -1,5 +1,6 @@
 package com.argo.acl;
 
+import com.argo.core.annotation.Column;
 import com.argo.core.base.BaseEntity;
 import com.argo.core.annotation.EntityDef;
 import com.argo.core.annotation.PK;
@@ -20,6 +21,7 @@ public class SysRoleUser extends BaseEntity {
      * 
      */
     @PK("roleId")
+    @Column
 	private Integer roleId;
     
     /**
@@ -27,12 +29,14 @@ public class SysRoleUser extends BaseEntity {
      * 
      */
     @PK("userId")
-	private Integer userId;
+    @Column
+	private Long userId;
     
     /**
      * 
      * 
      */
+    @Column
     private Date createAt;
     
 
@@ -57,10 +61,10 @@ public class SysRoleUser extends BaseEntity {
      * 
      * 
      */
-    public Integer getUserId(){
+    public Long getUserId(){
         return this.userId;
     }
-    public void setUserId(Integer userId){
+    public void setUserId(Long userId){
         this.userId = userId;
     }
     

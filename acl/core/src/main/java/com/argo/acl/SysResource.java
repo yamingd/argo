@@ -1,5 +1,6 @@
 package com.argo.acl;
 
+import com.argo.core.annotation.Column;
 import com.argo.core.annotation.EntityDef;
 import com.argo.core.annotation.PK;
 import com.argo.core.base.BaseEntity;
@@ -20,25 +21,32 @@ public class SysResource extends BaseEntity {
      * 
      */
     @PK("id")
+    @Column
 	private Integer id;
     
     /**
      * 权限代号
      * 
      */
+    @Column
     private String name;
     
     /**
      * 权限名称
      * 
      */
+    @Column
     private String title;
     
     /**
      * 权限对应的URL
      * 
      */
+    @Column
     private String url;
+
+    @Column
+    private Integer kindId;
 
     @Override
     public String getPK() {
@@ -88,6 +96,14 @@ public class SysResource extends BaseEntity {
     }
     public void setUrl(String url){
         this.url = url;
+    }
+
+    public Integer getKindId() {
+        return kindId;
+    }
+
+    public void setKindId(Integer kindId) {
+        this.kindId = kindId;
     }
 
     public boolean isChecked(List<Integer> resIds){
