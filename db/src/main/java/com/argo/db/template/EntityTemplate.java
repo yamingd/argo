@@ -18,6 +18,7 @@ public class EntityTemplate {
     private Class<?> clazz;
     private EntityDef def;
     private Map<String, Field> mapping;
+    private Field pkField;
     private List<PK> pks;
     private Collection<Field> fields;
     private boolean hasIfDeleted = false;
@@ -31,6 +32,10 @@ public class EntityTemplate {
         this.popupFields(this.clazz);
         this.fields = this.mapping.values();
         this.findPKs();
+
+        if (isMultiPK()){
+            pkField = null;
+        }
     }
 
     private void popupFields(Class clazz){
@@ -57,6 +62,7 @@ public class EntityTemplate {
             PK pk = field.getAnnotation(PK.class);
             if (pk != null){
                 this.pks.add(pk);
+                pkField = field;
             }
             if (field.getName().equalsIgnoreCase("ifDeleted")){
                 hasIfDeleted = true;
@@ -89,5 +95,13 @@ public class EntityTemplate {
 
     public boolean isMultiPK(){
         return this.pks.size() > 1;
+    }
+
+    public Field getPkField() {
+        return pkField;
+    }
+
+    public void setPkField(Field pkField) {
+        this.pkField = pkField;
     }
 }

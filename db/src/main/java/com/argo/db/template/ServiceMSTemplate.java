@@ -305,6 +305,67 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         return false;
     }
 
+    /**
+     * 只能在子类调用
+     * @param entity
+     * @param <T>
+     * @return
+     * @throws ServiceException
+     */
+    protected  <T> boolean updateEntity(T entity) throws ServiceException{
+        if (null == this.entityTemplate || this.entityTemplate.isMultiPK()) {
+            return false;
+        }
+
+        List<Object> params = Lists.newArrayList();
+        StringBuilder sb = new StringBuilder();
+        sb.append("update ").append(this.entityTemplate.getTable()).append(" set ");
+        boolean changed = false;
+        Iterator<Field> iter = this.entityTemplate.getFields().iterator();
+        while (iter.hasNext()) {
+            Field field = iter.next();
+            String name = field.getName();
+
+            if (name.equalsIgnoreCase(this.entityTemplate.getPk())){
+                continue;
+            }
+
+            try {
+                Object val = field.get(entity);
+                if (null != val) {
+                    sb.append(field.getName()).append("= ? ,");
+                    params.add(val);
+                    changed = true;
+                }
+
+            } catch (IllegalAccessException e) {
+                logger.error(e.getMessage(), e);
+            }
+        }
+
+        if (!changed){
+            return false;
+        }
+
+        sb.delete(sb.length() - 1, sb.length());
+        sb.append("  where ").append(this.entityTemplate.getPk()).append(" = ? ");
+        Object pkvalue = null;
+        try {
+            pkvalue = this.entityTemplate.getPkField().get(entity);
+            params.add(pkvalue);
+        } catch (IllegalAccessException e) {
+            logger.error(e.getMessage(), e);
+        }
+
+        int count = this.jdbcTemplateM.update(sb.toString().intern(), params.toArray());
+
+        if (this.cacheBucket != null){
+            String key = genCacheKey(":"+pkvalue);
+            this.cacheBucket.remove(key);
+        }
+
+        return count > 0;
+    }
 
     /**
      * 移除记录.
