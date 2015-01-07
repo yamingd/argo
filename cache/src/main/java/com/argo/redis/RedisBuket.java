@@ -68,6 +68,8 @@ public class RedisBuket extends RedisTemplate implements CacheBucket {
                 for (byte[] item : bytes){
                     if (item != null) {
                         ret.add(messagePack.read(item, clazz));
+                    }else{
+                        ret.add(null);
                     }
                 }
                 return ret;

@@ -170,15 +170,24 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
 
         boolean cacheEnabled = false;
         if (this.cacheBucket != null && this.entityClass != null){
-            cacheEnabled = true;
             List<String> keys = Lists.newArrayList();
             for (Long oid : oids){
                 keys.add(genCacheKey(":"+oid));
             }
             List items = this.cacheBucket.geto(this.entityClass, keys.toArray(new String[0]));
-            for (int i = 0; i < items.size(); i++) {
+            for (int i = 0; i < oids.size(); i++) {
                 Object o = items.get(i);
-                items.set(i, (T)o);
+                if (o == null){
+                    try {
+                        o = this.findById(oids.get(i));
+                        items.set(i, (T)o);
+                    } catch (EntityNotFoundException e) {
+                        logger.error("can't find record. id=" + oids.get(i));
+                    }
+                }else {
+                    items.set(i, (T) o);
+                }
+
             }
             return items;
         }
