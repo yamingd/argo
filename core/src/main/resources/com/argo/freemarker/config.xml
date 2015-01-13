@@ -23,6 +23,8 @@
                 <prop key="default_encoding">UTF-8</prop>
                 <prop key="number_format">0.##########</prop>
                 <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="time_format">HH:mm:ss</prop>
                 <prop key="classic_compatible">true</prop>
                 <prop key="template_exception_handler">ignore</prop>
             </props>
