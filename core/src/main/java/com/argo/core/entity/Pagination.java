@@ -75,6 +75,10 @@ public class Pagination<T> implements Serializable {
         }
     }
 
+    public Integer getOffset(){
+        return (this.index - 1) * this.size;
+    }
+
     public Integer getPages(){
         return this.pages;
     }
