@@ -115,7 +115,7 @@ public class BaseUser extends BaseEntity {
 	}
 
     public boolean isAnonymous(){
-        return this.uid.intValue() <= 0;
+        return this.getUid() != null && this.getUid().intValue() <= 0;
     }
 
     @Override
