@@ -112,7 +112,7 @@ public class RestAPITestRunner {
      * @param files
      * @return
      */
-    private static HttpUriRequest createFileRequest(String url, Map<String, String> args, Map<String, File[]> files) throws Exception {
+    private HttpUriRequest createFileRequest(String url, Map<String, String> args, Map<String, File[]> files) throws Exception {
         HttpUriRequest request = null;
         MultipartEntityBuilder entity = MultipartEntityBuilder.create();
         if (args != null && args.size() > 0) {
@@ -130,6 +130,9 @@ public class RestAPITestRunner {
         HttpPost httpPost = new HttpPost(createURI(url, null));
         httpPost.setEntity(entity.build());
         request = httpPost;
+        if (request != null){
+            prepareSession(request);
+        }
         return request;
     }
 
