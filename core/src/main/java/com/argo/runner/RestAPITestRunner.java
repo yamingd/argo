@@ -112,7 +112,7 @@ public class RestAPITestRunner {
      * @param files
      * @return
      */
-    private static HttpUriRequest createFileRequest(String url, Map<String, String> args, Map<String, File> files) throws Exception {
+    private static HttpUriRequest createFileRequest(String url, Map<String, String> args, Map<String, File[]> files) throws Exception {
         HttpUriRequest request = null;
         MultipartEntityBuilder entity = MultipartEntityBuilder.create();
         if (args != null && args.size() > 0) {
@@ -122,7 +122,9 @@ public class RestAPITestRunner {
         }
         if (files != null && files.size() > 0) {
             for (String key : files.keySet()) {
-                entity.addPart(key, new FileBody(files.get(key)));
+                for(File ifile : files.get(key)) {
+                    entity.addPart(key, new FileBody(ifile));
+                }
             }
         }
         HttpPost httpPost = new HttpPost(createURI(url, null));
@@ -310,12 +312,15 @@ public class RestAPITestRunner {
      * @throws Exception
      */
     protected JsonResponse postForm(String url, Map<String, Object> args) throws Exception {
-        Map<String, File> files = new HashMap<String, File>();
+        Map<String, File[]> files = new HashMap<String, File[]>();
         Map<String, String> params = new HashMap<String, String>();
+        File[] fa = new File[0];
         for (String name : args.keySet()){
             Object v = args.get(name);
             if (v instanceof File){
-                files.put(name, (File)v);
+                files.put(name, new File[]{(File)v});
+            }else if(v.getClass().equals(fa.getClass())){
+                files.put(name, (File[])v);
             }else{
                 params.put(name, v + "");
             }
@@ -354,12 +359,15 @@ public class RestAPITestRunner {
      * @return
      */
     protected ProtobufMessage postFormProtobuf(String url, Map<String, Object> args) throws Exception {
-        Map<String, File> files = new HashMap<String, File>();
+        Map<String, File[]> files = new HashMap<String, File[]>();
         Map<String, String> params = new HashMap<String, String>();
+        File[] fa = new File[0];
         for (String name : args.keySet()){
             Object v = args.get(name);
             if (v instanceof File){
-                files.put(name, (File)v);
+                files.put(name, new File[]{(File)v});
+            }else if(v.getClass().equals(fa.getClass())){
+                files.put(name, (File[])v);
             }else{
                 params.put(name, v + "");
             }
@@ -400,12 +408,15 @@ public class RestAPITestRunner {
      * @return
      */
     protected MsgPackResponse postFormMsgPack(String url, Map<String, Object> args) throws Exception {
-        Map<String, File> files = new HashMap<String, File>();
+        Map<String, File[]> files = new HashMap<String, File[]>();
         Map<String, String> params = new HashMap<String, String>();
+        File[] fa = new File[0];
         for (String name : args.keySet()){
             Object v = args.get(name);
             if (v instanceof File){
-                files.put(name, (File)v);
+                files.put(name, new File[]{(File)v});
+            }else if(v.getClass().equals(fa.getClass())){
+                files.put(name, (File[])v);
             }else{
                 params.put(name, v + "");
             }
