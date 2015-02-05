@@ -153,9 +153,13 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         }
         T o = list.get(0);
         if (o != null && this.cacheBucket != null && this.entityClass != null){
-            this.cacheBucket.put(key, o);
+            this.cacheBucket.put(key, o, getEntityTTL());
         }
         return o;
+    }
+
+    protected int getEntityTTL(){
+        return 3600 * 8;
     }
 
     protected String genCacheKey(Object oid) {
