@@ -27,6 +27,9 @@ public class CaptchaController extends MvcController {
 
     @RequestMapping(value = "/{ts}", method= RequestMethod.GET)
     public void get(HttpServletRequest request, HttpServletResponse response){
+        if (logger.isDebugEnabled()){
+            logger.debug("UA: {}", request.getHeader("User-Agent"));
+        }
         String token = CaptchaComponent.generateToken(response);
         setResponseHeaders(response);
         try {
