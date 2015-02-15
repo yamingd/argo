@@ -169,7 +169,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
     @Override
     public <T> List<T> findByIds(List<Long> oids){
         if (oids == null || oids.size() == 0){
-            return Collections.EMPTY_LIST;
+            return Lists.newArrayList();
         }
 
         boolean cacheEnabled = false;
