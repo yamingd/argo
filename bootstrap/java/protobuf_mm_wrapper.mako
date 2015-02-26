@@ -20,8 +20,19 @@
 }
 -(instancetype) initWithProtocolObj:(google::protobuf::Message*) pbmsg {
     // c++
-    {{_module_}}::P{{_tbi.entityName}}* pbobj = ({{_module_}}::P{{_tbi.entityName}}*)pbmsg;
+    if(self = [super init]) {
+        // c++
+        {{_module_}}::P{{_tbi.entityName}}* pbobj = ({{_module_}}::P{{_tbi.entityName}}*)pbmsg;
+        //
+        [self initValues:pbobj];
+    }
     //
+    return self;
+} 
+-(NSData*) getProtocolData {
+    return self.protocolData;
+}
+-(void)initValues:({{_module_}}::P{{_tbi.entityName}}*) pbobj{
 {% for col in _tbi.columns %}
     if(pbobj->has_{{col.protobuf_name}}()){
         const {{col.cpp_type}} {{col.name}} = pbobj->{{col.protobuf_name}}();
@@ -42,20 +53,14 @@
     }
 {% endif %}
 {% endfor %}
-    //
-    return self;
-} 
--(NSData*) getProtocolData {
-    return self.protocolData;
 }
-
 -(instancetype) initWithData:(NSData*) data {
     
     if(self = [super init]) {
         // c++
         {{_module_}}::P{{_tbi.entityName}}* pbmsg = [self deserialize:data];
         //
-        self = [self initWithProtocolObj:pbmsg];
+        [self initValues:pbmsg];
         // c++->objective C
         self.protocolData = data;
     }
