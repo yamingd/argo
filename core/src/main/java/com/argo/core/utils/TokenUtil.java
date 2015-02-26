@@ -156,13 +156,13 @@ public class TokenUtil {
 			logger.error("Invalid Cookie signature: " + value);
 			return null;
 		}
-		long timestamp = Long.parseLong(parts[1]);
+		long timestamp = Long.parseLong(parts[1]) * 1000L;
 		long now = new Date().getTime();
-		if(timestamp < (now - days * 86400 * 1000L)){
+		if(timestamp < (now - days * 24 * 3600 * 1000L)){
             logger.error("Expired Cookie: " + value);
 			return null;
 		}
-		if(timestamp > (now + 31L * 86400 * 1000)){
+		if(timestamp > (now + 31L * 24 * 3600 * 1000)){
             logger.error("Cookie timestamp in future; possible tampering " + value);
 			return null;
 		}
@@ -171,7 +171,15 @@ public class TokenUtil {
 	}
 	
 	public static void main(String[] args) throws IOException{
-		System.out.println(random("yaming_deng"));
-		System.out.println(random("192.168.1.105"));
-	}
+		//System.out.println(random("yaming_deng"));
+		//System.out.println(random("192.168.1.105"));
+
+        //ODE=|2147483647|67bc2dbbcad22db44a7efdd4d494f7911b2e2ff4dd151a4661f14dbb91c59ead
+
+        //1424942892
+
+        Date date = new Date(2147483647);
+        System.out.println(date);
+        System.out.println(new Date().getTime()/1000);
+    }
 }
