@@ -52,10 +52,15 @@ public class CaptchaComponent {
     public static boolean verifyToken(HttpServletRequest request, String token){
         String token0 = getToken(request);
         if (token0 == null){
+            logger.error("Can't Get Token From Cookie.");
             return false;
         }
-        token = DigestUtils.shaHex(token);
-        return token0.equalsIgnoreCase(token);
+        String token1 = DigestUtils.shaHex(token);
+        boolean flag = token1.equalsIgnoreCase(token0);
+        if (!flag){
+            logger.error("Token is not correct. expect {}, but got {} ({})", token0, token1, token);
+        }
+        return flag;
     }
 
     /**
