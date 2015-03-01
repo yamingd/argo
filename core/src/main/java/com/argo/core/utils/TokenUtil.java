@@ -116,7 +116,7 @@ public class TokenUtil {
         return hc.toString();
     }
 
-	private static String getCookieSecretSalt() {
+	public static String getCookieSecretSalt() {
         String val = (String)SiteConfig.instance.getCookie().get("secret");
         return md5(val);
 	}

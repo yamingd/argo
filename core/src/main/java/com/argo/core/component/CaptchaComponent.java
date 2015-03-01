@@ -1,9 +1,9 @@
 package com.argo.core.component;
 
+import com.argo.core.utils.TokenUtil;
 import com.argo.core.web.session.SessionCookieHolder;
 import com.github.cage.Cage;
 import com.github.cage.token.RandomTokenGenerator;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +55,7 @@ public class CaptchaComponent {
             logger.error("Can't Get Token From Cookie.");
             return false;
         }
-        String token1 = DigestUtils.shaHex(token);
+        String token1 = TokenUtil.generate(token, TokenUtil.getCookieSecretSalt());
         boolean flag = token1.equalsIgnoreCase(token0);
         if (!flag){
             logger.error("Token is not correct. expect {}, but got {} ({})", token0, token1, token);
@@ -71,7 +71,7 @@ public class CaptchaComponent {
      */
     public static String generateToken(HttpServletResponse response) {
         String token = cage.getTokenGenerator().next();
-        String token0 = DigestUtils.shaHex(token);
+        String token0 = TokenUtil.generate(token, TokenUtil.getCookieSecretSalt());
         if (logger.isDebugEnabled()){
             logger.debug("captcha token: {} -> {}", token0, token);
         }
