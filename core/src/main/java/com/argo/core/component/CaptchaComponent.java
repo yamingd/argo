@@ -4,6 +4,8 @@ import com.argo.core.web.session.SessionCookieHolder;
 import com.github.cage.Cage;
 import com.github.cage.token.RandomTokenGenerator;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,8 @@ import java.util.Random;
  * Time: 14:51
  */
 public class CaptchaComponent {
+
+    protected static Logger logger = LoggerFactory.getLogger(CaptchaComponent.class);
 
     private static Cage cage = null;
     static {
@@ -63,6 +67,9 @@ public class CaptchaComponent {
     public static String generateToken(HttpServletResponse response) {
         String token = cage.getTokenGenerator().next();
         String token0 = DigestUtils.shaHex(token);
+        if (logger.isDebugEnabled()){
+            logger.debug("captcha token: {} -> {}", token0, token);
+        }
         SessionCookieHolder.setCookie(response, "c", token0);
         return token;
     }
