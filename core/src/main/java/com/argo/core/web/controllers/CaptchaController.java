@@ -3,6 +3,7 @@ package com.argo.core.web.controllers;
 import com.argo.core.component.CaptchaComponent;
 import com.argo.core.web.MvcController;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,9 +27,10 @@ public class CaptchaController extends MvcController {
     }
 
     @RequestMapping(value = "/{ts}", method= RequestMethod.GET)
-    public void get(HttpServletRequest request, HttpServletResponse response){
+    public void get(HttpServletRequest request, HttpServletResponse response,
+                    @PathVariable(value = "ts") String ts){
         if (logger.isDebugEnabled()){
-            logger.debug("UA: {}", request.getHeader("User-Agent"));
+            logger.debug("TS:{}, UA: {}", ts, request.getHeader("User-Agent"));
         }
         String token = CaptchaComponent.generateToken(response);
         setResponseHeaders(response);
