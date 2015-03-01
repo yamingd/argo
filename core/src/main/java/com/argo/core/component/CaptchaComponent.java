@@ -52,7 +52,7 @@ public class CaptchaComponent {
     public static boolean verifyToken(HttpServletRequest request, String token){
         String token0 = getToken(request);
         if (token0 == null){
-            logger.error("Can't Get Token From Cookie.");
+            logger.error("Can't Get Token From Cookie. {}", request.getHeader("User-Agent"));
             return false;
         }
         String token1 = TokenUtil.generate(token, TokenUtil.getCookieSecretSalt());
