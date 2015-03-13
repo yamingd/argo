@@ -33,6 +33,13 @@ public interface AuthorizationService<T extends BaseUser> {
     T verifyUserPassword(String userName, String password);
 
     /**
+     * 验证用户
+     * @param user
+     * @param password
+     * @return
+     */
+    T verifyUserPassword(T user, String password);
+    /**
      * 验证用户是否有权访问
      * @param url
      * @return
