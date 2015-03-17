@@ -179,21 +179,26 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
                 keys.add(genCacheKey(":"+oid));
             }
             List items = this.cacheBucket.geto(this.entityClass, keys.toArray(new String[0]));
-            for (int i = 0; i < oids.size(); i++) {
-                Object o = items.get(i);
-                if (o == null){
-                    try {
-                        o = this.findById(oids.get(i));
-                        items.set(i, (T)o);
-                    } catch (EntityNotFoundException e) {
-                        logger.error("can't find record. id=" + oids.get(i));
-                    }
-                }else {
-                    items.set(i, (T) o);
-                }
-
+            if (logger.isDebugEnabled()){
+                logger.debug("items: {}", items);
             }
-            return items;
+            if (null != items) {
+                for (int i = 0; i < oids.size(); i++) {
+                    Object o = items.get(i);
+                    if (o == null) {
+                        try {
+                            o = this.findById(oids.get(i));
+                            items.set(i, (T) o);
+                        } catch (EntityNotFoundException e) {
+                            logger.error("can't find record. id=" + oids.get(i));
+                        }
+                    } else {
+                        items.set(i, (T) o);
+                    }
+
+                }
+                return items;
+            }
         }
 
         StringBuffer s = new StringBuffer();

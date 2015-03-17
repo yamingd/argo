@@ -144,7 +144,10 @@ public class FileStoreComponent extends BaseBean {
 		String path = String.format("/%s/%s/%s/%s/%s/", fileCategory, hex.substring(0, 3),hex.substring(3, 6),hex.substring(6, 9),hex.substring(9, 12));
 		File folder = new File(String.format("%s%s", rootFolder,path));
 		if(!folder.exists()){
-			folder.mkdirs();
+			boolean ret = folder.mkdirs();
+            if (logger.isDebugEnabled()){
+                logger.debug("create folder: {}, {}", folder, ret);
+            }
 		}
 		return new String[]{String.format("%s%s", rootFolder,path), path};
 	}
