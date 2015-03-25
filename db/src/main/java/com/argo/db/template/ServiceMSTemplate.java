@@ -172,7 +172,6 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
             return Lists.newArrayList();
         }
 
-        boolean cacheEnabled = false;
         if (this.cacheBucket != null && this.entityClass != null){
             List<String> keys = Lists.newArrayList();
             for (Long oid : oids){
@@ -180,24 +179,38 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
             }
             List items = this.cacheBucket.geto(this.entityClass, keys.toArray(new String[0]));
             if (null != items) {
+                List<Long> rids = Lists.newArrayList();
                 for (int i = 0; i < oids.size(); i++) {
                     Object o = items.get(i);
                     if (o == null) {
-                        try {
-                            o = this.findById(oids.get(i));
-                            items.set(i, (T) o);
-                        } catch (EntityNotFoundException e) {
-                            logger.error("can't find record. id=" + oids.get(i));
-                        }
+                        rids.add(oids.get(i));
+                        items.set(i, null);
                     } else {
                         items.set(i, (T) o);
                     }
-
                 }
+
+                if (rids.size() > 0 ){
+                    List<T> tmp = this.loadFromDb(rids);
+                    int i = 0, j = 0;
+                    for (;i<items.size();i++){
+                        if (items.get(i) == null){
+                            T o = tmp.get(j);
+                            items.set(i, o);
+                            j++;
+                        }
+                    }
+                }
+
                 return items;
             }
         }
 
+        return this.loadFromDb(oids);
+
+    }
+
+    private <T> List<T> loadFromDb(List<Long> oids){
         StringBuffer s = new StringBuffer();
         for (int i = 0; i < oids.size(); i++) {
             s.append(String.format(" %s = ? ", this.entityTemplate.getPk()));
@@ -207,16 +220,18 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         final String sql = String.format(SQL_FIND_BYIDS, this.entityTemplate.getTable(), s.toString());
         final List<T> list = (List<T>) this.jdbcTemplateS.query(sql,  oids.toArray(new Long[0]), this.entityMapper);
 
-        if (cacheEnabled && list.size() > 0) {
-            executor.submit(new Runnable() {
-                @Override
-                public void run() {
-                    for (T item : list) {
-                        String key = genCacheKey(((BaseEntity)item).getPK());
-                        cacheBucket.put(key, item);
+        if (list.size() > 0) {
+            if (this.cacheBucket != null && this.entityClass != null){
+                executor.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (T item : list) {
+                            String key = genCacheKey(((BaseEntity)item).getPK());
+                            cacheBucket.put(key, item, getEntityTTL());
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         return list;
