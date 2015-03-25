@@ -179,9 +179,6 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
                 keys.add(genCacheKey(":"+oid));
             }
             List items = this.cacheBucket.geto(this.entityClass, keys.toArray(new String[0]));
-            if (logger.isDebugEnabled()){
-                logger.debug("items: {}", items);
-            }
             if (null != items) {
                 for (int i = 0; i < oids.size(); i++) {
                     Object o = items.get(i);
@@ -208,7 +205,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         }
         s.setLength(s.length() - 4);
         final String sql = String.format(SQL_FIND_BYIDS, this.entityTemplate.getTable(), s.toString());
-        final List<T> list = (List<T>) this.jdbcTemplateS.query(sql, this.entityMapper, oids.toArray(new Long[0]));
+        final List<T> list = (List<T>) this.jdbcTemplateS.query(sql,  oids.toArray(new Long[0]), this.entityMapper);
 
         if (cacheEnabled && list.size() > 0) {
             executor.submit(new Runnable() {
