@@ -192,13 +192,17 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
 
                 if (rids.size() > 0 ){
                     List<T> tmp = this.loadFromDb(rids);
-                    int i = 0, j = 0;
-                    for (;i<items.size();i++){
-                        if (items.get(i) == null){
-                            T o = tmp.get(j);
-                            items.set(i, o);
-                            j++;
+                    if (tmp.size() > 0) {
+                        int i = 0, j = 0;
+                        for (; i < items.size(); i++) {
+                            if (items.get(i) == null) {
+                                T o = tmp.get(j);
+                                items.set(i, o);
+                                j++;
+                            }
                         }
+                    }else{
+                        logger.error("Records Not Found By Ids: {}", rids);
                     }
                 }
 
