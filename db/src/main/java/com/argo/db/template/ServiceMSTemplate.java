@@ -178,7 +178,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
                 keys.add(genCacheKey(":"+oid));
             }
             List items = this.cacheBucket.geto(this.entityClass, keys.toArray(new String[0]));
-            if (null != items) {
+            if (null != items && items.size() > 0) {
                 List<Long> rids = Lists.newArrayList();
                 for (int i = 0; i < oids.size(); i++) {
                     Object o = items.get(i);
