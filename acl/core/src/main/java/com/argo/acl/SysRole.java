@@ -6,6 +6,8 @@ import com.argo.core.annotation.PK;
 import com.argo.core.base.BaseEntity;
 import org.msgpack.annotation.MessagePackMessage;
 
+import java.util.List;
+
 /**
  * Created by $User on 2014-10-08 09:58.
  */
@@ -74,6 +76,10 @@ public class SysRole extends BaseEntity {
     }
     public void setTitle(String title){
         this.title = title;
+    }
+
+    public boolean checked(List<Integer> ids){
+        return ids != null && ids.contains(this.getId());
     }
 
     @Override

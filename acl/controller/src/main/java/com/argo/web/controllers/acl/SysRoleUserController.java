@@ -1,18 +1,26 @@
 package com.argo.web.controllers.acl;
 
-import com.argo.acl.SysRoleUser;
+import com.argo.acl.SysRole;
+import com.argo.acl.SysUser;
+import com.argo.acl.service.SysRoleService;
 import com.argo.acl.service.SysRoleUserService;
+import com.argo.acl.service.SysUserService;
+import com.argo.core.collections.ConvertFunctions;
+import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.web.JsonResponse;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
-import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by $User on 2014-10-08 09:58.
@@ -25,39 +33,37 @@ public class SysRoleUserController extends AclBaseController {
     @Autowired
     private SysRoleUserService sysRoleUserService;
 
-    @RequestMapping(value="add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public JsonResponse postAdd(@Valid AssignForm form, BindingResult result, JsonResponse actResponse) throws Exception {
+    @Autowired
+    private SysRoleService sysRoleService;
 
-        if (result.hasErrors()){
-            this.wrapError(result, actResponse);
-            return actResponse;
-        }
+    @Autowired
+    private SysUserService sysUserService;
 
-        SysRoleUser item = new SysRoleUser();
-        item.setCreateAt(new Date());
-        item.setUserId(form.getItemId().longValue());
-        item.setRoleId(form.getRoleId());
 
-        sysRoleUserService.add(item);
+    @RequestMapping(value="{id}", method = RequestMethod.GET)
+    public ModelAndView assign(ModelAndView model, @PathVariable Integer id) throws EntityNotFoundException {
 
-        return actResponse;
+        List<Integer> resIds = sysRoleUserService.findByUser(id);
+        List<SysRole> list = sysRoleService.findAll();
+        SysUser sysUser = this.sysUserService.findById(id.longValue());
+
+        model.addObject("resIds", resIds);
+        model.addObject("resList", list);
+        model.addObject("sysUser", sysUser);
+
+        model.setViewName("/admin/acl/sys/role/user-assign");
+
+        return model;
     }
 
-    @RequestMapping(value="remove", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value="save/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public JsonResponse postRemove(@Valid AssignForm form, BindingResult result, JsonResponse actResponse) throws Exception {
+    public JsonResponse postAdd(@PathVariable Integer id, JsonResponse actResponse, HttpServletRequest request) throws Exception {
 
-        if (result.hasErrors()){
-            this.wrapError(result, actResponse);
-            return actResponse;
-        }
+        String[] temp = request.getParameterValues("roleId");
+        List<Integer> roleIds = Lists.transform(Arrays.asList(temp), ConvertFunctions.toIntegerFunction());
 
-        SysRoleUser item = new SysRoleUser();
-        item.setUserId(form.getItemId().longValue());
-        item.setRoleId(form.getRoleId());
-
-        sysRoleUserService.remove(item);
+        sysRoleUserService.addBatch(id, roleIds);
 
         return actResponse;
     }

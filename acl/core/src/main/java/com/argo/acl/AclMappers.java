@@ -1,15 +1,6 @@
 package com.argo.acl;
 
 
-import com.argo.acl.SysResource;
-
-import com.argo.acl.SysRole;
-
-import com.argo.acl.SysRoleResource;
-
-import com.argo.acl.SysRoleUser;
-
-
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -38,5 +29,10 @@ public class AclMappers {
     public static final RowMapper<SysRoleUser> SysRoleUser_ROWMAPPER = new BeanPropertyRowMapper<SysRoleUser>(
             SysRoleUser.class);
 
-    
+
+    public static final RowMapper<SysMenu> SysMenu_ROWMAPPER = new BeanPropertyRowMapper<SysMenu>(
+            SysMenu.class);
+
+    public static final RowMapper<SysUser> SysUser_ROWMAPPER = new BeanPropertyRowMapper<SysUser>(
+            SysUser.class);
 }

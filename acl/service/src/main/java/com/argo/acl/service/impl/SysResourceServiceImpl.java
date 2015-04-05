@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Model(SysResource.class)
 @RmiService(serviceInterface=SysResourceService.class)
-public class SysResourceServiceImpl extends BaseServiceImpl implements SysResourceService{
+public class SysResourceServiceImpl extends AclBaseServiceImpl implements SysResourceService{
 
     @Override
     public SysResource findById(Long oid) throws EntityNotFoundException {
@@ -32,8 +32,7 @@ public class SysResourceServiceImpl extends BaseServiceImpl implements SysResour
 
     @SysResourceTx
     public boolean update(SysResource entity) throws ServiceException {
-        String sql = "update sys_resource set name=?, title=?, url=?, kindId=? where id =? ";
-        return this.jdbcTemplateM.update(sql, entity.getName(), entity.getTitle(), entity.getUrl(),entity.getKindId(), entity.getId()) > 0;
+        return this.updateEntity(entity);
     }
 
     @SysResourceTx

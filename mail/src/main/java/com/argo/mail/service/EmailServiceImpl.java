@@ -6,7 +6,6 @@ import com.argo.mail.executor.EmailExecutor;
 import com.argo.mail.executor.EmailPostSender;
 import com.argo.service.ServiceConfig;
 import com.argo.service.annotation.RmiService;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -29,6 +28,7 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
     private EmailExecutor executor;
     private ThreadPoolTaskExecutor pools;
     private volatile boolean stopping;
+    private boolean enabled = false;
 
     @Autowired
     private EmailPostSender emailPostSender;
@@ -42,6 +42,12 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
         batch = cfg.get("batch") == null ? 10 : (Integer)cfg.get("batch");
         interval = cfg.get("interval") == null ? 1 : (Integer)cfg.get("interval");
 
+        enabled = cfg.get("enabled") == null ? false : (Boolean)cfg.get("enabled");
+        if (!enabled){
+            logger.warn("EmailService has been disabled!");
+            return;
+        }
+
         pools = new ThreadPoolTaskExecutor();
         pools.setCorePoolSize(batch / 10);
         pools.setMaxPoolSize(batch);
@@ -51,6 +57,11 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
 
     @Override
     public void start(EmailExecutor executor) {
+        if (!enabled){
+            logger.warn("EmailService has been disabled!");
+            return;
+        }
+
         this.executor = executor;
         if (this.executor != null) {
             new PullThread().start();
@@ -65,6 +76,11 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
 
     @Override
     public void add(final EmailMessage message) {
+        if (!enabled){
+            logger.warn("EmailService has been disabled!");
+            return;
+        }
+
         long total = pending.incrementAndGet();
         logger.info("Pending Email to send. total = " + total);
 
@@ -78,6 +94,11 @@ public class EmailServiceImpl extends BaseBean implements EmailService {
 
     @Override
     public void send(final EmailMessage message) {
+        if (!enabled){
+            logger.warn("EmailService has been disabled!");
+            return;
+        }
+
         long total = pending.incrementAndGet();
         logger.info("Pending Email to send. total = " + total);
 

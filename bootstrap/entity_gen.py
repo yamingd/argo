@@ -70,7 +70,7 @@ def start(settings):
         folder1 = os.path.join(folder, 'service')
         os.makedirs(folder1)
         # start
-        gen_entity_def(mf, folder, m)
+        gen_entity_def(mf, folder, settings)
 
 
 def main():

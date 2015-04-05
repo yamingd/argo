@@ -66,7 +66,7 @@ public class SysResourceController extends AclBaseController {
             model.addObject("res", res);
             model.setViewName("/admin/acl/sys/resource/view");
         } catch (EntityNotFoundException e) {
-            RedirectView view = new RedirectView("/admin/acl/sys/resource/404");
+            RedirectView view = new RedirectView("/admin/acl/sys/404");
             model.setView(view);
         }
 

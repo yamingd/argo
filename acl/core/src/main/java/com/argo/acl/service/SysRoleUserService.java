@@ -17,10 +17,27 @@ public interface SysRoleUserService extends ServiceBase  {
     boolean remove(SysRoleUser item);
 
     /**
+     *
+     * @param userId
+     * @return
+     */
+    boolean removeByUser(Integer userId);
+    /**
      * 读取已授权的用户id
      * @param roleId
      * @return
      */
     List<Integer> findByRole(Integer roleId);
 
+    /**
+     *
+     * @param items
+     */
+    void addBatch(Integer userId, List<Integer> items);
+    /**
+     * 读取用户的角色
+     * @param id
+     * @return
+     */
+    List<Integer> findByUser(Integer id);
 }

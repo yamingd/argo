@@ -30,7 +30,7 @@ public class SysRoleUser extends BaseEntity {
      */
     @PK("userId")
     @Column
-	private Long userId;
+	private Integer userId;
     
     /**
      * 
@@ -38,7 +38,15 @@ public class SysRoleUser extends BaseEntity {
      */
     @Column
     private Date createAt;
-    
+
+    public SysRoleUser() {
+    }
+
+    public SysRoleUser(Integer userId, Integer roleId) {
+        this.roleId = roleId;
+        this.userId = userId;
+    }
+
 
     @Override
     public String getPK() {
@@ -61,10 +69,10 @@ public class SysRoleUser extends BaseEntity {
      * 
      * 
      */
-    public Long getUserId(){
+    public Integer getUserId(){
         return this.userId;
     }
-    public void setUserId(Long userId){
+    public void setUserId(Integer userId){
         this.userId = userId;
     }
     

@@ -66,7 +66,7 @@ public class SysRoleController extends AclBaseController {
             model.addObject("role", role);
             model.setViewName("/admin/acl/sys/role/view");
         } catch (EntityNotFoundException e) {
-            RedirectView view = new RedirectView("/admin/acl/sys/role/404");
+            RedirectView view = new RedirectView("/admin/acl/sys/404");
             model.setView(view);
         }
 

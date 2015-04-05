@@ -5,7 +5,7 @@ import com.argo.db.template.ServiceMSTemplate;
 /**
  * Created by yaming_deng on 14-8-19.
  */
-public abstract class BaseServiceImpl extends ServiceMSTemplate {
+public abstract class AclBaseServiceImpl extends ServiceMSTemplate {
 
 
 

@@ -60,7 +60,7 @@ class Column(object):
     @property
     def protobuf_value(self):
         if self.java_type == 'Date':
-            return '.getTime()'
+            return '.getTime()/1000'
         return ''
 
     @property

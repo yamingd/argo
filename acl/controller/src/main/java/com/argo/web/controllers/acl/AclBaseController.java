@@ -7,4 +7,10 @@ import com.argo.core.web.MvcController;
  */
 public abstract class AclBaseController extends MvcController {
 
+    public static final String MENU_SYSTEM = "system";
+
+    @Override
+    public String getMenu() {
+        return MENU_SYSTEM;
+    }
 }

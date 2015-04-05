@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<Message> {
+
     private static Logger log = LoggerFactory.getLogger(ProtobufHttpMessageConverter.class);
 
     public static String LS = System.getProperty("line.separator");
@@ -52,7 +53,11 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
             Message.Builder builder = (Message.Builder) m.invoke(clazz);
             InputStream is = inputMessage.getBody();
             builder.mergeFrom(is, extensionRegistry);
-            return builder.build();
+            Message msg = builder.build();
+            if (logger.isDebugEnabled()){
+                logger.debug("read: " + msg);
+            }
+            return msg;
         } catch (Exception e) {
             throw new HttpMessageNotReadableException("Unable to convert inputMessage to Proto object", e);
         }
@@ -60,9 +65,9 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
 
     @Override
     protected void writeInternal(Message message, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
-        if (logger.isDebugEnabled()) {
-            logger.debug(message);
-        }
+//        if (logger.isDebugEnabled()) {
+//            logger.debug(message);
+//        }
         FileCopyUtils.copy(message.toByteArray(), outputMessage.getBody());
     }
 

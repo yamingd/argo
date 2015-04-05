@@ -21,6 +21,9 @@ public class DetailForm {
     private String url;
     private Integer kindId;
 
+    private Integer parentId;
+    private Integer orderNo;
+
     public String getName() {
         return name;
     }
@@ -51,5 +54,21 @@ public class DetailForm {
 
     public void setKindId(Integer kindId) {
         this.kindId = kindId;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public Integer getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(Integer orderNo) {
+        this.orderNo = orderNo;
     }
 }

@@ -2,6 +2,7 @@ package com.argo.acl.service.impl;
 
 import com.argo.acl.SysRoleResource;
 import com.argo.acl.service.SysRoleResourceService;
+import com.argo.acl.service.SysRoleTx;
 import com.argo.core.annotation.Model;
 import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Model(SysRoleResource.class)
 @RmiService(serviceInterface=SysRoleResourceService.class)
-public class SysRoleResourceServiceImpl extends BaseServiceImpl implements SysRoleResourceService{
+public class SysRoleResourceServiceImpl extends AclBaseServiceImpl implements SysRoleResourceService{
 
     @Override
     public SysRoleResource findById(Long oid) throws EntityNotFoundException {
@@ -32,6 +33,13 @@ public class SysRoleResourceServiceImpl extends BaseServiceImpl implements SysRo
     @Override
     public boolean remove(Long oid) throws ServiceException {
         return false;
+    }
+
+    @Override
+    @SysRoleTx
+    public boolean removeByRole(Integer roleId) {
+        String sql = "delete from sys_role_resource where roleId=?";
+        return this.jdbcTemplateM.update(sql, roleId) > 0;
     }
 
     @Override

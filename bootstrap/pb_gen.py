@@ -65,7 +65,7 @@ def gen_protobuf_impl(module, folder, settings):
     #java out
     java_out = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/java')
     java_out = format_line(java_out, settings)
-    cmd = '%s/../protobuf/protoc.exe --proto_path=%s --java_out=%s %s' % (os.getcwd(), base_folder, java_out, proto_file)
+    cmd = 'protoc --proto_path=%s --java_out=%s %s' % (base_folder, java_out, proto_file)
     print cmd
     os.system(cmd)
     #render java wrapper
@@ -77,7 +77,7 @@ def gen_protobuf_impl(module, folder, settings):
     cpp_out = os.path.join(settings['_root_'], '_Project_-Protobuf/src/main/ios/Models', module['name'])
     cpp_out = format_line(cpp_out, settings)
     os.makedirs(cpp_out)
-    cmd = '%s/../protobuf/protoc.exe --proto_path=%s --cpp_out=%s %s' % (os.getcwd(), base_folder, cpp_out, proto_file)
+    cmd = 'protoc --proto_path=%s --cpp_out=%s %s' % (base_folder, cpp_out, proto_file)
     print cmd
     os.system(cmd)
     #rename cpp to .hh and .mm for iOS

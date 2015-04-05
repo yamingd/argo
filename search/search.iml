@@ -71,6 +71,7 @@
     <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.javassist:javassist:3.18.1-GA" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:2.5.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.cage:cage:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.elasticsearch:elasticsearch:0.90.7" level="project" />
     <orderEntry type="library" name="Maven: org.apache.lucene:lucene-core:4.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.lucene:lucene-analyzers-common:4.5.1" level="project" />

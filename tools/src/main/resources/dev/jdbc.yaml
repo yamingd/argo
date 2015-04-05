@@ -11,13 +11,13 @@ pool:
 
 common:
    type: mysql
-   user: root
-   pwd: yamingd51
+   user: career
+   pwd: career@123
 
 ems:
    tables: schema
    columns: schema
 ms:
    - name: schema
-     master: 127.0.0.1:3306/information_schema
-     slaves: 127.0.0.1:3306/information_schema
+     master: 120.24.225.106:33060/information_schema
+     slave: 120.24.225.106:33060/information_schema
