@@ -1,6 +1,7 @@
 package com.argo.acl.service;
 
 import com.argo.acl.SysUser;
+import com.argo.core.exception.EntityNotFoundException;
 import com.argo.core.exception.ServiceException;
 import com.argo.db.template.ServiceBase;
 
@@ -39,4 +40,28 @@ public interface SysUserService extends ServiceBase  {
      * @throws ServiceException
      */
     boolean updatePassword(SysUser sysUser, String oldpass) throws ServiceException;
+
+    /**
+     * 检验密码
+     * @param userName
+     * @param password
+     * @return
+     */
+    SysUser verifyUserPassword(String userName, String password);
+
+    /**
+     * 按用户名查找用户
+     * @param userName
+     * @return
+     * @throws EntityNotFoundException
+     */
+    SysUser findByUserName(String userName) throws EntityNotFoundException;
+
+    /**
+     * 检查密码
+     * @param user
+     * @param password
+     * @return
+     */
+    SysUser verifyUserPassword(SysUser user, String password);
 }

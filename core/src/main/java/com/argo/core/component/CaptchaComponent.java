@@ -55,7 +55,7 @@ public class CaptchaComponent {
             logger.error("Can't Get Token From Cookie. {}", request.getHeader("User-Agent"));
             return false;
         }
-        String token1 = TokenUtil.generate(token, TokenUtil.getCookieSecretSalt());
+        String token1 = TokenUtil.generate(token.trim().toLowerCase(), TokenUtil.getCookieSecretSalt());
         boolean flag = token1.equalsIgnoreCase(token0);
         if (!flag){
             logger.error("Token is not correct. expect {}, but got {} ({})", token0, token1, token);
@@ -70,7 +70,7 @@ public class CaptchaComponent {
      *            where to store the captcha.
      */
     public static String generateToken(HttpServletResponse response) {
-        String token = cage.getTokenGenerator().next();
+        String token = cage.getTokenGenerator().next().toLowerCase();
         String token0 = TokenUtil.generate(token, TokenUtil.getCookieSecretSalt());
         if (logger.isDebugEnabled()){
             logger.debug("captcha token: {} -> {}", token0, token);

@@ -55,7 +55,7 @@ public class SysMenuServiceImpl extends AclBaseServiceImpl implements SysMenuSer
 
     @Override
     public List<SysMenu> findByUserId(Integer sysUserId) {
-        String sql = "select t.* from sys_menu t, sys_role_user t1, sys_role_menu t2 where t.id = t2.menuId and t2.roleId = t1.roleId and t1.userId = ? order by t.parentId, t.orderNo";
+        String sql = "select distinct t.* from sys_menu t, sys_role_user t1, sys_role_menu t2 where t.id = t2.menuId and t2.roleId = t1.roleId and t1.userId = ? order by t.parentId, t.orderNo";
         List<SysMenu> list =  this.jdbcTemplateS.query(sql, AclMappers.SysMenu_ROWMAPPER, sysUserId);
         buildMenuTree(list);
         return list;

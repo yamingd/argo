@@ -100,7 +100,7 @@ public class SysUserController extends AclBaseController {
         SysUser sysUser = new SysUser();
         sysUser.setName(form.getName());
         sysUser.setTitle(form.getTitle());
-        sysUser.setPasswd(form.getPasswd());
+        sysUser.setHashPasswd(form.getPasswd());
 
         sysUser = sysUserService.addUser(sysUser);
 
@@ -121,7 +121,7 @@ public class SysUserController extends AclBaseController {
         SysUser sysUser = new SysUser();
         sysUser.setName(form.getName());
         sysUser.setTitle(form.getTitle());
-        sysUser.setId(id.intValue());
+        sysUser.setUid(id);
 
         sysUserService.updateUser(sysUser);
 
@@ -141,8 +141,8 @@ public class SysUserController extends AclBaseController {
         SysUser sysUser = new SysUser();
         sysUser.setName(form.getName());
         sysUser.setTitle(form.getTitle());
-        sysUser.setId(id.intValue());
-        sysUser.setPasswd(form.getPasswd());
+        sysUser.setUid(id);
+        sysUser.setHashPasswd(form.getPasswd());
 
         sysUserService.updatePassword(sysUser, null);
 

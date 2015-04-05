@@ -2,8 +2,7 @@ package com.argo.acl;
 
 import com.argo.core.annotation.Column;
 import com.argo.core.annotation.EntityDef;
-import com.argo.core.annotation.PK;
-import com.argo.core.base.BaseEntity;
+import com.argo.core.base.BaseUser;
 import org.msgpack.annotation.MessagePackMessage;
 
 import java.util.Date;
@@ -13,16 +12,7 @@ import java.util.Date;
  */
 @MessagePackMessage
 @EntityDef(table = "sys_user")
-public class SysUser extends BaseEntity {
-    
-    /**
-     * 
-     * 
-     */
-    @PK("id")
-    @Column
-	private Integer id;
-    
+public class SysUser extends BaseUser {
     /**
      * 角色代号
      * 
@@ -36,9 +26,6 @@ public class SysUser extends BaseEntity {
      */
     @Column
     private String title;
-
-    @Column
-    private String passwd;
 
     @Column
     private Integer statusId;
@@ -55,9 +42,12 @@ public class SysUser extends BaseEntity {
     @Column
     private String loginIp;
 
+    @Column
+    private String hashPasswd;
+
     @Override
     public String getPK() {
-        return  ":" + id ;
+        return  ":" + this.getUid() ;
     }
 
     
@@ -66,12 +56,8 @@ public class SysUser extends BaseEntity {
      * 
      */
     public Integer getId(){
-        return this.id;
+        return this.getUid().intValue();
     }
-    public void setId(Integer id){
-        this.id = id;
-    }
-    
     /**
      * 角色代号
      * 
@@ -92,14 +78,6 @@ public class SysUser extends BaseEntity {
     }
     public void setTitle(String title){
         this.title = title;
-    }
-
-    public String getPasswd() {
-        return passwd;
-    }
-
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
     }
 
     public Integer getStatusId() {
@@ -142,13 +120,36 @@ public class SysUser extends BaseEntity {
         this.loginIp = loginIp;
     }
 
+    public String getHashPasswd() {
+        return hashPasswd;
+    }
+
+    public void setHashPasswd(String hashPasswd) {
+        this.hashPasswd = hashPasswd;
+    }
+
+    @Override
+    public String getPasswd() {
+        return this.hashPasswd;
+    }
+
+    @Override
+    public void setPasswd(String passwd) {
+        super.setPasswd(passwd);
+        this.setHashPasswd(passwd);
+    }
+
+    @Override
+    public String getLoginId() {
+        return this.getName();
+    }
+
     @Override
     public String toString() {
         return "SysUser{" +
-                "id=" + id +
+                "id=" + getUid() +
                 ", name='" + name + '\'' +
                 ", title='" + title + '\'' +
-                ", passwd='" + passwd + '\'' +
                 ", statusId=" + statusId +
                 ", email='" + email + '\'' +
                 '}';

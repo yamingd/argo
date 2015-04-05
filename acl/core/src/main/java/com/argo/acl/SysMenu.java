@@ -48,6 +48,9 @@ public class SysMenu extends BaseEntity {
     @Column
     private Integer ifAdmin;
 
+    @Column
+    private String name;
+
     private List<SysMenu> subMenus;
 
     @Override
@@ -134,6 +137,14 @@ public class SysMenu extends BaseEntity {
 
     public boolean checked(List<Integer> ids){
         return ids != null && ids.contains(this.getId());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

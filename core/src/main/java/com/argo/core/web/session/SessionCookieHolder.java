@@ -61,27 +61,39 @@ public class SessionCookieHolder {
 	 * @throws UserNotAuthorizationException
 	 */
 	public static String getCurrentUID(HttpServletRequest request) throws UserNotAuthorizationException {
-		Cookie cookie = WebUtils.getCookie(request, getAuthCookieId());
+        String authCookieId = getAuthCookieId();
+
+        return getCurrentUID(request, authCookieId);
+	}
+
+    public static String getCurrentUID(HttpServletRequest request, String authCookieId) throws UserNotAuthorizationException {
+        Cookie cookie = WebUtils.getCookie(request, authCookieId);
         String value = null;
-		if(cookie==null){
-            value = request.getHeader(StringUtils.capitalize(getAuthCookieId()));
+        if (cookie == null) {
+            value = request.getHeader(StringUtils.capitalize(authCookieId));
             if (StringUtils.isBlank(value)) {
                 throw new UserNotAuthorizationException("x-auth is NULL.");
             }
-            if (logger.isDebugEnabled()){
-                logger.debug("Before {}:{}", getAuthCookieId(), value);
+            if (logger.isDebugEnabled()) {
+                logger.debug("Before {}:{}", authCookieId, value);
             }
-        }else{
+        } else {
             value = cookie.getValue();
         }
-		String uid = TokenUtil.decodeSignedValue(getAuthCookieId(), value);
-		if(uid==null){
-			throw new UserNotAuthorizationException("x-auth is invalid");
-		}
-		return uid;
-	}
+        String uid = TokenUtil.decodeSignedValue(authCookieId, value);
+        if (uid == null) {
+            throw new UserNotAuthorizationException("x-auth is invalid");
+        }
+        return uid;
+    }
+
     public static void setCurrentUID(HttpServletResponse response, String uid){
         String name = getAuthCookieId();
+        setCurrentUID(response, uid, name);
+
+    }
+
+    public static void setCurrentUID(HttpServletResponse response, String uid, String name) {
         String value = null;
         try {
             value = TokenUtil.createSignedValue(name, uid);
@@ -89,10 +101,14 @@ public class SessionCookieHolder {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
     public static void removeCurrentUID(HttpServletResponse response){
         String name = getAuthCookieId();
+        setCookie(response, name, "", 0);
+    }
+
+    public static void removeCurrentUID(HttpServletResponse response, String name){
         setCookie(response, name, "", 0);
     }
 	/**

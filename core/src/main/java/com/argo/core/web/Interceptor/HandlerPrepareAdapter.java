@@ -1,11 +1,9 @@
 package com.argo.core.web.Interceptor;
 
-import com.argo.core.ApplicationContextHolder;
 import com.argo.core.ContextConfig;
 import com.argo.core.base.BaseUser;
 import com.argo.core.exception.UserNotAuthorizationException;
 import com.argo.core.metric.MetricCollectorImpl;
-import com.argo.core.security.AuthorizationService;
 import com.argo.core.utils.IpUtil;
 import com.argo.core.web.AnonymousUser;
 import com.argo.core.web.CSRFToken;
@@ -13,7 +11,6 @@ import com.argo.core.web.MvcController;
 import com.argo.core.web.WebContext;
 import com.argo.core.web.session.SessionCookieHolder;
 import com.google.common.io.BaseEncoding;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
@@ -36,10 +33,8 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private AuthorizationService authorizationService = null;
-
     public HandlerPrepareAdapter() {
-        this.authorizationService = ApplicationContextHolder.current.ctx.getBean(AuthorizationService.class);
+
     }
 
     @Override
@@ -82,39 +77,26 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         WebContext.getContext().setRootPath(request.getContextPath());
         ContextConfig.set("contextPath", request.getContextPath());
 
-        String currentUid = null;
-        try {
-            currentUid = SessionCookieHolder.getCurrentUID(request);
-        } catch (UserNotAuthorizationException e) {
-            logger.debug("UserNotAuthorizationException currentUid="+currentUid);
-        }
         BaseUser user = null;
         MvcController c = this.getController(handler);
-        if (StringUtils.isNotBlank(currentUid)){
-            // 若是远程服务，则需要配置bean.authorizationService的实现
-            // 若是本地服务，不需要配置
-            if (logger.isDebugEnabled()){
-                logger.debug("preHandle currentUid="+currentUid);
+        // 若是远程服务，则需要配置bean.authorizationService的实现
+        // 若是本地服务，不需要配置
+        try{
+            user = c.verifyCookie(request, response);
+            if (user != null && logger.isDebugEnabled()){
+                logger.debug("preHandle verifyCookie is OK. BaseUser=" + user.getLoginId());
             }
-            if (authorizationService != null){
-                try{
-                    user = authorizationService.verifyCookie(request, response, currentUid);
-                    if (user != null && logger.isDebugEnabled()){
-                        logger.debug("preHandle verifyCookie is OK. BaseUser=" + user.getLoginId());
-                    }
-                    String lastAccessUrl = this.getLastAccessUrl(request);
-                    if (lastAccessUrl != null && !isMobile){
-                        response.sendRedirect(lastAccessUrl);
-                        return false;
-                    }
-                }catch (UserNotAuthorizationException ex){
-                    if (c.needLogin()) {
-                        if (!isMobile) {
-                            saveLastAccessUrl(request, response);
-                        }
-                        throw ex;
-                    }
+            String lastAccessUrl = this.getLastAccessUrl(request);
+            if (lastAccessUrl != null && !isMobile){
+                response.sendRedirect(lastAccessUrl);
+                return false;
+            }
+        }catch (UserNotAuthorizationException ex){
+            if (c.needLogin()) {
+                if (!isMobile) {
+                    saveLastAccessUrl(request, response);
                 }
+                throw ex;
             }
         }
         if (user == null){
@@ -124,15 +106,8 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         if (!isMobile && request.getMethod().equalsIgnoreCase("GET")){
             request.setAttribute("csrf", new CSRFToken(request, response, user));
         }
-        if (logger.isDebugEnabled()){
-            logger.debug("preHandle currentUid="+currentUid);
-        }
-        if (authorizationService != null && c.needLogin()){
-            authorizationService.verifyAccess(request.getRequestURI());
-            if (logger.isDebugEnabled()){
-                logger.debug("preHandle verifyAccess is OK.");
-            }
-        }
+
+        c.verifyAccess(request.getRequestURI());
 
         if (c != null){
             c.init();
