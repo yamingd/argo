@@ -42,7 +42,6 @@ public class SysUserServiceImpl extends AclBaseServiceImpl implements SysUserSer
     @SysUserTx
     public <T> Long add(T entity) throws ServiceException {
         SysUser sysUser = (SysUser)entity;
-        sysUser.setName(sysUser.getName().toLowerCase().trim());
         sysUser.setCreateAt(new Date());
         Long id =  super.add(sysUser);
         sysUser.setUid(id);
@@ -70,6 +69,7 @@ public class SysUserServiceImpl extends AclBaseServiceImpl implements SysUserSer
     @Override
     @SysUserTx
     public SysUser addUser(SysUser sysUser) throws ServiceException {
+        sysUser.setName(sysUser.getName().toLowerCase().trim());
         String password = this.passwordServiceFactory.getDefaultService().encrypt(sysUser.getPasswd(), sysUser.getName());
         sysUser.setHashPasswd(password);
 
@@ -130,7 +130,6 @@ public class SysUserServiceImpl extends AclBaseServiceImpl implements SysUserSer
         boolean flag = passwordServiceFactory.getDefaultService().validate(password, user.getLoginId(), user);
         if (flag){
             SysUser user1 = new SysUser();
-            user1.setName(user.getName());
             user1.setUid(user.getUid());
             user1.setLoginAt(new Date());
             user1.setLoginIp(WebContext.getContext().getRequestIp());
