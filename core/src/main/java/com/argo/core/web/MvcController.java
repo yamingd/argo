@@ -155,6 +155,7 @@ public abstract class MvcController {
         for (FieldError error : result.getFieldErrors()) {
             fields.add(error.getDefaultMessage());
         }
+        logger.error("Form Error: {}", result);
         actResponse.getData().add(fields);
         actResponse.setCode(6001);
     }
@@ -164,6 +165,7 @@ public abstract class MvcController {
         for (FieldError error : result.getFieldErrors()) {
             fields.add(error.getDefaultMessage());
         }
+        logger.error("Form Error: {}", result);
         actResponse.add(fields);
         actResponse.setCode(6001);
     }
@@ -172,6 +174,7 @@ public abstract class MvcController {
         for (FieldError error : result.getFieldErrors()) {
             actResponse.getBuilder().addErrors(error.getDefaultMessage());
         }
+        logger.error("Form Error: {}", result);
         actResponse.getBuilder().setCode(6001);
     }
 }
