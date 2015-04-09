@@ -46,6 +46,6 @@ public class DataSourceFactoryBeanMix {
     public static final String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
     public static final String DRIVER_ORACLE = "oracle.jdbc.driver.OracleDriver";
 
-    public final static String DRIVER_URL_MYSQL = "jdbc:mysql://%s?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
+    public final static String DRIVER_URL_MYSQL = "jdbc:mysql://%s?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&rewriteBatchedStatements=true";
     public final static String DRIVER_URL_ORACLE = "jdbc:oracle:thin:@%s";
 }
