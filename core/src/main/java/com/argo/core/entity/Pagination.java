@@ -17,7 +17,7 @@ public class Pagination<T> implements Serializable {
     /**
      * 每页显示记录数
      */
-    private Integer size = null;
+    private Integer size = 20;
     /**
      * 开始记录id
      */
