@@ -167,42 +167,44 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
     }
 
     @Override
-    public <T> List<T> findByIds(List<Long> oids){
-        if (oids == null || oids.size() == 0){
+    public <T> List<T> findByIds(List<Long> itemIds){
+        if (itemIds == null || itemIds.size() == 0){
             return Lists.newArrayList();
         }
 
         if (this.cacheBucket != null && this.entityClass != null){
             List<String> keys = Lists.newArrayList();
-            for (Long oid : oids){
-                keys.add(genCacheKey(":"+oid));
+            for (Long id : itemIds){
+                keys.add(genCacheKey(":"+id));
             }
             List items = this.cacheBucket.geto(this.entityClass, keys.toArray(new String[0]));
             if (null != items && items.size() > 0) {
-                List<Long> rids = Lists.newArrayList();
-                for (int i = 0; i < oids.size(); i++) {
+                List<Long> nullIds = Lists.newArrayList();
+                for (int i = 0; i < itemIds.size(); i++) {
                     Object o = items.get(i);
                     if (o == null) {
-                        rids.add(oids.get(i));
+                        nullIds.add(itemIds.get(i));
                         items.set(i, null);
                     } else {
                         items.set(i, (T) o);
                     }
                 }
 
-                if (rids.size() > 0 ){
-                    List<T> tmp = this.loadFromDb(rids);
-                    if (tmp.size() > 0) {
+                if (nullIds.size() > 0 ){
+                    logger.info("nullIds: {}", nullIds);
+                    List<T> listFromDb = this.loadFromDb(nullIds);
+                    if (listFromDb.size() > 0) {
+                        logger.info("listFromDb total={}", listFromDb.size());
                         int i = 0, j = 0;
                         for (; i < items.size(); i++) {
                             if (items.get(i) == null) {
-                                T o = tmp.get(j);
+                                T o = listFromDb.get(j);
                                 items.set(i, o);
                                 j++;
                             }
                         }
                     }else{
-                        logger.error("Records Not Found By Ids: {}", rids);
+                        logger.error("Records Not Found By Ids: {}", nullIds);
                     }
                 }
 
@@ -210,19 +212,19 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
             }
         }
 
-        return this.loadFromDb(oids);
+        return this.loadFromDb(itemIds);
 
     }
 
-    private <T> List<T> loadFromDb(List<Long> oids){
+    private <T> List<T> loadFromDb(List<Long> itemIds){
         StringBuffer s = new StringBuffer();
-        for (int i = 0; i < oids.size(); i++) {
+        for (int i = 0; i < itemIds.size(); i++) {
             s.append(String.format(" %s = ? ", this.entityTemplate.getPk()));
             s.append(" OR ");
         }
         s.setLength(s.length() - 4);
         final String sql = String.format(SQL_FIND_BYIDS, this.entityTemplate.getTable(), s.toString());
-        final List<T> list = (List<T>) this.jdbcTemplateS.query(sql,  oids.toArray(new Long[0]), this.entityMapper);
+        final List<T> list = (List<T>) this.jdbcTemplateS.query(sql, itemIds.toArray(new Long[0]), this.entityMapper);
 
         if (list.size() > 0) {
             if (this.cacheBucket != null && this.entityClass != null){
@@ -231,7 +233,11 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
                     public void run() {
                         for (T item : list) {
                             String key = genCacheKey(((BaseEntity)item).getPK());
-                            cacheBucket.put(key, item, getEntityTTL());
+                            try {
+                                cacheBucket.put(key, item, getEntityTTL());
+                            } catch (Exception e) {
+                                logger.error(e.getMessage(), e);
+                            }
                         }
                     }
                 });
