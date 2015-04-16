@@ -223,4 +223,10 @@ public class TrackingThreadPoolTaskExecutor extends ExecutorConfigurationSupport
         return true;
     }
 
+    @Override
+    public void afterPropertiesSet() {
+        super.afterPropertiesSet();
+
+
+    }
 }
