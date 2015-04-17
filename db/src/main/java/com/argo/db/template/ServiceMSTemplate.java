@@ -433,7 +433,9 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         String key = genCacheKey(":"+oid);
         if (this.cacheBucket != null){
             boolean flag = this.cacheBucket.remove(key);
-            logger.info("expire cache. key={}, result={}", key, flag);
+            if (logger.isDebugEnabled()) {
+                logger.debug("expire cache. key={}, result={}", key, flag);
+            }
         }
     }
 }
