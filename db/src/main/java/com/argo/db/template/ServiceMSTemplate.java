@@ -147,7 +147,11 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
             }
         }
         final String sql = String.format(SQL_FIND_BYID, this.entityTemplate.getTable(), this.entityTemplate.getPk());
-        List<T> list = (List<T>) this.jdbcTemplateS.query(sql, this.entityMapper, oid);
+        return getT(this.jdbcTemplateS, oid, key, sql);
+    }
+
+    protected <T> T getT(JdbcTemplate jdbcTemplate, Long oid, String key, String sql) throws EntityNotFoundException {
+        List<T> list = (List<T>) jdbcTemplate.query(sql, this.entityMapper, oid);
         if (list.size() == 0){
             throw new EntityNotFoundException(this.entityTemplate.getTable(), "findById", "id not found", oid);
         }
@@ -192,7 +196,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
 
                 if (nullIds.size() > 0 ){
                     logger.info("nullIds: {}", nullIds);
-                    List<T> listFromDb = this.loadFromDb(nullIds);
+                    List<T> listFromDb = this.loadFromDb(this.jdbcTemplateS, nullIds);
                     if (listFromDb.size() > 0) {
                         logger.info("listFromDb total={}", listFromDb.size());
                         int i = 0, j = 0;
@@ -212,11 +216,11 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
             }
         }
 
-        return this.loadFromDb(itemIds);
+        return this.loadFromDb(this.jdbcTemplateS, itemIds);
 
     }
 
-    private <T> List<T> loadFromDb(List<Long> itemIds){
+    protected  <T> List<T> loadFromDb(JdbcTemplate jdbcTemplate, List<Long> itemIds){
         StringBuffer s = new StringBuffer();
         for (int i = 0; i < itemIds.size(); i++) {
             s.append(String.format(" %s = ? ", this.entityTemplate.getPk()));
@@ -224,7 +228,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         }
         s.setLength(s.length() - 4);
         final String sql = String.format(SQL_FIND_BYIDS, this.entityTemplate.getTable(), s.toString());
-        final List<T> list = (List<T>) this.jdbcTemplateS.query(sql, itemIds.toArray(new Long[0]), this.entityMapper);
+        final List<T> list = (List<T>) jdbcTemplate.query(sql, itemIds.toArray(new Long[0]), this.entityMapper);
 
         if (list.size() > 0) {
             if (this.cacheBucket != null && this.entityClass != null){
