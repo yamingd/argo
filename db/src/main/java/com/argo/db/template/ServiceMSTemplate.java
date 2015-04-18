@@ -150,6 +150,12 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
         return getT(this.jdbcTemplateS, oid, key, sql);
     }
 
+    protected <T> T getT(JdbcTemplate jdbcTemplate, Long id) throws EntityNotFoundException {
+        String key = genCacheKey(":"+id);
+        final String sql = String.format(SQL_FIND_BYID, this.entityTemplate.getTable(), this.entityTemplate.getPk());
+        return this.getT(jdbcTemplate, id, key, sql);
+    }
+
     protected <T> T getT(JdbcTemplate jdbcTemplate, Long oid, String key, String sql) throws EntityNotFoundException {
         List<T> list = (List<T>) jdbcTemplate.query(sql, this.entityMapper, oid);
         if (list.size() == 0){
