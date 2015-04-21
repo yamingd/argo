@@ -39,15 +39,18 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
     @Override
     protected void afterExecute(Runnable r, Throwable t) {
         super.afterExecute(r, t);
+        if (null != t){
+            logger.error("Execute Task Error. {}", t);
+        }
         long total = counting.decrementAndGet();
-        logger.info("Pending Task: {}", total);
+        logger.info("afterExecute Pending Task: {}", total);
     }
 
     @Override
     public Future<?> submit(Runnable task) {
         Future<?> future = super.submit(task);
         long total = counting.incrementAndGet();
-        logger.info("Pending Task: {}", total);
+        logger.info("submit Task: {}", total);
         return future;
     }
 
@@ -55,7 +58,7 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
     public <T> Future<T> submit(Runnable task, T result) {
         Future<T> future = super.submit(task, result);
         long total = counting.incrementAndGet();
-        logger.info("Pending Task: {}", total);
+        logger.info("submit Task: {}", total);
         return future;
     }
 
@@ -63,7 +66,7 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
     public <T> Future<T> submit(Callable<T> task) {
         Future<T> future = super.submit(task);
         long total = counting.incrementAndGet();
-        logger.info("Pending Task: {}", total);
+        logger.info("submit Task: {}", total);
         return future;
     }
 
@@ -71,7 +74,7 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
     public void execute(Runnable command) {
         super.execute(command);
         long total = counting.incrementAndGet();
-        logger.info("Pending Task: {}", total);
+        logger.info("execute Task: {}", total);
     }
 
     @Override
@@ -79,7 +82,7 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
         boolean flag = super.remove(task);
         if (flag){
             long total = counting.decrementAndGet();
-            logger.info("Pending Task: {}", total);
+            logger.info("remove Task: {}", total);
         }
         return flag;
     }
@@ -88,7 +91,7 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
     protected <T> RunnableFuture<T> newTaskFor(Runnable runnable, T value) {
         RunnableFuture<T> future = super.newTaskFor(runnable, value);
         long total = counting.incrementAndGet();
-        logger.info("Pending Task: {}", total);
+        logger.info("newTaskFor Task: {}", total);
         return future;
     }
 
@@ -96,7 +99,7 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
     protected <T> RunnableFuture<T> newTaskFor(Callable<T> callable) {
         RunnableFuture<T> future = super.newTaskFor(callable);
         long total = counting.incrementAndGet();
-        logger.info("Pending Task: {}", total);
+        logger.info("newTaskFor Task: {}", total);
         return future;
     }
 
@@ -140,7 +143,7 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
         public void run() {
             while (!stopping){
                 long total = getNumOfPendingTask();
-                logger.info("Pending Task: {}", total);
+                logger.info("Check Pending Task: {}", total);
 
                 try {
                     Thread.sleep(5000);
