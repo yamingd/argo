@@ -71,13 +71,6 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
     }
 
     @Override
-    public void execute(Runnable command) {
-        super.execute(command);
-        long total = counting.incrementAndGet();
-        logger.info("execute Task: {}", total);
-    }
-
-    @Override
     public boolean remove(Runnable task) {
         boolean flag = super.remove(task);
         if (flag){
@@ -85,22 +78,6 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
             logger.info("remove Task: {}", total);
         }
         return flag;
-    }
-
-    @Override
-    protected <T> RunnableFuture<T> newTaskFor(Runnable runnable, T value) {
-        RunnableFuture<T> future = super.newTaskFor(runnable, value);
-        long total = counting.incrementAndGet();
-        logger.info("newTaskFor Task: {}", total);
-        return future;
-    }
-
-    @Override
-    protected <T> RunnableFuture<T> newTaskFor(Callable<T> callable) {
-        RunnableFuture<T> future = super.newTaskFor(callable);
-        long total = counting.incrementAndGet();
-        logger.info("newTaskFor Task: {}", total);
-        return future;
     }
 
     public long getNumOfPendingTask(){
