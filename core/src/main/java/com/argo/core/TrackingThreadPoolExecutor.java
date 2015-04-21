@@ -48,30 +48,46 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
 
     @Override
     public Future<?> submit(Runnable task) {
-        Future<?> future = super.submit(task);
+        if (null == task){
+            return null;
+        }
+
         long total = counting.incrementAndGet();
         logger.info("submit Task: {}", total);
+        Future<?> future = super.submit(task);
         return future;
     }
 
     @Override
     public <T> Future<T> submit(Runnable task, T result) {
-        Future<T> future = super.submit(task, result);
+        if (null == task){
+            return null;
+        }
+
         long total = counting.incrementAndGet();
         logger.info("submit Task: {}", total);
+        Future<T> future = super.submit(task, result);
         return future;
     }
 
     @Override
     public <T> Future<T> submit(Callable<T> task) {
-        Future<T> future = super.submit(task);
+        if (null == task){
+            return null;
+        }
+
         long total = counting.incrementAndGet();
         logger.info("submit Task: {}", total);
+        Future<T> future = super.submit(task);
         return future;
     }
 
     @Override
     public boolean remove(Runnable task) {
+        if (null == task){
+            return false;
+        }
+
         boolean flag = super.remove(task);
         if (flag){
             long total = counting.decrementAndGet();
