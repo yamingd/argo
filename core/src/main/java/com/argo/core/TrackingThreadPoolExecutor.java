@@ -103,7 +103,7 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
     PingThread pingThread = null;
     public void startPing(){
         if (pingThread == null){
-            pingThread = new PingThread();
+            pingThread = new PingThread(this);
         }
         pingThread.start();
     }
@@ -127,16 +127,17 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
     public class PingThread extends Thread{
 
         private volatile boolean stopping = false;
-
-        public PingThread() {
+        private ThreadPoolExecutor executor = null;
+        public PingThread(ThreadPoolExecutor executor) {
             stopping = false;
+            this.executor = executor;
         }
 
         @Override
         public void run() {
             while (!stopping){
-                long total = getNumOfPendingTask();
-                logger.info("Check Pending Task: {}", total);
+
+                logger.info("{}", executor);
 
                 try {
                     Thread.sleep(5000);
