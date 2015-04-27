@@ -8,6 +8,7 @@ import com.argo.core.protobuf.ProtobufMessage;
 import com.argo.core.utils.TokenUtil;
 import com.argo.core.web.JsonResponse;
 import com.argo.core.web.session.SessionCookieHolder;
+import net.sf.jmimemagic.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
@@ -42,6 +43,7 @@ public class RestAPITestRunner {
 
     public static Logger logger = LoggerFactory.getLogger(RestAPITestRunner.class);
     public static String domain;
+    public static Magic mimeParser = new Magic() ;
 
     static {
         try {
@@ -105,6 +107,20 @@ public class RestAPITestRunner {
         return request;
     }
 
+    private ContentType getFileMimeType(File file){
+        MagicMatch match = null;
+        try {
+            match = mimeParser.getMagicMatch(file, true);
+        } catch (MagicParseException e) {
+            logger.error(e.getMessage(), e);
+        } catch (MagicMatchNotFoundException e) {
+            logger.error(e.getMessage(), e);
+        } catch (MagicException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return ContentType.create(match.getMimeType()) ;
+    }
+
     /**
      *
      * @param url
@@ -123,7 +139,7 @@ public class RestAPITestRunner {
         if (files != null && files.size() > 0) {
             for (String key : files.keySet()) {
                 for(File ifile : files.get(key)) {
-                    entity.addPart(key, new FileBody(ifile));
+                    entity.addPart(key, new FileBody(ifile, this.getFileMimeType(ifile)));
                 }
             }
         }
