@@ -17,11 +17,16 @@ public class EntityNotFoundException extends BaseException {
 	public EntityNotFoundException(String tableName, String opCode,
 			String message, Object... paramters) {
 		super(message+":"+tableName+"("+opCode+")", paramters);
+
+        this.setErrcode(60404);
 	}
 
 	public EntityNotFoundException(String tableName, String opCode,
 			String message, Throwable cause, Object... paramters) {
+
 		super(message+":"+tableName+"("+opCode+")", cause, paramters);
+
+        this.setErrcode(60404);
 	}
 	
 	

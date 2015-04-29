@@ -21,7 +21,7 @@ public class RepositoryException extends BaseException {
 	 * @param opCode：操作代号/英文名
 	 * @param message：业务逻辑描述
 	 * @param cause
-	 * @param paramters: 执行参数
+	 * @param params: 执行参数
 	 */
 	public RepositoryException(String tableName, String opCode, String message, Throwable cause, Object... params) {
 		super(message+":"+tableName+"("+opCode+")", cause, params);
@@ -31,7 +31,7 @@ public class RepositoryException extends BaseException {
 	 * @param tableName: 数据表名称
 	 * @param opCode：操作代号/英文名
 	 * @param message：业务逻辑描述
-	 * @param paramters: 执行参数
+	 * @param params: 执行参数
 	 */
 	public RepositoryException(String tableName, String opCode, String message, Object... params) {
 		super(message+":"+tableName+"("+opCode+")", params);

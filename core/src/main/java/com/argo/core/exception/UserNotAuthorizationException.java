@@ -16,10 +16,12 @@ public class UserNotAuthorizationException extends ServiceException {
 
 	public UserNotAuthorizationException(String message, Throwable cause) {
 		super(message, cause);
+        this.setErrcode(60401);
 	}
 
 	public UserNotAuthorizationException(String message) {
 		super(message);
+        this.setErrcode(60401);
 	}
 
 }

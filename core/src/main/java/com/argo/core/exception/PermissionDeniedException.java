@@ -22,6 +22,7 @@ public class PermissionDeniedException extends BaseException {
 	 */
 	public PermissionDeniedException(String message, Object... params) {
 		super(message, params);
+        this.setErrcode(60403);
 	}
 
 	/**
@@ -32,6 +33,7 @@ public class PermissionDeniedException extends BaseException {
 	public PermissionDeniedException(String message, Throwable cause,
 			Object... params) {
 		super(message, cause, params);
+        this.setErrcode(60403);
 	}
 
 	/**
@@ -40,6 +42,7 @@ public class PermissionDeniedException extends BaseException {
 	 */
 	public PermissionDeniedException(String message, Throwable cause) {
 		super(message, cause);
+        this.setErrcode(60403);
 	}
 
 	/**
@@ -47,6 +50,7 @@ public class PermissionDeniedException extends BaseException {
 	 */
 	public PermissionDeniedException(String message) {
 		super(message);
+        this.setErrcode(60403);
 	}
 
 }

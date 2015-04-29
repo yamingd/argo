@@ -14,6 +14,7 @@ public class UserAccountLockedException extends UserNotAuthorizationException {
 
 	public UserAccountLockedException(String message) {
 		super(message);
+        this.setErrcode(60423);
 	}
 
 }
