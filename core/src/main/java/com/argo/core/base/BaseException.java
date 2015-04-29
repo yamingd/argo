@@ -10,7 +10,7 @@ public class BaseException extends Exception {
 	 */
 	private static final long serialVersionUID = -6628333484201118676L;
 
-    private Integer errcode;
+    private Integer errcode = 60500;
 
 	public BaseException(String message, Throwable cause, Object... params){
 		super(cause.getMessage()+":"+message+"@"+ StringUtils.join(params), cause);
