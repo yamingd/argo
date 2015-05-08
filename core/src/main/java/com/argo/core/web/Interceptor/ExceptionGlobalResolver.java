@@ -2,6 +2,7 @@ package com.argo.core.web.Interceptor;
 
 import com.argo.core.configuration.SiteConfig;
 import com.argo.core.exception.PermissionDeniedException;
+import com.argo.core.exception.UserKickedOffException;
 import com.argo.core.exception.UserNotAuthorizationException;
 import com.argo.core.json.JsonUtil;
 import com.argo.core.protobuf.ProtobufResponse;
@@ -62,7 +63,12 @@ public class ExceptionGlobalResolver implements HandlerExceptionResolver {
             pb.getBuilder().setCode(403).setMsg("PermissionDeniedException");
             response.setStatus(403);
             writeProtobuf(request, response, pb.build());
-        }else{
+        }else if (ex instanceof UserKickedOffException){
+            pb.getBuilder().setCode(((UserKickedOffException) ex).getErrcode()).setMsg("UserKickedOffException");
+            response.setStatus(200);
+            writeProtobuf(request, response, pb.build());
+        }
+        else{
             String errorString = "Method:"+request.getMethod()+"请求错误:"+request.getRequestURL().toString()+",refererUrl:"+request.getHeader("Referer");
             logger.error(errorString, ex);
             pb.getBuilder().setCode(500).setMsg("Unexpected Error.");
