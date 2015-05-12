@@ -90,7 +90,12 @@ public class ExceptionGlobalResolver implements HandlerExceptionResolver {
             String loginUrl = (String)app.get("login");
             try {
                 response.setStatus(401);
-                response.sendRedirect(loginUrl);
+                Object redirectTo = request.getAttribute("redirectTo");
+                if (redirectTo != null){
+                    response.sendRedirect((String) redirectTo);
+                }else {
+                    response.sendRedirect(loginUrl);
+                }
                 return null;
             } catch (IOException e) {
                 logger.error("Redirect Error", e);
