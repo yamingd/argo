@@ -177,7 +177,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
     }
 
     @Override
-    public <T> List<T> findByIds(List<Long> itemIds){
+    public <T> List<T> findByIds(List<Long> itemIds, boolean ascending){
         if (itemIds == null || itemIds.size() == 0){
             return Lists.newArrayList();
         }
@@ -202,7 +202,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
 
                 if (nullIds.size() > 0 ){
                     logger.info("nullIds: {}", nullIds);
-                    List<T> listFromDb = this.loadFromDb(this.jdbcTemplateS, nullIds);
+                    List<T> listFromDb = this.loadFromDb(this.jdbcTemplateS, nullIds, ascending);
                     if (listFromDb.size() > 0) {
                         logger.info("listFromDb total={}", listFromDb.size());
                         int i = 0, j = 0;
@@ -222,21 +222,28 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
             }
         }
 
-        return this.loadFromDb(this.jdbcTemplateS, itemIds);
+        return this.loadFromDb(this.jdbcTemplateS, itemIds, ascending);
 
     }
 
-    protected  <T> List<T> loadFromDb(JdbcTemplate jdbcTemplate, List<Long> itemIds){
+    protected  <T> List<T> loadFromDb(JdbcTemplate jdbcTemplate, List<Long> itemIds, boolean ascending){
         StringBuffer s = new StringBuffer();
         for (int i = 0; i < itemIds.size(); i++) {
             s.append(String.format(" %s = ? ", this.entityTemplate.getPk()));
             s.append(" OR ");
         }
         s.setLength(s.length() - 4);
+        if (ascending){
+            s.append(String.format(" order by %s", this.entityTemplate.getPk()));
+        }else{
+            s.append(String.format(" order by %s desc", this.entityTemplate.getPk()));
+        }
+
         final String sql = String.format(SQL_FIND_BYIDS, this.entityTemplate.getTable(), s.toString());
         final List<T> list = (List<T>) jdbcTemplate.query(sql, itemIds.toArray(new Long[0]), this.entityMapper);
 
         if (list.size() > 0) {
+
             if (this.cacheBucket != null && this.entityClass != null){
                 executor.submit(new Runnable() {
                     @Override
