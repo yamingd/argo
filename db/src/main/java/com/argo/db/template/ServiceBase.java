@@ -23,6 +23,7 @@ public interface ServiceBase {
      * @param <T>
      * @return
      */
+    <T> List<T> findByIds(List<Long> oids);
     <T> List<T> findByIds(List<Long> oids, boolean ascending);
     /**
      * 添加记录

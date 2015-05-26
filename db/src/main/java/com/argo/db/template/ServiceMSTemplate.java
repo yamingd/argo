@@ -177,6 +177,11 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
     }
 
     @Override
+    public <T> List<T> findByIds(List<Long> oids) {
+        return this.findByIds(oids, true);
+    }
+
+    @Override
     public <T> List<T> findByIds(List<Long> itemIds, boolean ascending){
         if (itemIds == null || itemIds.size() == 0){
             return Lists.newArrayList();
