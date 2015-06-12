@@ -1,14 +1,13 @@
 package com.argo.db.hooks;
 
-import java.sql.Connection;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.jolbox.bonecp.ConnectionHandle;
 import com.jolbox.bonecp.StatementHandle;
 import com.jolbox.bonecp.hooks.AbstractConnectionHook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.sql.Connection;
+import java.util.Map;
 
 /**
  * Oracle操作SQL-连接监听
@@ -33,14 +32,19 @@ public class OracleConnectionHook extends AbstractConnectionHook {
 	@Override
 	public void onAfterStatementExecute(ConnectionHandle conn, StatementHandle statement, String sql, Map<Object, Object> params) {
 		Connection internalConnection = conn.getInternalConnection();
-		
-		if(logger.isDebugEnabled()){
-			logger.debug("onAfterStatementExecute:" + internalConnection);
-			logger.debug("onAfterStatementExecute:" + sql);
-		}
 	}
 	
 	public boolean onConnectionException(ConnectionHandle connection, String state, Throwable t) {
 		return true; // keep the default behaviour
 	}
+
+    @Override
+    public void onCheckOut(ConnectionHandle connection) {
+        super.onCheckOut(connection);
+    }
+
+    @Override
+    public void onDestroy(ConnectionHandle connection) {
+        logger.error("onDestroy, {}", connection);
+    }
 }

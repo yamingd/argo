@@ -1,6 +1,5 @@
 package com.argo.db.hooks;
 
-import com.argo.db.JdbcConfig;
 import com.jolbox.bonecp.ConnectionHandle;
 import com.jolbox.bonecp.StatementHandle;
 import com.jolbox.bonecp.hooks.AbstractConnectionHook;
@@ -29,24 +28,25 @@ public class MySQLConnectionHook extends AbstractConnectionHook {
 			logger.debug("onBeforeStatementExecute:{}", internalConnection);
 		}
 
-        Boolean flag = JdbcConfig.current.get(Boolean.class, "sqlprint");
-        if (flag) {
-            logger.info("onBeforeStatementExecute: {}", sql);
-            logger.info("onBeforeStatementExecute: {}", params);
-        }
 	}
 	
 	@Override
 	public void onAfterStatementExecute(ConnectionHandle conn, StatementHandle statement, String sql, Map<Object, Object> params) {
 		Connection internalConnection = conn.getInternalConnection();
-		
-		if(logger.isDebugEnabled()){
-			logger.debug("onAfterStatementExecute:" + internalConnection);
-			logger.debug("onAfterStatementExecute:" + sql);
-		}
 	}
 	
 	public boolean onConnectionException(ConnectionHandle connection, String state, Throwable t) {
+        logger.error("onConnectionException, {}, {}", connection, t);
 		return true; // keep the default behaviour
 	}
+
+    @Override
+    public void onCheckOut(ConnectionHandle connection) {
+        super.onCheckOut(connection);
+    }
+
+    @Override
+    public void onDestroy(ConnectionHandle connection) {
+        logger.error("onDestroy, {}", connection);
+    }
 }
