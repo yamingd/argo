@@ -38,6 +38,14 @@ public class RedisConfig extends AbstractConfig {
         return super.get(Integer.class, "port", 6379);
 	}
 
+    public boolean getTestOnBorrow(){
+        return super.get(Boolean.class, "testOnBorrow", true);
+    }
+
+    public boolean getTestWhileIdle(){
+        return super.get(Boolean.class, "testWhileIdle", true);
+    }
+
     @Override
     public String getConfName() {
         return confName;
