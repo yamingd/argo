@@ -1,5 +1,6 @@
 package com.argo.redis;
 
+import com.google.common.base.Objects;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.BinaryJedis;
@@ -129,4 +130,18 @@ public class RedisPool extends Pool<BinaryJedis> {
         return this.internalPool.getNumActive();
     }
 
+    @Override
+    public String toString() {
+        Objects.ToStringHelper h = Objects.toStringHelper(this);
+        h.add("NumActive", this.getNumActive());
+        h.add("BorrowedCount", this.internalPool.getBorrowedCount());
+        h.add("ReturnedCount", this.internalPool.getReturnedCount());
+        h.add("CreatedCount", this.internalPool.getCreatedCount());
+        h.add("DestroyedCount", this.internalPool.getDestroyedCount());
+        h.add("MeanActiveTimeMillis", this.internalPool.getMeanActiveTimeMillis());
+        h.add("MeanIdleTimeMillis", this.internalPool.getMeanIdleTimeMillis());
+        h.add("MeanBorrowWaitTimeMillis", this.internalPool.getMeanBorrowWaitTimeMillis());
+        h.add("MaxBorrowWaitTimeMillis", this.internalPool.getMaxBorrowWaitTimeMillis());
+        return h.toString();
+    }
 }

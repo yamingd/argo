@@ -167,6 +167,9 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
             int sleepTime = 30000;
             int baseSleepTime = 1000;
             while (true) {
+
+                logger.info("{}", jedisPool.toString());
+
                 try {
                     // 30秒执行监听
                     int n = sleepTime / baseSleepTime;
