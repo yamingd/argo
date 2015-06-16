@@ -21,6 +21,8 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
     private String serverName = null;
     private boolean ALIVE = true;
     private boolean serverDown = false;
+
+    private volatile boolean stopping = false;
     private RedisConfig redisConfig = null;
 
     private RedisPool jedisPool;
@@ -50,6 +52,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
 
     @Override
     public void destroy() throws Exception {
+        stopping = true;
         if (null != this.jedisPool){
             this.jedisPool.destroy();
         }
@@ -57,6 +60,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
 
     @Override
     public void close() throws IOException {
+        stopping = true;
         if (null != this.jedisPool){
             this.jedisPool.close();
         }
@@ -166,7 +170,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
         public void run() {
             int sleepTime = 30000;
             int baseSleepTime = 1000;
-            while (true) {
+            while (!stopping) {
 
                 logger.info("{}", jedisPool.toString());
 
