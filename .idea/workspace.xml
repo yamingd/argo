@@ -1,20 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="db93b134-e637-410e-9cb1-baf63115f8c3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/AdminBaseController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/AdminIndexController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/AclBaseController.java" afterPath="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/AclBaseController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/core/component/CaptchaComponent.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/component/CaptchaComponent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Interceptor/HandlerPrepareAdapter.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Interceptor/HandlerPrepareAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/session/SessionCookieHolder.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/session/SessionCookieHolder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysMenu.java" afterPath="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysMenuServiceImpl.java" afterPath="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysMenuServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysUser.java" afterPath="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysUser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysUserController.java" afterPath="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysUserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysUserService.java" afterPath="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysUserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysUserServiceImpl.java" afterPath="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysUserServiceImpl.java" />
+    <list default="true" id="db93b134-e637-410e-9cb1-baf63115f8c3" name="Default" comment="mime utils">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/mime.cache" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/protoc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/util/EncodingGuesser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/ExtensionMimeDetector.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/InvalidMagicMimeEntryException.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/LICENSE.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MagicMimeEntry.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MagicMimeEntryOperation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MagicMimeMimeDetector.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MatchingMagicMimeEntry.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MimeDetector.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeException.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeTypeHashSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeUtil.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeUtil2.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/OpendesktopMimeDetector.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppResponse.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/ios/PAppResponse.pb.cc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/ios/PAppResponse.pb.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/PAppResponse.proto" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppResponseOrBuilder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppResponseProto.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppSession.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppSessionOrBuilder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppSessionProto.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/README.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/util/StringUtil.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/TextMimeDetector.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/handler/TextMimeHandler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/TextMimeType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/WindowsRegistryMimeDetector.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/util/ZipJarUtil.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/ios/app_session.pb.cc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/ios/app_session.pb.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/app_session.proto" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/gen.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/eu/medsea/mimeutil/magic.mime" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/eu/medsea/mimeutil/mime-types.properties" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_pool_commons_pool_1_6.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_2_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/Magic.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicDetector.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicMatch.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicMatchNotFoundException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicMatcher.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicParseException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/UnsupportedTypeException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/detectors/TextFileDetector.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/detectors/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/package.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/resources/magic.dtd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/resources/magic.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/resources/magic.xml.basic" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/resources/magic.xml.verified" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/resources/magic_1_0.dtd" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Argo.iml" afterPath="$PROJECT_DIR$/Argo.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/controller/argo-acl-controller.iml" afterPath="$PROJECT_DIR$/acl/controller/argo-acl-controller.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/core/argo-acl-core.iml" afterPath="$PROJECT_DIR$/acl/core/argo-acl-core.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/service/argo-acl-service.iml" afterPath="$PROJECT_DIR$/acl/service/argo-acl-service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/argo-acl.iml" afterPath="$PROJECT_DIR$/acl/argo-acl.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mail/argo-mail.iml" afterPath="$PROJECT_DIR$/mail/argo-mail.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/argo-service.iml" afterPath="$PROJECT_DIR$/service/argo-service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task/argo-task.iml" afterPath="$PROJECT_DIR$/task/argo-task.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/argo-tools.iml" afterPath="$PROJECT_DIR$/tools/argo-tools.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cache/cache.iml" afterPath="$PROJECT_DIR$/cache/cache.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cluster/cluster.iml" afterPath="$PROJECT_DIR$/cluster/cluster.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/data.iml" afterPath="$PROJECT_DIR$/data/data.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/db.iml" afterPath="$PROJECT_DIR$/db/db.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbtest/dbtest.iml" afterPath="$PROJECT_DIR$/dbtest/dbtest.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/message/message.iml" afterPath="$PROJECT_DIR$/message/message.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/search/search.iml" afterPath="$PROJECT_DIR$/search/search.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/web.iml" afterPath="$PROJECT_DIR$/web/web.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Argo.iws" />
@@ -963,30 +1027,7 @@
     </favorites_list>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="AdminBaseController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/AdminBaseController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="1530">
-              <caret line="77" column="25" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdminIndexController.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/AdminIndexController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.881029" vertical-offset="0" max-vertical-offset="1615">
-              <caret line="95" column="37" selection-start-line="95" selection-start-column="37" selection-end-line="95" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -1004,38 +1045,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/TrackingThreadPoolExecutor.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/TrackingThreadPoolTaskExecutor.java" />
-        <option value="$PROJECT_DIR$/tools/pom.xml" />
-        <option value="$PROJECT_DIR$/tools/src/main/java/com/argo/App.java" />
-        <option value="$PROJECT_DIR$/tools/src/main/resources/dev/jdbc.yaml" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/utils/TokenUtil.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/controllers/CaptchaController.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/component/FileStoreComponent.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/security/AuthorizationService.java" />
-        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/hooks/MySQLConnectionHook.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Interceptor/ExceptionGlobalResolver.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufHttpMessageConverter.java" />
-        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceMSTemplate.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysUserTx.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysMenuTx.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/AclMappers.java" />
-        <option value="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysResourceServiceImpl.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysRoleResourceService.java" />
-        <option value="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysRoleResourceServiceImpl.java" />
-        <option value="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysRoleServiceImpl.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysMenuService.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysRoleMenuTx.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysRoleUser.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysRoleMenu.java" />
-        <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysRoleController.java" />
-        <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysResourceController.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysRoleMenuService.java" />
-        <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysRoleMenuController.java" />
-        <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/DetailForm.java" />
-        <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysMenuController.java" />
-        <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysRoleUserController.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysRoleUserService.java" />
         <option value="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysRoleUserServiceImpl.java" />
         <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysUserForm.java" />
         <option value="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysRoleMenuServiceImpl.java" />
@@ -1044,10 +1053,8 @@
         <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysUserService.java" />
         <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Interceptor/HandlerPrepareAdapter.java" />
         <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/session/SessionCookieHolder.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java" />
         <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysUserController.java" />
         <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysUser.java" />
-        <option value="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysUserServiceImpl.java" />
         <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysMenu.java" />
         <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/component/CaptchaComponent.java" />
         <option value="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysMenuServiceImpl.java" />
@@ -1055,6 +1062,40 @@
         <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/AdminBaseController.java" />
         <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/AclBaseController.java" />
         <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/AdminIndexController.java" />
+        <option value="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysUserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java" />
+        <option value="$PROJECT_DIR$/cache/pom.xml" />
+        <option value="$PROJECT_DIR$/cache/src/main/java/com/argo/redis/BinaryJedisFactory.java" />
+        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/datasource/DataSourceFactoryBeanMix.java" />
+        <option value="$PROJECT_DIR$/tools/pom.xml" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/entity/Pagination.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/TrackingThreadPoolTaskExecutor.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/TrackingThreadPoolExecutor.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/Magic.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicMatch.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicMatcher.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicParser.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/detectors/TextFileDetector.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/base/BaseException.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/exception/EntityNotFoundException.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/exception/UserNotAuthorizationException.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/exception/UserAccountLockedException.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/exception/RepositoryException.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/exception/PermissionDeniedException.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/exception/UserKickedOffException.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Interceptor/ExceptionGlobalResolver.java" />
+        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceBase.java" />
+        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceMSTemplate.java" />
+        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/formater/TableNameFormater.java" />
+        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/formater/TableNameFormatter.java" />
+        <option value="$PROJECT_DIR$/cache/src/main/java/com/argo/redis/RedisConfig.java" />
+        <option value="$PROJECT_DIR$/cache/src/main/java/com/argo/redis/RedisPool.java" />
+        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/hooks/MySQLConnectionHook.java" />
+        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/hooks/OracleConnectionHook.java" />
+        <option value="$PROJECT_DIR$/data/pom.xml" />
+        <option value="$PROJECT_DIR$/cache/src/main/java/com/argo/redis/RedisTemplate.java" />
       </list>
     </option>
   </component>
@@ -1105,10 +1146,9 @@
     <option name="skipTests" value="true" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-6" />
-    <option name="y" value="24" />
+    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="824" />
+    <option name="height" value="812" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -1162,6 +1202,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1215,30 +1256,8 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1265,10 +1284,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1298,166 +1313,13 @@
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acl" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acl" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acl" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acl" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acl" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acl" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acl" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
+              <option name="myItemId" value="mimeutil" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1469,7 +1331,7 @@
     <property name="options.splitter.main.proportions" value="0.1875" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="options.lastSelected" value="MavenSettings" />
+    <property name="options.lastSelected" value="preferences.sourceCode" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../K12-Java" />
     <property name="project.structure.side.proportion" value="0.33371958" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -1484,7 +1346,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
-    <property name="extract.method.default.visibility" value="private" />
+    <property name="extract.method.default.visibility" value="protected" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -1521,29 +1383,7 @@
       <recent name="D:\WorkSpace\Argo\db\src\test\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TokenUtil">
-    <configuration default="false" name="RedisBuketTest.testGet1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="cache" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.argo.redis" />
-      <option name="MAIN_CLASS_NAME" value="com.argo.redis.RedisBuketTest" />
-      <option name="METHOD_NAME" value="testGet1" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Application.TableNameFormatter">
     <configuration default="false" name="RedisBuketTest.testGetSet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="cache" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -1615,6 +1455,22 @@
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="core" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="TableNameFormatter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.argo.db.formater.TableNameFormatter" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="db" />
       <envs />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
@@ -1789,19 +1645,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Application.App" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.RedisBuketTest.testGet1" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.RedisBuketTest.testGetSet" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.RedisBuketTest.testGetSet1" />
-      <item index="4" class="java.lang.String" itemvalue="Application.App (1)" />
-      <item index="5" class="java.lang.String" itemvalue="Application.TokenUtil" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.RedisBuketTest.testGetSet" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.RedisBuketTest.testGetSet1" />
+      <item index="3" class="java.lang.String" itemvalue="Application.App (1)" />
+      <item index="4" class="java.lang.String" itemvalue="Application.TokenUtil" />
+      <item index="5" class="java.lang.String" itemvalue="Application.TableNameFormatter" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.TokenUtil" />
-        <item index="1" class="java.lang.String" itemvalue="Application.App (1)" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.RedisBuketTest.testGetSet1" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.RedisBuketTest.testGetSet" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.RedisBuketTest.testGet1" />
+        <item index="0" class="java.lang.String" itemvalue="Application.TableNameFormatter" />
+        <item index="1" class="java.lang.String" itemvalue="Application.TokenUtil" />
+        <item index="2" class="java.lang.String" itemvalue="Application.App (1)" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.RedisBuketTest.testGetSet1" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.RedisBuketTest.testGetSet" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -2087,7 +1943,127 @@
       <created>1428236036970</created>
       <updated>1428236036971</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="acl component">
+      <created>1428252935407</created>
+      <updated>1428252935407</updated>
+    </task>
+    <task id="LOCAL-00069" summary="acl component">
+      <created>1428255033966</created>
+      <updated>1428255033966</updated>
+    </task>
+    <task id="LOCAL-00070" summary="controller error logging">
+      <created>1428301288712</created>
+      <updated>1428301288712</updated>
+    </task>
+    <task id="LOCAL-00071" summary="upgrade jedis">
+      <created>1428468486245</created>
+      <updated>1428468486245</updated>
+    </task>
+    <task id="LOCAL-00072" summary="mysql jdbc connect url">
+      <created>1428578123702</created>
+      <updated>1428578123702</updated>
+    </task>
+    <task id="LOCAL-00073" summary="upgrade 3rd tools">
+      <created>1429084969789</created>
+      <updated>1429084969789</updated>
+    </task>
+    <task id="LOCAL-00074" summary="set default value">
+      <created>1429152398679</created>
+      <updated>1429152398679</updated>
+    </task>
+    <task id="LOCAL-00075" summary="thread pool">
+      <created>1429164549463</created>
+      <updated>1429164549463</updated>
+    </task>
+    <task id="LOCAL-00076" summary="fix bugs">
+      <created>1429184582406</created>
+      <updated>1429184582406</updated>
+    </task>
+    <task id="LOCAL-00077" summary="expire cache bugs">
+      <created>1429243699805</created>
+      <updated>1429243699806</updated>
+    </task>
+    <task id="LOCAL-00078" summary="expire cache bugs">
+      <created>1429243934139</created>
+      <updated>1429243934139</updated>
+    </task>
+    <task id="LOCAL-00079" summary="make it more slave">
+      <created>1429371249336</created>
+      <updated>1429371249336</updated>
+    </task>
+    <task id="LOCAL-00080" summary="make it more slave">
+      <created>1429371368132</created>
+      <updated>1429371368132</updated>
+    </task>
+    <task id="LOCAL-00081" summary="async task pool">
+      <created>1429610024853</created>
+      <updated>1429610024853</updated>
+    </task>
+    <task id="LOCAL-00082" summary="async task pool">
+      <created>1429610394853</created>
+      <updated>1429610394853</updated>
+    </task>
+    <task id="LOCAL-00083" summary="async task pool">
+      <created>1429611620183</created>
+      <updated>1429611620183</updated>
+    </task>
+    <task id="LOCAL-00084" summary="async task pool">
+      <created>1429755478724</created>
+      <updated>1429755478724</updated>
+    </task>
+    <task id="LOCAL-00085" summary="detect mime type">
+      <created>1430127094498</created>
+      <updated>1430127094498</updated>
+    </task>
+    <task id="LOCAL-00086" summary="set default value for BaseException">
+      <created>1430277107578</created>
+      <updated>1430277107578</updated>
+    </task>
+    <task id="LOCAL-00087" summary="set default value for BaseException">
+      <created>1430277414994</created>
+      <updated>1430277414994</updated>
+    </task>
+    <task id="LOCAL-00088" summary="add UserKickedOffException">
+      <created>1431070667699</created>
+      <updated>1431070667699</updated>
+    </task>
+    <task id="LOCAL-00089" summary="add redirectTo to go away">
+      <created>1431420842814</created>
+      <updated>1431420842814</updated>
+    </task>
+    <task id="LOCAL-00090" summary="add ascending parameter">
+      <created>1432638605378</created>
+      <updated>1432638605378</updated>
+    </task>
+    <task id="LOCAL-00091" summary="add ascending parameter">
+      <created>1432641505881</created>
+      <updated>1432641505881</updated>
+    </task>
+    <task id="LOCAL-00092" summary="refactor code">
+      <created>1433387312826</created>
+      <updated>1433387312826</updated>
+    </task>
+    <task id="LOCAL-00093" summary="refactor code">
+      <created>1434091346989</created>
+      <updated>1434091346989</updated>
+    </task>
+    <task id="LOCAL-00094" summary="redis stat print out">
+      <created>1434092651027</created>
+      <updated>1434092651027</updated>
+    </task>
+    <task id="LOCAL-00095" summary="datasource hook">
+      <created>1434097481891</created>
+      <updated>1434097481891</updated>
+    </task>
+    <task id="LOCAL-00096" summary="pom update">
+      <created>1434433368445</created>
+      <updated>1434433368445</updated>
+    </task>
+    <task id="LOCAL-00097" summary="redis stat print out">
+      <created>1434442457363</created>
+      <updated>1434442457363</updated>
+    </task>
+    <option name="localTasksCounter" value="98" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2111,59 +2087,59 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="24" width="1440" height="824" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="812" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5191257" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.8125" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32749325" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6229508" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3263889" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24878837" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5993538" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5889488" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32365146" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5860656" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32103825" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27265373" sideWeight="0.19093852" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17453505" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3236111" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41551247" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32083333" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2725322" sideWeight="0.19093852" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23247497" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.22132471" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29685265" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4398907" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2746781" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43472221" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32884097" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6204986" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5191257" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8125" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24878837" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32884097" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5889488" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32365146" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32103825" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3236111" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32083333" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29685265" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4398907" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2746781" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43472221" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32749325" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3263889" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6229508" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6204986" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5993538" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5860656" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27265373" sideWeight="0.19093852" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17453505" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41551247" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2725322" sideWeight="0.19093852" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23247497" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.22132471" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
@@ -2183,32 +2159,32 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="change namespace" />
-    <MESSAGE value="bootstrap template" />
-    <MESSAGE value="fall back to spring 3.2.11" />
-    <MESSAGE value="service refactor" />
-    <MESSAGE value="bootstrap" />
-    <MESSAGE value="mobile protobuf support" />
-    <MESSAGE value="email servcie" />
-    <MESSAGE value="cache service" />
-    <MESSAGE value="remove service" />
-    <MESSAGE value="Pagination Functions" />
-    <MESSAGE value="freemarker config" />
-    <MESSAGE value="API Test Runner" />
-    <MESSAGE value="extend ThreadPool Executor" />
-    <MESSAGE value="add ttl for cache" />
-    <MESSAGE value="account" />
-    <MESSAGE value="captcha" />
-    <MESSAGE value="List Empty" />
-    <MESSAGE value="Cookie Utils" />
-    <MESSAGE value="user authorization" />
-    <MESSAGE value="sqlprint" />
     <MESSAGE value="service base" />
     <MESSAGE value="exception error" />
     <MESSAGE value="base service template" />
     <MESSAGE value="empty list" />
     <MESSAGE value="acl component" />
-    <option name="LAST_COMMIT_MESSAGE" value="acl component" />
+    <MESSAGE value="controller error logging" />
+    <MESSAGE value="upgrade jedis" />
+    <MESSAGE value="mysql jdbc connect url" />
+    <MESSAGE value="upgrade 3rd tools" />
+    <MESSAGE value="set default value" />
+    <MESSAGE value="thread pool" />
+    <MESSAGE value="fix bugs" />
+    <MESSAGE value="expire cache bugs" />
+    <MESSAGE value="make it more slave" />
+    <MESSAGE value="async task pool" />
+    <MESSAGE value="detect mime type" />
+    <MESSAGE value="set default value for BaseException" />
+    <MESSAGE value="add UserKickedOffException" />
+    <MESSAGE value="add redirectTo to go away" />
+    <MESSAGE value="add ascending parameter" />
+    <MESSAGE value="refactor code" />
+    <MESSAGE value="datasource hook" />
+    <MESSAGE value="pom update" />
+    <MESSAGE value="redis stat print out" />
+    <MESSAGE value="mime utils" />
+    <option name="LAST_COMMIT_MESSAGE" value="mime utils" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2220,439 +2196,355 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysRoleResourceService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.265625" vertical-offset="0" max-vertical-offset="704">
-          <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysMenuService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38636363" vertical-offset="0" max-vertical-offset="704">
-          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/AclBaseServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1690341" vertical-offset="0" max-vertical-offset="704">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysRoleResourceTx.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24147727" vertical-offset="0" max-vertical-offset="704">
-          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysRoleService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1690341" vertical-offset="0" max-vertical-offset="704">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/ErrorCodes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19318181" vertical-offset="0" max-vertical-offset="704">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysRoleResourceController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1326">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysResourceController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2793053" vertical-offset="0" max-vertical-offset="1972">
-          <caret line="68" column="65" selection-start-line="68" selection-start-column="65" selection-end-line="68" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/AssignForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="1734">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysRoleMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="543" max-vertical-offset="1224">
-          <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysRoleResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1275">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysRoleUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1411">
-          <caret line="74" column="33" selection-start-line="74" selection-start-column="33" selection-end-line="74" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/DetailForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1054">
-          <caret line="66" column="33" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
-          <folding>
-            <element signature="e#1211#1212#0" expanded="false" />
-            <element signature="e#1242#1243#0" expanded="false" />
-            <element signature="e#1291#1292#0" expanded="false" />
-            <element signature="e#1331#1332#0" expanded="false" />
-            <element signature="e#1396#1397#0" expanded="false" />
-            <element signature="e#1443#1444#0" expanded="false" />
-            <element signature="e#1481#1482#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysMenuController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2108">
-          <caret line="34" column="15" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysRoleMenuController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="935">
-          <caret line="67" column="5" selection-start-line="32" selection-start-column="4" selection-end-line="67" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysRoleController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="1938">
-          <caret line="34" column="48" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysUserForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysRoleUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="84" max-vertical-offset="765">
-          <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysRoleUserTx.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
-          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysMenuTx.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
-          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysRoleMenuTx.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
-          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysRoleMenuService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
-          <caret line="10" column="35" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysResourceServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="40" max-vertical-offset="765">
-          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysRoleMenuServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="567" max-vertical-offset="1258">
-          <caret line="44" column="18" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysRoleResourceServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="84" max-vertical-offset="765">
-          <caret line="38" column="14" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysRoleUserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="1275">
-          <caret line="87" column="25" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysRoleServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="44" max-vertical-offset="816">
-          <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mail/src/main/java/com/argo/mail/service/EmailServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.071953" vertical-offset="0" max-vertical-offset="2465">
-          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysRole.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="543" max-vertical-offset="1292">
-          <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysRoleUserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="935">
-          <caret line="46" column="15" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/3.2.11.RELEASE/spring-context-3.2.11.RELEASE-sources.jar!/org/springframework/context/support/AbstractApplicationContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33238637" vertical-offset="16885" max-vertical-offset="21777">
-          <caret line="1125" column="17" selection-start-line="1125" selection-start-column="17" selection-end-line="1125" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/3.2.11.RELEASE/spring-beans-3.2.11.RELEASE-sources.jar!/org/springframework/beans/factory/annotation/Autowired.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.78267044" vertical-offset="418" max-vertical-offset="1122">
-          <caret line="75" column="20" selection-start-line="75" selection-start-column="12" selection-end-line="75" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Interceptor/ExceptionGlobalResolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41051137" vertical-offset="561" max-vertical-offset="2686">
-          <caret line="67" column="66" selection-start-line="67" selection-start-column="66" selection-end-line="67" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/security/AuthorizationService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.042613637" vertical-offset="89" max-vertical-offset="833">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.71022725" vertical-offset="435" max-vertical-offset="1139">
-          <caret line="60" column="11" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/session/SessionCookieHolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.93607956" vertical-offset="803" max-vertical-offset="2737">
-          <caret line="101" column="32" selection-start-line="101" selection-start-column="32" selection-end-line="101" selection-end-column="32" />
-          <folding>
-            <element signature="e#3296#3297#0" expanded="false" />
-            <element signature="e#3344#3345#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Interceptor/HandlerPrepareAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.8017366" vertical-offset="1846" max-vertical-offset="2550">
-          <caret line="94" column="32" selection-start-line="94" selection-start-column="32" selection-end-line="94" selection-end-column="32" />
+        <state vertical-scroll-proportion="2.353461" vertical-offset="0" max-vertical-offset="2550">
+          <caret line="112" column="18" selection-start-line="112" selection-start-column="14" selection-end-line="112" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39716312" vertical-offset="60" max-vertical-offset="765">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceMSTemplate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2414" max-vertical-offset="7089">
+          <caret line="180" column="42" selection-start-line="180" selection-start-column="42" selection-end-line="180" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11942446" vertical-offset="291" max-vertical-offset="1037">
+          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE-sources.jar!/com/jolbox/bonecp/AbstractConnectionStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="728" max-vertical-offset="1802">
+          <caret line="78" column="37" selection-start-line="78" selection-start-column="22" selection-end-line="78" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE-sources.jar!/com/jolbox/bonecp/CloseThreadMonitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7842262" vertical-offset="0" max-vertical-offset="1122">
+          <caret line="50" column="11" selection-start-line="50" selection-start-column="11" selection-end-line="50" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE-sources.jar!/com/jolbox/bonecp/BoneCPConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="545" max-vertical-offset="30804">
+          <caret line="107" column="20" selection-start-line="107" selection-start-column="20" selection-end-line="107" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE-sources.jar!/com/jolbox/bonecp/BoneCP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="12380" max-vertical-offset="13039">
+          <caret line="791" column="28" selection-start-line="791" selection-start-column="28" selection-end-line="791" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/pool/MSBoneCP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.06916427" vertical-offset="207" max-vertical-offset="901">
+          <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/datasource/MasterSlaveDataSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1113" max-vertical-offset="1785">
+          <caret line="22" column="60" selection-start-line="22" selection-start-column="60" selection-end-line="22" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/JdbcConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="465" max-vertical-offset="1581">
+          <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/datasource/MasterSlaveDataSourceFactoryBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1884499" vertical-offset="0" max-vertical-offset="1887">
+          <caret line="64" column="55" selection-start-line="64" selection-start-column="55" selection-end-line="64" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/formater/TableNameFormatter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36127168" vertical-offset="226" max-vertical-offset="918">
+          <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/beans/MasterSlaveDataSourceBeanFactoryPostProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5022091" vertical-offset="698" max-vertical-offset="1377">
+          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/beans/IdPolicyFactoryBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6632948" vertical-offset="0" max-vertical-offset="692">
+          <caret line="41" column="46" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/beans/ShardDataSourceBeanFactoryPostProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1516937" vertical-offset="0" max-vertical-offset="1581">
+          <caret line="64" column="17" selection-start-line="64" selection-start-column="17" selection-end-line="64" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/beans/SimpleDataSourceFactoryPostProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7511046" vertical-offset="0" max-vertical-offset="1241">
+          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/datasource/DataSourceFactoryBeanMix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.52422905" vertical-offset="0" max-vertical-offset="884">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home/src.zip!/java/lang/Cloneable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.71037465" vertical-offset="0" max-vertical-offset="694">
+          <caret line="52" column="17" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home/src.zip!/java/io/Closeable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3429395" vertical-offset="0" max-vertical-offset="694">
+          <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-pool2/2.0/commons-pool2-2.0-sources.jar!/org/apache/commons/pool2/impl/EvictionTimer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="483" max-vertical-offset="1972">
+          <caret line="60" column="29" selection-start-line="60" selection-start-column="29" selection-end-line="60" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home/src.zip!/java/util/TimerTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.1599424" vertical-offset="1703" max-vertical-offset="2397">
+          <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/main/java/com/argo/redis/BinaryJedisFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1142" max-vertical-offset="1836">
+          <caret line="105" column="71" selection-start-line="105" selection-start-column="71" selection-end-line="105" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/test/resources/dev/redis.yaml.tmpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="671">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/test/resources/spring-redis.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="658">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/main/java/com/argo/redis/impl/RedisEmailExecutor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19020173" vertical-offset="4" max-vertical-offset="714">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/main/java/com/argo/redis/impl/RedisIdGenPolicy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19020173" vertical-offset="4" max-vertical-offset="782">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-pool2/2.0/commons-pool2-2.0-sources.jar!/org/apache/commons/pool2/impl/GenericObjectPoolConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.7868853" vertical-offset="1454" max-vertical-offset="2125">
+          <caret line="30" column="51" selection-start-line="30" selection-start-column="51" selection-end-line="30" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.6.2/jedis-2.6.2-sources.jar!/redis/clients/jedis/JedisPoolConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17734724" vertical-offset="0" max-vertical-offset="671">
+          <caret line="7" column="20" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/main/java/com/argo/redis/RedisConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5946349" vertical-offset="196" max-vertical-offset="867">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33236995" vertical-offset="3340" max-vertical-offset="9061">
+          <caret line="235" column="18" selection-start-line="235" selection-start-column="18" selection-end-line="235" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-pool2/2.0/commons-pool2-2.0-sources.jar!/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33236995" vertical-offset="7114" max-vertical-offset="8007">
+          <caret line="483" column="19" selection-start-line="483" selection-start-column="19" selection-end-line="483" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.6.2/jedis-2.6.2-sources.jar!/redis/clients/util/Pool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5534682" vertical-offset="144" max-vertical-offset="1513">
+          <caret line="42" column="35" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-pool2/2.0/commons-pool2-2.0-sources.jar!/org/apache/commons/pool2/impl/GenericObjectPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.40606937" vertical-offset="943" max-vertical-offset="17612">
+          <caret line="106" column="10" selection-start-line="106" selection-start-column="10" selection-end-line="106" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-pool2/2.0/commons-pool2-2.0-sources.jar!/org/apache/commons/pool2/impl/BaseGenericObjectPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11127168" vertical-offset="13047" max-vertical-offset="15572">
+          <caret line="873" column="75" selection-start-line="873" selection-start-column="62" selection-end-line="873" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/15.0/guava-15.0-sources.jar!/com/google/common/base/Objects.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5360" max-vertical-offset="6375">
+          <caret line="415" column="27" selection-start-line="415" selection-start-column="27" selection-end-line="415" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/main/java/com/argo/redis/RedisPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1654" max-vertical-offset="2346">
+          <caret line="143" column="11" selection-start-line="143" selection-start-column="11" selection-end-line="143" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE-sources.jar!/com/jolbox/bonecp/hooks/AbstractConnectionHook.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.07342144" vertical-offset="220" max-vertical-offset="1955">
+          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/hooks/OracleConnectionHook.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42584434" vertical-offset="84" max-vertical-offset="765">
+          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/hooks/MySQLConnectionHook.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7488987" vertical-offset="0" max-vertical-offset="799">
+          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7004">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/MvcController.java">
+    <entry file="file://$PROJECT_DIR$/cache/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6761364" vertical-offset="1411" max-vertical-offset="2635">
-          <caret line="139" column="21" selection-start-line="139" selection-start-column="21" selection-end-line="139" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mail/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="748">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cluster/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="694">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4898844" vertical-offset="137" max-vertical-offset="833">
+          <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/main/java/com/argo/redis/RedisCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cache/src/main/java/com/argo/redis/RedisBuket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="18513">
+          <caret line="35" column="7" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/password/PasswordService.java">
+    <entry file="file://$PROJECT_DIR$/cache/src/main/java/com/argo/redis/RedisTemplate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6761364" vertical-offset="0" max-vertical-offset="704">
-          <caret line="28" column="12" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
-          <folding />
+        <state vertical-scroll-proportion="0.45953757" vertical-offset="1671" max-vertical-offset="3604">
+          <caret line="136" column="19" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/password/DefaultPasswordService.java">
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
-          <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/base/BaseUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="826" max-vertical-offset="1870">
-          <caret line="80" column="19" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1421" max-vertical-offset="2125">
-          <caret line="143" column="30" selection-start-line="143" selection-start-column="30" selection-end-line="143" selection-end-column="30" />
-          <folding>
-            <element signature="e#2097#2098#0" expanded="false" />
-            <element signature="e#2130#2131#0" expanded="false" />
-            <element signature="e#2182#2183#0" expanded="false" />
-            <element signature="e#2226#2227#0" expanded="false" />
-            <element signature="e#2273#2274#0" expanded="false" />
-            <element signature="e#2311#2312#0" expanded="false" />
-            <element signature="e#2492#2493#0" expanded="false" />
-            <element signature="e#2529#2530#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysUserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="571" max-vertical-offset="2244">
-          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/component/CaptchaComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0866477" vertical-offset="0" max-vertical-offset="1343">
-          <caret line="57" column="69" selection-start-line="57" selection-start-column="69" selection-end-line="57" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1353" max-vertical-offset="2057">
-          <caret line="141" column="29" selection-start-line="141" selection-start-column="29" selection-end-line="141" selection-end-column="29" />
-          <folding>
-            <element signature="e#2541#2542#0" expanded="false" />
-            <element signature="e#2581#2582#0" expanded="false" />
-            <element signature="e#2613#2614#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysUserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2567">
-          <caret line="26" column="47" selection-start-line="26" selection-start-column="47" selection-end-line="26" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysMenuServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="482" max-vertical-offset="1173">
-          <caret line="57" column="38" selection-start-line="57" selection-start-column="38" selection-end-line="57" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/AclBaseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12073863" vertical-offset="0" max-vertical-offset="704">
-          <caret line="5" column="37" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
-          <folding>
-            <element signature="e#390#391#0" expanded="true" />
-            <element signature="e#417#418#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/AdminBaseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="1530">
-          <caret line="77" column="25" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/AdminIndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.881029" vertical-offset="0" max-vertical-offset="1615">
-          <caret line="95" column="37" selection-start-line="95" selection-start-column="37" selection-end-line="95" selection-end-column="37" />
+        <state vertical-scroll-proportion="-0.7761414" vertical-offset="4573" max-vertical-offset="8279">
+          <caret line="278" column="47" selection-start-line="278" selection-start-column="35" selection-end-line="278" selection-end-column="47" />
           <folding />
         </state>
       </provider>
