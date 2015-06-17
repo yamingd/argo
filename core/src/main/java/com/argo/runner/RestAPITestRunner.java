@@ -8,7 +8,10 @@ import com.argo.core.protobuf.ProtobufMessage;
 import com.argo.core.utils.TokenUtil;
 import com.argo.core.web.JsonResponse;
 import com.argo.core.web.session.SessionCookieHolder;
-import net.sf.jmimemagic.*;
+import eu.medsea.mimeutil.MimeException;
+import eu.medsea.mimeutil.MimeType;
+import eu.medsea.mimeutil.MimeUtil;
+import eu.medsea.mimeutil.MimeUtil2;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
@@ -28,10 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,7 +43,6 @@ public class RestAPITestRunner {
 
     public static Logger logger = LoggerFactory.getLogger(RestAPITestRunner.class);
     public static String domain;
-    public static Magic mimeParser = new Magic() ;
 
     static {
         try {
@@ -108,17 +107,24 @@ public class RestAPITestRunner {
     }
 
     private ContentType getFileMimeType(File file){
-        MagicMatch match = null;
+
         try {
-            match = mimeParser.getMagicMatch(file, true);
-        } catch (MagicParseException e) {
+            Collection<MimeType> types = MimeUtil.getMimeTypes(file);
+            MimeType target = null;
+            for (MimeType mimeType : types){
+                if (mimeType.equals(MimeUtil2.UNKNOWN_MIME_TYPE)){
+                    continue;
+                }
+                target = mimeType;
+            }
+            if (target != null){
+                return ContentType.create(target.toString());
+            }
+            return null;
+        } catch (MimeException e) {
             logger.error(e.getMessage(), e);
-        } catch (MagicMatchNotFoundException e) {
-            logger.error(e.getMessage(), e);
-        } catch (MagicException e) {
-            logger.error(e.getMessage(), e);
+            return null;
         }
-        return ContentType.create(match.getMimeType()) ;
     }
 
     /**
