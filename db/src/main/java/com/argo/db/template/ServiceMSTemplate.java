@@ -232,7 +232,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
     }
 
     protected  <T> List<T> loadFromDb(JdbcTemplate jdbcTemplate, List<Long> itemIds, boolean ascending){
-        StringBuffer s = new StringBuffer();
+        StringBuilder s = new StringBuilder(100);
         for (int i = 0; i < itemIds.size(); i++) {
             s.append(String.format(" %s = ? ", this.entityTemplate.getPk()));
             s.append(" OR ");
@@ -278,7 +278,7 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
     @Override
     public <T> Long add(T entity) throws ServiceException{
 
-        StringBuffer sql = new StringBuffer("insert into ").append(this.entityTemplate.getTable()).append(" (");
+        StringBuilder sql = new StringBuilder("insert into ").append(this.entityTemplate.getTable()).append(" (");
         final List<Object> args = new ArrayList<Object>();
         List<String> qm = new ArrayList<String>();
 

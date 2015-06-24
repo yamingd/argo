@@ -378,7 +378,7 @@ class MimeTypeHashSet implements Set, Collection {
 	 * Create a String representation of this Collection as a comma separated list
 	 */
 	public String toString() {
-		StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
 		for(Iterator it = iterator(); it.hasNext();) {
 			buf.append(((MimeType)it.next()).toString());
 			if(it.hasNext()) {

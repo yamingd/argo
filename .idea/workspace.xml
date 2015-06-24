@@ -1,84 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="db93b134-e637-410e-9cb1-baf63115f8c3" name="Default" comment="mime utils">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/mime.cache" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/protoc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/util/EncodingGuesser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/ExtensionMimeDetector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/InvalidMagicMimeEntryException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MagicMimeEntry.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MagicMimeEntryOperation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MagicMimeMimeDetector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MatchingMagicMimeEntry.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MimeDetector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeTypeHashSet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeUtil2.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/OpendesktopMimeDetector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppResponse.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/ios/PAppResponse.pb.cc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/ios/PAppResponse.pb.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/PAppResponse.proto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppResponseOrBuilder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppResponseProto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppSession.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppSessionOrBuilder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/java/android/com/inno/sdk/protobuf/PAppSessionProto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/README.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/util/StringUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/TextMimeDetector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/handler/TextMimeHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/TextMimeType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/WindowsRegistryMimeDetector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/util/ZipJarUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/ios/app_session.pb.cc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/ios/app_session.pb.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/app_session.proto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protobuf/gen.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/eu/medsea/mimeutil/magic.mime" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/resources/eu/medsea/mimeutil/mime-types.properties" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_pool_commons_pool_1_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/Magic.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicDetector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicMatch.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicMatchNotFoundException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicMatcher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicParseException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/UnsupportedTypeException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/detectors/TextFileDetector.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/detectors/package.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/package.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/resources/magic.dtd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/resources/magic.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/resources/magic.xml.basic" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/resources/magic.xml.verified" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/main/resources/magic_1_0.dtd" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Argo.iml" afterPath="$PROJECT_DIR$/Argo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/controller/argo-acl-controller.iml" afterPath="$PROJECT_DIR$/acl/controller/argo-acl-controller.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/core/argo-acl-core.iml" afterPath="$PROJECT_DIR$/acl/core/argo-acl-core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/service/argo-acl-service.iml" afterPath="$PROJECT_DIR$/acl/service/argo-acl-service.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/acl/argo-acl.iml" afterPath="$PROJECT_DIR$/acl/argo-acl.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mail/argo-mail.iml" afterPath="$PROJECT_DIR$/mail/argo-mail.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/argo-service.iml" afterPath="$PROJECT_DIR$/service/argo-service.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task/argo-task.iml" afterPath="$PROJECT_DIR$/task/argo-task.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/argo-tools.iml" afterPath="$PROJECT_DIR$/tools/argo-tools.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cache/cache.iml" afterPath="$PROJECT_DIR$/cache/cache.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cluster/cluster.iml" afterPath="$PROJECT_DIR$/cluster/cluster.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/data.iml" afterPath="$PROJECT_DIR$/data/data.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/db.iml" afterPath="$PROJECT_DIR$/db/db.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbtest/dbtest.iml" afterPath="$PROJECT_DIR$/dbtest/dbtest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/message/message.iml" afterPath="$PROJECT_DIR$/message/message.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/search/search.iml" afterPath="$PROJECT_DIR$/search/search.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/web.iml" afterPath="$PROJECT_DIR$/web/web.iml" />
+    <list default="true" id="db93b134-e637-410e-9cb1-baf63115f8c3" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MagicMimeEntry.java" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MagicMimeEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeTypeHashSet.java" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeTypeHashSet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/OpendesktopMimeDetector.java" afterPath="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/OpendesktopMimeDetector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/OracleDialect.java" afterPath="$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/OracleDialect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/session/SecurityIdGenerator.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/session/SecurityIdGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceMSTemplate.java" afterPath="$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceMSTemplate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/SqlServerDialect.java" afterPath="$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/SqlServerDialect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/SqlServerNeGDialect.java" afterPath="$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/SqlServerNeGDialect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/argo/core/utils/TokenUtil.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/argo/core/utils/TokenUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Argo.iws" />
@@ -1045,14 +978,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysRoleUserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysUserForm.java" />
-        <option value="$PROJECT_DIR$/acl/service/src/main/java/com/argo/acl/service/impl/SysRoleMenuServiceImpl.java" />
-        <option value="$PROJECT_DIR$/mail/src/main/java/com/argo/mail/service/EmailServiceImpl.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysRole.java" />
-        <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/service/SysUserService.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Interceptor/HandlerPrepareAdapter.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/session/SessionCookieHolder.java" />
         <option value="$PROJECT_DIR$/acl/controller/src/main/java/com/argo/web/controllers/acl/SysUserController.java" />
         <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysUser.java" />
         <option value="$PROJECT_DIR$/acl/core/src/main/java/com/argo/acl/SysMenu.java" />
@@ -1077,7 +1002,6 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/MagicParser.java" />
         <option value="$PROJECT_DIR$/core/src/main/java/net/sf/jmimemagic/detectors/TextFileDetector.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java" />
         <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/base/BaseException.java" />
         <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/exception/EntityNotFoundException.java" />
         <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/exception/UserNotAuthorizationException.java" />
@@ -1087,7 +1011,6 @@
         <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/exception/UserKickedOffException.java" />
         <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Interceptor/ExceptionGlobalResolver.java" />
         <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceBase.java" />
-        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceMSTemplate.java" />
         <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/formater/TableNameFormater.java" />
         <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/formater/TableNameFormatter.java" />
         <option value="$PROJECT_DIR$/cache/src/main/java/com/argo/redis/RedisConfig.java" />
@@ -1096,6 +1019,16 @@
         <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/hooks/OracleConnectionHook.java" />
         <option value="$PROJECT_DIR$/data/pom.xml" />
         <option value="$PROJECT_DIR$/cache/src/main/java/com/argo/redis/RedisTemplate.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/utils/TokenUtil.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/core/web/session/SecurityIdGenerator.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeTypeHashSet.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MagicMimeEntry.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/OpendesktopMimeDetector.java" />
+        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/OracleDialect.java" />
+        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/SqlServerDialect.java" />
+        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/SqlServerNeGDialect.java" />
+        <option value="$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceMSTemplate.java" />
       </list>
     </option>
   </component>
@@ -1190,7 +1123,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages ProjectPane="true" />
       <showMembers />
       <showModules />
@@ -1201,126 +1134,7 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Argo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="argo" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mimeutil" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="last_directory_selection" value="$PROJECT_DIR$/task/src/main/java/com/argo/task" />
@@ -2063,7 +1877,15 @@
       <created>1434442457363</created>
       <updated>1434442457363</updated>
     </task>
-    <option name="localTasksCounter" value="98" />
+    <task id="LOCAL-00098" summary="mime utils">
+      <created>1434531505709</created>
+      <updated>1434531505709</updated>
+    </task>
+    <task id="LOCAL-00099" summary="mime utils">
+      <created>1434532369617</created>
+      <updated>1434532369617</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2091,29 +1913,29 @@
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.8125" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.81163436" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3263889" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.61911356" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24878837" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5993538" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5889488" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3236111" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41551247" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32083333" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2725322" sideWeight="0.19093852" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23247497" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23247497" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.22132471" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2746781" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2746781" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43472221" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32884097" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6204986" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41527778" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -2126,18 +1948,18 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32083333" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2746781" sideWeight="0.19093852" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43472221" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43472221" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3263889" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6204986" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.61944443" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5993538" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41551247" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41527778" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2725322" sideWeight="0.19093852" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23247497" sideWeight="0.19093852" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.22132471" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2196,139 +2018,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/Interceptor/HandlerPrepareAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.353461" vertical-offset="0" max-vertical-offset="2550">
-          <caret line="112" column="18" selection-start-line="112" selection-start-column="14" selection-end-line="112" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39716312" vertical-offset="60" max-vertical-offset="765">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceMSTemplate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2414" max-vertical-offset="7089">
-          <caret line="180" column="42" selection-start-line="180" selection-start-column="42" selection-end-line="180" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11942446" vertical-offset="291" max-vertical-offset="1037">
-          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE-sources.jar!/com/jolbox/bonecp/AbstractConnectionStrategy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="728" max-vertical-offset="1802">
-          <caret line="78" column="37" selection-start-line="78" selection-start-column="22" selection-end-line="78" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE-sources.jar!/com/jolbox/bonecp/CloseThreadMonitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7842262" vertical-offset="0" max-vertical-offset="1122">
-          <caret line="50" column="11" selection-start-line="50" selection-start-column="11" selection-end-line="50" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE-sources.jar!/com/jolbox/bonecp/BoneCPConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="545" max-vertical-offset="30804">
-          <caret line="107" column="20" selection-start-line="107" selection-start-column="20" selection-end-line="107" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/jolbox/bonecp/0.8.0.RELEASE/bonecp-0.8.0.RELEASE-sources.jar!/com/jolbox/bonecp/BoneCP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="12380" max-vertical-offset="13039">
-          <caret line="791" column="28" selection-start-line="791" selection-start-column="28" selection-end-line="791" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/pool/MSBoneCP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06916427" vertical-offset="207" max-vertical-offset="901">
-          <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/datasource/MasterSlaveDataSource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1113" max-vertical-offset="1785">
-          <caret line="22" column="60" selection-start-line="22" selection-start-column="60" selection-end-line="22" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/JdbcConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="465" max-vertical-offset="1581">
-          <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/datasource/MasterSlaveDataSourceFactoryBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1884499" vertical-offset="0" max-vertical-offset="1887">
-          <caret line="64" column="55" selection-start-line="64" selection-start-column="55" selection-end-line="64" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/formater/TableNameFormatter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36127168" vertical-offset="226" max-vertical-offset="918">
-          <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/beans/MasterSlaveDataSourceBeanFactoryPostProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5022091" vertical-offset="698" max-vertical-offset="1377">
-          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/beans/IdPolicyFactoryBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6632948" vertical-offset="0" max-vertical-offset="692">
-          <caret line="41" column="46" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/beans/ShardDataSourceBeanFactoryPostProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1516937" vertical-offset="0" max-vertical-offset="1581">
-          <caret line="64" column="17" selection-start-line="64" selection-start-column="17" selection-end-line="64" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/beans/SimpleDataSourceFactoryPostProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7511046" vertical-offset="0" max-vertical-offset="1241">
-          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/datasource/DataSourceFactoryBeanMix.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52422905" vertical-offset="0" max-vertical-offset="884">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home/src.zip!/java/lang/Cloneable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.71037465" vertical-offset="0" max-vertical-offset="694">
-          <caret line="52" column="17" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home/src.zip!/java/io/Closeable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3429395" vertical-offset="0" max-vertical-offset="694">
@@ -2480,7 +2169,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7004">
           <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2530,7 +2218,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="18513">
           <caret line="35" column="7" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2545,6 +2232,163 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.7761414" vertical-offset="4573" max-vertical-offset="8279">
           <caret line="278" column="47" selection-start-line="278" selection-start-column="35" selection-end-line="278" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpmime/4.3.5/httpmime-4.3.5-sources.jar!/org/apache/http/entity/mime/content/FileBody.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6763006" vertical-offset="603" max-vertical-offset="1649">
+          <caret line="104" column="11" selection-start-line="104" selection-start-column="11" selection-end-line="104" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/session/SessionCookieHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="782" max-vertical-offset="2703">
+          <caret line="82" column="39" selection-start-line="82" selection-start-column="39" selection-end-line="82" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/15.0/guava-15.0-sources.jar!/com/google/common/hash/Hasher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53458214" vertical-offset="1040" max-vertical-offset="1734">
+          <caret line="97" column="19" selection-start-line="97" selection-start-column="19" selection-end-line="97" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/15.0/guava-15.0-sources.jar!/com/google/common/hash/Hashing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2438" max-vertical-offset="6919">
+          <caret line="201" column="24" selection-start-line="201" selection-start-column="24" selection-end-line="201" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/15.0/guava-15.0-sources.jar!/com/google/common/hash/MessageDigestHashFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6570605" vertical-offset="2094" max-vertical-offset="2788">
+          <caret line="150" column="16" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/15.0/guava-15.0-sources.jar!/com/google/common/hash/HashCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.90634" vertical-offset="3573" max-vertical-offset="5185">
+          <caret line="344" column="34" selection-start-line="344" selection-start-column="34" selection-end-line="344" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/component/FreemarkerComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1079" max-vertical-offset="1479">
+          <caret line="85" column="12" selection-start-line="85" selection-start-column="12" selection-end-line="85" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/protobuf/ProtobufHttpMessageConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="1887">
+          <caret line="99" column="8" selection-start-line="99" selection-start-column="8" selection-end-line="99" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/utils/TokenUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1112" max-vertical-offset="2958">
+          <caret line="79" column="45" selection-start-line="79" selection-start-column="45" selection-end-line="79" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home/src.zip!/java/lang/StringBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.9352226" vertical-offset="1992" max-vertical-offset="6800">
+          <caret line="83" column="11" selection-start-line="83" selection-start-column="11" selection-end-line="83" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/core/web/session/SecurityIdGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2315" max-vertical-offset="3332">
+          <caret line="149" column="38" selection-start-line="149" selection-start-column="38" selection-end-line="149" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/com/argo/runner/RestAPITestRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2910" max-vertical-offset="7684">
+          <caret line="207" column="50" selection-start-line="207" selection-start-column="50" selection-end-line="207" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/MimeTypeHashSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5664" max-vertical-offset="7225">
+          <caret line="380" column="45" selection-start-line="380" selection-start-column="45" selection-end-line="380" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/MagicMimeEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="12396" max-vertical-offset="14331">
+          <caret line="767" column="45" selection-start-line="767" selection-start-column="45" selection-end-line="767" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/eu/medsea/mimeutil/detector/OpendesktopMimeDetector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="10109" max-vertical-offset="12427">
+          <caret line="665" column="45" selection-start-line="665" selection-start-column="45" selection-end-line="665" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/src/main/java/com/argo/couchbase/DesignDocManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2578" max-vertical-offset="3009">
+          <caret line="175" column="20" selection-start-line="175" selection-start-column="8" selection-end-line="175" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/OracleDialect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1031" max-vertical-offset="2057">
+          <caret line="57" column="48" selection-start-line="57" selection-start-column="48" selection-end-line="57" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/SqlServerDialect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="317" max-vertical-offset="1598">
+          <caret line="25" column="32" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/dialect/SqlServerNeGDialect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="317" max-vertical-offset="1496">
+          <caret line="25" column="32" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/src/main/java/com/argo/db/template/ServiceMSTemplate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20461094" vertical-offset="3173" max-vertical-offset="7089">
+          <caret line="234" column="47" selection-start-line="234" selection-start-column="47" selection-end-line="234" selection-end-column="47" />
           <folding />
         </state>
       </provider>

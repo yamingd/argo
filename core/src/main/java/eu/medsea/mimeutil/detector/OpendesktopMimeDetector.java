@@ -15,33 +15,17 @@
  */
 package eu.medsea.mimeutil.detector;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
-import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import eu.medsea.mimeutil.MimeException;
 import eu.medsea.mimeutil.MimeType;
 import eu.medsea.mimeutil.MimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
+import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.*;
 
 /**
  * <p>
@@ -679,7 +663,7 @@ public class OpendesktopMimeDetector extends MimeDetector {
 	private String getString(int offset, boolean regularExpression) {
 		int position = content.position();
 		content.position(offset);
-		StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
 		char c = 0;
 		while ((c = (char) content.get()) != 0) {
 			if (regularExpression) {

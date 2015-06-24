@@ -205,7 +205,7 @@ public class RestAPITestRunner {
             return null;
         }
 
-        StringBuffer document = new StringBuffer();
+        StringBuilder document = new StringBuilder();
         String line = null;
         BufferedReader reader;
         try {

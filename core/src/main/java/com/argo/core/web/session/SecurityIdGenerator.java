@@ -147,7 +147,7 @@ public class SecurityIdGenerator {
 
 		// need to reverse it, since the start of the list contains the least
 		// significant values
-		StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 		for (int i = result.size() - 1; i >= 0; i--) {
 			sb.append(result.get(i));
 		}

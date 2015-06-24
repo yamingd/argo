@@ -55,7 +55,7 @@ public class OracleDialect extends AbstractDialect
      */
     public String getLimitString(String sql, boolean hasOffset)
     {
-        StringBuffer bufsql = new StringBuffer(
+        StringBuilder bufsql = new StringBuilder(
                 "SELECT * FROM (SELECT r.*, ROWNUM rn FROM (");
         bufsql.append(sql);
         bufsql.append(") r WHERE ROWNUM <= ? ");

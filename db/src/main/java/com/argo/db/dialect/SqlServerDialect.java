@@ -23,7 +23,7 @@ public class SqlServerDialect  extends AbstractDialect {
 
 	@Override
 	public String getLimitString(String sql, boolean hasOffset) {
-		return new StringBuffer(sql.length() + 10).append(sql).insert(
+		return new StringBuilder(sql.length() + 10).append(sql).insert(
 				sql.toLowerCase().indexOf("select") + 6,
 				hasOffset ? " limit ? ?" : " top ?").toString();
 	}

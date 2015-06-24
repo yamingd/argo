@@ -77,7 +77,7 @@ public class TokenUtil {
             encoded = URLEncoder.encode(value, "UTF-8");
         } catch (UnsupportedEncodingException ignore) {
         }
-        StringBuffer buf = new StringBuffer(encoded.length());
+        StringBuilder buf = new StringBuilder(encoded.length());
         char focus;
         for (int i = 0; i < encoded.length(); i++) {
             focus = encoded.charAt(i);

@@ -16,19 +16,15 @@
 
 package eu.medsea.mimeutil.detector;
 
+import eu.medsea.mimeutil.MimeType;
+import eu.medsea.util.StringUtil;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
-
-import eu.medsea.mimeutil.MimeType;
-import eu.medsea.util.StringUtil;
+import java.util.*;
 
 /**
  * A single MagicMime entry from a magic.mime file. This entry can contain
@@ -769,7 +765,7 @@ class MagicMimeEntry {
 	 * don't find one here
 	 */
 	private static String stringWithEscapeSubstitutions(String s) {
-		StringBuffer ret = new StringBuffer();
+        StringBuilder ret = new StringBuilder();
 		int len = s.length();
 		int indx = 0;
 		int c;
