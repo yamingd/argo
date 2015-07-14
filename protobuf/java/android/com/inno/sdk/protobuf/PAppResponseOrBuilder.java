@@ -61,13 +61,13 @@ public interface PAppResponseOrBuilder
    */
   int getCode();
 
-  // required int32 total = 5;
+  // optional int32 total = 5;
   /**
-   * <code>required int32 total = 5;</code>
+   * <code>optional int32 total = 5;</code>
    */
   boolean hasTotal();
   /**
-   * <code>required int32 total = 5;</code>
+   * <code>optional int32 total = 5;</code>
    */
   int getTotal();
 

@@ -24,7 +24,7 @@ public final class PAppResponseProto {
     java.lang.String[] descriptorData = {
       "\n\022PAppResponse.proto\"z\n\014PAppResponse\022\013\n\003" +
       "msg\030\001 \001(\t\022\021\n\tsessionId\030\002 \001(\t\022\017\n\007version\030" +
-      "\003 \001(\t\022\014\n\004code\030\004 \002(\005\022\r\n\005total\030\005 \002(\005\022\014\n\004da" +
+      "\003 \001(\t\022\014\n\004code\030\004 \002(\005\022\r\n\005total\030\005 \001(\005\022\014\n\004da" +
       "ta\030\006 \003(\014\022\016\n\006errors\030\007 \003(\tB4\n\035android.com." +
       "inno.sdk.protobufB\021PAppResponseProtoP\001"
     };

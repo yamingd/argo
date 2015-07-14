@@ -28,4 +28,5 @@ message PAppSession{
     optional float longitude = 21;
     optional int32 cityId = 22;
     optional int32 userKind = 23;
+    optional int32 userDemo = 24;
 }

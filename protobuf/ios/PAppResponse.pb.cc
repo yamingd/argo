@@ -84,7 +84,7 @@ void protobuf_AddDesc_PAppResponse_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\022PAppResponse.proto\"z\n\014PAppResponse\022\013\n\003"
     "msg\030\001 \001(\t\022\021\n\tsessionId\030\002 \001(\t\022\017\n\007version\030"
-    "\003 \001(\t\022\014\n\004code\030\004 \002(\005\022\r\n\005total\030\005 \002(\005\022\014\n\004da"
+    "\003 \001(\t\022\014\n\004code\030\004 \002(\005\022\r\n\005total\030\005 \001(\005\022\014\n\004da"
     "ta\030\006 \003(\014\022\016\n\006errors\030\007 \003(\tB4\n\035android.com."
     "inno.sdk.protobufB\021PAppResponseProtoP\001", 198);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
@@ -274,7 +274,7 @@ bool PAppResponse::MergePartialFromCodedStream(
         break;
       }
 
-      // required int32 total = 5;
+      // optional int32 total = 5;
       case 5: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -374,7 +374,7 @@ void PAppResponse::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->code(), output);
   }
 
-  // required int32 total = 5;
+  // optional int32 total = 5;
   if (has_total()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->total(), output);
   }
@@ -437,7 +437,7 @@ void PAppResponse::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->code(), target);
   }
 
-  // required int32 total = 5;
+  // optional int32 total = 5;
   if (has_total()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->total(), target);
   }
@@ -496,7 +496,7 @@ int PAppResponse::ByteSize() const {
           this->code());
     }
 
-    // required int32 total = 5;
+    // optional int32 total = 5;
     if (has_total()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
@@ -578,7 +578,7 @@ void PAppResponse::CopyFrom(const PAppResponse& from) {
 }
 
 bool PAppResponse::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000018) != 0x00000018) return false;
+  if ((_has_bits_[0] & 0x00000008) != 0x00000008) return false;
 
   return true;
 }

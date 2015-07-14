@@ -7,7 +7,7 @@ message PAppResponse{
     optional string sessionId = 2;
     optional string version = 3;
     required int32 code = 4;
-    required int32 total = 5;
+    optional int32 total = 5;
     repeated bytes data = 6;
     repeated string errors = 7;
 }

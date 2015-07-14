@@ -286,17 +286,17 @@ public  final class PAppResponse extends
     return code_;
   }
 
-  // required int32 total = 5;
+  // optional int32 total = 5;
   public static final int TOTAL_FIELD_NUMBER = 5;
   private int total_;
   /**
-   * <code>required int32 total = 5;</code>
+   * <code>optional int32 total = 5;</code>
    */
   public boolean hasTotal() {
     return ((bitField0_ & 0x00000010) == 0x00000010);
   }
   /**
-   * <code>required int32 total = 5;</code>
+   * <code>optional int32 total = 5;</code>
    */
   public int getTotal() {
     return total_;
@@ -370,10 +370,6 @@ public  final class PAppResponse extends
     if (isInitialized != -1) return isInitialized == 1;
 
     if (!hasCode()) {
-      memoizedIsInitialized = 0;
-      return false;
-    }
-    if (!hasTotal()) {
       memoizedIsInitialized = 0;
       return false;
     }
@@ -707,10 +703,6 @@ public  final class PAppResponse extends
         
         return false;
       }
-      if (!hasTotal()) {
-        
-        return false;
-      }
       return true;
     }
 
@@ -988,22 +980,22 @@ public  final class PAppResponse extends
       return this;
     }
 
-    // required int32 total = 5;
+    // optional int32 total = 5;
     private int total_ ;
     /**
-     * <code>required int32 total = 5;</code>
+     * <code>optional int32 total = 5;</code>
      */
     public boolean hasTotal() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>required int32 total = 5;</code>
+     * <code>optional int32 total = 5;</code>
      */
     public int getTotal() {
       return total_;
     }
     /**
-     * <code>required int32 total = 5;</code>
+     * <code>optional int32 total = 5;</code>
      */
     public Builder setTotal(int value) {
       bitField0_ |= 0x00000010;
@@ -1012,7 +1004,7 @@ public  final class PAppResponse extends
       return this;
     }
     /**
-     * <code>required int32 total = 5;</code>
+     * <code>optional int32 total = 5;</code>
      */
     public Builder clearTotal() {
       bitField0_ = (bitField0_ & ~0x00000010);

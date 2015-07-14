@@ -132,7 +132,7 @@ class PAppResponse : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 code() const;
   inline void set_code(::google::protobuf::int32 value);
 
-  // required int32 total = 5;
+  // optional int32 total = 5;
   inline bool has_total() const;
   inline void clear_total();
   static const int kTotalFieldNumber = 5;
@@ -443,7 +443,7 @@ inline void PAppResponse::set_code(::google::protobuf::int32 value) {
   code_ = value;
 }
 
-// required int32 total = 5;
+// optional int32 total = 5;
 inline bool PAppResponse::has_total() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }

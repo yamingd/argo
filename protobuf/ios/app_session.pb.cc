@@ -32,7 +32,7 @@ void protobuf_AssignDesc_app_5fsession_2eproto() {
       "app_session.proto");
   GOOGLE_CHECK(file != NULL);
   PAppSession_descriptor_ = file->message_type(0);
-  static const int PAppSession_offsets_[23] = {
+  static const int PAppSession_offsets_[24] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppSession, sessionid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppSession, realname_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppSession, username_),
@@ -56,6 +56,7 @@ void protobuf_AssignDesc_app_5fsession_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppSession, longitude_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppSession, cityid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppSession, userkind_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppSession, userdemo_),
   };
   PAppSession_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -98,7 +99,7 @@ void protobuf_AddDesc_app_5fsession_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\021app_session.proto\"\323\003\n\013PAppSession\022\021\n\ts"
+    "\n\021app_session.proto\"\345\003\n\013PAppSession\022\021\n\ts"
     "essionId\030\001 \001(\t\022\020\n\010realName\030\002 \001(\t\022\020\n\010user"
     "Name\030\003 \001(\t\022\016\n\006userId\030\004 \001(\003\022\016\n\006secret\030\005 \001"
     "(\t\022\022\n\nsigninDate\030\006 \001(\t\022\027\n\017profileImageUr"
@@ -110,8 +111,8 @@ void protobuf_AddDesc_app_5fsession_2eproto() {
     "bled\030\021 \001(\005\022\024\n\014latesAppVers\030\022 \001(\t\022\030\n\020loca"
     "leIdentifier\030\023 \001(\t\022\020\n\010latitude\030\024 \001(\002\022\021\n\t"
     "longitude\030\025 \001(\002\022\016\n\006cityId\030\026 \001(\005\022\020\n\010userK"
-    "ind\030\027 \001(\005B3\n\035android.com.inno.sdk.protob"
-    "ufB\020PAppSessionProtoP\001", 542);
+    "ind\030\027 \001(\005\022\020\n\010userDemo\030\030 \001(\005B3\n\035android.c"
+    "om.inno.sdk.protobufB\020PAppSessionProtoP\001", 560);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "app_session.proto", &protobuf_RegisterTypes);
   PAppSession::default_instance_ = new PAppSession();
@@ -152,6 +153,7 @@ const int PAppSession::kLatitudeFieldNumber;
 const int PAppSession::kLongitudeFieldNumber;
 const int PAppSession::kCityIdFieldNumber;
 const int PAppSession::kUserKindFieldNumber;
+const int PAppSession::kUserDemoFieldNumber;
 #endif  // !_MSC_VER
 
 PAppSession::PAppSession()
@@ -193,6 +195,7 @@ void PAppSession::SharedCtor() {
   longitude_ = 0;
   cityid_ = 0;
   userkind_ = 0;
+  userdemo_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -374,6 +377,7 @@ void PAppSession::Clear() {
     longitude_ = 0;
     cityid_ = 0;
     userkind_ = 0;
+    userdemo_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -765,6 +769,22 @@ bool PAppSession::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(192)) goto parse_userDemo;
+        break;
+      }
+
+      // optional int32 userDemo = 24;
+      case 24: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_userDemo:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &userdemo_)));
+          set_has_userdemo();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -968,6 +988,11 @@ void PAppSession::SerializeWithCachedSizes(
   // optional int32 userKind = 23;
   if (has_userkind()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(23, this->userkind(), output);
+  }
+
+  // optional int32 userDemo = 24;
+  if (has_userdemo()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(24, this->userdemo(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -1178,6 +1203,11 @@ void PAppSession::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(23, this->userkind(), target);
   }
 
+  // optional int32 userDemo = 24;
+  if (has_userdemo()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(24, this->userdemo(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -1350,6 +1380,13 @@ int PAppSession::ByteSize() const {
           this->userkind());
     }
 
+    // optional int32 userDemo = 24;
+    if (has_userdemo()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->userdemo());
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -1450,6 +1487,9 @@ void PAppSession::MergeFrom(const PAppSession& from) {
     if (from.has_userkind()) {
       set_userkind(from.userkind());
     }
+    if (from.has_userdemo()) {
+      set_userdemo(from.userdemo());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -1496,6 +1536,7 @@ void PAppSession::Swap(PAppSession* other) {
     std::swap(longitude_, other->longitude_);
     std::swap(cityid_, other->cityid_);
     std::swap(userkind_, other->userkind_);
+    std::swap(userdemo_, other->userdemo_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

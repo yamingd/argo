@@ -320,4 +320,14 @@ public interface PAppSessionOrBuilder
    * <code>optional int32 userKind = 23;</code>
    */
   int getUserKind();
+
+  // optional int32 userDemo = 24;
+  /**
+   * <code>optional int32 userDemo = 24;</code>
+   */
+  boolean hasUserDemo();
+  /**
+   * <code>optional int32 userDemo = 24;</code>
+   */
+  int getUserDemo();
 }

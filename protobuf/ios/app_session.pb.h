@@ -335,6 +335,13 @@ class PAppSession : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 userkind() const;
   inline void set_userkind(::google::protobuf::int32 value);
 
+  // optional int32 userDemo = 24;
+  inline bool has_userdemo() const;
+  inline void clear_userdemo();
+  static const int kUserDemoFieldNumber = 24;
+  inline ::google::protobuf::int32 userdemo() const;
+  inline void set_userdemo(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:PAppSession)
  private:
   inline void set_has_sessionid();
@@ -383,6 +390,8 @@ class PAppSession : public ::google::protobuf::Message {
   inline void clear_has_cityid();
   inline void set_has_userkind();
   inline void clear_has_userkind();
+  inline void set_has_userdemo();
+  inline void clear_has_userdemo();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -409,9 +418,10 @@ class PAppSession : public ::google::protobuf::Message {
   float longitude_;
   ::google::protobuf::int32 cityid_;
   ::google::protobuf::int32 userkind_;
+  ::google::protobuf::int32 userdemo_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(23 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(24 + 31) / 32];
 
   friend void  protobuf_AddDesc_app_5fsession_2eproto();
   friend void protobuf_AssignDesc_app_5fsession_2eproto();
@@ -1747,6 +1757,28 @@ inline ::google::protobuf::int32 PAppSession::userkind() const {
 inline void PAppSession::set_userkind(::google::protobuf::int32 value) {
   set_has_userkind();
   userkind_ = value;
+}
+
+// optional int32 userDemo = 24;
+inline bool PAppSession::has_userdemo() const {
+  return (_has_bits_[0] & 0x00800000u) != 0;
+}
+inline void PAppSession::set_has_userdemo() {
+  _has_bits_[0] |= 0x00800000u;
+}
+inline void PAppSession::clear_has_userdemo() {
+  _has_bits_[0] &= ~0x00800000u;
+}
+inline void PAppSession::clear_userdemo() {
+  userdemo_ = 0;
+  clear_has_userdemo();
+}
+inline ::google::protobuf::int32 PAppSession::userdemo() const {
+  return userdemo_;
+}
+inline void PAppSession::set_userdemo(::google::protobuf::int32 value) {
+  set_has_userdemo();
+  userdemo_ = value;
 }
 
 

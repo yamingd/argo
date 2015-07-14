@@ -169,6 +169,11 @@ public  final class PAppSession extends
             userKind_ = input.readInt32();
             break;
           }
+          case 192: {
+            bitField0_ |= 0x00800000;
+            userDemo_ = input.readInt32();
+            break;
+          }
         }
       }
     } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1036,6 +1041,22 @@ public  final class PAppSession extends
     return userKind_;
   }
 
+  // optional int32 userDemo = 24;
+  public static final int USERDEMO_FIELD_NUMBER = 24;
+  private int userDemo_;
+  /**
+   * <code>optional int32 userDemo = 24;</code>
+   */
+  public boolean hasUserDemo() {
+    return ((bitField0_ & 0x00800000) == 0x00800000);
+  }
+  /**
+   * <code>optional int32 userDemo = 24;</code>
+   */
+  public int getUserDemo() {
+    return userDemo_;
+  }
+
   private void initFields() {
     sessionId_ = "";
     realName_ = "";
@@ -1060,6 +1081,7 @@ public  final class PAppSession extends
     longitude_ = 0F;
     cityId_ = 0;
     userKind_ = 0;
+    userDemo_ = 0;
   }
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
@@ -1141,6 +1163,9 @@ public  final class PAppSession extends
     }
     if (((bitField0_ & 0x00400000) == 0x00400000)) {
       output.writeInt32(23, userKind_);
+    }
+    if (((bitField0_ & 0x00800000) == 0x00800000)) {
+      output.writeInt32(24, userDemo_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -1242,6 +1267,10 @@ public  final class PAppSession extends
     if (((bitField0_ & 0x00400000) == 0x00400000)) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(23, userKind_);
+    }
+    if (((bitField0_ & 0x00800000) == 0x00800000)) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(24, userDemo_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSerializedSize = size;
@@ -1405,6 +1434,8 @@ public  final class PAppSession extends
       bitField0_ = (bitField0_ & ~0x00200000);
       userKind_ = 0;
       bitField0_ = (bitField0_ & ~0x00400000);
+      userDemo_ = 0;
+      bitField0_ = (bitField0_ & ~0x00800000);
       return this;
     }
 
@@ -1525,6 +1556,10 @@ public  final class PAppSession extends
         to_bitField0_ |= 0x00400000;
       }
       result.userKind_ = userKind_;
+      if (((from_bitField0_ & 0x00800000) == 0x00800000)) {
+        to_bitField0_ |= 0x00800000;
+      }
+      result.userDemo_ = userDemo_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -1643,6 +1678,9 @@ public  final class PAppSession extends
       }
       if (other.hasUserKind()) {
         setUserKind(other.getUserKind());
+      }
+      if (other.hasUserDemo()) {
+        setUserDemo(other.getUserDemo());
       }
       this.mergeUnknownFields(other.getUnknownFields());
       return this;
@@ -3123,6 +3161,39 @@ public  final class PAppSession extends
     public Builder clearUserKind() {
       bitField0_ = (bitField0_ & ~0x00400000);
       userKind_ = 0;
+      onChanged();
+      return this;
+    }
+
+    // optional int32 userDemo = 24;
+    private int userDemo_ ;
+    /**
+     * <code>optional int32 userDemo = 24;</code>
+     */
+    public boolean hasUserDemo() {
+      return ((bitField0_ & 0x00800000) == 0x00800000);
+    }
+    /**
+     * <code>optional int32 userDemo = 24;</code>
+     */
+    public int getUserDemo() {
+      return userDemo_;
+    }
+    /**
+     * <code>optional int32 userDemo = 24;</code>
+     */
+    public Builder setUserDemo(int value) {
+      bitField0_ |= 0x00800000;
+      userDemo_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional int32 userDemo = 24;</code>
+     */
+    public Builder clearUserDemo() {
+      bitField0_ = (bitField0_ & ~0x00800000);
+      userDemo_ = 0;
       onChanged();
       return this;
     }

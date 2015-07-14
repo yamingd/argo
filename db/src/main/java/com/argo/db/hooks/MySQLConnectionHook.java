@@ -22,11 +22,11 @@ public class MySQLConnectionHook extends AbstractConnectionHook {
 	
 	@Override
 	public void onBeforeStatementExecute(ConnectionHandle conn, StatementHandle statement, String sql, Map<Object, Object> params) {
-		Connection internalConnection = conn.getInternalConnection();
-		
-		if(logger.isDebugEnabled()){
-			logger.debug("onBeforeStatementExecute:{}", internalConnection);
-		}
+//		Connection internalConnection = conn.getInternalConnection();
+//
+//		if(logger.isDebugEnabled()){
+//			logger.debug("onBeforeStatementExecute:{}", internalConnection);
+//		}
 
 	}
 	
