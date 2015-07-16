@@ -134,9 +134,9 @@ public class TokenUtil {
 	 * @return
 	 */
 	public static String decodeSignedValue(String name, String value){
-        if (logger.isDebugEnabled()){
-            logger.debug("{}:{}", name, value);
-        }
+//        if (logger.isDebugEnabled()){
+//            logger.debug("{}:{}", name, value);
+//        }
 		Object days = SiteConfig.instance.getCookie().get("age");
         if (days==null){
             days = 30;

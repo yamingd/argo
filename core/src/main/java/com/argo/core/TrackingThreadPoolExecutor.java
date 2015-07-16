@@ -41,9 +41,7 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
         super.afterExecute(r, t);
         if (null != t){
             logger.error("Execute Task Error. {}", t);
-        }
-        long total = counting.decrementAndGet();
-        logger.info("afterExecute Pending Task: {}", total);
+        };
     }
 
     @Override
@@ -52,8 +50,6 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
             return null;
         }
 
-        long total = counting.incrementAndGet();
-        logger.info("submit Task: {}", total);
         Future<?> future = super.submit(task);
         return future;
     }
@@ -63,9 +59,6 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
         if (null == task){
             return null;
         }
-
-        long total = counting.incrementAndGet();
-        logger.info("submit Task: {}", total);
         Future<T> future = super.submit(task, result);
         return future;
     }
@@ -76,8 +69,6 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
             return null;
         }
 
-        long total = counting.incrementAndGet();
-        logger.info("submit Task: {}", total);
         Future<T> future = super.submit(task);
         return future;
     }
@@ -89,10 +80,6 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
         }
 
         boolean flag = super.remove(task);
-        if (flag){
-            long total = counting.decrementAndGet();
-            logger.info("remove Task: {}", total);
-        }
         return flag;
     }
 
@@ -140,7 +127,7 @@ public class TrackingThreadPoolExecutor extends ThreadPoolExecutor {
                 logger.info("{}", executor);
 
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(15 * 1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

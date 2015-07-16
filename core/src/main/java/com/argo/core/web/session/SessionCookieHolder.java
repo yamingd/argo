@@ -74,9 +74,9 @@ public class SessionCookieHolder {
             if (StringUtils.isBlank(value)) {
                 throw new UserNotAuthorizationException("x-auth is NULL.");
             }
-            if (logger.isDebugEnabled()) {
-                logger.debug("Before {}:{}", authCookieId, value);
-            }
+//            if (logger.isDebugEnabled()) {
+//                logger.debug("Before {}:{}", authCookieId, value);
+//            }
         } else {
             value = cookie.getValue();
         }
