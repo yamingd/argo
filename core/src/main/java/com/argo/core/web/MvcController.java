@@ -50,9 +50,9 @@ public abstract class MvcController {
     public <T extends BaseUser> T getCurrentUser() throws UserNotAuthorizationException {
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) ra).getRequest();
-        if (logger.isDebugEnabled()) {
-            logger.debug("getCurrentUser From Request");
-        }
+//        if (logger.isDebugEnabled()) {
+//            logger.debug("getCurrentUser From Request");
+//        }
         T o = (T) request.getAttribute("currentUser");
         if (this.needLogin() && (o == null || o.isAnonymous())) {
             throw new UserNotAuthorizationException("401");
