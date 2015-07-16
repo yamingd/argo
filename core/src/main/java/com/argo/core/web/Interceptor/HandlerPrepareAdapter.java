@@ -69,9 +69,9 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
             //读取css, js, image等，直接返回
             return true;
         }
-        if (logger.isDebugEnabled()){
-            logger.info("WebContext: {}", WebContext.getContext());
-        }
+//        if (logger.isDebugEnabled()){
+//            logger.info("WebContext: {}", WebContext.getContext());
+//        }
         WebContext.getContext().mark();
         WebContext.getContext().setRequestIp(IpUtil.getIpAddress(request));
         WebContext.getContext().setRootPath(request.getContextPath());
