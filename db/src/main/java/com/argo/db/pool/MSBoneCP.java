@@ -39,9 +39,9 @@ public class MSBoneCP extends BoneCP {
 	protected Connection obtainRawInternalConnection()
 	throws SQLException {
 		Connection result = super.obtainRawInternalConnection();
-		if(logger.isDebugEnabled()){
-			logger.debug("obtainRawInternalConnection: [" + result + "]");
-		}
+//		if(logger.isDebugEnabled()){
+//			logger.debug("obtainRawInternalConnection: [" + result + "]");
+//		}
 		return result;
 	}
 }

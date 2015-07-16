@@ -110,17 +110,17 @@ public class MasterSlaveRoutingDataSource extends AbstractDataSource implements 
 
 	public Connection getConnection() throws SQLException {
 		Connection conn = determineTargetDataSource().getConnection();
-		if(logger.isDebugEnabled()){
-			this.logger.debug("getConnection: [" + conn + "]");
-		}
+//		if(logger.isDebugEnabled()){
+//			this.logger.debug("getConnection: [" + conn + "]");
+//		}
 		return conn;
 	}
 
 	public Connection getConnection(String username, String password) throws SQLException {
 		Connection conn = determineTargetDataSource().getConnection(username, password);
-		if(logger.isDebugEnabled()){
-			this.logger.debug("getConnection: [" + conn + "]");
-		}
+//		if(logger.isDebugEnabled()){
+//			this.logger.debug("getConnection: [" + conn + "]");
+//		}
 		return conn;
 	}
 
