@@ -3,7 +3,6 @@ package com.argo.core.web.Interceptor;
 import com.argo.core.ContextConfig;
 import com.argo.core.base.BaseUser;
 import com.argo.core.exception.UserNotAuthorizationException;
-import com.argo.core.metric.MetricCollectorImpl;
 import com.argo.core.utils.IpUtil;
 import com.argo.core.web.AnonymousUser;
 import com.argo.core.web.CSRFToken;
@@ -64,7 +63,7 @@ public class HandlerPrepareAdapter extends HandlerInterceptorAdapter {
         String url = request.getRequestURI();
         url = url.replace(request.getContextPath(), "");
         if (!url.startsWith("/assets/")){
-            MetricCollectorImpl.current().incrementCounter(handler.getClass(), url);
+            //MetricCollectorImpl.current().incrementCounter(handler.getClass(), url);
         }else{
             //读取css, js, image等，直接返回
             return true;
