@@ -84,9 +84,9 @@ void protobuf_AddDesc_PAppResponse_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\022PAppResponse.proto\"z\n\014PAppResponse\022\013\n\003"
     "msg\030\001 \001(\t\022\021\n\tsessionId\030\002 \001(\t\022\017\n\007version\030"
-    "\003 \001(\t\022\014\n\004code\030\004 \002(\005\022\r\n\005total\030\005 \001(\005\022\014\n\004da"
-    "ta\030\006 \003(\014\022\016\n\006errors\030\007 \003(\tB4\n\035android.com."
-    "inno.sdk.protobufB\021PAppResponseProtoP\001", 198);
+    "\003 \001(\005\022\014\n\004code\030\004 \002(\005\022\r\n\005total\030\005 \001(\005\022\014\n\004da"
+    "ta\030\006 \003(\014\022\016\n\006errors\030\007 \003(\tB,\n\025com.argo.sdk"
+    ".protobufB\021PAppResponseProtoP\001", 190);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "PAppResponse.proto", &protobuf_RegisterTypes);
   PAppResponse::default_instance_ = new PAppResponse();
@@ -131,7 +131,7 @@ void PAppResponse::SharedCtor() {
   _cached_size_ = 0;
   msg_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   sessionid_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  version_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  version_ = 0;
   code_ = 0;
   total_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -147,9 +147,6 @@ void PAppResponse::SharedDtor() {
   }
   if (sessionid_ != &::google::protobuf::internal::kEmptyString) {
     delete sessionid_;
-  }
-  if (version_ != &::google::protobuf::internal::kEmptyString) {
-    delete version_;
   }
   if (this != default_instance_) {
   }
@@ -188,11 +185,7 @@ void PAppResponse::Clear() {
         sessionid_->clear();
       }
     }
-    if (has_version()) {
-      if (version_ != &::google::protobuf::internal::kEmptyString) {
-        version_->clear();
-      }
-    }
+    version_ = 0;
     code_ = 0;
     total_ = 0;
   }
@@ -237,20 +230,19 @@ bool PAppResponse::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(26)) goto parse_version;
+        if (input->ExpectTag(24)) goto parse_version;
         break;
       }
 
-      // optional string version = 3;
+      // optional int32 version = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_version:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_version()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->version().data(), this->version().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &version_)));
+          set_has_version();
         } else {
           goto handle_uninterpreted;
         }
@@ -360,13 +352,9 @@ void PAppResponse::SerializeWithCachedSizes(
       2, this->sessionid(), output);
   }
 
-  // optional string version = 3;
+  // optional int32 version = 3;
   if (has_version()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->version().data(), this->version().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      3, this->version(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->version(), output);
   }
 
   // required int32 code = 4;
@@ -422,14 +410,9 @@ void PAppResponse::SerializeWithCachedSizes(
         2, this->sessionid(), target);
   }
 
-  // optional string version = 3;
+  // optional int32 version = 3;
   if (has_version()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->version().data(), this->version().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->version(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->version(), target);
   }
 
   // required int32 code = 4;
@@ -482,10 +465,10 @@ int PAppResponse::ByteSize() const {
           this->sessionid());
     }
 
-    // optional string version = 3;
+    // optional int32 version = 3;
     if (has_version()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->version());
     }
 

@@ -1,11 +1,11 @@
-option java_package = "android.com.inno.sdk.protobuf";
+option java_package = "com.argo.sdk.protobuf";
 option java_multiple_files = true;
 option java_outer_classname = "PAppResponseProto";
 
-message PAppResponse{
+message PAppResponse {
     optional string msg = 1;
     optional string sessionId = 2;
-    optional string version = 3;
+    optional int32 version = 3;
     required int32 code = 4;
     optional int32 total = 5;
     repeated bytes data = 6;

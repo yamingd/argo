@@ -113,17 +113,12 @@ class PAppResponse : public ::google::protobuf::Message {
   inline ::std::string* release_sessionid();
   inline void set_allocated_sessionid(::std::string* sessionid);
 
-  // optional string version = 3;
+  // optional int32 version = 3;
   inline bool has_version() const;
   inline void clear_version();
   static const int kVersionFieldNumber = 3;
-  inline const ::std::string& version() const;
-  inline void set_version(const ::std::string& value);
-  inline void set_version(const char* value);
-  inline void set_version(const char* value, size_t size);
-  inline ::std::string* mutable_version();
-  inline ::std::string* release_version();
-  inline void set_allocated_version(::std::string* version);
+  inline ::google::protobuf::int32 version() const;
+  inline void set_version(::google::protobuf::int32 value);
 
   // required int32 code = 4;
   inline bool has_code() const;
@@ -188,11 +183,11 @@ class PAppResponse : public ::google::protobuf::Message {
 
   ::std::string* msg_;
   ::std::string* sessionid_;
-  ::std::string* version_;
+  ::google::protobuf::int32 version_;
   ::google::protobuf::int32 code_;
-  ::google::protobuf::int32 total_;
   ::google::protobuf::RepeatedPtrField< ::std::string> data_;
   ::google::protobuf::RepeatedPtrField< ::std::string> errors_;
+  ::google::protobuf::int32 total_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
@@ -351,7 +346,7 @@ inline void PAppResponse::set_allocated_sessionid(::std::string* sessionid) {
   }
 }
 
-// optional string version = 3;
+// optional int32 version = 3;
 inline bool PAppResponse::has_version() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -362,63 +357,15 @@ inline void PAppResponse::clear_has_version() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void PAppResponse::clear_version() {
-  if (version_ != &::google::protobuf::internal::kEmptyString) {
-    version_->clear();
-  }
+  version_ = 0;
   clear_has_version();
 }
-inline const ::std::string& PAppResponse::version() const {
-  return *version_;
-}
-inline void PAppResponse::set_version(const ::std::string& value) {
-  set_has_version();
-  if (version_ == &::google::protobuf::internal::kEmptyString) {
-    version_ = new ::std::string;
-  }
-  version_->assign(value);
-}
-inline void PAppResponse::set_version(const char* value) {
-  set_has_version();
-  if (version_ == &::google::protobuf::internal::kEmptyString) {
-    version_ = new ::std::string;
-  }
-  version_->assign(value);
-}
-inline void PAppResponse::set_version(const char* value, size_t size) {
-  set_has_version();
-  if (version_ == &::google::protobuf::internal::kEmptyString) {
-    version_ = new ::std::string;
-  }
-  version_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* PAppResponse::mutable_version() {
-  set_has_version();
-  if (version_ == &::google::protobuf::internal::kEmptyString) {
-    version_ = new ::std::string;
-  }
+inline ::google::protobuf::int32 PAppResponse::version() const {
   return version_;
 }
-inline ::std::string* PAppResponse::release_version() {
-  clear_has_version();
-  if (version_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = version_;
-    version_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-inline void PAppResponse::set_allocated_version(::std::string* version) {
-  if (version_ != &::google::protobuf::internal::kEmptyString) {
-    delete version_;
-  }
-  if (version) {
-    set_has_version();
-    version_ = version;
-  } else {
-    clear_has_version();
-    version_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
+inline void PAppResponse::set_version(::google::protobuf::int32 value) {
+  set_has_version();
+  version_ = value;
 }
 
 // required int32 code = 4;
