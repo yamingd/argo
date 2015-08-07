@@ -1,6 +1,7 @@
 package com.argo.core.web.session;
 
 import com.argo.core.configuration.SiteConfig;
+import com.argo.core.exception.CookieInvalidException;
 import com.argo.core.exception.UserNotAuthorizationException;
 import com.argo.core.utils.IpUtil;
 import com.argo.core.utils.TokenUtil;
@@ -60,13 +61,13 @@ public class SessionCookieHolder {
 	 * @return
 	 * @throws UserNotAuthorizationException
 	 */
-	public static String getCurrentUID(HttpServletRequest request) throws UserNotAuthorizationException {
+	public static String getCurrentUID(HttpServletRequest request) throws UserNotAuthorizationException, CookieInvalidException {
         String authCookieId = getAuthCookieId();
 
         return getCurrentUID(request, authCookieId);
 	}
 
-    public static String getCurrentUID(HttpServletRequest request, String authCookieId) throws UserNotAuthorizationException {
+    public static String getCurrentUID(HttpServletRequest request, String authCookieId) throws UserNotAuthorizationException, CookieInvalidException {
         Cookie cookie = WebUtils.getCookie(request, authCookieId);
         String value = null;
         if (cookie == null) {

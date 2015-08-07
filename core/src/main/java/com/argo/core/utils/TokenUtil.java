@@ -1,6 +1,7 @@
 package com.argo.core.utils;
 
 import com.argo.core.configuration.SiteConfig;
+import com.argo.core.exception.CookieInvalidException;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
@@ -133,7 +134,7 @@ public class TokenUtil {
 	 * @param value
 	 * @return
 	 */
-	public static String decodeSignedValue(String name, String value){
+	public static String decodeSignedValue(String name, String value) throws CookieInvalidException {
 //        if (logger.isDebugEnabled()){
 //            logger.debug("{}:{}", name, value);
 //        }
@@ -145,16 +146,16 @@ public class TokenUtil {
 	}
 
 	public static String decodeSignedValue(String name, String value,
-			Integer days) {
+			Integer days) throws CookieInvalidException {
 		String secret = getCookieSecretSalt();
 		String[] parts = value.split("\\|"); // email+timestamp+signature
 		if(parts.length!=3){
-			return null;
+            throw new CookieInvalidException(value);
 		}
 		String signature = createSignatureValue(parts[1], secret, name+"|"+parts[0]);
 		if(!parts[2].equals(signature)){
 			logger.error("Invalid Cookie signature: " + value);
-			return null;
+            throw new CookieInvalidException(value);
 		}
 		long timestamp = Long.parseLong(parts[1]) * 1000L;
 		long now = new Date().getTime();

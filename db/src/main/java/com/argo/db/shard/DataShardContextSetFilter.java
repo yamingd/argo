@@ -1,5 +1,6 @@
 package com.argo.db.shard;
 
+import com.argo.core.exception.CookieInvalidException;
 import com.argo.core.exception.UserNotAuthorizationException;
 import com.argo.core.policy.IdDef;
 import com.argo.core.policy.IdGenPolicy;
@@ -74,8 +75,10 @@ public class DataShardContextSetFilter implements Filter {
 			}
 		} catch (UserNotAuthorizationException e) {
 			
-		}
-	}
+		} catch (CookieInvalidException e) {
+            throw new ServletException(e.getMessage(), e);
+        }
+    }
 
 	/* (non-Javadoc)
 	 * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)

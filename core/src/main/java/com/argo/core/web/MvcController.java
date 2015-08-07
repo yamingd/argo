@@ -1,6 +1,7 @@
 package com.argo.core.web;
 
 import com.argo.core.base.BaseUser;
+import com.argo.core.exception.CookieInvalidException;
 import com.argo.core.exception.PermissionDeniedException;
 import com.argo.core.exception.UserNotAuthorizationException;
 import com.argo.core.msgpack.MsgPackResponse;
@@ -68,7 +69,7 @@ public abstract class MvcController {
      * @throws UserNotAuthorizationException
      */
     public BaseUser verifyCookie(HttpServletRequest request, HttpServletResponse response)
-            throws UserNotAuthorizationException{
+            throws UserNotAuthorizationException, CookieInvalidException {
         String currentUid = null;
         try {
             currentUid = SessionCookieHolder.getCurrentUID(request);
