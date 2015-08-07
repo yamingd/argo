@@ -206,10 +206,14 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
                 }
 
                 if (nullIds.size() > 0 ){
-                    logger.info("nullIds: {}", nullIds);
+                    if (logger.isDebugEnabled()) {
+                        logger.debug("nullIds: {}", nullIds);
+                    }
                     List<T> listFromDb = this.loadFromDb(this.jdbcTemplateS, nullIds, ascending);
                     if (listFromDb.size() > 0) {
-                        logger.info("listFromDb total={}", listFromDb.size());
+                        if (logger.isDebugEnabled()) {
+                            logger.debug("listFromDb total={}", listFromDb.size());
+                        }
                         int i = 0, j = 0;
                         for (; i < items.size(); i++) {
                             if (items.get(i) == null) {
