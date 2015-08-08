@@ -31,11 +31,12 @@ public final class PAppRequestProto {
       "\022\014\n\004name\030\001 \002(\t\022\020\n\010intValue\030\002 \001(\005\022\020\n\010strV" +
       "alue\030\003 \001(\t\022\021\n\tlongValue\030\004 \001(\003\022\022\n\nfloatVa" +
       "lue\030\005 \001(\002\022\021\n\tboolValue\030\006 \001(\010\022\022\n\nbytesVal" +
-      "ue\030\007 \001(\014\"\200\001\n\013PAppRequest\022\016\n\006authId\030\001 \002(\t" +
+      "ue\030\007 \001(\014\"\241\001\n\013PAppRequest\022\016\n\006authId\030\001 \002(\t" +
       "\022\021\n\tsessionId\030\002 \001(\t\022\017\n\007version\030\003 \001(\005\022\014\n\004" +
-      "sign\030\004 \001(\t\022\r\n\005nonce\030\005 \001(\t\022 \n\005param\030\006 \003(\013" +
-      "2\021.PAppRequestParamB+\n\025com.argo.sdk.prot" +
-      "obufB\020PAppRequestProtoP\001"
+      "sign\030\004 \001(\t\022\r\n\005nonce\030\005 \001(\t\022\021\n\tuserAgent\030\006" +
+      " \001(\t\022\014\n\004path\030\007 \001(\t\022 \n\005param\030\010 \003(\0132\021.PApp" +
+      "RequestParamB+\n\025com.argo.sdk.protobufB\020P" +
+      "AppRequestProtoP\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -53,7 +54,7 @@ public final class PAppRequestProto {
           internal_static_PAppRequest_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_PAppRequest_descriptor,
-              new java.lang.String[] { "AuthId", "SessionId", "Version", "Sign", "Nonce", "Param", });
+              new java.lang.String[] { "AuthId", "SessionId", "Version", "Sign", "Nonce", "UserAgent", "Path", "Param", });
           return null;
         }
       };

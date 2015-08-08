@@ -76,27 +76,57 @@ public interface PAppRequestOrBuilder
   com.google.protobuf.ByteString
       getNonceBytes();
 
-  // repeated .PAppRequestParam param = 6;
+  // optional string userAgent = 6;
   /**
-   * <code>repeated .PAppRequestParam param = 6;</code>
+   * <code>optional string userAgent = 6;</code>
+   */
+  boolean hasUserAgent();
+  /**
+   * <code>optional string userAgent = 6;</code>
+   */
+  java.lang.String getUserAgent();
+  /**
+   * <code>optional string userAgent = 6;</code>
+   */
+  com.google.protobuf.ByteString
+      getUserAgentBytes();
+
+  // optional string path = 7;
+  /**
+   * <code>optional string path = 7;</code>
+   */
+  boolean hasPath();
+  /**
+   * <code>optional string path = 7;</code>
+   */
+  java.lang.String getPath();
+  /**
+   * <code>optional string path = 7;</code>
+   */
+  com.google.protobuf.ByteString
+      getPathBytes();
+
+  // repeated .PAppRequestParam param = 8;
+  /**
+   * <code>repeated .PAppRequestParam param = 8;</code>
    */
   java.util.List<com.argo.sdk.protobuf.PAppRequestParam> 
       getParamList();
   /**
-   * <code>repeated .PAppRequestParam param = 6;</code>
+   * <code>repeated .PAppRequestParam param = 8;</code>
    */
   com.argo.sdk.protobuf.PAppRequestParam getParam(int index);
   /**
-   * <code>repeated .PAppRequestParam param = 6;</code>
+   * <code>repeated .PAppRequestParam param = 8;</code>
    */
   int getParamCount();
   /**
-   * <code>repeated .PAppRequestParam param = 6;</code>
+   * <code>repeated .PAppRequestParam param = 8;</code>
    */
   java.util.List<? extends com.argo.sdk.protobuf.PAppRequestParamOrBuilder> 
       getParamOrBuilderList();
   /**
-   * <code>repeated .PAppRequestParam param = 6;</code>
+   * <code>repeated .PAppRequestParam param = 8;</code>
    */
   com.argo.sdk.protobuf.PAppRequestParamOrBuilder getParamOrBuilder(
       int index);

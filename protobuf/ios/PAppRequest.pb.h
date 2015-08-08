@@ -302,10 +302,34 @@ class PAppRequest : public ::google::protobuf::Message {
   inline ::std::string* release_nonce();
   inline void set_allocated_nonce(::std::string* nonce);
 
-  // repeated .PAppRequestParam param = 6;
+  // optional string userAgent = 6;
+  inline bool has_useragent() const;
+  inline void clear_useragent();
+  static const int kUserAgentFieldNumber = 6;
+  inline const ::std::string& useragent() const;
+  inline void set_useragent(const ::std::string& value);
+  inline void set_useragent(const char* value);
+  inline void set_useragent(const char* value, size_t size);
+  inline ::std::string* mutable_useragent();
+  inline ::std::string* release_useragent();
+  inline void set_allocated_useragent(::std::string* useragent);
+
+  // optional string path = 7;
+  inline bool has_path() const;
+  inline void clear_path();
+  static const int kPathFieldNumber = 7;
+  inline const ::std::string& path() const;
+  inline void set_path(const ::std::string& value);
+  inline void set_path(const char* value);
+  inline void set_path(const char* value, size_t size);
+  inline ::std::string* mutable_path();
+  inline ::std::string* release_path();
+  inline void set_allocated_path(::std::string* path);
+
+  // repeated .PAppRequestParam param = 8;
   inline int param_size() const;
   inline void clear_param();
-  static const int kParamFieldNumber = 6;
+  static const int kParamFieldNumber = 8;
   inline const ::PAppRequestParam& param(int index) const;
   inline ::PAppRequestParam* mutable_param(int index);
   inline ::PAppRequestParam* add_param();
@@ -326,6 +350,10 @@ class PAppRequest : public ::google::protobuf::Message {
   inline void clear_has_sign();
   inline void set_has_nonce();
   inline void clear_has_nonce();
+  inline void set_has_useragent();
+  inline void clear_has_useragent();
+  inline void set_has_path();
+  inline void clear_has_path();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -333,11 +361,13 @@ class PAppRequest : public ::google::protobuf::Message {
   ::std::string* sessionid_;
   ::std::string* sign_;
   ::std::string* nonce_;
+  ::std::string* useragent_;
+  ::std::string* path_;
   ::google::protobuf::RepeatedPtrField< ::PAppRequestParam > param_;
   ::google::protobuf::int32 version_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
 
   friend void  protobuf_AddDesc_PAppRequest_2eproto();
   friend void protobuf_AssignDesc_PAppRequest_2eproto();
@@ -957,7 +987,147 @@ inline void PAppRequest::set_allocated_nonce(::std::string* nonce) {
   }
 }
 
-// repeated .PAppRequestParam param = 6;
+// optional string userAgent = 6;
+inline bool PAppRequest::has_useragent() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void PAppRequest::set_has_useragent() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void PAppRequest::clear_has_useragent() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void PAppRequest::clear_useragent() {
+  if (useragent_ != &::google::protobuf::internal::kEmptyString) {
+    useragent_->clear();
+  }
+  clear_has_useragent();
+}
+inline const ::std::string& PAppRequest::useragent() const {
+  return *useragent_;
+}
+inline void PAppRequest::set_useragent(const ::std::string& value) {
+  set_has_useragent();
+  if (useragent_ == &::google::protobuf::internal::kEmptyString) {
+    useragent_ = new ::std::string;
+  }
+  useragent_->assign(value);
+}
+inline void PAppRequest::set_useragent(const char* value) {
+  set_has_useragent();
+  if (useragent_ == &::google::protobuf::internal::kEmptyString) {
+    useragent_ = new ::std::string;
+  }
+  useragent_->assign(value);
+}
+inline void PAppRequest::set_useragent(const char* value, size_t size) {
+  set_has_useragent();
+  if (useragent_ == &::google::protobuf::internal::kEmptyString) {
+    useragent_ = new ::std::string;
+  }
+  useragent_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PAppRequest::mutable_useragent() {
+  set_has_useragent();
+  if (useragent_ == &::google::protobuf::internal::kEmptyString) {
+    useragent_ = new ::std::string;
+  }
+  return useragent_;
+}
+inline ::std::string* PAppRequest::release_useragent() {
+  clear_has_useragent();
+  if (useragent_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = useragent_;
+    useragent_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PAppRequest::set_allocated_useragent(::std::string* useragent) {
+  if (useragent_ != &::google::protobuf::internal::kEmptyString) {
+    delete useragent_;
+  }
+  if (useragent) {
+    set_has_useragent();
+    useragent_ = useragent;
+  } else {
+    clear_has_useragent();
+    useragent_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string path = 7;
+inline bool PAppRequest::has_path() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void PAppRequest::set_has_path() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void PAppRequest::clear_has_path() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void PAppRequest::clear_path() {
+  if (path_ != &::google::protobuf::internal::kEmptyString) {
+    path_->clear();
+  }
+  clear_has_path();
+}
+inline const ::std::string& PAppRequest::path() const {
+  return *path_;
+}
+inline void PAppRequest::set_path(const ::std::string& value) {
+  set_has_path();
+  if (path_ == &::google::protobuf::internal::kEmptyString) {
+    path_ = new ::std::string;
+  }
+  path_->assign(value);
+}
+inline void PAppRequest::set_path(const char* value) {
+  set_has_path();
+  if (path_ == &::google::protobuf::internal::kEmptyString) {
+    path_ = new ::std::string;
+  }
+  path_->assign(value);
+}
+inline void PAppRequest::set_path(const char* value, size_t size) {
+  set_has_path();
+  if (path_ == &::google::protobuf::internal::kEmptyString) {
+    path_ = new ::std::string;
+  }
+  path_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* PAppRequest::mutable_path() {
+  set_has_path();
+  if (path_ == &::google::protobuf::internal::kEmptyString) {
+    path_ = new ::std::string;
+  }
+  return path_;
+}
+inline ::std::string* PAppRequest::release_path() {
+  clear_has_path();
+  if (path_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = path_;
+    path_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void PAppRequest::set_allocated_path(::std::string* path) {
+  if (path_ != &::google::protobuf::internal::kEmptyString) {
+    delete path_;
+  }
+  if (path) {
+    set_has_path();
+    path_ = path;
+  } else {
+    clear_has_path();
+    path_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// repeated .PAppRequestParam param = 8;
 inline int PAppRequest::param_size() const {
   return param_.size();
 }

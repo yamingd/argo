@@ -56,12 +56,14 @@ void protobuf_AssignDesc_PAppRequest_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(PAppRequestParam));
   PAppRequest_descriptor_ = file->message_type(1);
-  static const int PAppRequest_offsets_[6] = {
+  static const int PAppRequest_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppRequest, authid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppRequest, sessionid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppRequest, version_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppRequest, sign_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppRequest, nonce_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppRequest, useragent_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppRequest, path_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAppRequest, param_),
   };
   PAppRequest_reflection_ =
@@ -113,11 +115,12 @@ void protobuf_AddDesc_PAppRequest_2eproto() {
     "\022\014\n\004name\030\001 \002(\t\022\020\n\010intValue\030\002 \001(\005\022\020\n\010strV"
     "alue\030\003 \001(\t\022\021\n\tlongValue\030\004 \001(\003\022\022\n\nfloatVa"
     "lue\030\005 \001(\002\022\021\n\tboolValue\030\006 \001(\010\022\022\n\nbytesVal"
-    "ue\030\007 \001(\014\"\200\001\n\013PAppRequest\022\016\n\006authId\030\001 \002(\t"
+    "ue\030\007 \001(\014\"\241\001\n\013PAppRequest\022\016\n\006authId\030\001 \002(\t"
     "\022\021\n\tsessionId\030\002 \001(\t\022\017\n\007version\030\003 \001(\005\022\014\n\004"
-    "sign\030\004 \001(\t\022\r\n\005nonce\030\005 \001(\t\022 \n\005param\030\006 \003(\013"
-    "2\021.PAppRequestParamB+\n\025com.argo.sdk.prot"
-    "obufB\020PAppRequestProtoP\001", 344);
+    "sign\030\004 \001(\t\022\r\n\005nonce\030\005 \001(\t\022\021\n\tuserAgent\030\006"
+    " \001(\t\022\014\n\004path\030\007 \001(\t\022 \n\005param\030\010 \003(\0132\021.PApp"
+    "RequestParamB+\n\025com.argo.sdk.protobufB\020P"
+    "AppRequestProtoP\001", 377);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "PAppRequest.proto", &protobuf_RegisterTypes);
   PAppRequestParam::default_instance_ = new PAppRequestParam();
@@ -629,6 +632,8 @@ const int PAppRequest::kSessionIdFieldNumber;
 const int PAppRequest::kVersionFieldNumber;
 const int PAppRequest::kSignFieldNumber;
 const int PAppRequest::kNonceFieldNumber;
+const int PAppRequest::kUserAgentFieldNumber;
+const int PAppRequest::kPathFieldNumber;
 const int PAppRequest::kParamFieldNumber;
 #endif  // !_MSC_VER
 
@@ -653,6 +658,8 @@ void PAppRequest::SharedCtor() {
   version_ = 0;
   sign_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   nonce_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  useragent_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  path_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -672,6 +679,12 @@ void PAppRequest::SharedDtor() {
   }
   if (nonce_ != &::google::protobuf::internal::kEmptyString) {
     delete nonce_;
+  }
+  if (useragent_ != &::google::protobuf::internal::kEmptyString) {
+    delete useragent_;
+  }
+  if (path_ != &::google::protobuf::internal::kEmptyString) {
+    delete path_;
   }
   if (this != default_instance_) {
   }
@@ -719,6 +732,16 @@ void PAppRequest::Clear() {
     if (has_nonce()) {
       if (nonce_ != &::google::protobuf::internal::kEmptyString) {
         nonce_->clear();
+      }
+    }
+    if (has_useragent()) {
+      if (useragent_ != &::google::protobuf::internal::kEmptyString) {
+        useragent_->clear();
+      }
+    }
+    if (has_path()) {
+      if (path_ != &::google::protobuf::internal::kEmptyString) {
+        path_->clear();
       }
     }
   }
@@ -812,12 +835,46 @@ bool PAppRequest::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(50)) goto parse_param;
+        if (input->ExpectTag(50)) goto parse_userAgent;
         break;
       }
 
-      // repeated .PAppRequestParam param = 6;
+      // optional string userAgent = 6;
       case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_userAgent:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_useragent()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->useragent().data(), this->useragent().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(58)) goto parse_path;
+        break;
+      }
+
+      // optional string path = 7;
+      case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_path:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_path()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->path().data(), this->path().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(66)) goto parse_param;
+        break;
+      }
+
+      // repeated .PAppRequestParam param = 8;
+      case 8: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_param:
@@ -826,7 +883,7 @@ bool PAppRequest::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(50)) goto parse_param;
+        if (input->ExpectTag(66)) goto parse_param;
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -890,10 +947,28 @@ void PAppRequest::SerializeWithCachedSizes(
       5, this->nonce(), output);
   }
 
-  // repeated .PAppRequestParam param = 6;
+  // optional string userAgent = 6;
+  if (has_useragent()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->useragent().data(), this->useragent().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      6, this->useragent(), output);
+  }
+
+  // optional string path = 7;
+  if (has_path()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->path().data(), this->path().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      7, this->path(), output);
+  }
+
+  // repeated .PAppRequestParam param = 8;
   for (int i = 0; i < this->param_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      6, this->param(i), output);
+      8, this->param(i), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -949,11 +1024,31 @@ void PAppRequest::SerializeWithCachedSizes(
         5, this->nonce(), target);
   }
 
-  // repeated .PAppRequestParam param = 6;
+  // optional string userAgent = 6;
+  if (has_useragent()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->useragent().data(), this->useragent().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        6, this->useragent(), target);
+  }
+
+  // optional string path = 7;
+  if (has_path()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->path().data(), this->path().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        7, this->path(), target);
+  }
+
+  // repeated .PAppRequestParam param = 8;
   for (int i = 0; i < this->param_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        6, this->param(i), target);
+        8, this->param(i), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1002,8 +1097,22 @@ int PAppRequest::ByteSize() const {
           this->nonce());
     }
 
+    // optional string userAgent = 6;
+    if (has_useragent()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->useragent());
+    }
+
+    // optional string path = 7;
+    if (has_path()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->path());
+    }
+
   }
-  // repeated .PAppRequestParam param = 6;
+  // repeated .PAppRequestParam param = 8;
   total_size += 1 * this->param_size();
   for (int i = 0; i < this->param_size(); i++) {
     total_size +=
@@ -1053,6 +1162,12 @@ void PAppRequest::MergeFrom(const PAppRequest& from) {
     if (from.has_nonce()) {
       set_nonce(from.nonce());
     }
+    if (from.has_useragent()) {
+      set_useragent(from.useragent());
+    }
+    if (from.has_path()) {
+      set_path(from.path());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -1085,6 +1200,8 @@ void PAppRequest::Swap(PAppRequest* other) {
     std::swap(version_, other->version_);
     std::swap(sign_, other->sign_);
     std::swap(nonce_, other->nonce_);
+    std::swap(useragent_, other->useragent_);
+    std::swap(path_, other->path_);
     param_.Swap(&other->param_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

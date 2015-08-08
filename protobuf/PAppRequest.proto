@@ -18,5 +18,7 @@ message PAppRequest {
     optional int32 version = 3;
     optional string sign = 4;
     optional string nonce = 5;
-    repeated PAppRequestParam param = 6;
+    optional string userAgent = 6;
+    optional string path = 7;
+    repeated PAppRequestParam param = 8;
 }
