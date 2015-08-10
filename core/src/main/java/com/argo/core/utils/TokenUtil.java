@@ -58,7 +58,42 @@ public class TokenUtil {
         }
 
     }
-	
+
+    /**
+     * HMAC 256 with UTF-8 encoding
+     * @param data
+     * @param secret
+     * @return
+     */
+    public static String generateHex(String data, String secret) {
+        byte[] byteHMAC = null;
+        try {
+            Mac mac = Mac.getInstance(HMAC_SHA1);
+            SecretKeySpec spec;
+            String oauthSignature = encode(secret) + "&";
+            spec = new SecretKeySpec(oauthSignature.getBytes(Charset.forName("UTF-8")), HMAC_SHA1);
+            mac.init(spec);
+            byteHMAC = mac.doFinal(data.getBytes(Charset.forName("UTF-8")));
+            return byte2HexStr(byteHMAC);
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+            return null;
+        } catch (NoSuchAlgorithmException ignore) {
+            // should never happen
+            return null;
+        }
+    }
+
+    private final static char[] mChars = "0123456789abcdef".toCharArray();
+    public static String byte2HexStr(byte[] b){
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<b.length; i++){
+            sb.append(mChars[(b[i] & 0xFF) >> 4]);
+            sb.append(mChars[b[i] & 0x0F]);
+        }
+        return sb.toString().trim().toLowerCase();
+    }
+
 	public static String random(String data){
 		long timestamp = System.currentTimeMillis() / 1000;
         long nonce = timestamp + RAND.nextInt();
