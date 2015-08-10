@@ -2,10 +2,13 @@ package com.argo.core.utils;
 
 import com.argo.core.configuration.SiteConfig;
 import com.argo.core.exception.CookieInvalidException;
+import com.google.common.base.Charsets;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 import com.google.common.io.BaseEncoding;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,7 +74,7 @@ public class TokenUtil {
         try {
             Mac mac = Mac.getInstance(HMAC_SHA1);
             SecretKeySpec spec;
-            spec = new SecretKeySpec(secret, HMAC_SHA1);
+            spec = new SecretKeySpec(secret, "RAW");
             mac.init(spec);
             byteHMAC = mac.doFinal(data.getBytes(UTF_8));
             return byte2HexStr(byteHMAC);
@@ -89,7 +92,7 @@ public class TokenUtil {
         try {
             Mac mac = Mac.getInstance(HMAC_SHA1);
             SecretKeySpec spec;
-            spec = new SecretKeySpec(secret, HMAC_SHA1);
+            spec = new SecretKeySpec(secret, "RAW");
             mac.init(spec);
             byteHMAC = mac.doFinal(data);
             return byte2HexStr(byteHMAC);
@@ -102,27 +105,17 @@ public class TokenUtil {
         }
     }
 
-    private final static String hexCodes = "0123456789abcdef";
-    private final static char[] mChars = hexCodes.toCharArray();
-
     public static byte[] hexToBytes(String hexString){
-        int length = hexString.length() / 2;
-        byte[] bytes = new byte[length];
-        char[] hexChars = hexString.toCharArray();
-        for (int i = 0; i < length; i++) {
-            int pos = i * 2;
-            bytes[i] = (byte) (hexCodes.indexOf(hexChars[pos]) << 4 | hexCodes.indexOf(hexChars[pos + 1]));
+        try {
+            return Hex.decodeHex(hexString.toCharArray());
+        } catch (DecoderException e) {
+            logger.error(e.getMessage(), e);
+            return null;
         }
-        return bytes;
     }
 
     public static String byte2HexStr(byte[] b){
-        StringBuilder sb = new StringBuilder();
-        for (int i=0; i<b.length; i++){
-            sb.append(mChars[(b[i] & 0xFF) >> 4]);
-            sb.append(mChars[b[i] & 0x0F]);
-        }
-        return sb.toString().trim().toLowerCase();
+        return Hex.encodeHexString(b);
     }
 
 	public static String random(String data){
@@ -130,6 +123,33 @@ public class TokenUtil {
         long nonce = timestamp + RAND.nextInt();
         return generate(data, nonce+"$v1.0");
 	}
+
+    public static void verifyRequestSign(String cookieId, String cookieSecret, String url, String userId, String hexKey, String sign0){
+
+        byte[] keypart = hexToBytes(hexKey);
+
+        StringBuilder plain = new StringBuilder();
+        try {
+            plain.append(new String(keypart, "US-ASCII"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        plain.append("|").append(userId).append("|").append(url).append("|").append(cookieSecret).append("|").append(cookieId);
+
+        logger.debug("plain: {}", plain.toString());
+
+        byte[] data = plain.toString().getBytes(Charsets.US_ASCII);
+
+        HashFunction hf = Hashing.sha256();
+        HashCode hc = hf.newHasher().putBytes(data).hash();
+        String sign1 = hc.toString();
+
+        if (!sign0.equals(sign1)){
+            logger.error("Error Sign. cookieId={}, cookieSecret={}, url={}, key={}, userId={}, server sign={}, client sign={}", cookieId, cookieSecret, url, hexKey, userId, sign1, sign0);
+        }
+
+    }
 	
 	/**
      * @param value string to be encoded
@@ -238,15 +258,6 @@ public class TokenUtil {
 	}
 	
 	public static void main(String[] args) throws IOException{
-		//System.out.println(random("yaming_deng"));
-		//System.out.println(random("192.168.1.105"));
 
-        //ODE=|2147483647|67bc2dbbcad22db44a7efdd4d494f7911b2e2ff4dd151a4661f14dbb91c59ead
-
-        //1424942892
-
-        Date date = new Date(2147483647);
-        System.out.println(date);
-        System.out.println(new Date().getTime()/1000);
     }
 }
