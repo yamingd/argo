@@ -2,6 +2,7 @@ package com.argo.core.utils;
 
 import com.argo.core.configuration.SiteConfig;
 import com.argo.core.exception.CookieInvalidException;
+import com.argo.core.exception.PermissionDeniedException;
 import com.google.common.base.Charsets;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
@@ -124,7 +125,9 @@ public class TokenUtil {
         return generate(data, nonce+"$v1.0");
 	}
 
-    public static void verifyRequestSign(String cookieId, String cookieSecret, String url, String userId, String hexKey, String sign0){
+    public static void verifyRequestSign(String cookieId, String cookieSecret,
+                                         String url, String userId, String hexKey, String sign0)
+            throws PermissionDeniedException {
 
         byte[] keypart = hexToBytes(hexKey);
 
@@ -135,7 +138,10 @@ public class TokenUtil {
             e.printStackTrace();
         }
 
-        plain.append("|").append(userId).append("|").append(url).append("|").append(cookieSecret).append("|").append(cookieId);
+        plain.append("|").append(userId)
+                .append("|").append(url)
+                .append("|").append(cookieSecret)
+                .append("|").append(cookieId);
 
         //logger.debug("plain: {}", plain.toString());
 
@@ -147,6 +153,7 @@ public class TokenUtil {
 
         if (!sign0.equals(sign1)){
             logger.error("Error Sign. cookieId={}, cookieSecret={}, url={}, key={}, userId={}, server sign={}, client sign={}", cookieId, cookieSecret, url, hexKey, userId, sign1, sign0);
+            throw new PermissionDeniedException("Request Denied. " + url);
         }
 
     }
