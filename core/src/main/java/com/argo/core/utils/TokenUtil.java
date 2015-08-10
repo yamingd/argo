@@ -137,7 +137,7 @@ public class TokenUtil {
 
         plain.append("|").append(userId).append("|").append(url).append("|").append(cookieSecret).append("|").append(cookieId);
 
-        logger.debug("plain: {}", plain.toString());
+        //logger.debug("plain: {}", plain.toString());
 
         byte[] data = plain.toString().getBytes(Charsets.US_ASCII);
 
