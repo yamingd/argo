@@ -84,6 +84,24 @@ public class TokenUtil {
         }
     }
 
+    public static String generateHex(byte[] data, byte[] secret) {
+        byte[] byteHMAC = null;
+        try {
+            Mac mac = Mac.getInstance(HMAC_SHA1);
+            SecretKeySpec spec;
+            spec = new SecretKeySpec(secret, HMAC_SHA1);
+            mac.init(spec);
+            byteHMAC = mac.doFinal(data);
+            return byte2HexStr(byteHMAC);
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+            return null;
+        } catch (NoSuchAlgorithmException ignore) {
+            // should never happen
+            return null;
+        }
+    }
+
     private final static String hexCodes = "0123456789abcdef";
     private final static char[] mChars = hexCodes.toCharArray();
 
