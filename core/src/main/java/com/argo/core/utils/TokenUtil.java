@@ -28,6 +28,7 @@ import java.util.Random;
  */
 public class TokenUtil {
 
+    public static final Charset UTF_8 = Charset.forName("UTF-8");
     private static Logger logger = LoggerFactory.getLogger(TokenUtil.class);
 
 	private static final String HMAC_SHA1 = "HmacSHA256";
@@ -45,9 +46,9 @@ public class TokenUtil {
             Mac mac = Mac.getInstance(HMAC_SHA1);
             SecretKeySpec spec;
             String oauthSignature = encode(secret) + "&";
-            spec = new SecretKeySpec(oauthSignature.getBytes(Charset.forName("UTF-8")), HMAC_SHA1);
+            spec = new SecretKeySpec(oauthSignature.getBytes(UTF_8), HMAC_SHA1);
             mac.init(spec);
-            byteHMAC = mac.doFinal(data.getBytes(Charset.forName("UTF-8")));
+            byteHMAC = mac.doFinal(data.getBytes(UTF_8));
             return BaseEncoding.base64Url().encode(byteHMAC);
         } catch (InvalidKeyException e) {
             e.printStackTrace();
@@ -65,15 +66,14 @@ public class TokenUtil {
      * @param secret
      * @return
      */
-    public static String generateHex(String data, String secret) {
+    public static String generateHex(String data, byte[] secret) {
         byte[] byteHMAC = null;
         try {
             Mac mac = Mac.getInstance(HMAC_SHA1);
             SecretKeySpec spec;
-            String oauthSignature = encode(secret) + "&";
-            spec = new SecretKeySpec(oauthSignature.getBytes(Charset.forName("UTF-8")), HMAC_SHA1);
+            spec = new SecretKeySpec(secret, HMAC_SHA1);
             mac.init(spec);
-            byteHMAC = mac.doFinal(data.getBytes(Charset.forName("UTF-8")));
+            byteHMAC = mac.doFinal(data.getBytes(UTF_8));
             return byte2HexStr(byteHMAC);
         } catch (InvalidKeyException e) {
             e.printStackTrace();
@@ -84,7 +84,20 @@ public class TokenUtil {
         }
     }
 
-    private final static char[] mChars = "0123456789abcdef".toCharArray();
+    private final static String hexCodes = "0123456789abcdef";
+    private final static char[] mChars = hexCodes.toCharArray();
+
+    public static byte[] hexToBytes(String hexString){
+        int length = hexString.length() / 2;
+        byte[] bytes = new byte[length];
+        char[] hexChars = hexString.toCharArray();
+        for (int i = 0; i < length; i++) {
+            int pos = i * 2;
+            bytes[i] = (byte) (hexCodes.indexOf(hexChars[pos]) << 4 | hexCodes.indexOf(hexChars[pos + 1]));
+        }
+        return bytes;
+    }
+
     public static String byte2HexStr(byte[] b){
         StringBuilder sb = new StringBuilder();
         for (int i=0; i<b.length; i++){
@@ -148,7 +161,7 @@ public class TokenUtil {
 
     public static String md5(String value){
         HashFunction hf = Hashing.md5();
-        HashCode hc = hf.newHasher().putString(value, Charset.forName("UTF-8")).hash();
+        HashCode hc = hf.newHasher().putString(value, UTF_8).hash();
         return hc.toString();
     }
 
@@ -159,7 +172,7 @@ public class TokenUtil {
 	
 	private static String createSignatureValue(String timestamp, String secret, String data){
         HashFunction hf = Hashing.sha256();
-        HashCode hc = hf.newHasher().putString(timestamp + "|" + secret + "|" + data, Charset.forName("UTF-8")).hash();
+        HashCode hc = hf.newHasher().putString(timestamp + "|" + secret + "|" + data, UTF_8).hash();
         return hc.toString();
 	}
 	
