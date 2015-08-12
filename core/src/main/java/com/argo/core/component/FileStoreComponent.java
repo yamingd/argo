@@ -7,6 +7,7 @@ import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
 import com.google.common.io.Files;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -57,7 +58,7 @@ public class FileStoreComponent extends BaseBean {
 	 * @throws IOException
 	 */
 	public String saveFile(File file, Integer fileId, String fileCategory, String fileExt, boolean timeStampName) throws IOException{
-		String fileName = String.format("%s-%s.%s", fileId,new Date().getTime(),fileExt);
+		String fileName = String.format("%s-%s.%s", fileId, System.currentTimeMillis(), fileExt);
 		if(!timeStampName){
 			fileName = String.format("%s.%s", fileId, fileExt);
 		}
@@ -131,6 +132,41 @@ public class FileStoreComponent extends BaseBean {
 			
 		}
 	}
+
+    /**
+     * 用Date算法计算存储目录
+     * @param fileId
+     * @param fileCategory
+     * @return String[fullPath, Path]
+     */
+    public String[] dateFolder(Integer fileId, String fileCategory){
+        String fileName = DateFormatUtils.format(new Date(), "yyyy/mm/dd");
+        String rootFolder = getFileRootFolder();
+        String path = String.format("/%s/%s", fileCategory, fileName);
+        File folder = new File(String.format("%s%s", rootFolder, path));
+        if(!folder.exists()){
+            boolean ret = folder.mkdirs();
+            if (logger.isDebugEnabled()){
+                logger.debug("create folder: {}, {}", folder, ret);
+            }
+        }
+        return new String[]{String.format("%s%s", rootFolder, path), path};
+    }
+
+    /**
+     * 用Hash算法计算存储路径
+     * @param fileId
+     * @param fileCategory
+     * @return
+     */
+    public String[] hashFolder(Integer fileId, String fileCategory){
+        return generateFolder(fileId, fileCategory);
+    }
+
+    public String[] hashFolder(String fileCategory){
+        return randomFolder(fileCategory);
+    }
+
 	/**
 	 * 用Hash算法计算存储目录
 	 * @param fileId
@@ -158,7 +194,7 @@ public class FileStoreComponent extends BaseBean {
      * @return String[fullPath, Path]
      */
     public String[] randomFolder(String fileCategory){
-        String fileName = String.format("file-%s-%s-%s", ObjectId.getGenMachineId(), fileCategory, new Date().getTime()).toLowerCase();
+        String fileName = String.format("file-%s-%s-%s", ObjectId.getGenMachineId(), fileCategory, System.currentTimeMillis()).toLowerCase();
         String hex = TokenUtil.md5(fileName);
         String rootFolder = getFileRootFolder();
         String path = String.format("/%s/%s/%s/%s/%s/", fileCategory, hex.substring(0, 3),hex.substring(3, 6),hex.substring(6, 9),hex.substring(9, 12));
