@@ -5,7 +5,6 @@ import com.google.protobuf.ExtensionRegistry;
 import com.google.protobuf.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -89,14 +88,15 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
             //加密数据
             int len = (Integer)xsecurity;
             if (len > 0) {
-                HttpHeaders headers = outputMessage.getHeaders();
-
                 Random random = new Random();
                 byte[] arr = new byte[len];
                 random.nextBytes(arr);
 
                 outputMessage.getBody().write(arr);
-                headers.set(X_TAG, TAG_SECURITY);
+                outputMessage.getHeaders().set(X_TAG, TAG_SECURITY);
+                if (logger.isDebugEnabled()){
+                    logger.debug("X-tag headers: " + outputMessage.getHeaders().getFirst(X_TAG));
+                }
             }
         }
 
