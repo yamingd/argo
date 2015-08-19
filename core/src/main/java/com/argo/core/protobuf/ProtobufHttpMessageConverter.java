@@ -85,10 +85,13 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
             //加密数据
             int len = (Integer)xsecurity;
             if (len > 0) {
+
                 Random random = new Random();
                 byte[] arr = new byte[len];
                 random.nextBytes(arr);
+
                 outputMessage.getBody().write(arr);
+                logger.debug("securityTag: " + xsecurity +", request:" + request);
             }
         }
 
