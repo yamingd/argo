@@ -83,14 +83,16 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
         byte[] bytes = message.toByteArray();
         if (xsecurity != null){
             //加密数据
-            Random random = new Random();
-            byte[] arr = new byte[16];
-            random.nextBytes(arr);
-            outputMessage.getBody().write(arr);
-            FileCopyUtils.copy(bytes, outputMessage.getBody());
-        }else{
-            FileCopyUtils.copy(bytes, outputMessage.getBody());
+            int len = (Integer)xsecurity;
+            if (len > 0) {
+                Random random = new Random();
+                byte[] arr = new byte[len];
+                random.nextBytes(arr);
+                outputMessage.getBody().write(arr);
+            }
         }
+
+        FileCopyUtils.copy(bytes, outputMessage.getBody());
 
     }
 
