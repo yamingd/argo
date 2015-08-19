@@ -96,7 +96,7 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
                 random.nextBytes(arr);
 
                 outputMessage.getBody().write(arr);
-                headers.add(X_TAG, TAG_SECURITY);
+                headers.set(X_TAG, TAG_SECURITY);
             }
         }
 
