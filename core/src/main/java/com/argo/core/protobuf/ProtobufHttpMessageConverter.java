@@ -88,15 +88,18 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
             //加密数据
             int len = (Integer)xsecurity;
             if (len > 0) {
+
+                outputMessage.getHeaders().set(X_TAG, TAG_SECURITY);
+                if (logger.isDebugEnabled()){
+                    logger.debug("X-tag headers: " + outputMessage.getHeaders().getFirst(X_TAG));
+                }
+
                 Random random = new Random();
                 byte[] arr = new byte[len];
                 random.nextBytes(arr);
 
                 outputMessage.getBody().write(arr);
-                outputMessage.getHeaders().set(X_TAG, TAG_SECURITY);
-                if (logger.isDebugEnabled()){
-                    logger.debug("X-tag headers: " + outputMessage.getHeaders().getFirst(X_TAG));
-                }
+
             }
         }
 
