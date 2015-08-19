@@ -90,9 +90,9 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
             if (len > 0) {
 
                 outputMessage.getHeaders().set(X_TAG, TAG_SECURITY);
-                if (logger.isDebugEnabled()){
-                    logger.debug("X-tag headers: " + outputMessage.getHeaders().getFirst(X_TAG));
-                }
+//                if (logger.isDebugEnabled()){
+//                    logger.debug("X-tag headers: " + outputMessage.getHeaders().getFirst(X_TAG));
+//                }
 
                 Random random = new Random();
                 byte[] arr = new byte[len];
