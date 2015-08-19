@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<Message> {
@@ -34,6 +35,8 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
 
     private static final ConcurrentHashMap<Class<?>, Method> newBuilderMethodCache =
             new ConcurrentHashMap<Class<?>, Method>();
+
+    public static final String securityTag = "protobuf-encrypt";
 
     public ProtobufHttpMessageConverter() {
         this(null);
@@ -75,11 +78,15 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
 
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) ra).getRequest();
-        Object xsecurity = request.getAttribute("x-security");
-        logger.debug("xsecurity: " + xsecurity+", request:" + request);
+        Object xsecurity = request.getAttribute(securityTag);
+        logger.debug("securityTag: " + xsecurity+", request:" + request);
         byte[] bytes = message.toByteArray();
         if (xsecurity != null){
-            //TODO: 加密数据
+            //加密数据
+            Random random = new Random();
+            byte[] arr = new byte[16];
+            random.nextBytes(arr);
+            outputMessage.getBody().write(arr);
             FileCopyUtils.copy(bytes, outputMessage.getBody());
         }else{
             FileCopyUtils.copy(bytes, outputMessage.getBody());
