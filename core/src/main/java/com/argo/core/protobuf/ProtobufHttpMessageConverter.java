@@ -79,7 +79,7 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) ra).getRequest();
         Object xsecurity = request.getAttribute(securityTag);
-        logger.debug("securityTag: " + xsecurity+", request:" + request);
+        //logger.debug("securityTag: " + xsecurity+", request:" + request);
         byte[] bytes = message.toByteArray();
         if (xsecurity != null){
             //加密数据
