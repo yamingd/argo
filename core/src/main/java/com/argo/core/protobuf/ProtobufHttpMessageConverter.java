@@ -12,7 +12,11 @@ import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,7 +72,19 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
 //        if (logger.isDebugEnabled()) {
 //            logger.debug(message);
 //        }
-        FileCopyUtils.copy(message.toByteArray(), outputMessage.getBody());
+
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = ((ServletRequestAttributes) ra).getRequest();
+        Object xsecurity = request.getAttribute("x-security");
+        logger.debug("xsecurity: " + xsecurity);
+        byte[] bytes = message.toByteArray();
+        if (xsecurity != null){
+            //TODO: 加密数据
+            FileCopyUtils.copy(bytes, outputMessage.getBody());
+        }else{
+            FileCopyUtils.copy(bytes, outputMessage.getBody());
+        }
+
     }
 
     @Override
