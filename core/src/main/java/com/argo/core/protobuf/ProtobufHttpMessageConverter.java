@@ -3,6 +3,7 @@ package com.argo.core.protobuf;
 import com.argo.core.web.Enums;
 import com.google.protobuf.ExtensionRegistry;
 import com.google.protobuf.Message;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpInputMessage;
@@ -91,7 +92,7 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
                 random.nextBytes(arr);
 
                 outputMessage.getBody().write(arr);
-                logger.debug("securityTag: " + xsecurity +", arr:" + arr);
+                logger.debug("securityTag: " + xsecurity +", arr:" + StringUtils.join(arr, ","));
             }
         }
 
