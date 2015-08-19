@@ -5,6 +5,7 @@ import com.google.protobuf.ExtensionRegistry;
 import com.google.protobuf.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -26,6 +27,9 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<Message> {
+
+    public static final String X_TAG = "X-tag";
+    public static final String TAG_SECURITY = "S";
 
     private static Logger log = LoggerFactory.getLogger(ProtobufHttpMessageConverter.class);
 
@@ -85,18 +89,14 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
             //加密数据
             int len = (Integer)xsecurity;
             if (len > 0) {
+                HttpHeaders headers = outputMessage.getHeaders();
 
                 Random random = new Random();
                 byte[] arr = new byte[len];
                 random.nextBytes(arr);
 
                 outputMessage.getBody().write(arr);
-                if (logger.isDebugEnabled()) {
-                    logger.debug("securityTag: " + xsecurity + ", arr: ");
-                    for (int i = 0; i < arr.length; i++) {
-                        logger.debug("arr["+i+"]=" + arr[i]);
-                    }
-                }
+                headers.add(X_TAG, TAG_SECURITY);
             }
         }
 
