@@ -111,7 +111,17 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
 
     @Override
     protected Long getContentLength(Message message, MediaType contentType) {
-        return (long) message.toByteArray().length;
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = ((ServletRequestAttributes) ra).getRequest();
+        Object xsecurity = request.getAttribute(securityTag);
+
+        int len = message.toByteArray().length;
+        if (xsecurity != null) {
+            //加密数据
+            return (long) len + (Integer)xsecurity;
+        }else{
+            return (long) len;
+        }
     }
 
     private Method getNewBuilderMessageMethod(Class<? extends Message> clazz) throws NoSuchMethodException {
