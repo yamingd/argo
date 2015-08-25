@@ -9,7 +9,7 @@
              http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 		     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <import resource="classpath:/main/resources/com/argo/freemarker/config.xml" />
+    <import resource="classpath:/com/argo/freemarker/config.xml" />
 
     <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
     <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">

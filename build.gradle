@@ -12,6 +12,13 @@ subprojects {
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
 
+    sourceSets {
+        main {
+            java.srcDir "$projectDir/main/java"
+            resources.srcDir "$projectDir/main/resources"
+        }
+    }
+
     task packageSources(type: Jar) {
         classifier = 'sources'
         from sourceSets.main.allSource
