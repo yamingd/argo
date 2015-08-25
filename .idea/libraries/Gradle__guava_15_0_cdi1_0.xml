@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: guava-15.0-cdi1.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/15.0/guava-15.0-cdi1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/15.0/guava-15.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

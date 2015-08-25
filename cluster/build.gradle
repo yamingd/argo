@@ -1,0 +1,10 @@
+description = ''
+dependencies {
+    compile project(':argo-core')
+    compile project(':argo-service')
+    compile(group: 'org.apache.zookeeper', name: 'zookeeper', version: '3.4.5') {
+        exclude(module: 'jmxri')
+        exclude(module: 'jmxtools')
+        exclude(module: 'jms')
+    }
+}

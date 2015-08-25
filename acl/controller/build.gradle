@@ -1,0 +1,5 @@
+
+description = 'argo-acl-controller'
+dependencies {
+  compile project(':argo-acl:argo-acl-core')
+}

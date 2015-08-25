@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: cage-1.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/cage/cage/1.0/cage-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/cage/cage/1.0/cage-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

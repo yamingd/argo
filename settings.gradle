@@ -1,0 +1,36 @@
+rootProject.name = 'argo-parent'
+include ':argo-core'
+include ':argo-data'
+include ':web'
+include ':argo-message'
+include ':argo-search'
+include ':argo-db'
+include ':argo-cluster'
+include ':argo-cache'
+include ':argo-task'
+include ':argo-mail'
+include ':argo-service'
+include ':dbtest'
+include ':argo-acl:argo-acl-service'
+include ':argo-acl:argo-acl-core'
+include ':argo-acl:argo-acl-controller'
+include ':argo-acl'
+include ':argo-tools'
+
+project(':argo-core').projectDir = "$rootDir/core" as File
+project(':argo-data').projectDir = "$rootDir/data" as File
+project(':web').projectDir = "$rootDir/web" as File
+project(':argo-message').projectDir = "$rootDir/message" as File
+project(':argo-search').projectDir = "$rootDir/search" as File
+project(':argo-db').projectDir = "$rootDir/db" as File
+project(':argo-cluster').projectDir = "$rootDir/cluster" as File
+project(':argo-cache').projectDir = "$rootDir/cache" as File
+project(':argo-task').projectDir = "$rootDir/task" as File
+project(':argo-mail').projectDir = "$rootDir/mail" as File
+project(':argo-service').projectDir = "$rootDir/service" as File
+project(':dbtest').projectDir = "$rootDir/dbtest" as File
+project(':argo-acl:argo-acl-service').projectDir = "$rootDir/acl/service" as File
+project(':argo-acl:argo-acl-core').projectDir = "$rootDir/acl/core" as File
+project(':argo-acl:argo-acl-controller').projectDir = "$rootDir/acl/controller" as File
+project(':argo-acl').projectDir = "$rootDir/acl" as File
+project(':argo-tools').projectDir = "$rootDir/tools" as File

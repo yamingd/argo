@@ -1,0 +1,8 @@
+
+description = ''
+dependencies {
+  compile project(':argo-core')
+  compile project(':argo-service')
+    compile group: 'com.rabbitmq', name: 'amqp-client', version:'3.2.1'
+    compile group: 'org.springframework.amqp', name: 'spring-rabbit', version:'1.2.0.RELEASE'
+}

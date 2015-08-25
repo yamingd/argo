@@ -1,0 +1,8 @@
+description = 'argo-tools'
+dependencies {
+    compile project(':argo-db')
+    compile project(':argo-service')
+    compile group: 'net.sf.jxls', name: 'jxls-core', version: '1.0.5'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.34'
+    compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+}

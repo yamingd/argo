@@ -1,0 +1,6 @@
+
+description = 'mail'
+dependencies {
+  compile project(':argo-core')
+  compile project(':argo-service')
+}

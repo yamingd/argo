@@ -1,0 +1,5 @@
+
+description = 'argo-service'
+dependencies {
+  compile project(':argo-core')
+}

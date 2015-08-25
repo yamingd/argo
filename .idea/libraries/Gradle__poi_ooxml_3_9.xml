@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: poi-ooxml-3.9">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/poi/poi-ooxml/3.9/poi-ooxml-3.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/poi/poi-ooxml/3.9/poi-ooxml-3.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

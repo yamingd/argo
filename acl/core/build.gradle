@@ -1,0 +1,7 @@
+
+description = 'argo-acl-core'
+dependencies {
+    compile project(':argo-core')
+    compile project(':argo-db')
+    compile project(':argo-service')
+}

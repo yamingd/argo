@@ -1,0 +1,5 @@
+description = 'search'
+dependencies {
+    compile project(':argo-core')
+    compile group: 'org.elasticsearch', name: 'elasticsearch', version: '0.90.7'
+}
