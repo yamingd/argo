@@ -7,7 +7,7 @@
     <groupId>com.github.yamingd.argo</groupId>
     <artifactId>argo-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <modules>
         <module>core</module>
         <module>data</module>
@@ -33,7 +33,7 @@
         <junit.version>4.8.2</junit.version>
         <org.aspectj-version>1.7.4</org.aspectj-version>
         <org.slf4j-version>1.7.5</org.slf4j-version>
-        <argo.version>1.0-SNAPSHOT</argo.version>
+        <argo.version>1.0</argo.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

@@ -3,7 +3,7 @@
     <parent>
         <artifactId>argo-parent</artifactId>
         <groupId>com.github.yamingd.argo</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -20,7 +20,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <argo.version>1.0-SNAPSHOT</argo.version>
+        <argo.version>1.0</argo.version>
     </properties>
 
     <dependencies>
