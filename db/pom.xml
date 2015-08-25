@@ -4,19 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>argo-parent</artifactId>
-        <groupId>com.argo</groupId>
+        <groupId>com.github.yamingd.argo</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>argo-db</artifactId>
+    <version>${argo.version}</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>com.argo</groupId>
+            <groupId>com.github.yamingd.argo</groupId>
             <artifactId>argo-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${argo.version}</version>
         </dependency>
 
         <dependency>

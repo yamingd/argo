@@ -5,14 +5,14 @@
 
     <parent>
         <artifactId>argo-parent</artifactId>
-        <groupId>com.argo</groupId>
+        <groupId>com.github.yamingd.argo</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>argo-core</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>${argo.version}</version>
 
     <dependencies>
         <dependency>

@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>argo-parent</artifactId>
-        <groupId>com.argo</groupId>
+        <groupId>com.github.yamingd.argo</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -20,6 +20,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <argo.version>1.0-SNAPSHOT</argo.version>
     </properties>
 
     <dependencies>
@@ -30,14 +31,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.argo</groupId>
+            <groupId>com.github.yamingd.argo</groupId>
             <artifactId>argo-db</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${argo.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.argo</groupId>
+            <groupId>com.github.yamingd.argo</groupId>
             <artifactId>argo-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${argo.version}</version>
         </dependency>
     </dependencies>
 </project>

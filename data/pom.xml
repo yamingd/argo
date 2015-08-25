@@ -5,21 +5,21 @@
 
     <parent>
         <artifactId>argo-parent</artifactId>
-        <groupId>com.argo</groupId>
+        <groupId>com.github.yamingd.argo</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>argo-data</artifactId>
-    <groupId>com.argo</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.github.yamingd.argo</groupId>
+    <version>${argo.version}</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>com.argo</groupId>
+            <groupId>com.github.yamingd.argo</groupId>
             <artifactId>argo-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${argo.version}</version>
         </dependency>
         <dependency>
             <groupId>net.spy</groupId>
