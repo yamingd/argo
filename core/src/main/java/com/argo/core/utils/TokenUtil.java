@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -129,15 +128,8 @@ public class TokenUtil {
                                          String url, String userId, String hexKey, String sign0)
             throws PermissionDeniedException {
 
-        byte[] keypart = hexToBytes(hexKey);
-
         StringBuilder plain = new StringBuilder();
-        try {
-            plain.append(new String(keypart, "US-ASCII"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
+        plain.append(md5(hexKey));
         plain.append("|").append(userId)
                 .append("|").append(url)
                 .append("|").append(cookieSecret)
@@ -264,7 +256,7 @@ public class TokenUtil {
 		return value;
 	}
 	
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws Exception{
 
     }
 }
