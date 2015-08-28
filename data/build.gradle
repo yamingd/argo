@@ -1,7 +1,7 @@
 description = ''
 dependencies {
     compile project(':argo-core')
-    compile group: 'net.spy', name: 'spymemcached', version: '2.10.2'
-    compile group: 'redis.clients', name: 'jedis', version: '2.6.2'
-    compile group: 'com.couchbase.client', name: 'couchbase-client', version: '1.2.3'
+    compile 'net.spy:spymemcached:2.10.2'
+    compile 'redis.clients:jedis:2.6.2'
+    compile 'com.couchbase.client:couchbase-client:1.2.3'
 }

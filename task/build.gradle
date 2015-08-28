@@ -1,5 +1,5 @@
 description = 'argo-task'
 dependencies {
     compile project(':argo-core')
-    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.2.1'
+    compile 'org.quartz-scheduler:quartz:2.2.1'
 }

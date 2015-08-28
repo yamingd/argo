@@ -1,8 +1,8 @@
 description = ''
 dependencies {
     compile project(':argo-core')
-    compile(group: 'com.jolbox', name: 'bonecp', version: '0.8.0.RELEASE') {
+    compile('com.jolbox:bonecp:0.8.0.RELEASE') {
         exclude(module: 'guava')
     }
-    compile group: 'com.jolbox', name: 'bonecp-spring', version: '0.8.0.RELEASE'
+    compile 'com.jolbox:bonecp-spring:0.8.0.RELEASE'
 }

@@ -4,6 +4,6 @@ description = 'argo-core'
 
 
 dependencies {
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.3.5'
-    compile group: 'org.apache.httpcomponents', name: 'httpmime', version:'4.3.5'
+    compile 'org.apache.httpcomponents:httpclient:4.3.5'
+    compile 'org.apache.httpcomponents:httpmime:4.3.5'
 }

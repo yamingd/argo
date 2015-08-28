@@ -3,5 +3,5 @@ description = 'dbtest'
 dependencies {
   compile project(':argo-db')
   compile project(':argo-service')
-    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.32'
+    compile 'mysql:mysql-connector-java:5.1.32'
 }
