@@ -69,7 +69,7 @@ subprojects {
         }
         compile 'org.slf4j:jul-to-slf4j:1.5.11'
         compile 'ch.qos.logback:logback-classic:1.0.13'
-        compile 'org.freemarker:freemarker:2.3.20'
+        compile 'org.freemarker:freemarker:2.3.23'
         compile 'javax.annotation:jsr250-api:1.0'
         compile 'org.jboss.spec.javax.jms:jboss-jms-api_1.1_spec:1.0.1.Final'
         compile 'com.sun.jmx:jmxri:1.2.1'
