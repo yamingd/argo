@@ -89,7 +89,7 @@ public class ProtobufHttpMessageConverter extends AbstractHttpMessageConverter<M
             int len = (Integer)xsecurity;
             if (len > 0) {
 
-                outputMessage.getHeaders().set(X_TAG, TAG_SECURITY);
+                outputMessage.getHeaders().set(X_TAG, len + "");
 //                if (logger.isDebugEnabled()){
 //                    logger.debug("X-tag headers: " + outputMessage.getHeaders().getFirst(X_TAG));
 //                }
