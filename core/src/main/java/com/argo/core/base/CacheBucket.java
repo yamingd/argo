@@ -21,6 +21,14 @@ public interface CacheBucket {
      * @return
      */
     boolean remove(String key);
+
+    /**
+     *
+     * @param prefix
+     * @param keys
+     * @return
+     */
+    boolean remove(String prefix, String[] keys);
     /**
      * 读取字符串缓存
      * @param key

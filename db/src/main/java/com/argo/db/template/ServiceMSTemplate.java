@@ -464,4 +464,32 @@ public abstract class ServiceMSTemplate extends BaseBean implements ServiceBase 
             }
         }
     }
+
+    @Override
+    public void expire(Long[] oids){
+        if (this.cacheBucket != null){
+            String[] keys = new String[oids.length];
+            for (int i = 0; i < oids.length; i++) {
+                keys[i] = oids[i].toString();
+            }
+            boolean flag = this.cacheBucket.remove(this.entityTemplate.getTable(), keys);
+            if (logger.isDebugEnabled()) {
+                logger.debug("expire cache. key={}, result={}", oids, flag);
+            }
+        }
+    }
+
+    @Override
+    public void expire(List oids) {
+        if (this.cacheBucket != null){
+            String[] keys = new String[oids.size()];
+            for (int i = 0; i < oids.size(); i++) {
+                keys[i] = oids.get(i).toString();
+            }
+            boolean flag = this.cacheBucket.remove(this.entityTemplate.getTable(), keys);
+            if (logger.isDebugEnabled()) {
+                logger.debug("expire cache. key={}, result={}", oids, flag);
+            }
+        }
+    }
 }

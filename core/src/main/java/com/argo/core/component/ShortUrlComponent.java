@@ -12,6 +12,14 @@ import com.argo.core.utils.TokenUtil;
  */
 public class ShortUrlComponent {
 
+	// 要使用生成 URL 的字符
+	public static final String[] chars = new String[] { "a", "b", "c", "d", "e", "f", "g", "h",
+			"i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+			"u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5",
+			"6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
+			"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+			"U", "V", "W", "X", "Y", "Z" };
+
 	public static String[] generate(String url, Integer entityId){
 		return generate(entityId+":"+url);
 	}
@@ -20,14 +28,6 @@ public class ShortUrlComponent {
 
 		// 可以自定义生成 MD5 加密字符传前的混合 KEY
 		String key = (String)SiteConfig.instance.getApp().get("name");
-
-		// 要使用生成 URL 的字符
-		String[] chars = new String[] { "a", "b", "c", "d", "e", "f", "g", "h",
-				"i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
-				"u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5",
-				"6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
-				"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-				"U", "V", "W", "X", "Y", "Z" };
 
 		// 对传入网址进行 MD5 加密
 		String hex = TokenUtil.md5(key + url);

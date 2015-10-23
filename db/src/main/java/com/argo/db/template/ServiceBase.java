@@ -55,4 +55,16 @@ public interface ServiceBase {
      * @return
      */
     void expire(Long oid);
+
+    /**
+     * 删除缓存
+     * @param oids
+     */
+    void expire(Long[] oids);
+
+    /**
+     * 删除缓存
+     * @param oids
+     */
+    void expire(List oids);
 }
