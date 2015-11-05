@@ -95,7 +95,7 @@ public class MasterSlaveDataSourceFactoryBean extends DataSourceFactoryBeanMix i
             String[] jdbcUrl = ObjectUtils.toString(server.get(this.role)).split(",");
             for (String url : jdbcUrl) {
                 config.setJdbcUrl(this.getJdbcFullUrl(url));
-                config.setPoolName(this.name+":"+this.role);
+                config.setPoolName(this.name+this.role);
                 MasterSlaveDataSource master = new MasterSlaveDataSource(config, role);
                 master.setDriverClass(this.getDriver());
                 master.setRole(role);
