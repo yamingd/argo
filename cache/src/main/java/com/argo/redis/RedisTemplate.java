@@ -29,6 +29,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
     private JedisPoolConfig config;
 
     protected MessagePack messagePack = new MessagePack();
+    protected MonitorThread monitorThread;
 
     public void afterPropertiesSet() throws Exception {
         logger = LoggerFactory.getLogger(this.getClass() + "." + beanName);
@@ -47,12 +48,14 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
 
         this.initJedisPool();
 
-        new MonitorThread().start();
+        monitorThread = new MonitorThread();
+        monitorThread.start();
     }
 
     @Override
     public void destroy() throws Exception {
         stopping = true;
+        monitorThread.interrupt();
         if (null != this.jedisPool){
             this.jedisPool.destroy();
         }
@@ -99,7 +102,7 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
             if (conn != null) {
                 try {
                     if (error) {
-                        this.returnBorkenConnection(conn);
+                        this.returnBrokenConnection(conn);
                     } else {
                         this.returnConnection(conn);
                     }
@@ -137,6 +140,9 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
      * @param jedis
      */
     private void returnConnection(BinaryJedis jedis) {
+        if (stopping){
+            return;
+        }
         if (null != jedis) {
             try {
                 getJedisPool().returnResource(jedis);
@@ -151,7 +157,10 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
      *
      * @param jedis
      */
-    private void returnBorkenConnection(BinaryJedis jedis) {
+    private void returnBrokenConnection(BinaryJedis jedis) {
+        if (stopping){
+            return;
+        }
         if (null != jedis) {
             getJedisPool().returnBrokenResource(jedis);
         }
@@ -181,11 +190,18 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
                         if (serverDown) {// 检查到异常，立即进行检测处理
                             break;
                         }
-                        Thread.sleep(baseSleepTime);
+                        try {
+                            Thread.sleep(baseSleepTime);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                    if (stopping){
+                        break;
                     }
                     // 连续做3次连接获取
                     int errorTimes = 0;
-                    for (int i = 0; i < 3; i++) {
+                    for (int i = 0; i < 3 && !stopping; i++) {
                         try {
                             BinaryJedis jedis = getJedisPool().getResource();
                             if (jedis == null) {
@@ -195,9 +211,15 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
                             returnConnection(jedis);
                             break;
                         } catch (Exception e) {
+                            if (stopping){
+                                break;
+                            }
                             logger.error("Redis链接错误", e);
                             errorTimes++;
                         }
+                    }
+                    if (stopping){
+                        break;
                     }
                     if (errorTimes == 3) {// 3次全部出错，表示服务器出现问题
                         ALIVE = false;
@@ -221,6 +243,9 @@ public abstract class RedisTemplate implements BeanNameAware, InitializingBean, 
                         returnConnection(jedis);
                     }
                 } catch (Exception e) {
+                    if (stopping){
+                        break;
+                    }
                     logger.error("Redis错误", e);
                 }
             }
