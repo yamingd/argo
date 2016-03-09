@@ -63,7 +63,7 @@ subprojects {
         compile 'org.yaml:snakeyaml:1.13'
         compile 'com.google.guava:guava:18.0'
         compile 'com.google.code.gson:gson:2.2.4'
-        compile 'commons-collections:commons-collections:3.2.1'
+        compile 'commons-collections:commons-collections:3.2.2'
         compile('org.slf4j:slf4j-api:1.7.5') {
             exclude(module: 'log4j-over-slf4j')
         }
